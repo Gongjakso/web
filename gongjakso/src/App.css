@@ -1,0 +1,9 @@
+.container {
+    min-width: 280px;
+    max-width: 768px;
+    height: 100vh;
+    margin: auto;
+    position: relative;
+    background-color: #fff;
+    box-shadow: rgba(105, 80, 80, 0.1) 0px -3px 20px;
+}
