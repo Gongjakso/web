@@ -1,13 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './HomePageStyled';
 import useCustomNavigate from '../../hooks/useNavigate';
 import calendarImage from '../../assets/images/calendar.png';
 import teamBuildingImage from '../../assets/images/teambuilding.png';
+import Modal1 from '../../features/modal/LoginModal1';
+import Modal2 from '../../features/modal/LoginModal2';
 
 const HomePage = () => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [modal1Open, setModal1Open] = useState(false);
+    const [modal2Open, setModal2Open] = useState(false);
     const { goToPage } = useCustomNavigate();
+
     const handleButtonClick = path => {
-        goToPage(path);
+        if (isLoggedIn) {
+            goToPage(path);
+        } else {
+            if (path === '/contest' || path === '/project') {
+                showModal2();
+            } else {
+                showModal1();
+            }
+        }
+    };
+
+    const showModal1 = () => {
+        setModal1Open(true);
+    };
+
+    const showModal2 = () => {
+        setModal2Open(true);
+    };
+
+    const closeModal1 = () => {
+        setModal1Open(false);
+    };
+
+    const closeModal2 = () => {
+        setModal2Open(false);
     };
 
     return (
@@ -185,6 +215,14 @@ const HomePage = () => {
                     <S.WhiteBox style={{ backgroundColor: '#CCCCCC' }}>
                         3D 이미지
                     </S.WhiteBox>
+
+                    {modal1Open && (
+                        <Modal1
+                            closeModal1={closeModal1}
+                            setIsLoggedIn={setIsLoggedIn}
+                        />
+                    )}
+                    {modal2Open && <Modal2 closeModal2={closeModal2} />}
                 </S.Container>
             </S.HomeContent3>
         </>
