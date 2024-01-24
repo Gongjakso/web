@@ -1,45 +1,51 @@
 import styled from 'styled-components';
 
-export const FooterContainer = styled.div`
+export const Footer = styled.div`
     display: flex;
-    width: 50%;
-    padding: 10px;
-    justify-content: space-between;
-    flex-direction: row;
+    margin: auto;
+    width: 100%;
+    max-width: 1200px;
+    height: 92px;
     align-items: center;
+    justify-content: center;
+    border-top: 1.5px solid black;
+    bottom: 0;
+    left: 0;
+    right: 0;
+`;
+
+export const FooterContainer = styled.ul`
+    display: flex;
+    width: 100%;
+    max-width: 1100px;
+    justify-content: space-between;
+    position: static;
 `;
 
 export const FooterInfoBox = styled.div`
     display: flex;
-    width: 500px;
-    position: absolute;
-    padding: 5px;
     flex-direction: column;
+    margin: auto;
 `;
 
 export const FooterInfo = styled.div`
     font-size: 10px;
-    color: #aaa;
-    padding: 3px;
-    margin-left: 150px;
+    margin: auto;
 `;
 
 export const FooterButtonBox = styled.div`
     display: flex;
-    position: absolute;
-    padding: 20px;
+    height: 100%;
     flex-direction: row;
-    margin-left: 450px;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const FooterButton = styled.button`
     font-size: 15px;
     font-weight: bold;
-    letter-spacing: -2px;
     display: flex;
-    flex-direction: row;
     cursor: pointer;
-    padding: 20px;
     border: none;
-    background: transparent;
+    margin: 10px;
 `;
