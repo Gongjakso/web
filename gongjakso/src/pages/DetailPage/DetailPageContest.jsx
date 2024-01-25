@@ -138,7 +138,8 @@ const DetailPageContest = () => {
                             }}
                             onClick={() => {
                                 if (click === true) {
-                                    setScrap(scrap);
+                                    setScrap(scrap - 1);
+                                    setClick(false);
                                 } else {
                                     setScrap(scrap + 1);
                                     setClick(true);
