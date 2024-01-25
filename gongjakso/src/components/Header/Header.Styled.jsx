@@ -2,30 +2,29 @@ import styled from 'styled-components';
 
 export const HeaderBase = styled.div`
     display: flex;
-    flex-direction: row;
-    position: abosoulte;
-    align-items: center;
+    width: 100%;
     justify-content: center;
-    width: 100vw;
-    order: 1;
     height: 60px;
 `;
-export const ItemList = styled.div`
+export const ItemList = styled.ul`
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    margin-top: 5px;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 `;
+export const logo = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 50px;
+`;
 
-export const Button = styled.button`
-    margin-left: 70px;
-    font-weight: 500px;
-    font-size: 15px;
-    background-color: transparent;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    text-decoration: none;
+export const ProfileArea = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 0;
+    margin-left: 200px;
+    font-weight: 700;
+    justify-content: flex-end;
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `;

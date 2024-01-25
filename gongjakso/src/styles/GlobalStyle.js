@@ -77,7 +77,6 @@ html{
 
 body{
 	font-family:"PreRegular";
-	background-color: #f6f6f6;
 }
 
 input{
