@@ -10,6 +10,7 @@ const HomePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
+    const [path, setPath] = useState();
     const { goToPage } = useCustomNavigate();
 
     const handleButtonClick = path => {
@@ -17,6 +18,7 @@ const HomePage = () => {
             goToPage(path);
         } else {
             if (path === '/contest' || path === '/project') {
+                setPath(path);
                 showModal2();
             } else {
                 showModal1();
@@ -222,7 +224,9 @@ const HomePage = () => {
                             setIsLoggedIn={setIsLoggedIn}
                         />
                     )}
-                    {modal2Open && <Modal2 closeModal2={closeModal2} />}
+                    {modal2Open && (
+                        <Modal2 goPath={path} closeModal2={closeModal2} />
+                    )}
                 </S.Container>
             </S.HomeContent3>
         </>

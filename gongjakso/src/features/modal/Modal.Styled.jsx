@@ -1,4 +1,17 @@
 import styled from 'styled-components';
+import closebuttonimg from '../../assets/images/Close.svg';
+
+export const CloseButton = styled.button`
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    position: fixed;
+    top: 50px;
+    right: 50px;
+    cursor: pointer;
+    background: url(${closebuttonimg});
+    background-size: cover;
+`;
 
 export const Container = styled.div`
     display: flex;
@@ -32,7 +45,7 @@ export const Image = styled.div`
 
 export const Title = styled.div`
     color: black;
-    font-size: 20px;
+    font-size: 30px;
     text-align: center;s
     display: flex;
     padding: 5px;
@@ -48,23 +61,24 @@ export const ButtonBox = styled.div`
 export const GreyButton = styled.button`
     background: #d9d9d9;
     color: black;
-    width: 200px;
+    width: 320px;
     font-weight: bold;
-    height: 50px;
+    height: 70px;
     border-radius: 10px;
     padding: 5px;
     margin: 5px;
     text-align: center;
+    font-size: 20px;
 `;
 
 export const BlueButton = styled.button`
     background: #0150f1;
     color: white;
     border-radius: 10px;
-    font-size: 15px;
-    width: 200px;
+    font-size: 20px;
+    width: 320px;
     font-weight: bold;
-    height: 50px;
+    height: 70px;
     text-align: center;
     padding: 5px;
     margin: 5px;
