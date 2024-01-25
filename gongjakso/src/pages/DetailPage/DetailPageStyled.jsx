@@ -14,6 +14,10 @@ export const BgButton = styled.div`
     justify-content: flex-end;
     margin-top: 10px;
     margin-bottom: 50px;
+    img {
+        width: 20px;
+        cursor: pointer;
+    }
 `;
 
 // 상단 타이틀 부분
@@ -23,6 +27,13 @@ export const TitleBox = styled.div`
     display: flex;
     align-items: center;
     margin-bottom: 15px;
+    img {
+        width: 30px;
+    }
+    p {
+        margin: 15px;
+        min-width: 215px;
+    }
 `;
 
 // 타이틀 옆 스크랩 횟수 표시 박스
@@ -36,6 +47,10 @@ export const ScrapNum = styled.div`
     font-size: 18px;
     font-weight: 600;
     color: #00efaf;
+    img {
+        width: 20px;
+        margin-right: 13px;
+    }
 `;
 
 export const BlueBox = styled.div`
@@ -46,7 +61,6 @@ export const BlueBox = styled.div`
     border-radius: 30px 30px 0 0;
     border-bottom: none;
     margin-top: 10px;
-    margin-bottom: -15px;
     padding: 30px;
 `;
 
@@ -112,4 +126,7 @@ export const MainButton = styled.button`
     padding: 15px;
     font-size: 17px;
     font-weight: 600;
+    span {
+        margin-left: 10px;
+    }
 `;

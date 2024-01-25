@@ -9,10 +9,7 @@ import OpenKakao from '../../assets/images/OpenKakaoLink.svg';
 import DoScrap from '../../assets/images/Scrap.svg';
 
 const DetailPageContest = () => {
-    const { goToPage } = useCustomNavigate();
-    const navigate = path => {
-        goToPage(path);
-    };
+    const navigate = useCustomNavigate();
 
     // 스크랩하기 버튼 누를 시, true 로 바뀜
     const [scrap, setScrap] = useState(0);
@@ -25,35 +22,20 @@ const DetailPageContest = () => {
                     <img
                         src={Close}
                         alt="Close-button"
-                        style={{
-                            width: '20px',
-                            cursor: 'pointer',
-                        }}
                         onClick={() => navigate(-1)} // 뒤로가기 버튼
                     />
                 </S.BgButton>
-                <div></div>
 
                 <S.TitleBox>
+                    <img src={Logo} alt="title-logo" />
+                    <p>공공데이터 공모전</p>
                     <img
                         src={Logo}
                         alt="title-logo"
-                        style={{ width: '30px' }}
-                    />
-                    <p style={{ margin: '15px', minWidth: '215px' }}>
-                        공공데이터 공모전
-                    </p>
-                    <img
-                        src={Logo}
-                        alt="title-logo"
-                        style={{ width: '30px', marginRight: '100px' }}
+                        style={{ marginRight: '100px' }}
                     />
                     <S.ScrapNum>
-                        <img
-                            src={ScrapNum}
-                            alt="scrap-num"
-                            style={{ width: '20px', marginRight: '13px' }}
-                        />
+                        <img src={ScrapNum} alt="scrap-num" />
                         <span>{scrap}</span>
                     </S.ScrapNum>
                 </S.TitleBox>
@@ -63,7 +45,7 @@ const DetailPageContest = () => {
                 </div>
             </S.Background>
 
-            <S.Background s="62%" p="0">
+            <S.Background s="62.5%" p="0">
                 <S.BlueBox>
                     <S.TextBox>
                         <S.TextTitle>진행 기간</S.TextTitle>
@@ -167,13 +149,7 @@ const DetailPageContest = () => {
                                 src={click === false ? ScrapNum : DoScrap}
                                 alt="scrap-button"
                             />
-                            <span
-                                style={{
-                                    marginLeft: '10px',
-                                }}
-                            >
-                                스크랩하기
-                            </span>
+                            <span>스크랩하기</span>
                         </S.MainButton>
                         <S.MainButton
                             style={{ background: '#0054FF', color: 'white' }}
