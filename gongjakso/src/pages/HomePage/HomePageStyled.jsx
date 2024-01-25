@@ -120,7 +120,7 @@ export const HomeContent = styled.div`
         ),
         url(${backGroundImage});
     background-size: cover;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background-repeat: no-repeat;
     justify-content: center;
