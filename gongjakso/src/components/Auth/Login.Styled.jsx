@@ -10,10 +10,8 @@ export const LoginInfo = styled.div`
     align-items: center;
     display: flex;
     flex-direction: column;
-    font-size: 20px;
-    margin-top: 0px;
+    font-size: 32px;
     font-weight: bold;
-    letter-spacing: -1px;
 `;
 
 export const LoginContent = styled.div`
@@ -21,19 +19,18 @@ export const LoginContent = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh;
-    margin-top: -150px;
+    height: 100%;
     background: white;
     flex-direction: row;
 `;
 export const Image = styled.img`
-    width: 300px;
+    width: 400px;
     height: auto;
     padding: 50px;
 `;
 
 export const IconImage = styled.img`
-    width: 300px;
+    width: 480px;
     height: auto;
     padding: 10px;
 `;
