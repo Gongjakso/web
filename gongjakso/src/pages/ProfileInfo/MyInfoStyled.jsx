@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const TopBox = styled.div`
-    height: 200px;
+    height: 250px;
     width: 100%;
     position: relative;
     display: flex;
@@ -15,7 +15,7 @@ export const DetailBox = styled.div`
     text-align: left;
     display: flex;
     justify-content: space-between;
-    padding: 10px 550px;
+    padding: 10px 800px;
 `;
 
 export const InputField = styled.input`
@@ -27,7 +27,7 @@ export const InputField = styled.input`
 `;
 
 export const Title = styled.p`
-    font-size: 25px;
+    font-size: 35px;
     text-align: center;
     font-weight: bold;
 `;

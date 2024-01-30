@@ -1,4 +1,12 @@
 import styled from 'styled-components';
+import { ReactComponent as My_page_big } from '../../assets/images/My_page_big.svg';
+import { ReactComponent as Edit } from '../../assets/images/Edit.svg';
+import { ReactComponent as Arrow } from '../../assets/images/Arrow.svg';
+
+export const Container = styled.div`
+    width: 1200px; // 원하는 너비로 설정
+    margin: 0 auto; // 가운데 정렬
+`;
 
 export const TopBox = styled.div`
     height: 250px;
@@ -11,31 +19,53 @@ export const TopBox = styled.div`
 
 export const DetailBox = styled.div`
     position: relative;
+    line-height: 25px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+`;
+
+export const InfoBox = styled.div`
+    position: relative;
     transform: translateY(150%);
     padding-right: 30px;
     line-height: 25px;
-    text-align: right;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
 `;
 
-//이름, 소제목
-export const Subtitle1 = styled.p`
+//이름
+export const NameTitle = styled.p`
     font-size: 25px;
     font-weight: bold;
 `;
 
 //학과
-export const Subtitle2 = styled.p`
+export const MajorTitle = styled.p`
     font-size: 15px;
 `;
 
+//소제목
+export const SubTitle = styled.p`
+    font-size: 20px;
+    font-weight: bold;
+`;
+
 //프로필 이미지
-export const ProfileImage = styled.img`
+export const ProfileImage = styled(My_page_big)`
     width: 150px;
     margin-right: 10px;
     transform: translateY(50%);
 `;
 
-export const ArrowImage = styled.img`
+export const EditImage = styled(Edit)`
+    height: 22px;
+    align-items: right;
+`;
+
+export const ArrowImage = styled(Arrow)`
     width: 50px;
     height: 22px;
 `;
@@ -55,13 +85,8 @@ export const PortfolioBox = styled.button`
     margin-left: 30px;
 `;
 
-export const TopDetail = styled.div`
-    padding: 10px 200px;
-    padding-top: 150px;
-`;
-
 export const GlobalDetail = styled.div`
-    padding: 10px 200px;
+    padding: 50px 200px;
     display: flex;
     align-items: center;
 `;
