@@ -7,16 +7,37 @@ import ScrapNum from '../../assets/images/UnScrap.svg';
 import Place from '../../assets/images/Place.svg';
 import OpenKakao from '../../assets/images/OpenKakaoLink.svg';
 import DoScrap from '../../assets/images/Scrap.svg';
+import ApplyModal from '../../features/modal/ApplyModal';
+import Completed from '../../features/modal/Completed';
 
 const DetailPageProject = () => {
     const navigate = useCustomNavigate();
 
-    // 스크랩하기 버튼 누를 시, true 로 바뀜
+    // 스크랩하기 버튼
     const [scrap, setScrap] = useState(0);
     const [click, setClick] = useState(false);
 
+    // 지원하기 버튼
+    const [apply, setApply] = useState(false);
+
+    // 지원완료 버튼
+    const [completed, setCompleted] = useState(false);
+
+    // 모달창 구분 목적
+    const [title] = useState(['프로젝트', '프로젝트공고']);
+
     return (
         <>
+            {apply === true ? (
+                <ApplyModal
+                    apply={apply}
+                    setApply={setApply}
+                    title={title}
+                    setCompleted={setCompleted}
+                />
+            ) : null}
+            {completed === true ? <Completed title={title} /> : null}
+
             <S.Background s="60%" p="30px">
                 <S.BgButton>
                     <img
@@ -162,7 +183,9 @@ const DetailPageProject = () => {
                         </S.MainButton>
                         <S.MainButton
                             style={{ background: '#0054FF', color: 'white' }}
-                            onClick={() => navigate('/apply')}
+                            onClick={() => {
+                                setApply(true);
+                            }}
                         >
                             지원하기
                         </S.MainButton>
