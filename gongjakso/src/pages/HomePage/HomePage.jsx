@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import * as S from './HomePageStyled';
+import * as S from './HomePage.Styled';
 import useCustomNavigate from '../../hooks/useNavigate';
 import calendarImage from '../../assets/images/calendar.png';
-import teamBuildingImage from '../../assets/images/teambuilding.png';
 import Modal1 from '../../features/modal/LoginModal1';
 import Modal2 from '../../features/modal/LoginModal2';
+import TopButton from '../../pages/HomePage/TopButton';
 
 const HomePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,9 +44,10 @@ const HomePage = () => {
 
     return (
         <>
+            <TopButton />
             <S.HomeContent>
                 <S.Title>
-                    공모전/프로젝트, 어떻게 시작해야할지 막막하셨나요?{' '}
+                    공모전/프로젝트, 어떻게 시작해야할지 막막하셨나요?
                 </S.Title>
                 <S.Title>공작소에서 원하는 사람들과 시작해보세요 !</S.Title>
 
@@ -98,44 +99,18 @@ const HomePage = () => {
                         있습니다.
                     </S.Detail1>
                     <S.ImageBox>
-                        <div>
-                            <S.Box
-                                style={{
-                                    backgroundColor: '#CCCCCC',
-                                    width: 120,
-                                    borderRadius: 0,
-                                    height: 120,
-                                }}
-                            >
-                                3D 이미지
-                            </S.Box>
+                        <S.TeamImage>
+                            <S.TeamBuildingImg1 />
                             <p>팀장으로 모집하기</p>
-                        </div>
-                        <div>
-                            <img
-                                src={teamBuildingImage}
-                                alt="팀원 지원 이미지"
-                                style={{
-                                    width: 100,
-                                    height: 'auto',
-                                    marginBottom: '15px',
-                                }}
-                            />
+                        </S.TeamImage>
+                        <S.TeamImage>
+                            <S.TeamBuildingImg2 />
                             <p>팀원으로 지원하기</p>
-                        </div>
-                        <div>
-                            <S.Box
-                                style={{
-                                    backgroundColor: '#CCCCCC',
-                                    width: 120,
-                                    borderRadius: 0,
-                                    height: 120,
-                                }}
-                            >
-                                3D 이미지
-                            </S.Box>
+                        </S.TeamImage>
+                        <S.TeamImage>
+                            <S.TeamBuildingImg3 />
                             <p>지역으로 팀 찾기</p>
-                        </div>
+                        </S.TeamImage>
                     </S.ImageBox>
                 </S.Wrapper>
                 <S.Button1 onClick={() => handleButtonClick('/teambuilding')}>
@@ -209,25 +184,24 @@ const HomePage = () => {
                             다양한 형태의 템플릿을 제공해드립니다.
                         </S.Detail3>
 
-                        <S.Button3 onClick={() => handleButtonClick('/mail')}>
+                        <S.Button3
+                            style={{ marginTop: '70px' }}
+                            onClick={() => handleButtonClick('/mail')}
+                        >
                             출시 메일 받으러 가기
                         </S.Button3>
                     </div>
-
-                    <S.WhiteBox style={{ backgroundColor: '#CCCCCC' }}>
-                        3D 이미지
-                    </S.WhiteBox>
-
-                    {modal1Open && (
-                        <Modal1
-                            closeModal1={closeModal1}
-                            setIsLoggedIn={setIsLoggedIn}
-                        />
-                    )}
-                    {modal2Open && (
-                        <Modal2 goPath={path} closeModal2={closeModal2} />
-                    )}
+                    <S.PortFolioimg />
                 </S.Container>
+                {modal1Open && (
+                    <Modal1
+                        closeModal1={closeModal1}
+                        setIsLoggedIn={setIsLoggedIn}
+                    />
+                )}
+                {modal2Open && (
+                    <Modal2 goPath={path} closeModal2={closeModal2} />
+                )}
             </S.HomeContent3>
         </>
     );
