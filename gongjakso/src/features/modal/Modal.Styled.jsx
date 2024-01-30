@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import closebuttonimg from '../../assets/images/Close.svg';
+import loginmodalimg from '../../assets/images/Loginmodal.png';
 
 export const CloseButton = styled.button`
     display: flex;
@@ -20,12 +21,12 @@ export const Container = styled.div`
     top: 50%;
     left: 50%;
     width: 1200px;
-    height: 900px;
+    height: 850px;
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
     background: white;
-    border-radius: 20px;
+    border-radius: 32px;
     flex-direction: column;
 `;
 
@@ -41,13 +42,20 @@ export const ModalBg = styled.div`
 `;
 
 export const Image = styled.div`
+    width: 350px;
+    height: 350px;
     padding: 50px;
-    width: 40$;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    background: url(${loginmodalimg});
+    background-size: contain;
+    background-repeat: no-repeat;
 `;
 
 export const Title = styled.div`
     color: black;
-    font-size: 30px;
+    font-size: 35px;
     text-align: center;
     display: flex;
     padding: 5px;
@@ -63,27 +71,27 @@ export const ButtonBox = styled.div`
 export const GreyButton = styled.button`
     background: #d9d9d9;
     color: black;
-    width: 320px;
-    font-weight: bold;
-    height: 70px;
+    width: 360px;
+    font-weight: 700;
+    height: 80px;
     border-radius: 10px;
-    padding: 5px;
-    margin: 5px;
+    padding: 10px;
+    margin: 10px;
     text-align: center;
-    font-size: 20px;
+    font-size: 25px;
 `;
 
 export const BlueButton = styled.button`
     background: #0150f1;
     color: white;
     border-radius: 10px;
-    font-size: 20px;
-    width: 320px;
-    font-weight: bold;
-    height: 70px;
+    font-size: 25px;
+    width: 360px;
+    font-weight: 700;
+    height: 80px;
     text-align: center;
-    padding: 5px;
-    margin: 5px;
+    padding: 10px;
+    margin: 10px;
 `;
 
 export const BoxContainer = styled.div`
