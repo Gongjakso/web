@@ -18,7 +18,7 @@ const Modal2 = ({ goPath, closeModal2 }) => {
                     다양한 프로젝트, 공모전 팀 공고를 확인해보세요!
                 </S.Title>
 
-                <S.Image> 사진칸 </S.Image>
+                <S.Image />
 
                 <S.ButtonBox>
                     <S.GreyButton onClick={() => handleModalClick(`${goPath}`)}>
