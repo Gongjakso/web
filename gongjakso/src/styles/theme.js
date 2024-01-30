@@ -1,5 +1,4 @@
-const windowSize = {
-};
+const windowSize = {};
 
 const fontSize = {
     xs: '0.5rem',
@@ -9,12 +8,11 @@ const fontSize = {
     lg: '1.5rem',
 };
 
-const lightMode = {
-
-};
+const lightMode = {};
 
 const repo = {
-
+    open: 'red',
+    close: 'blue',
 };
 
 const theme = {
