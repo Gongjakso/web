@@ -19,8 +19,8 @@ export const Container = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 55%;
-    height: 65%;
+    width: 1200px;
+    height: 900px;
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
@@ -36,6 +36,8 @@ export const ModalBg = styled.div`
     left: 0;
     bottom: 0;
     right: 0;
+    width: 100%;
+    height: 100%;
 `;
 
 export const Image = styled.div`
