@@ -46,7 +46,7 @@ export const Image = styled.div`
 export const Title = styled.div`
     color: black;
     font-size: 30px;
-    text-align: center;s
+    text-align: center;
     display: flex;
     padding: 5px;
     font-weight: bold;
@@ -82,4 +82,24 @@ export const BlueButton = styled.button`
     text-align: center;
     padding: 5px;
     margin: 5px;
+`;
+
+export const BoxContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+`;
+
+export const Box = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    padding: 30px;
+    font-size: 20px;
+`;
+
+export const BoxInfo = styled.div`
+    font-size: 22px;
+    padding: 25px;
 `;
