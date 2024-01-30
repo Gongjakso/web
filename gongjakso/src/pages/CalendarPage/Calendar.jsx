@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import contestData from './data/contestData';
-import projectData from './data/projectData';
-import './Calendar.css';
+import contestData from './data/contestData.js';
+import projectData from './data/projectData.js';
+import * as S from './Calendar.styled.jsx';
 
 const Calendar = () => {
     let [event] = useState([...contestData, ...projectData]);
 
     return (
-        <div className="App">
+        <S.FullCalendarContainer>
             <FullCalendar
                 defaultView="dayGridMonth"
                 plugins={[dayGridPlugin]}
@@ -24,7 +24,7 @@ const Calendar = () => {
                     right: 'next today',
                 }}
             />
-        </div>
+        </S.FullCalendarContainer>
     );
 };
 
