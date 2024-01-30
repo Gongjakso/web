@@ -51,6 +51,7 @@ export const MajorTitle = styled.p`
 export const SubTitle = styled.p`
     font-size: 20px;
     font-weight: bold;
+    margin-top: 50px;
 `;
 
 //프로필 이미지
@@ -86,7 +87,17 @@ export const PortfolioBox = styled.button`
 `;
 
 export const GlobalDetail = styled.div`
-    padding: 50px 200px;
     display: flex;
     align-items: center;
+    justify-content: center;
+`;
+
+export const GlobalBox = styled.div`
+    width: 100%;
+    padding: 100px 200px;
+`;
+
+export const BoxDetail = styled.div`
+    height: 25%;
+    flex-direction: row;
 `;
