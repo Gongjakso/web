@@ -6,18 +6,28 @@ export const IconButton = styled.button`
     align-items: center;
     width: 150px;
     gap: 5px;
-    color: ${({ theme, $hover, $active }) =>
-        $active ? '#00A3FF' : $hover ? '#00A3FF' : theme.main};
+    color: ${({ theme, $active, $type }) => {
+        if ($active) {
+            if ($type === 'project') {
+                return theme.Pink;
+            } else if ($type === 'contest') {
+                return theme.Main2;
+            }
+            return theme.main;
+        }
+    }};
 `;
 
 export const IconNameSpan = styled.span`
-    font-weight: 700;
+    font-weight: ${({ $hover, $active }) =>
+        $active ? '700' : $hover ? '700' : '100'};
+
     font-size: ${({ theme }) => theme.fontSize.lg};
     color: ${({ theme, $hover, $active }) =>
         $active ? theme.main : $hover ? theme.main : theme.mainFont};
 `;
 export const ProfileIcon = styled.img`
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25x;
     margin: 0 10px;
 `;
