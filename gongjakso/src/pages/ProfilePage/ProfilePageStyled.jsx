@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as My_page_big } from '../../assets/images/My_page_big.svg';
 import { ReactComponent as Edit } from '../../assets/images/Edit.svg';
 import { ReactComponent as Arrow } from '../../assets/images/Arrow.svg';
+import { ReactComponent as Up } from '../../assets/images/Up.svg';
 
 export const Container = styled.div`
     width: 1200px; // 원하는 너비로 설정
@@ -38,20 +39,21 @@ export const InfoBox = styled.div`
 
 //이름
 export const NameTitle = styled.p`
-    font-size: 25px;
+    font-size: ${({ theme }) => theme.fontSize.lg};
     font-weight: bold;
 `;
 
 //학과
 export const MajorTitle = styled.p`
-    font-size: 15px;
+    font-size: ${({ theme }) => theme.fontSize.base};
 `;
 
 //소제목
 export const SubTitle = styled.p`
-    font-size: 20px;
+    font-size: ${({ theme }) => theme.fontSize.lg};
     font-weight: bold;
     margin-top: 50px;
+    margin-bottom: 20px;
 `;
 
 //프로필 이미지
@@ -71,16 +73,21 @@ export const ArrowImage = styled(Arrow)`
     height: 22px;
 `;
 
+export const UpImage = styled(Up)`
+    width: 56px;
+    margin: 50px 0px 50px auto;
+`;
+
 //나의 포트폴리오 박스
 export const PortfolioBox = styled.button`
-    width: 150px;
+    width: 170px;
     height: 40px;
-    font-size: 15px;
+    font-size: ${({ theme }) => theme.fontSize.md};
     background-color: #0054ff;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: #ffffff;
+    color: ${({ theme }) => theme.mainFont2};
     transform: translateY(150%);
     border-radius: 25px;
     margin-left: 30px;
@@ -94,7 +101,7 @@ export const GlobalDetail = styled.div`
 
 export const GlobalBox = styled.div`
     width: 100%;
-    padding: 100px 200px;
+    margin-top: 100px;
 `;
 
 export const BoxDetail = styled.div`

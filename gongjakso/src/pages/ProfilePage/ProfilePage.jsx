@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
-import * as T from '../TeamBox/TeamBoxStyled';
+import TeamBox from '../TeamBox/TeamBox';
 
 export function borderColor(color) {
     return color || '#0054FF';
@@ -30,11 +30,8 @@ const ProfilePage = () => {
                 <S.GlobalDetail>
                     <S.BoxDetail>
                         <S.SubTitle>내가 모집 중인 팀</S.SubTitle>
-                        <T.TeamBox>
-                            리액트 활용 프젝이요~
-                            <T.MoreDetail>자세히보기</T.MoreDetail>
-                        </T.TeamBox>
-                        <T.TeamBox>리액트 활용 프젝이요~</T.TeamBox>
+                        <TeamBox></TeamBox>
+                        <TeamBox></TeamBox>
                     </S.BoxDetail>
                 </S.GlobalDetail>
 
@@ -46,13 +43,7 @@ const ProfilePage = () => {
                                 <S.ArrowImage />
                             </Link>
                         </S.SubTitle>
-
-                        <T.TeamBox color="#00A3FF">
-                            리액트 활용 프젝이요~
-                        </T.TeamBox>
-                        <T.TeamBox color="#E789FF">
-                            리액트 활용 프젝이요~
-                        </T.TeamBox>
+                        <TeamBox></TeamBox>
                     </S.BoxDetail>
                 </S.GlobalDetail>
 
@@ -64,12 +55,10 @@ const ProfilePage = () => {
                                 <S.ArrowImage />
                             </Link>
                         </S.SubTitle>
-                        <T.TeamBox color="#6F6F6F">
-                            리액트 활용 프젝이요~
-                        </T.TeamBox>
-                        <T.TeamBox color="#6F6F6F">
-                            리액트 활용 프젝이요~
-                        </T.TeamBox>
+                        <TeamBox></TeamBox>
+                        <S.UpImage
+                            onClick={() => window.scrollTo(0, 0)}
+                        ></S.UpImage>
                     </S.BoxDetail>
                 </S.GlobalDetail>
             </S.GlobalBox>
