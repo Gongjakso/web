@@ -8,7 +8,25 @@ const fontSize = {
     lg: '1.5rem',
 };
 
-const lightMode = {};
+const colorSystem = {
+    Main1: '#0150F1',
+    Main2: '#00A3FF',
+    Light1: '#7CD0FF',
+    Light2: '#0150F1',
+    Green: '#00EFAF',
+    Navy: '#000B6E',
+    Purple: '#9556FF',
+    Pink: '#E789FF',
+    border: '#dbdbdb',
+    borderline: '#969696',
+};
+
+const defaultfont = {
+    mainFont: '#000000',
+    subFont: '#8C8C8C',
+    subFont2: '#C4C4C4',
+    mainFont2: '#FFFFFF',
+};
 
 const repo = {
     open: 'red',
@@ -19,7 +37,8 @@ const theme = {
     windowSize,
     repo,
     fontSize,
-    ...lightMode,
+    ...colorSystem,
+    ...defaultfont,
 };
 
 export default theme;

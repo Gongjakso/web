@@ -32,11 +32,14 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
     const handleNavigate = useCustomNavigate();
     const iconName = iconNames[type];
 
+    console.log(active);
+
     return (
         <S.IconButton
             type="button"
             name={type}
             $active={active === type}
+            $type={active}
             onMouseEnter={event =>
                 handleMouseEnter(event.currentTarget.name, setHover)
             }
