@@ -19,24 +19,31 @@
     width: 800px;
     display: block;
     margin: auto;
+    margin-bottom: 100px;
 }
 
 .fc .fc-toolbar.fc-header-toolbar {
-    margin-top: 100px;
+    margin-top: 40px;
     margin-bottom: 80px;
-    text-align: center;
+    margin-left: 60px;
     background-color: none;
     height: 50px;
     font-weight: 600;
     font-size: 13px;
-    line-height: 29px;
+    letter-spacing: 1px;
     color: black;
     border-radius: 20px 20px 0px 0px;
 }
 
 .fc .fc-button-primary {
-    background-color: #aaaaaa;
-    padding: 2px;
+    background: transparent;
+    color: black;
+    border: none;
+}
+
+.fc .fc-button-primary:hover {
+    background: transparent;
+    color: black;
     border: none;
 }
 
