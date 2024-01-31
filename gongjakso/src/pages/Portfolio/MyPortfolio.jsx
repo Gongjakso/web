@@ -3,21 +3,16 @@ import * as S from './MyPortfolioStyled';
 
 const TeamPortfolio = () => {
     return (
-        <div style={{ textAlign: 'center' }}>
+        <S.Container>
             <S.Title>나의 포트폴리오</S.Title>
-            <br></br>
-            <br></br>
-            <br></br>
-            <S.Subtitle1>
+
+            <S.Subtitle>
                 다양한 포트폴리오 양식을 구매하고,<br></br>선배들의 조언까지!
-            </S.Subtitle1>
-            <br></br>
-            <S.Subtitle2>
+            </S.Subtitle>
+            <S.Bluetitle>
                 포트폴리오 탭<br></br>Coming Soon
-            </S.Subtitle2>
-            <br></br>
-            <br></br>
-            <br></br>
+            </S.Bluetitle>
+
             <S.BottomBox>
                 <S.InputEmail
                     type="email"
@@ -25,7 +20,7 @@ const TeamPortfolio = () => {
                 />
                 <S.CheckBox>확인</S.CheckBox>
             </S.BottomBox>
-        </div>
+        </S.Container>
     );
 };
 
