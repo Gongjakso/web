@@ -4,6 +4,7 @@ import ScrapNum from '../../assets/images/UnScrap.svg';
 import DeadLineDay from '../../assets/images/Fire.svg';
 
 const TeamBox = () => {
+    const partNames = ['기획', '디자인', '프론트엔드', '백엔드', '기타'];
     return (
         <S.Box>
             <S.BoxTopDetail>
@@ -27,9 +28,9 @@ const TeamBox = () => {
                 </S.SubBox>
             </S.BoxTopDetail>
             <S.BoxBottomDetail>
-                <S.RoundForm>파트명</S.RoundForm>
-                <S.RoundForm>파트명</S.RoundForm>
-                <S.RoundForm>파트명</S.RoundForm>
+                {partNames.map((partName, index) => (
+                    <S.RoundForm key={index}>{partName}</S.RoundForm>
+                ))}
             </S.BoxBottomDetail>
 
             <S.MoreDetail>자세히보기</S.MoreDetail>
