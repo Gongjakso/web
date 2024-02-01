@@ -11,6 +11,8 @@ import TeamPortfolio from '../pages/Portfolio/MyPortfolio';
 import Calendar from '../pages/CalendarPage/Calendar';
 import DetailPageContest from '../pages/DetailPage/DetailPageContest';
 import DetailPageProject from '../pages/DetailPage/DetailPageProject';
+import Login from '../components/Auth/Login';
+import KakaoRedirectPage from '../components/Auth/KakaoRedirectPage';
 
 const Router = () => {
     return (
@@ -53,6 +55,11 @@ const Router = () => {
                             <Route
                                 path={'/project'}
                                 element={<DetailPageProject />}
+                            />
+                            <Route path={'/login'} element={<Login />} />
+                            <Route
+                                path="/api/v1/auth/kakao/callback"
+                                element={<KakaoRedirectPage />}
                             />
                         </Route>
                     </Route>
