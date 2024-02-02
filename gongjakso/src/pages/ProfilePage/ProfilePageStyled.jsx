@@ -51,7 +51,7 @@ export const MajorTitle = styled.p`
 //소제목
 export const SubTitle = styled.p`
     font-size: ${({ theme }) => theme.fontSize.lg};
-    font-weight: bold;
+    font-weight: 900;
     margin-top: 50px;
     margin-bottom: 20px;
 `;

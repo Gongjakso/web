@@ -3,10 +3,6 @@ import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
 
-export function borderColor(color) {
-    return color || '#0054FF';
-}
-
 const ProfilePage = () => {
     return (
         <div>
@@ -30,8 +26,11 @@ const ProfilePage = () => {
                 <S.GlobalDetail>
                     <S.BoxDetail>
                         <S.SubTitle>내가 모집 중인 팀</S.SubTitle>
-                        <TeamBox></TeamBox>
-                        <TeamBox></TeamBox>
+                        <TeamBox
+                            showMoreDetail={true}
+                            showWaitingJoin={false}
+                            showSubBox={true}
+                        />
                     </S.BoxDetail>
                 </S.GlobalDetail>
 
@@ -43,19 +42,41 @@ const ProfilePage = () => {
                                 <S.ArrowImage />
                             </Link>
                         </S.SubTitle>
-                        <TeamBox></TeamBox>
+                        <TeamBox
+                            showMoreDetail={false}
+                            showWaitingJoin={true}
+                            showSubBox={true}
+                            borderColor="rgba(0, 163, 255, 0.5)"
+                        />
+                        <TeamBox
+                            showMoreDetail={false}
+                            showWaitingJoin={true}
+                            showSubBox={true}
+                            borderColor="rgba(231, 137, 255, 0.5)"
+                        />
                     </S.BoxDetail>
                 </S.GlobalDetail>
 
                 <S.GlobalDetail>
                     <S.BoxDetail>
                         <S.SubTitle>
-                            <span>내가 참여한 공모전/프로젝트</span>{' '}
+                            <span>내가 참여한 공모전/프로젝트</span>
                             <Link to="/participatedTeam">
                                 <S.ArrowImage />
                             </Link>
                         </S.SubTitle>
-                        <TeamBox></TeamBox>
+                        <TeamBox
+                            showMoreDetail={false}
+                            borderColor="#6F6F6F"
+                            showWaitingJoin={false}
+                            showSubBox={false}
+                        />
+                        <TeamBox
+                            showMoreDetail={false}
+                            borderColor="#6F6F6F"
+                            showWaitingJoin={false}
+                            showSubBox={false}
+                        />
                         <S.UpImage
                             onClick={() => window.scrollTo(0, 0)}
                         ></S.UpImage>
