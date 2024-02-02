@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ReactComponent as TeamBuildIcon } from '../../assets/images/TeamBuildIcon.svg';
 
 export const Container = styled.div`
     width: 100%;
@@ -7,8 +8,10 @@ export const Container = styled.div`
     padding: 25px 0;
     display: flex;
     flex-direction: column;
+    padding: 0 25px;
     justify-content: center;
     align-items: center;
+    margin-top: 90px;
 `;
 
 export const TitleContent = styled.div`
@@ -41,14 +44,13 @@ export const ImageContent = styled.div`
     }
 `;
 
-export const ImageDiv = styled.div`
+export const ImageDiv = styled(TeamBuildIcon)`
     width: 100%;
     height: 100%;
     max-width: 340px;
     min-width: 120px;
     max-height: 340px;
     min-height: 120px;
-    background-color: gray;
 
     @media (min-width: 1641px) and (max-width: 1920px) {
         width: 340px; // 화면 폭이 1461px 이상 1920px 이하일 때
@@ -67,14 +69,12 @@ export const BuildDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px solid black;
-    /* background-color: gray; */
     @media (min-width: 1641px) and (max-width: 1920px) {
-        padding: 150px 0;
+        padding: 100px 0;
     }
 
     @media (max-width: 1640px) {
-        padding: 73px 0;
+        padding: 50px 0;
     }
 `;
 

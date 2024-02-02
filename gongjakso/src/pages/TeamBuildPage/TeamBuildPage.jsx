@@ -41,7 +41,7 @@ const TeamBuildPage = () => {
                 )}
                 {currentContent === 'default' && (
                     <S.ImageContent>
-                        <S.ImageDiv>이미지</S.ImageDiv>
+                        <S.ImageDiv />
                         <S.Text $isMain="main">
                             팀빌딩 카테고리를 설정해주세요
                         </S.Text>
