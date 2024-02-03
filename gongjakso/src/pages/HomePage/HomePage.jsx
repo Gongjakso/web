@@ -5,6 +5,7 @@ import calendarImage from '../../assets/images/calendar.png';
 import Modal1 from '../../features/modal/LoginModal1';
 import Modal2 from '../../features/modal/LoginModal2';
 import TopButton from '../../pages/HomePage/TopButton';
+import Banner from './Banner';
 
 const HomePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -51,9 +52,7 @@ const HomePage = () => {
                 </S.Title>
                 <S.Title>공작소에서 원하는 사람들과 시작해보세요 !</S.Title>
 
-                <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-                    공모전 슬라이드 배너
-                </div>
+                <Banner />
 
                 <S.BoxContainer>
                     <S.Box>

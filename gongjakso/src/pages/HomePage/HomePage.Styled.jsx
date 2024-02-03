@@ -79,6 +79,7 @@ export const Button1 = styled.button`
     color: white;
     width: 400px;
     height: 90px;
+    margin: 10px;
     padding: 20px;
     cursor: pointer;
 `;
@@ -87,7 +88,7 @@ export const Button2 = styled.button`
     border: none;
     font-size: 25px;
     font-weight: 400;
-    border-radius: 10px;
+    border-radius: 15px;
     color: black;
     font-weight: bold;
     width: 400px;
