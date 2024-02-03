@@ -10,6 +10,15 @@ export const TopBox = styled.div`
     align-items: center;
 `;
 
+export const BoxDetail = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25%;
+    flex-direction: column;
+    margin: 100px;
+`;
+
 export const Title = styled.p`
     font-size: 25px;
     text-align: center;
