@@ -7,14 +7,15 @@ export const Background = styled.div`
     bottom: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.3);
+    z-index: 5;
 `;
 
 export const Modal = styled.div`
-    border: 2px solid #195ee6;
+    border: 3px solid #195ee6;
     position: relative;
     top: 50%;
     left: 50%;
-    width: 55%;
+    width: ${props => props.w};
     height: ${props => props.h};
     transform: translate(-50%, -50%);
     background: white;
@@ -69,7 +70,7 @@ export const RoundForm = styled.button`
 // textarea 감싸는 틀
 export const TextBox = styled.div`
     position: relative;
-    top: 30px;
+    top: 20px;
 `;
 
 export const InputArea = styled.textarea`
@@ -79,7 +80,7 @@ export const InputArea = styled.textarea`
     border-bottom: 2px solid black;
     resize: none;
     overflow: hidden;
-    color: #B2B2B;
+    color: ${({ theme }) => theme.greyFont};
     font-size: 17px;
     &:focus {
         outline: none;
@@ -95,10 +96,27 @@ export const InputNum = styled.p`
     text-align: right;
 `;
 
+export const Content = styled.div`
+    border: none;
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
+    color: ${({ theme }) => theme.greyFont};
+    font-size: ${({ theme }) => theme.fontSize.md};
+`;
 // 지원하기 버튼 감싸는 틀
 export const ApplyBox = styled.div`
     display: flex;
     justify-content: center;
+    width: 100%;
+`;
+
+export const ApplyBox2 = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 40px;
+    right: 0;
     width: 100%;
 `;
 
@@ -118,14 +136,27 @@ export const ApplyBtn = styled.button`
     color: white;
 `;
 
+export const ApplyBtn2 = styled.button`
+    width: 25%;
+    margin: 10px;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 17px;
+    font-weight: 600;
+    background: ${props => props.bg};
+    color: white;
+`;
+
 // 지원 완료 창 텍스트 틀
 export const CompletedBox = styled.div`
     width: 100%;
-    height: 70%;
+    height: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
     font-size: 20px;
+    font-weight: bold;
+    line-height: 33px;
 `;
