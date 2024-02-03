@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import * as S from './ApplyModal.styled';
+import { Data, Fields } from '../../pages/ProfileRecruit/UserData';
 
 // 지원 분야 (중복 선택 불가)
 
@@ -67,4 +68,10 @@ const FormTech = props => {
     });
 };
 
-export { FormFields, FormTech };
+const ApplyFields = props => {
+    return Fields.map((item, i) => {
+        return <S.RoundForm>{item}</S.RoundForm>;
+    });
+};
+
+export { FormFields, FormTech, ApplyFields };
