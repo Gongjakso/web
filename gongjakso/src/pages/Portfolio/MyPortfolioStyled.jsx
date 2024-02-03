@@ -1,22 +1,29 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+    text-align: center;
+    height: 500px;
+`;
+
 export const Title = styled.p`
     font-size: 35px;
     text-align: center;
     font-weight: bold;
+    margin: 150px 0px 90px 0px;
 `;
 
-export const Subtitle1 = styled.p`
+export const Subtitle = styled.p`
     font-size: 25px;
     text-align: center;
     font-weight: bold;
 `;
 
-export const Subtitle2 = styled.p`
+export const Bluetitle = styled.p`
     font-size: 25px;
     text-align: center;
     font-weight: bold;
     color: #0054ff;
+    margin: 40px;
 `;
 
 export const InputEmail = styled.input`
