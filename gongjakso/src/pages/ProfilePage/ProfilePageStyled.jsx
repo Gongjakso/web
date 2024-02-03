@@ -4,11 +4,6 @@ import { ReactComponent as Edit } from '../../assets/images/Edit.svg';
 import { ReactComponent as Arrow } from '../../assets/images/Arrow.svg';
 import { ReactComponent as Up } from '../../assets/images/Up.svg';
 
-export const Container = styled.div`
-    width: 1200px; // 원하는 너비로 설정
-    margin: 0 auto; // 가운데 정렬
-`;
-
 export const TopBox = styled.div`
     height: 250px;
     width: 100%;
@@ -93,18 +88,18 @@ export const PortfolioBox = styled.button`
     margin-left: 30px;
 `;
 
-export const GlobalDetail = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
 export const GlobalBox = styled.div`
-    width: 100%;
-    margin-top: 100px;
+    width: 1200px; // 원하는 너비로 설정
+    margin: 150px auto 0px auto; // 가운데 정렬
 `;
 
 export const BoxDetail = styled.div`
     height: 25%;
     flex-direction: row;
+`;
+
+export const Div = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; // Aligns ite margin-top: 50px;
 `;
