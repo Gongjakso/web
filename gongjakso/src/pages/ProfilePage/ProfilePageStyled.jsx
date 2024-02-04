@@ -47,8 +47,9 @@ export const MajorTitle = styled.p`
 export const SubTitle = styled.p`
     font-size: ${({ theme }) => theme.fontSize.lg};
     font-weight: 900;
-    margin-top: 50px;
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
 `;
 
 //프로필 이미지
@@ -96,6 +97,7 @@ export const GlobalBox = styled.div`
 export const BoxDetail = styled.div`
     height: 25%;
     flex-direction: row;
+    margin-top: 50px;
 `;
 
 export const Div = styled.div`
