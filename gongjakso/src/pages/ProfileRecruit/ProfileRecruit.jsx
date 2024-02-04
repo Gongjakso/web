@@ -11,6 +11,7 @@ const ProfileRecruit = () => {
     const [open, setOpen] = useState(false); // 지원서 보기를 눌렀을 경우
     const [refuse, setRefuse] = useState(false); // 미선발을 눌렀을 경우
     const [pick, setPick] = useState(false); // 합류를 눌렀을 경우
+    const [item, setItem] = useState('');
 
     const [finish, setFinish] = useState(false); // 마감하기
     const [extend, setExtend] = useState(false); // 연장하기
@@ -59,6 +60,7 @@ const ProfileRecruit = () => {
             ) : showApply ? (
                 <ClickApply
                     setShowApply={setShowApply}
+                    item={item}
                     setRefuse={setRefuse}
                     setPick={setPick}
                     setOpen={setOpen}
@@ -137,6 +139,7 @@ const ProfileRecruit = () => {
                                 <S.StyledTd>
                                     <S.ShowBtn
                                         onClick={() => {
+                                            setItem(i);
                                             handleClick(i);
                                             setShowApply(true);
                                             setOpen(true);

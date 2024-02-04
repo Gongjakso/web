@@ -102,6 +102,7 @@ export const Content = styled.div`
     border-bottom: 2px solid black;
     color: ${({ theme }) => theme.greyFont};
     font-size: ${({ theme }) => theme.fontSize.md};
+    line-height: 25px;
 `;
 // 지원하기 버튼 감싸는 틀
 export const ApplyBox = styled.div`
