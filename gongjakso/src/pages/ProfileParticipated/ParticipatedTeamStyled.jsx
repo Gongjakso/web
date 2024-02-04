@@ -4,7 +4,6 @@ export const TopBox = styled.div`
     height: 250px;
     width: 100%;
     background-color: rgba(195, 233, 255, 0.5);
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
