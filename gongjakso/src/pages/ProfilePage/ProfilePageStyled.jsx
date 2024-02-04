@@ -103,5 +103,6 @@ export const BoxDetail = styled.div`
 export const Div = styled.div`
     width: 100%;
     display: flex;
-    justify-content: flex-end; // Aligns ite margin-top: 50px;
+    justify-content: flex-end;
+    margin-top: 50px;
 `;

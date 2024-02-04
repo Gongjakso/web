@@ -18,7 +18,7 @@ export const Box = styled.div`
 `;
 
 export const Title = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.sxl};
+    font-size: ${({ theme }) => theme.fontSize.l};
     color: ${({ theme }) => theme.mainFont};
     display: flex;
     align-items: center;
