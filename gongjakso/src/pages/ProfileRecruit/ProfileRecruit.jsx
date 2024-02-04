@@ -60,10 +60,7 @@ const ProfileRecruit = () => {
             ) : showApply ? (
                 <ClickApply
                     setShowApply={setShowApply}
-<<<<<<< HEAD
                     item={item}
-=======
->>>>>>> 596fb572eeab79188db16b71960b94de6ad61a3c
                     setRefuse={setRefuse}
                     setPick={setPick}
                     setOpen={setOpen}
@@ -142,10 +139,7 @@ const ProfileRecruit = () => {
                                 <S.StyledTd>
                                     <S.ShowBtn
                                         onClick={() => {
-<<<<<<< HEAD
                                             setItem(i);
-=======
->>>>>>> 596fb572eeab79188db16b71960b94de6ad61a3c
                                             handleClick(i);
                                             setShowApply(true);
                                             setOpen(true);
