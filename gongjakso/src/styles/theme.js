@@ -8,6 +8,7 @@ const fontSize = {
     lg: '1.5rem',
 
     // 추가한 사이즈
+    l: '1.75rem',
     xl: '2.25rem',
     xlg: '2.5rem',
 };
@@ -53,3 +54,4 @@ const theme = {
 export default theme;
 
 // ${({ theme }) => theme.Pink}
+// ${({ theme }) => theme.fontSize.xlg}
