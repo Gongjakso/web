@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { ReactComponent as UnScrap } from '../../assets/images/UnScrap.svg';
 import { ReactComponent as Fire } from '../../assets/images/Fire.svg';
+import { ReactComponent as ArrowDetail } from '../../assets/images/ArrowDetail.svg';
 
 export const Box = styled.div`
+    position: relative;
     width: 1200px;
-    height: 190px;
+    height: 170px;
     background-color: transparent;
-    border: 1px solid ${props => props.borderColor || '#0054FF'};
+    border: 1.5px solid ${props => props.borderColor || '#0054FF'};
     display: flex;
     flex-direction: column;
     color: ${({ theme }) => theme.mainFont};
@@ -16,7 +18,7 @@ export const Box = styled.div`
 `;
 
 export const Title = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.sxl};
     color: ${({ theme }) => theme.mainFont};
     display: flex;
     align-items: center;
@@ -25,7 +27,7 @@ export const Title = styled.p`
 `;
 
 export const subTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.base};
+    font-size: ${({ theme }) => theme.fontSize.md};
     color: #616161;
     display: flex;
     align-items: center;
@@ -34,14 +36,14 @@ export const subTitle = styled.p`
 
 //프로필페이지-제목 등
 export const BoxTopDetail = styled.div`
-    height: 30%;
+    height: 50%;
     display: flex;
     justify-content: space-between;
     text-align: left;
 `;
 
 export const MainBox = styled.div`
-    width: 35%;
+    width: 40%;
     display: flex;
     justify-content: space-between;
 `;
@@ -152,8 +154,11 @@ export const RoundForm = styled.div`
 `;
 
 //프로필페이지-자세히보기
-export const MoreDetail = styled.button`
-    height: 30%;
-    font-size: ${({ theme }) => theme.fontSize.md};
-    color: #8c8c8c;
+export const MoreDetail = styled(ArrowDetail)`
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    height: 100%;
+    z-index: 1;
 `;
