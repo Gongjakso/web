@@ -128,7 +128,7 @@ export const HomeContent = styled.div`
         url(${backGroundImage});
     background-size: cover;
     weight: 100%;
-    padding-top: 90px;
+    padding: 200px 0;
     background-repeat: no-repeat;
     justify-content: center;
     flex-direction: column;
