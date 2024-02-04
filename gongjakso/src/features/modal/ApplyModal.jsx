@@ -27,7 +27,7 @@ const ApplyModal = props => {
     return (
         <>
             <S.Background>
-                <S.Modal h="80%">
+                <S.Modal w="55%" h="80%">
                     <S.Backbtn
                         onClick={() => {
                             props.setApply(false);

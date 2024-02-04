@@ -9,7 +9,7 @@ const Completed = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal h="50%">
+                <S.Modal w="55%" h="50%">
                     <S.Backbtn
                         onClick={() => {
                             navigate('/' + props.title[1]);
