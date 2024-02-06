@@ -30,25 +30,32 @@ const Input = props => {
     );
 };
 
-const SelectInput = ({
-    label,
-    id,
-    error,
-    placeholder,
-    selectOptions,
-    register,
-    registerOptions,
-}) => {
+const SelectInput = props => {
+    const {
+        label,
+        id,
+        error,
+        placeholder,
+        selectOptions,
+        register,
+        registerOptions,
+    } = props;
+
+    const isLabel = !!label;
     return (
         <>
-            <S.InputLabel htmlFor={id}>{label}</S.InputLabel>
+            <S.InputLabel isLabel={isLabel} htmlFor={id}>
+                {label}
+            </S.InputLabel>
             <S.Select
                 name={id}
                 id={id}
                 className={error ? 'warning' : null}
-                placeholder={placeholder}
                 {...register(id, registerOptions)}
             >
+                <option value="" disabled selected hidden>
+                    {placeholder}
+                </option>
                 {selectOptions.map((option, index) => {
                     return (
                         <option value={option} key={index}>
@@ -60,4 +67,5 @@ const SelectInput = ({
         </>
     );
 };
+
 export { Input, SelectInput };

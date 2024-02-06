@@ -3,18 +3,19 @@ import styled, { css } from 'styled-components';
 export const Select = styled.select`
     display: block;
     width: 100%;
-    padding: 2.5px;
+    height: 100%;
+    padding: 15px;
     border-style: none;
-    border-bottom: 1px solid ${({ theme }) => theme.border};
-    margin-bottom: 10px;
-
+    border: 1px solid ${({ theme }) => theme.border};
+    border-radius: 8px;
+    font-size: ${props => props.theme.fontSize.md};
     &:focus {
         outline: none;
-        border-bottom: 1px solid ${({ theme }) => theme.mainFont};
+        border: 1px solid ${({ theme }) => theme.mainFont};
     }
 
     &.warning {
-        border-bottom: 1px solid ${({ theme }) => theme.repo.open};
+        border: 1px solid ${({ theme }) => theme.repo.open};
     }
     ${props =>
         props.onMouseDown &&
@@ -27,10 +28,12 @@ export const Select = styled.select`
 
 export const InputLabel = styled.label`
     display: inline-block;
-    width: 20%;
+    width: ${props => (props.isLabel ? '10%' : '0')};
     font-weight: 700;
     font-size: ${({ theme }) => theme.fontSize.lg};
-    margin-bottom: 10px;
+    font-family: 'PreMedium';
+    display: flex;
+    align-items: center;
 `;
 
 export const InputText = styled.input.attrs(props => ({
