@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 import { ReactComponent as Banner } from '../../assets/images/banner.svg';
+import { ReactComponent as SearchIcon } from '../../assets/images/Search.svg';
+
+export const Searchicon = styled(SearchIcon)`
+    width: 40px;
+    height: 40px;
+`;
 
 export const MainContent = styled.div`
     width: 100%;

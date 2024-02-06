@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 
 import * as S from './PostMainPage.Styled';
 import SwiperBanner from '../../components/SwiperBanner/SwiperBanner';
-import TeamBox from '../TeamBox/TeamBox';
 import Pagination from '../../components/Pagination/Pagination';
 import { SelectInput } from '../../components/common/Input/Input';
 
