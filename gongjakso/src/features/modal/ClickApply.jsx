@@ -1,12 +1,12 @@
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
-import { Data, Fields } from '../../pages/ProfileRecruit/UserData';
+import { Data, Fields, Skills } from '../../pages/ProfileRecruit/UserData';
 
 const ClickApply = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal w="53%" h="80%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="53%" h="85%" bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
                             props.setShowApply(false);
@@ -29,6 +29,24 @@ const ClickApply = props => {
                             ))}
                         </S.FormBox>
                     </S.DetailBox>
+
+                    {props.type === '프로젝트' && (
+                        <S.DetailBox>
+                            <S.SubTitle>기술 스택</S.SubTitle>
+                            <S.FormBox>
+                                {Skills.map((item, i) => (
+                                    <S.RoundForm
+                                        isSelected={
+                                            item === Data[props.item].skill[i]
+                                        }
+                                        style={{ cursor: 'default' }}
+                                    >
+                                        {item}
+                                    </S.RoundForm>
+                                ))}
+                            </S.FormBox>
+                        </S.DetailBox>
+                    )}
 
                     <S.DetailBox2>
                         <S.SubTitle>지원 이유</S.SubTitle>
