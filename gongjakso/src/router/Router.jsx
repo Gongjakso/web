@@ -13,7 +13,9 @@ import DetailPageContest from '../pages/DetailPage/DetailPageContest';
 import DetailPageProject from '../pages/DetailPage/DetailPageProject';
 import Login from '../components/Auth/Login';
 import KakaoRedirectPage from '../components/Auth/KakaoRedirectPage';
-
+import TeamBuildPage from '../pages/TeamBuildPage/TeamBuildPage';
+import PostMainPage from '../pages/PostMainPage/PostMainPage';
+import ProfileRecruit from '../pages/ProfileRecruit/ProfileRecruit';
 const Router = () => {
     return (
         <BrowserRouter>
@@ -24,14 +26,17 @@ const Router = () => {
                             <Route path={'/'} element={<HomePage />} />
                             <Route
                                 path={'/contest'}
-                                element={<DetailPageContest />}
+                                element={<PostMainPage />}
                             />
                             <Route
                                 path={'/project'}
-                                element={<DetailPageProject />}
+                                element={<PostMainPage />}
                             />
                             <Route path={'/calendar'} element={<Calendar />} />
-                            <Route path={'/teambuild'} element={<HomePage />} />
+                            <Route
+                                path={'/teambuild'}
+                                element={<TeamBuildPage />}
+                            />
                             <Route
                                 path={'/profile'}
                                 element={<ProfilePage />}
@@ -48,15 +53,22 @@ const Router = () => {
                                 path={'/teamPortfolio'}
                                 element={<TeamPortfolio />}
                             />
+
                             <Route
-                                path={'/contest'}
+                                path={'/contest/id'}
                                 element={<DetailPageContest />}
                             />
                             <Route
-                                path={'/project'}
+                                path={'/project/:id'}
                                 element={<DetailPageProject />}
                             />
+
                             <Route path={'/login'} element={<Login />} />
+                            <Route
+                                path={'/teamdetail'}
+                                element={<ProfileRecruit />}
+                            />
+
                             <Route
                                 path="/api/v1/auth/kakao/callback"
                                 element={<KakaoRedirectPage />}

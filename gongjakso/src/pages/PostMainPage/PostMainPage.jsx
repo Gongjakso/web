@@ -17,6 +17,11 @@ const PostMainPage = () => {
     const [posts, setPosts] = useState([]);
     const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(1);
+
+    useEffect(() => {
+        setPage(1); // isProject가 변경될 때마다 페이지를 1로 초기화
+    }, [isProject]);
+
     const offset = (page - 1) * limit;
 
     const {
@@ -108,6 +113,7 @@ const PostMainPage = () => {
                             </S.Article>
                         ))}
                 </S.PostContent>
+
                 <Pagination
                     total={posts.length}
                     limit={limit}
