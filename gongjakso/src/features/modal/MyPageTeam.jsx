@@ -10,7 +10,7 @@ const MyPageTeam = props => {
     return (
         <>
             <S.Background>
-                <S.Modal w="50%" h="38%">
+                <S.Modal w="50%" h="40%" bc={({ theme }) => theme.box1}>
                     <S.Backbtn onClick={() => props.CloseModal(false)}>
                         <img src={Close} alt="close-btn" />
                     </S.Backbtn>
@@ -25,7 +25,9 @@ const MyPageTeam = props => {
                                 <p>그래도 마감하시겠습니까?</p>
                             </S.CompletedBox>
                         )}
+
                         {checkedCase === '2' && <p>미정</p>}
+
                         {checkedCase === '3' && (
                             <S.CompletedBox>
                                 <p>
