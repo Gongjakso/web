@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as My_page_big } from '../../assets/images/My_page_big.svg';
 import { ReactComponent as Edit } from '../../assets/images/Edit.svg';
 import { ReactComponent as Arrow } from '../../assets/images/Arrow.svg';
-import { ReactComponent as Up } from '../../assets/images/Up.svg';
+//import { ReactComponent as Up } from '../../assets/images/Up.svg';
 
 export const TopBox = styled.div`
     height: 250px;
@@ -15,7 +15,7 @@ export const TopBox = styled.div`
 
 export const DetailBox = styled.div`
     position: relative;
-    line-height: 25px;
+    line-height: 30px;
     text-align: left;
     display: flex;
     justify-content: space-between;
@@ -24,7 +24,7 @@ export const DetailBox = styled.div`
 export const InfoBox = styled.div`
     position: relative;
     transform: translateY(150%);
-    padding-right: 30px;
+    padding-right: 45px;
     line-height: 25px;
     text-align: left;
     display: flex;
@@ -34,50 +34,44 @@ export const InfoBox = styled.div`
 
 //이름
 export const NameTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.xl};
     font-weight: bold;
+    margin-bottom: 5px;
 `;
 
 //학과
 export const MajorTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.base};
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
 //소제목
 export const SubTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.xl};
     font-weight: 900;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     display: flex;
     align-items: center;
 `;
 
 //프로필 이미지
 export const ProfileImage = styled(My_page_big)`
-    width: 150px;
-    margin-right: 10px;
+    width: 200px;
     transform: translateY(50%);
 `;
 
 export const EditImage = styled(Edit)`
-    height: 22px;
-    align-items: right;
+    height: 28px;
 `;
 
 export const ArrowImage = styled(Arrow)`
-    width: 50px;
-    height: 22px;
-`;
-
-export const UpImage = styled(Up)`
-    width: 56px;
-    margin: 50px 0px 50px auto;
+    width: 100px;
+    height: 38px;
 `;
 
 //나의 포트폴리오 박스
 export const PortfolioBox = styled.button`
     width: 170px;
-    height: 40px;
+    height: 45px;
     font-size: ${({ theme }) => theme.fontSize.md};
     background-color: #0054ff;
     display: flex;
@@ -86,18 +80,26 @@ export const PortfolioBox = styled.button`
     color: ${({ theme }) => theme.mainFont2};
     transform: translateY(150%);
     border-radius: 25px;
-    margin-left: 30px;
+    margin-left: 45px;
 `;
 
 export const GlobalBox = styled.div`
     width: 1200px; // 원하는 너비로 설정
-    margin: 150px auto 0px auto; // 가운데 정렬
+    margin: 180px auto 150px auto; // 가운데 정렬
 `;
 
 export const BoxDetail = styled.div`
     height: 25%;
     flex-direction: row;
-    margin-top: 50px;
+    margin-top: 90px;
+`;
+
+/*
+TopButton -> Homepage 파일에서 가져옴
+
+export const UpImage = styled(Up)`
+    width: 56px;
+    margin: 50px 0px 50px auto;
 `;
 
 export const Div = styled.div`
@@ -106,3 +108,4 @@ export const Div = styled.div`
     justify-content: flex-end;
     margin-top: 50px;
 `;
+*/

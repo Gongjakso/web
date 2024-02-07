@@ -30,16 +30,3 @@ export const BoxDetail = styled.div`
     flex-direction: column;
     margin: 100px;
 `;
-
-export const UpImage = styled(Up)`
-    width: 56px;
-    margin: 50px 0px 50px auto;
-`;
-
-export const Div = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: flex-end; // Aligns ite margin-top: 50px;
-    width: 1200px; // 원하는 너비로 설정
-    margin: 150px auto 0px auto; // 가운데 정렬
-`;
