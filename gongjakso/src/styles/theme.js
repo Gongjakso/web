@@ -9,8 +9,10 @@ const fontSize = {
 
     // 추가한 사이즈
     l: '1.75rem',
+    ll: '2rem',
     xl: '2.25rem',
     xlg: '2.5rem',
+    xxlg: '2.8rem',
 };
 
 const colorSystem = {
