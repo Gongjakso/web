@@ -32,8 +32,6 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
     const handleNavigate = useCustomNavigate();
     const iconName = iconNames[type];
 
-    console.log(active);
-
     return (
         <S.IconButton
             type="button"
