@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
 export const TopBox = styled.div`
-    height: 300px;
+    height: 250px;
     width: 100%;
     background-color: rgba(195, 233, 255, 0.5);
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -14,6 +13,8 @@ export const Title = styled.p`
     font-size: ${({ theme }) => theme.fontSize.xlg};
     text-align: center;
     font-weight: bold;
+    position: relative;
+    top: 20px;
 `;
 
 export const GlobalBox = styled.div`
@@ -27,7 +28,7 @@ export const BlueBox = styled.div`
     width: 55%;
     margin: 70px;
     border: 2px solid ${({ theme }) => theme.box1};
-    border-radius: 10px;
+    border-radius: 15px;
     display: flex;
     flex-direction: row;
 `;
@@ -50,12 +51,13 @@ export const DetailGlobal = styled.div`
     display: flex;
     flex-direction: ${props => props.opt1};
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     justify-content: ${props => props.opt2};
 `;
 
 export const InsideTitle = styled.div`
     width: ${props => props.w};
+    font-size: ${({ theme }) => theme.fontSize.l};
 `;
 
 export const InsideDetail = styled.div`
@@ -70,7 +72,7 @@ export const GreyBtn = styled.button`
     text-align: center;
     padding: 15px;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 15px;
     font-size: ${({ theme }) => theme.fontSize.md};
     &:hover {
         background: black;
@@ -89,7 +91,7 @@ export const MainTable = styled.table`
     width: 55%;
     margin-top: 30px;
     margin-bottom: 300px;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.lg};
     text-align: center;
     border-radius: 10px;
     border-collapse: collapse;
@@ -143,7 +145,7 @@ export const ShowBtn = styled.button`
     color: #a09e9e;
     background: transparent;
     text-align: right;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
 export const StateBtn = styled.div`
@@ -152,6 +154,7 @@ export const StateBtn = styled.div`
     color: white;
     font-weight: bold;
     font-size: ${({ theme }) => theme.fontSize.md};
-    background: ${props => props.bg};
+    background: ${props =>
+        props.isOpen ? ({ theme }) => theme.LimeGreen : ''};
     border-radius: 20px;
 `;

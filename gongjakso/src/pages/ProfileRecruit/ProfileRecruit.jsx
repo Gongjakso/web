@@ -17,7 +17,10 @@ const ProfileRecruit = () => {
     const [extend, setExtend] = useState(false); // 연장하기
     const [cancel, setCancel] = useState(false); // 취소하기
 
+    const [type] = useState(['공모전', '프로젝트']);
+
     const [clickedIndex, setClickedIndex] = useState([]);
+
     const handleClick = index => {
         setClickedIndex([...clickedIndex, index]);
     };
@@ -28,26 +31,8 @@ const ProfileRecruit = () => {
         { case: '취소하기', id: '3' },
     ]);
 
+    console.log(clickedIndex);
     // 현재상태 버튼
-    const Button1 = () => {
-        return (
-            <>
-                <S.StateBtn bg={({ theme }) => theme.LimeGreen}>
-                    열람 완료
-                </S.StateBtn>
-            </>
-        );
-    };
-    const Button2 = () => {
-        return (
-            <S.StateBtn bg={({ theme }) => theme.box1}>합류 완료</S.StateBtn>
-        );
-    };
-    const Button3 = () => {
-        return (
-            <S.StateBtn bg={({ theme }) => theme.LightGrey}>미선발</S.StateBtn>
-        );
-    };
 
     return (
         <div>
@@ -64,6 +49,7 @@ const ProfileRecruit = () => {
                     setRefuse={setRefuse}
                     setPick={setPick}
                     setOpen={setOpen}
+                    type={type[1]}
                 />
             ) : null}
 
@@ -152,9 +138,11 @@ const ProfileRecruit = () => {
                                 {/* 현재 상태 버튼 구간 */}
                                 <S.StyledTd>
                                     <S.TableBox>
-                                        {clickedIndex.includes(i) && (
-                                            <Button1 />
-                                        )}
+                                        {clickedIndex.includes(i) ? (
+                                            <S.StateBtn isOpen={true}>
+                                                열람 완료
+                                            </S.StateBtn>
+                                        ) : null}
                                     </S.TableBox>
                                 </S.StyledTd>
                             </tr>
