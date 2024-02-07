@@ -6,54 +6,59 @@ import teambuilding3 from '../../assets/images/Teambuilding3.png';
 import portfolioimg from '../../assets/images/Portfolio.png';
 
 export const Title = styled.div`
-    font-size: 45px;
+    font-size: ${({ theme }) => theme.fontSize.xxlg};
+    font-family: 'PreBold';
     text-align: center;
-    padding: 15px;
+    padding: 13px;
     font-weight: bold;
 `;
 
 export const Title1 = styled.div`
     color: white;
-    font-size: 37px;
-    font-weight: bold;
+    font-family: 'PreBold';
+    font-size: ${({ theme }) => theme.fontSize.xxlg};
 `;
 
 export const Title2 = styled.div`
     color: white;
     padding: 10px;
-    font-size: 37px;
-    font-weight: bold;
+    font-family: 'PreBold';
+    font-size: ${({ theme }) => theme.fontSize.xxlg};
 `;
 
 export const Title3 = styled.div`
     color: black;
     padding: 10px;
-    font-size: 37px;
-    font-weight: bold;
+    font-family: 'PreBold';
+    font-size: ${({ theme }) => theme.fontSize.xxlg};
 `;
 
 export const Subtitle2 = styled.div`
     color: white;
-    font-size: 25px;
-    padding: 10px;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.ll};
+    padding: 20px;
 `;
 
 export const Subtitle3 = styled.div`
-    color: #0150f1;
+    color: ${({ theme }) => theme.Main1};
     align-items: center;
     font-weight: bold;
     padding: 10px;
-    font-size: 30px;
+    font-family: 'PreBold';
+    font-size: ${({ theme }) => theme.fontSize.l};
 `;
 
 export const Detail1 = styled.p`
-    font-size: 25px;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.l};
     padding: 3px;
     color: white;
 `;
 
 export const Detail2 = styled.p`
-    font-size: 24px;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.l};
     padding: 20px;
     color: white;
 `;
@@ -61,7 +66,8 @@ export const Detail2 = styled.p`
 export const Detail3 = styled.p`
     color: black;
     padding: 20px;
-    font-size: 24px;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.l};
 `;
 
 export const Button = styled.p`
@@ -73,11 +79,11 @@ export const Button = styled.p`
 export const Button1 = styled.button`
     background-color: black;
     border: none;
-    font-size: 25px;
-    font-weight: 400;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.ll};
     border-radius: 15px;
     color: white;
-    width: 400px;
+    width: 420px;
     height: 90px;
     margin: 10px;
     padding: 20px;
@@ -86,12 +92,12 @@ export const Button1 = styled.button`
 export const Button2 = styled.button`
     background-color: white;
     border: none;
-    font-size: 25px;
-    font-weight: 400;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.ll};
     border-radius: 15px;
     color: black;
     font-weight: bold;
-    width: 400px;
+    width: 420px;
     height: 90px;
     margin: 10px;
     padding: 20px;
@@ -99,14 +105,13 @@ export const Button2 = styled.button`
 `;
 
 export const Button3 = styled.button`
-    background-color: #0150f1;
+    background-color:${({ theme }) => theme.Main1};
     border: none;
-    font-size: 25px;
-    font-weight: 400;
-    font-weight: bold;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.ll};
     border-radius: 10px;
     color: white;
-    width: 400px;
+    width: 420px;
     height: 90px;
     margin: 10px;
     padding: 20px;
@@ -141,13 +146,13 @@ export const Box = styled.div`
     border-radius: 100px;
     border: 2px solid rgba(255, 255, 255, 0.8);
     padding: 40px;
-    width: 620px;
+    width: 630px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100px;
-    font-weight: 700;
-    font-size: 25px;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.ll};
     text-align: center;
     margin: 20px;
 `;
@@ -164,7 +169,7 @@ export const HomeContent1 = styled.div`
     weight: 100%;
     height: 100vh;
     flex-direction: column;
-    background-color: #0150f1;
+    background-color:${({ theme }) => theme.Main1};
 `;
 
 export const Wrapper = styled.div`
@@ -174,8 +179,8 @@ export const Wrapper = styled.div`
     border-radius: 50px;
     width: 1400px;
     height: 600px;
-    font-size: 27px;
-    font-weight: 500;
+    font-family: 'PreBold';
+    font-size: ${({ theme }) => theme.fontSize.ll};
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -198,7 +203,7 @@ export const HomeContent2 = styled.div`
     flex-direction: column;
     weight: 100%;
     height: 100vh;
-    background-color: #000000;
+    background-color: black;
 `;
 export const Container = styled.div`
     display: flex;
@@ -215,11 +220,11 @@ export const HomeContent3 = styled.div`
     flex-direction: column;
     weight: 100%;
     height: 100vh;
-    background-color: #ffffff;
+    background-color: white;
 `;
 
 export const WhiteBox = styled.div`
-    background-color: #ffffff;
+    background-color: white;
     width: 600px;
     height: 450px;
     margin: 20px;
