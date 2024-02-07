@@ -1,11 +1,13 @@
 import React from 'react';
 import * as S from './ParticipatedTeamStyled';
 import TeamBox from '../TeamBox/TeamBox';
+import TopButton from '../../pages/HomePage/TopButton';
 
 const TeamPart = () => {
     return (
         <div>
             <S.TopBox>
+                <S.Spacer />
                 <S.Title>내가 참여한 공모전/프로젝트</S.Title>
             </S.TopBox>
             <S.BoxDetail>

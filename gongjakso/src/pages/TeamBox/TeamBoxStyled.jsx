@@ -13,12 +13,12 @@ export const Box = styled.div`
     flex-direction: column;
     color: ${({ theme }) => theme.mainFont};
     border-radius: 15px;
-    padding: 25px 50px;
+    padding: 25px ${props => (props.showMoreDetail ? '90px' : '50px')} 25px 50px;
     margin: 10px 0px;
 `;
 
 export const Title = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.sxl};
+    font-size: ${({ theme }) => theme.fontSize.l};
     color: ${({ theme }) => theme.mainFont};
     display: flex;
     align-items: center;
@@ -38,6 +38,7 @@ export const subTitle = styled.p`
 export const BoxTopDetail = styled.div`
     height: 50%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     text-align: left;
 `;
@@ -49,7 +50,7 @@ export const MainBox = styled.div`
 `;
 
 export const SubBox = styled.div`
-    width: 28%;
+    width: 31%;
     display: flex;
     justify-content: space-between;
 `;
@@ -66,19 +67,19 @@ export const BoxBottomDetail = styled.div`
 
 //프로필 이미지
 export const UnScrapImage = styled(UnScrap)`
-    width: 20px;
+    width: 25px;
     margin-right: 13px;
 `;
 
 //프로필 이미지
 export const FireImage = styled(Fire)`
-    width: 20px;
+    width: 25px;
     margin-right: 13px;
 `;
 
 //마감일수
 export const DeadLine = styled.div`
-    width: 140px;
+    width: 145px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -94,7 +95,7 @@ export const DeadLine = styled.div`
 
 //스크랩 횟수
 export const ScrapNum = styled.div`
-    width: 140px;
+    width: 165px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -157,7 +158,7 @@ export const RoundForm = styled.div`
 export const MoreDetail = styled(ArrowDetail)`
     position: absolute;
     top: 50%;
-    right: 15px;
+    right: 30px;
     transform: translateY(-50%);
     height: 100%;
     z-index: 1;

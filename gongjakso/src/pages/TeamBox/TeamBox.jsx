@@ -7,6 +7,7 @@ const TeamBox = ({
     borderColor,
     showWaitingJoin,
     showSubBox,
+    postContent,
 }) => {
     const partNames = ['기획', '디자인', '프론트엔드', '백엔드', '기타'];
 
@@ -15,12 +16,12 @@ const TeamBox = ({
         팀장명: '최수빈',
         활동기간: '2개월',
         날짜: '2024.01',
-        마감일수: '7',
-        스크랩횟수: '3',
+        마감일수: '19',
+        스크랩횟수: '30',
     });
 
     return (
-        <S.Box borderColor={borderColor}>
+        <S.Box borderColor={borderColor} showMoreDetail={showMoreDetail}>
             <S.BoxTopDetail>
                 <S.MainBox>
                     <S.Title>{data.제목}</S.Title>
@@ -32,11 +33,11 @@ const TeamBox = ({
                     <S.SubBox>
                         <S.DeadLine>
                             <S.FireImage />
-                            D-{data.마감일수}
+                            마감 D-{data.마감일수}
                         </S.DeadLine>
                         <S.ScrapNum>
                             <S.UnScrapImage />
-                            {data.스크랩횟수}
+                            스크랩 {data.스크랩횟수}회
                         </S.ScrapNum>
                     </S.SubBox>
                 ) : (

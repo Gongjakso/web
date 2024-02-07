@@ -5,6 +5,7 @@ export const TopBox = styled.div`
     width: 100%;
     background-color: rgba(195, 233, 255, 0.5);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 `;
@@ -18,8 +19,13 @@ export const BoxDetail = styled.div`
     margin: 100px;
 `;
 
+export const Spacer = styled.div`
+    flex-grow: 6;
+`;
+
 export const Title = styled.p`
-    font-size: 25px;
+    flex-grow: 4;
+    font-size: ${({ theme }) => theme.fontSize.xl};
     text-align: center;
     font-weight: bold;
 `;
