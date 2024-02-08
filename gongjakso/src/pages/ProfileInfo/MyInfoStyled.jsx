@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+export const Div = styled.div`
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
 export const TopBox = styled.div`
     height: 250px;
     width: 100%;
@@ -14,9 +23,8 @@ export const DetailBox = styled.div`
     line-height: 25px;
     text-align: left;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    padding: 10px 670px;
 `;
 
 export const InputField = styled.input`
@@ -26,6 +34,15 @@ export const InputField = styled.input`
     border: 1px solid #a3a3a3;
     border-radius: 5px;
     font-size: ${({ theme }) => theme.fontSize.md};
+`;
+
+export const Formset = styled.div`
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 20px;
 `;
 
 export const Spacer = styled.div`
@@ -42,6 +59,7 @@ export const Title = styled.p`
 export const SubTitle = styled.p`
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: bold;
+    width: 10%;
     margin-right: 10px;
 `;
 
