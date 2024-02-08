@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { ReactComponent as My_page_big } from '../../assets/images/My_page_big.svg';
 import { ReactComponent as Edit } from '../../assets/images/Edit.svg';
 import { ReactComponent as Arrow } from '../../assets/images/Arrow.svg';
-//import { ReactComponent as Up } from '../../assets/images/Up.svg';
 
 export const TopBox = styled.div`
     height: 250px;
@@ -93,19 +92,3 @@ export const BoxDetail = styled.div`
     flex-direction: row;
     margin-top: 90px;
 `;
-
-/*
-TopButton -> Homepage 파일에서 가져옴
-
-export const UpImage = styled(Up)`
-    width: 56px;
-    margin: 50px 0px 50px auto;
-`;
-
-export const Div = styled.div`
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 50px;
-`;
-*/

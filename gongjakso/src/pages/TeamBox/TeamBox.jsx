@@ -12,21 +12,25 @@ const TeamBox = ({
     const partNames = ['기획', '디자인', '프론트엔드', '백엔드', '기타'];
 
     const [data, setData] = useState({
-        제목: '공작소 프로젝트',
+        제목: '회의 일정 조정 서비스',
         팀장명: '최수빈',
-        활동기간: '2개월',
-        날짜: '2024.01',
-        마감일수: '19',
+        활동기간: '2024.1.2~2.4',
+        마감일수: 0,
         스크랩횟수: '30',
     });
+    const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 
     return (
-        <S.Box borderColor={borderColor} showMoreDetail={showMoreDetail}>
+        <S.Box
+            borderColor={borderColor}
+            showMoreDetail={showMoreDetail}
+            deadline={data.마감일수 === 0}
+        >
             <S.BoxTopDetail>
                 <S.MainBox>
                     <S.Title>{data.제목}</S.Title>
                     <S.subTitle>
-                        | {data.팀장명} | {data.활동기간} | {data.날짜}
+                        | {data.팀장명} | {data.활동기간} |
                     </S.subTitle>
                 </S.MainBox>
                 {showSubBox ? (
@@ -56,6 +60,14 @@ const TeamBox = ({
                 <Link to="/teamdetail">
                     <S.MoreDetail />
                 </Link>
+            )}
+            {showWaitingJoin && data.마감일수 === 0 && isOverlayVisible && (
+                <S.DeadlineOverlay>
+                    모집이 연장되었습니다.
+                    <S.CloseImage
+                        onClick={() => setIsOverlayVisible(false)}
+                    ></S.CloseImage>
+                </S.DeadlineOverlay>
             )}
         </S.Box>
     );

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
-import TopButton from '../../pages/HomePage/TopButton';
 
 const ProfilePage = () => {
     const [userInfo, setUserInfo] = useState({
@@ -13,7 +12,6 @@ const ProfilePage = () => {
 
     return (
         <div>
-            <TopButton />
             <S.TopBox>
                 <S.InfoBox>
                     <S.DetailBox>
@@ -81,13 +79,6 @@ const ProfilePage = () => {
                         showSubBox={false}
                     />
                 </S.BoxDetail>
-                {/*
-                <S.Div>
-                    <S.UpImage
-                        onClick={() => window.scrollTo(0, 0)}
-                    ></S.UpImage>
-                </S.Div>
-                */}
             </S.GlobalBox>
         </div>
     );

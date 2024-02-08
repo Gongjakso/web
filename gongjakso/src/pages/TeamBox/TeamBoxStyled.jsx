@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as UnScrap } from '../../assets/images/UnScrap.svg';
 import { ReactComponent as Fire } from '../../assets/images/Fire.svg';
 import { ReactComponent as ArrowDetail } from '../../assets/images/ArrowDetail.svg';
+import { ReactComponent as CloseWhite } from '../../assets/images/CloseWhite.svg';
 
 export const Box = styled.div`
     position: relative;
@@ -15,6 +16,7 @@ export const Box = styled.div`
     border-radius: 15px;
     padding: 25px ${props => (props.showMoreDetail ? '90px' : '50px')} 25px 50px;
     margin: 10px 0px;
+    //마감일수가 0일 때 상태 변환
 `;
 
 export const Title = styled.p`
@@ -24,6 +26,7 @@ export const Title = styled.p`
     align-items: center;
     justify-content: center;
     font-family: 'TheJamsilRegular';
+    margin-right: 30px;
 `;
 
 export const subTitle = styled.p`
@@ -44,7 +47,7 @@ export const BoxTopDetail = styled.div`
 `;
 
 export const MainBox = styled.div`
-    width: 40%;
+    width: auto;
     display: flex;
     justify-content: space-between;
 `;
@@ -71,10 +74,18 @@ export const UnScrapImage = styled(UnScrap)`
     margin-right: 13px;
 `;
 
-//프로필 이미지
+//마감 일수 이미지
 export const FireImage = styled(Fire)`
     width: 25px;
     margin-right: 13px;
+`;
+
+export const CloseImage = styled(CloseWhite)`
+    width: 20px;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    cursor: pointer;
 `;
 
 //마감일수
@@ -162,4 +173,21 @@ export const MoreDetail = styled(ArrowDetail)`
     transform: translateY(-50%);
     height: 100%;
     z-index: 1;
+`;
+
+//프로필페이지 -> 모집 마감, 연장, 취소 오버레이
+export const DeadlineOverlay = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 13px;
+    font-size: ${({ theme }) => theme.fontSize.ll};
+    //background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 84, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
 `;
