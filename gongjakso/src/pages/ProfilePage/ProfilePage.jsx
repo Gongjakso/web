@@ -1,22 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
 import TopButton from '../../pages/HomePage/TopButton';
 
 const ProfilePage = () => {
+    const [userInfo, setUserInfo] = useState({
+        name: '최수빈',
+        major: '공학계열/컴퓨터공학',
+        desiredJob: '',
+    });
+
     return (
         <div>
             <TopButton />
             <S.TopBox>
                 <S.InfoBox>
                     <S.DetailBox>
-                        <S.NameTitle>최수빈</S.NameTitle>
+                        <S.NameTitle>{userInfo.name}</S.NameTitle>
                         <Link to="/MyInfo">
                             <S.EditImage />
                         </Link>
                     </S.DetailBox>
-                    <S.MajorTitle>공학계열/소프트웨어학</S.MajorTitle>
+                    <S.MajorTitle>{userInfo.major}</S.MajorTitle>
                 </S.InfoBox>
                 <S.ProfileImage />
                 <Link to="/teamPortfolio">

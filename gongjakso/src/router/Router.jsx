@@ -16,6 +16,8 @@ import KakaoRedirectPage from '../components/Auth/KakaoRedirectPage';
 import TeamBuildPage from '../pages/TeamBuildPage/TeamBuildPage';
 import PostMainPage from '../pages/PostMainPage/PostMainPage';
 import ProfileRecruit from '../pages/ProfileRecruit/ProfileRecruit';
+import MyInfo from '../pages/ProfileInfo/MyInfo';
+
 const Router = () => {
     return (
         <BrowserRouter>
@@ -68,7 +70,7 @@ const Router = () => {
                                 path={'/teamdetail'}
                                 element={<ProfileRecruit />}
                             />
-
+                            <Route path={'/myinfo'} element={<MyInfo />} />
                             <Route
                                 path="/api/v1/auth/kakao/callback"
                                 element={<KakaoRedirectPage />}
