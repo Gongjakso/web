@@ -13,10 +13,12 @@ const Input = props => {
         register,
         registerOptions,
     } = props;
-
+    const isLabel = !!label;
     return (
         <>
-            <S.InputLabel htmlFor={id}>{label}</S.InputLabel>
+            <S.InputLabel isLabel={isLabel} htmlFor={id}>
+                {label}
+            </S.InputLabel>
             <S.InputText
                 id={id}
                 type={type || 'text'}

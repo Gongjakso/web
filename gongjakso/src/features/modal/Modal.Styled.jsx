@@ -20,14 +20,18 @@ export const Container = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 1200px;
-    height: 850px;
+    width: 100%;
+    max-width: 1200px;
+    height: 100%;
+    max-height: 800px;
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
     background: white;
     border-radius: 32px;
     flex-direction: column;
+    padding: 20px 0;
+    gap: 20px;
 `;
 
 export const ModalBg = styled.div`
@@ -65,7 +69,12 @@ export const Title = styled.div`
 export const ButtonBox = styled.div`
     display: flex;
     flex-direction: row;
-    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    height: 230px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
 `;
 
 export const GreyButton = styled.button`
@@ -82,13 +91,14 @@ export const GreyButton = styled.button`
 `;
 
 export const BlueButton = styled.button`
-    background: #0150f1;
+    background: ${props =>
+        props.isDelete ? props.theme.Grey : props.theme.Main1};
     color: white;
     border-radius: 10px;
     font-size: 25px;
-    width: 360px;
+    width: 40%;
     font-weight: 700;
-    height: 80px;
+    height: 40%;
     text-align: center;
     padding: 10px;
     margin: 10px;
@@ -97,11 +107,16 @@ export const BlueButton = styled.button`
 export const BoxContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 25px;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
 `;
 
 export const Box = styled.div`
     display: flex;
+    width: 100%;
+    max-width: 800px;
     align-items: center;
     justify-content: space-between;
     flex-direction: row;
