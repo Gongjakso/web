@@ -1,11 +1,13 @@
-import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
-const useNavigate = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+const useCustomNavigate = () => {
+    const navigate = useNavigate();
 
-export default useNavigate
+    const goToPage = path => {
+        navigate(path);
+    };
+
+    return goToPage;
+};
+
+export default useCustomNavigate;
