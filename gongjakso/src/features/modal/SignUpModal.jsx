@@ -10,6 +10,9 @@ const SignUpModal = ({ closeModal1 }) => {
         closeModal1();
         navigate1(path);
     };
+    const handleModalDeleteClick = path => {
+        closeModal1();
+    };
     const {
         register,
         setError,
@@ -82,6 +85,12 @@ const SignUpModal = ({ closeModal1 }) => {
                 </S.BoxContainer>
 
                 <S.ButtonBox>
+                    <S.BlueButton
+                        isDelete={true}
+                        onClick={() => handleModalDeleteClick()}
+                    >
+                        취소
+                    </S.BlueButton>
                     <S.BlueButton onClick={() => handleModalClick('/')}>
                         완료
                     </S.BlueButton>
