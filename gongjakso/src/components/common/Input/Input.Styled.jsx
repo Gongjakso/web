@@ -28,7 +28,7 @@ export const Select = styled.select`
 
 export const InputLabel = styled.label`
     display: inline-block;
-    width: ${props => (props.isLabel ? '10%' : '0')};
+    width: ${props => (props.isLabel ? '20%' : '0')};
     font-weight: 700;
     font-size: ${({ theme }) => theme.fontSize.lg};
     font-family: 'PreMedium';
@@ -42,6 +42,7 @@ export const InputText = styled.input.attrs(props => ({
     font-size: ${({ theme }) => theme.fontSize.md};
 
     width: 100%;
+    max-width: 1000px;
     padding: 2.5px 0;
     border-style: none;
     border-bottom: 1px solid ${({ theme }) => theme.border};

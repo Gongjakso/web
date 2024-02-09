@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './ProfileRecruit.styled';
 import { Data } from './UserData';
 import User from '../../assets/images/My_page_big.svg';
 import TopButton from '../HomePage/TopButton';
 import MyPageTeam from '../../features/modal/MyPageTeam';
 import ClickApply from '../../features/modal/ClickApply';
+import Pagination from '../../components/Pagination/Pagination';
 
 const ProfileRecruit = () => {
     const [showApply, setShowApply] = useState(false); // 지원서 모달창 띄우는 경우
@@ -21,18 +22,33 @@ const ProfileRecruit = () => {
 
     const [clickedIndex, setClickedIndex] = useState([]);
 
-    const handleClick = index => {
-        setClickedIndex([...clickedIndex, index]);
-    };
-
     const [teamCase] = useState([
         { case: '마감하기', id: '1' },
         { case: '연장하기', id: '2' },
         { case: '취소하기', id: '3' },
     ]);
 
-    console.log(clickedIndex);
+    const [posts, setPosts] = useState([...Data]);
+    const [limit, setLimit] = useState(10);
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * limit;
+
     // 현재상태 버튼
+
+    const handleClick = (index, id) => {
+        const newData = [...posts]; // 데이터 복사
+        const dataIndex = newData.findIndex(item => item.id === id);
+        if (dataIndex !== -1) {
+            // id에 해당하는 데이터가 있을 경우
+            newData[dataIndex].open = true; // 해당 데이터의 open 값을 true로 변경
+            // 여기서 API 호출 또는 상태 업데이트 등의 작업 수행
+            setPosts(newData); // 상태 업데이트
+        } else {
+            console.log(`ID ${id}에 해당하는 데이터를 찾을 수 없습니다.`);
+        }
+    };
+
+    console.log(Data.length);
 
     return (
         <div>
@@ -60,25 +76,23 @@ const ProfileRecruit = () => {
             </S.TopBox>
             <S.GlobalBox>
                 <S.BlueBox>
-                    <S.Border w="40%">
+                    <S.Border>
                         <S.DetailGlobal>
-                            <S.InsideTitle w="100%">
-                                사용자 설정명
-                            </S.InsideTitle>
+                            <S.InsideTitle>사용자 설정명</S.InsideTitle>
                         </S.DetailGlobal>
-                        <S.DetailGlobal opt1="column">
+                        <S.DetailGlobal>
                             <S.InsideDetail>활동기간 | 날짜</S.InsideDetail>
                             <S.InsideDetail>모집인원 | 인원 수</S.InsideDetail>
                         </S.DetailGlobal>
                     </S.Border>
-                    <S.InsideBox w="60%">
+                    <S.InsideBox>
                         <S.DetailGlobal>
-                            <S.InsideTitle w="28%">
+                            <S.InsideTitle>
                                 현재 모집 현황
+                                <S.TagNUM>4/6</S.TagNUM>
                             </S.InsideTitle>
-                            <S.InsideTitle w="72%">4/6</S.InsideTitle>
                         </S.DetailGlobal>
-                        <S.DetailGlobal opt1="row" opt2="space-between">
+                        <S.ButtonSet>
                             <S.GreyBtn
                                 onClick={() => {
                                     setFinish(true);
@@ -100,55 +114,62 @@ const ProfileRecruit = () => {
                             >
                                 모집취소
                             </S.GreyBtn>
-                        </S.DetailGlobal>
+                        </S.ButtonSet>
                     </S.InsideBox>
                 </S.BlueBox>
 
-                <S.SubTitle>지원자 현황</S.SubTitle>
-                <S.MainTable>
-                    <thead>
-                        <tr>
-                            <S.StyledTh>지원자명</S.StyledTh>
-                            <S.StyledTh></S.StyledTh>
-                            <S.StyledTh>현재 상태</S.StyledTh>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Data.map((item, i) => (
-                            <tr key={item.id}>
-                                <S.StyledTd>
-                                    <S.User>
-                                        <img src={User} alt="UserImage" />
-                                        {item.name}
-                                    </S.User>
-                                </S.StyledTd>
-                                <S.StyledTd>
-                                    <S.ShowBtn
-                                        onClick={() => {
-                                            setItem(i);
-                                            handleClick(i);
-                                            setShowApply(true);
-                                            setOpen(true);
+                <S.Content>
+                    <S.SubTitle>지원자 현황</S.SubTitle>
+                    <S.MainTable>
+                        <S.StyledTh>
+                            <S.TagP isleft={true}>지원자명</S.TagP>
+                            <S.TagP isleft={false}>현재상태</S.TagP>
+                        </S.StyledTh>
+                        {posts
+                            .slice(offset, offset + limit)
+                            .map((item, i, array) => (
+                                <tr key={item.id}>
+                                    <S.StyledTd
+                                        style={{
+                                            borderRadius:
+                                                i !== array.length - 1
+                                                    ? 'none'
+                                                    : '0 0 15px 15px',
                                         }}
                                     >
-                                        지원서 보기
-                                    </S.ShowBtn>
-                                </S.StyledTd>
+                                        <S.User>
+                                            <img src={User} alt="UserImage" />
+                                            {item.name}
+                                        </S.User>
+                                        <S.ShowBtn
+                                            onClick={() => {
+                                                setItem(i);
+                                                handleClick(i, item.id);
+                                                setShowApply(true);
+                                                setOpen(true);
+                                            }}
+                                        >
+                                            지원서 보기
+                                        </S.ShowBtn>
 
-                                {/* 현재 상태 버튼 구간 */}
-                                <S.StyledTd>
-                                    <S.TableBox>
-                                        {clickedIndex.includes(i) ? (
-                                            <S.StateBtn isOpen={true}>
-                                                열람 완료
-                                            </S.StateBtn>
-                                        ) : null}
-                                    </S.TableBox>
-                                </S.StyledTd>
-                            </tr>
-                        ))}
-                    </tbody>
-                </S.MainTable>
+                                        <S.TableBox>
+                                            {item.open === true ? (
+                                                <S.StateBtn isOpen={true}>
+                                                    열람 완료
+                                                </S.StateBtn>
+                                            ) : null}
+                                        </S.TableBox>
+                                    </S.StyledTd>
+                                </tr>
+                            ))}
+                    </S.MainTable>
+                </S.Content>
+                <Pagination
+                    total={Data.length}
+                    limit={limit}
+                    page={page}
+                    setPage={setPage}
+                />
             </S.GlobalBox>
         </div>
     );
