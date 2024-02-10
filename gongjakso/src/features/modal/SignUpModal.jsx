@@ -1,5 +1,5 @@
 // SignUpModal.js
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './Modal.Styled';
 import { useForm } from 'react-hook-form';
@@ -21,6 +21,19 @@ const SignUpModal = ({ closeModal1 }) => {
         mode: 'onSubmit',
     });
 
+    useEffect(() => {
+        document.body.style.cssText = `
+          position: fixed; 
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+        return () => {
+          const scrollY = document.body.style.top;
+          document.body.style.cssText = '';
+          window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
+      }, []);
+      
     const status_options = [
         '대학 재학 중',
         '대학 휴학 중',
@@ -85,12 +98,6 @@ const SignUpModal = ({ closeModal1 }) => {
                 </S.BoxContainer>
 
                 <S.ButtonBox>
-                    <S.BlueButton
-                        isDelete={true}
-                        onClick={() => handleModalDeleteClick()}
-                    >
-                        취소
-                    </S.BlueButton>
                     <S.BlueButton onClick={() => handleModalClick('/')}>
                         완료
                     </S.BlueButton>

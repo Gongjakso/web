@@ -30,8 +30,7 @@ export const Container = styled.div`
     background: white;
     border-radius: 32px;
     flex-direction: column;
-    padding: 20px 0;
-    gap: 20px;
+    padding: 70px 0;
 `;
 
 export const ModalBg = styled.div`
@@ -46,11 +45,11 @@ export const ModalBg = styled.div`
 `;
 
 export const Image = styled.div`
-    width: 350px;
-    height: 350px;
-    padding: 50px;
-    align-items: center;
+    width: 340px;
+    height: 340px;
+    padding: 200px;
     display: flex;
+    align-items: center;
     justify-content: center;
     background: url(${loginmodalimg});
     background-size: contain;
@@ -59,11 +58,11 @@ export const Image = styled.div`
 
 export const Title = styled.div`
     color: black;
-    font-size: 35px;
+    font-family: 'PreBold';
+    padding: 5px;
+    font-size: ${({ theme }) => theme.fontSize.xxlg};
     text-align: center;
     display: flex;
-    padding: 5px;
-    font-weight: bold;
 `;
 
 export const ButtonBox = styled.div`
@@ -71,36 +70,34 @@ export const ButtonBox = styled.div`
     flex-direction: row;
     width: 100%;
     max-width: 800px;
-    height: 230px;
+    height: 90px;
     justify-content: center;
     align-items: center;
-    margin-bottom: 10px;
 `;
 
 export const GreyButton = styled.button`
-    background: #d9d9d9;
+    background: ${({ theme }) => theme.Grey};
     color: black;
-    width: 360px;
-    font-weight: 700;
-    height: 80px;
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px;
+    width: 50%;
+    height: 100%;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.l};
+    border-radius: 15px;
     text-align: center;
-    font-size: 25px;
+    padding: 10px ; 
+    margin: 10px;
 `;
 
 export const BlueButton = styled.button`
-    background: ${props =>
-        props.isDelete ? props.theme.Grey : props.theme.Main1};
+    background: ${({ theme }) => theme.Main1};
     color: white;
-    border-radius: 10px;
-    font-size: 25px;
-    width: 40%;
-    font-weight: 700;
-    height: 40%;
+    border-radius: 15px;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.l};
+    width: 50%;
+    height: 100%;
     text-align: center;
-    padding: 10px;
+    padding:10px;
     margin: 10px;
 `;
 
@@ -108,7 +105,7 @@ export const BoxContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    height: 90%;
     justify-content: center;
     align-items: center;
 `;
@@ -125,6 +122,6 @@ export const Box = styled.div`
 `;
 
 export const BoxInfo = styled.div`
-    font-size: 22px;
+    font-size: ${({ theme }) => theme.fontSize.l};
     padding: 25px;
 `;
