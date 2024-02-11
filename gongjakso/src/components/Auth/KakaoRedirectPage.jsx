@@ -1,35 +1,24 @@
+import { getToken } from '../../service/auth_service';
+import { useEffect } from 'react';
 import * as S from './KakaoRedirectPage.Styled';
-import { useEffect } from "react";
+import useCustomNavigate from '../../hooks/useNavigate';
 
 function KakaoRedirectPage() {
-  // 1. 인가코드
-  const code = new URL(window.location.href).searchParams.get("code");
-  // 2. access Token 요청
-  const getToken = async (code: string) => {
-    const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
-    const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
-
-    const response = await fetch(`https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${KAKAO_REST_API_KEY}&redirect_uri=${KAKAO_REDIRECT_URI}&code=${code}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-      },
+    const goToPage = useCustomNavigate();
+    // 1. access Token 요청
+    const search = new URLSearchParams(window.location.search);
+    const code = search.get('code');
+    useEffect(() => {
+        getToken(code)
+            .then(result => {
+                localStorage.setItem('accessToken', result.accessToken);
+                goToPage('/');
+            })
+            .catch(error => {
+                console.error('Error occurred while getting token:', error);
+            });
     });
-    return response.json();
-  }
-
-  useEffect(() => {
-    if (code) {
-      getToken(code).then((res) => {
-        console.log(res.access_token);
-      })
-    }
-  }, []);
-
-  return <S.Container>
-    <S.Spinner />
-  </S.Container>
-
+    return;
 }
 
 export default KakaoRedirectPage;
