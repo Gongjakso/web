@@ -35,7 +35,7 @@ export const TitleBox = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    width: 70%;
+    width: 800px;
 `;
 
 // 타이틀
@@ -54,8 +54,9 @@ export const Title = styled.div`
 // 타이틀 옆 스크랩 횟수 표시 박스
 export const ScrapNum = styled.div`
     display: flex;
-    padding: 6px 20px;
-    width: 17%;
+    padding: 7px 10px;
+    text-align: center;
+    width: 180px;
     background: none;
     border: 3px solid ${({ theme }) => theme.Green};
     border-radius: 55px;
@@ -63,7 +64,7 @@ export const ScrapNum = styled.div`
     font-weight: bold;
     color: ${({ theme }) => theme.Green};
     img {
-        margin-right: 20px;
+        margin-right: 12px;
     }
 `;
 
@@ -124,7 +125,7 @@ export const OpenKakao = styled(TextDetail)`
 
 // 검은색 둥근 틀
 export const RoundForm = styled(Globalstyle)`
-    width: 20%;
+    width: 160px;
     padding: 12px;
     background: black;
     border-radius: 20px;
@@ -150,7 +151,7 @@ export const MainText = styled.p`
 
 // 스크랩하기 & 지원하기 버튼
 export const ScrapButton = styled.button`
-    width: 27%;
+    width: 290px;
     border-radius: 15px;
     margin: 15px;
     padding: 18px;

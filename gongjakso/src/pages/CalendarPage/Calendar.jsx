@@ -13,9 +13,10 @@ const Calendar = () => {
             <FullCalendar
                 defaultView="dayGridMonth"
                 plugins={[dayGridPlugin]}
-                titleFormat={{
-                    year: 'numeric',
-                    month: 'numeric',
+                titleFormat={function (date) {
+                    const year = date.date.year;
+                    const month = date.date.month + 1;
+                    return year + '.' + month;
                 }}
                 events={event}
                 headerToolbar={{

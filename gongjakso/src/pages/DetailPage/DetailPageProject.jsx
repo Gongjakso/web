@@ -25,13 +25,9 @@ const DetailPageProject = () => {
     const [completed, setCompleted] = useState(false);
 
     // 모달창 구분 목적
-    const [title] = useState(['프로젝트', '프로젝트공고']);
+    const [title] = useState(['프로젝트', 'project']);
 
-    const [meeting] = useState([
-        ['온라인', '오프라인'],
-        ['온라인'],
-        ['오프라인'],
-    ]);
+    const [meeting] = useState(['온라인', '오프라인']);
 
     return (
         <>
@@ -63,7 +59,7 @@ const DetailPageProject = () => {
                         </S.Title>
                         <S.ScrapNum>
                             <img src={ScrapNum} alt="scrap-num" />
-                            <p>{scrap}</p>
+                            스크랩 {scrap}회
                         </S.ScrapNum>
                     </S.TitleBox>
                     <S.TitleBottom>
@@ -110,9 +106,7 @@ const DetailPageProject = () => {
                         <S.TextBox>
                             <S.TextTitle>회의 방식</S.TextTitle>
                             <S.TextDetail>
-                                {meeting[0].map((item, i) => (
-                                    <S.RoundForm key={i}>{item}</S.RoundForm>
-                                ))}
+                                <S.RoundForm>{meeting[1]}</S.RoundForm>
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
