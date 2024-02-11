@@ -42,6 +42,7 @@ export const ModalBg = styled.div`
     right: 0;
     width: 100%;
     height: 100%;
+    z-index: 1000;
 `;
 
 export const Image = styled.div`
@@ -112,10 +113,12 @@ export const BoxContainer = styled.div`
 
 export const Box = styled.div`
     display: flex;
+    position: relative;
+    line-height: 25px;
     width: 100%;
     max-width: 800px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
     padding: 30px;
     font-size: 20px;
@@ -124,4 +127,26 @@ export const Box = styled.div`
 export const BoxInfo = styled.div`
     font-size: ${({ theme }) => theme.fontSize.l};
     padding: 25px;
+`;
+
+export const SelectInput = styled.select`
+    width: 480px;
+    height: 55px;
+    padding: 5px;
+    border: 1px solid #a3a3a3;
+    border-radius: 5px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+
+    background-color: white;
+    color: black;
+
+    option {
+        background-color: white;
+        color: black;
+    }
+
+    option:hover {
+        background-color: black;
+        color: white;
+    }
 `;

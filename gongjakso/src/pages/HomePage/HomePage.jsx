@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './HomePage.Styled';
 import useCustomNavigate from '../../hooks/useNavigate';
 import calendarImage from '../../assets/images/calendar.png';
 import Modal1 from '../../features/modal/LoginModal1';
 import Modal2 from '../../features/modal/LoginModal2';
+import SignUpModal from '../../features/modal/SignUpModal';
 import TopButton from '../../pages/HomePage/TopButton';
 import Banner from './Banner';
 
@@ -13,6 +14,8 @@ const HomePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(!!authenticated);
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
+    const [SignUpModalOpen, setSignUpModalOpen] = useState(false);
+    const [isFirstLogin, setIsFirstLogin] = useState(false);
     const [path, setPath] = useState();
     const goToPage = useCustomNavigate();
 
@@ -44,6 +47,27 @@ const HomePage = () => {
     const closeModal2 = () => {
         setModal2Open(false);
     };
+
+    const closeSignUpModal = () => {
+        setSignUpModalOpen(false);
+    };
+
+    useEffect(() => {
+        const storedFirstLogin = localStorage.getItem('firstLogin');
+        if (storedFirstLogin === null) {
+            setIsFirstLogin(true);
+        } else if (isLoggedIn) {
+            setSignUpModalOpen(false);
+        }
+    }, [isLoggedIn]);
+
+    useEffect(() => {
+        if (isFirstLogin && isLoggedIn) {
+            setSignUpModalOpen(true);
+            localStorage.setItem('firstLogin', 'false');
+        }
+    }, [isFirstLogin, isLoggedIn]);
+
 
     return (
         <>
@@ -194,6 +218,7 @@ const HomePage = () => {
                     </div>
                     <S.PortFolioimg />
                 </S.Container>
+                
             </S.HomeContent3>
             {modal1Open && (
                 <Modal1
@@ -202,6 +227,9 @@ const HomePage = () => {
                 />
             )}
             {modal2Open && <Modal2 goPath={path} closeModal2={closeModal2} />}
+            {SignUpModalOpen && (
+                    <SignUpModal closeSignUpModal={closeSignUpModal} />
+                )}
         </>
     );
 };
