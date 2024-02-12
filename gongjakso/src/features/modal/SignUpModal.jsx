@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './Modal.Styled';
 import { useForm } from 'react-hook-form';
-import { SelectInput } from '../../components/common/Input/Input'; // 드롭다운 컴포넌트 import
 import majorData from '../../utils/majorData.json'; // 전공 데이터 import
 import jobData from '../../utils/jobData.json' // 직무 데이터 import
 
@@ -41,7 +40,26 @@ const SignUpModal = ({ closeSignUpModal }) => {
         '기타',
     ];
 
+    const groupMajorData = data => {
+        return data.reduce((groups, item) => {
+            const group = groups[item.id] || [];
+            group.push(item.key);
+            groups[item.id] = group;
+            return groups;
+        }, {});
+    };
 
+    const groupJobData = data => {
+        return data.reduce((groups, item) => {
+            const group = groups[item.id] || [];
+            group.push(item.key);
+            groups[item.id] = group;
+            return groups;
+        }, {});
+    };
+
+    const groupedMajorData = useMemo(() => groupMajorData(majorData), []);
+    const groupedJobData = useMemo(() => groupJobData(jobData), []);
 
     return (
         <S.ModalBg>
@@ -52,34 +70,47 @@ const SignUpModal = ({ closeSignUpModal }) => {
                 </S.Title>
                 <S.BoxContainer>
                     <S.Box>
-                        <SelectInput
-                            label={'현재상태'}
-                            id={'status'}
-                            error={errors.status}
-                            placeholder="*현재 당신의 상태를 선택해주세요."
-                            selectOptions={status_options}
-                            register={register}
-                        />
+                        <S.SubTitle>현재 상태</S.SubTitle>
+                        <S.SelectField>
+                        <option value="" disabled selected> *현재 당신의 상태를 선택해주세요.</option>
+                        {status_options.map(status => (
+                                        <option key={status} value={status}>
+                                            {status}
+                                        </option>
+                                    ))}
+                        </S.SelectField>
                     </S.Box>
                     <S.Box>
-                        <SelectInput
-                            label={'전공'}
-                            id={'major'}
-                            error={errors.major}
-                            placeholder="*현재 전공하고 있는 분야를 선택해주세요."
-                            selectOptions={majorData.map(item => item.key)}
-                            register={register}
-                        />
+                    <S.SubTitle>전공</S.SubTitle>
+                    <S.SelectField>
+                    <option value="" disabled selected> *현재 전공하고 있는 분야를 선택해주세요.</option>
+                        {Object.entries(groupedMajorData).map(
+                            ([group, majors]) => (
+                                <optgroup key={group} label={group}>
+                                    {majors.map(major => (
+                                        <option key={major} value={major}>
+                                            {major}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                            ),
+                        )}
+                    </S.SelectField>
                     </S.Box>
                     <S.Box>
-                        <SelectInput
-                            label={'희망 직무'}
-                            id={'job'}
-                            error={errors.job}
-                            placeholder="*희망하시는 직무를 선택해주세요."
-                            selectOptions={jobData.map(item => item.key)}
-                            register={register}
-                        />
+                    <S.SubTitle>희망 직무</S.SubTitle>
+                    <S.SelectField>
+                    <option value="" disabled selected> *희망하시는 직무를 선택해주세요.</option>
+                        {Object.entries(groupedJobData).map(([group, jobs]) => (
+                            <optgroup key={group} label={group}>
+                                {jobs.map(job => (
+                                    <option key={job} value={job}>
+                                        {job}
+                                    </option>
+                                ))}
+                            </optgroup>
+                        ))}
+                    </S.SelectField>
                     </S.Box>
                 </S.BoxContainer>
 

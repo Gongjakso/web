@@ -116,27 +116,27 @@ export const Box = styled.div`
     position: relative;
     line-height: 25px;
     width: 100%;
-    max-width: 800px;
-    align-items: center;
-    justify-content: center;
+    max-width: 700px;
+    justify-content: space-between;
+    align-items: baseline;
     flex-direction: row;
     padding: 30px;
-    font-size: 20px;
 `;
 
-export const BoxInfo = styled.div`
+export const SubTitle = styled.p`
     font-size: ${({ theme }) => theme.fontSize.l};
-    padding: 25px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
 `;
 
-export const SelectInput = styled.select`
+export const SelectField = styled.select`
     width: 480px;
     height: 55px;
-    padding: 5px;
     border: 1px solid #a3a3a3;
     border-radius: 5px;
     font-size: ${({ theme }) => theme.fontSize.md};
-
+    padding: 10px;
     background-color: white;
     color: black;
 
