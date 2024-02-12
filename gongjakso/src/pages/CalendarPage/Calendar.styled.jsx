@@ -26,11 +26,14 @@ export const FullCalendarContainer = styled.div`
 
     .fc .fc-toolbar.fc-header-toolbar {
         margin-bottom: 100px;
-        margin-left: 60px;
         height: 80px;
         font-weight: bold;
         font-size: ${({ theme }) => theme.fontSize.lg};
         letter-spacing: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
     }
 
     .fc .fc-button-primary {
@@ -69,28 +72,6 @@ export const FullCalendarContainer = styled.div`
         font-family: 'PreRegular';
         font-size: ${({ theme }) => theme.fontSize.md};
         border: none;
-    }
-
-    .fc .fc-toolbar.fc-header-toolbar .fc-prev-button {
-        position: relative;
-        left: 360px;
-    }
-
-    .fc .fc-toolbar.fc-header-toolbar .fc-next-button {
-        position: relative;
-        right: 365px;
-        top: 2px;
-    }
-
-    .fc .fc-toolbar.fc-header-toolbar .fc-today-button {
-        padding: 8px;
-        border-radius: 10px;
-        position: relative;
-        top: 100px;
-        background-color: #aaaaaa59;
-        color: rgb(106, 106, 106);
-        font-size: ${({ theme }) => theme.fontSize.lg};
-        border: 2px solid #aaaaaa;
     }
 
     .fc .fc-daygrid-day {
