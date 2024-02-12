@@ -201,7 +201,7 @@ export const HomeContent2 = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    weight: 100%;
+    width: 100%;
     height: 100vh;
     background-color: black;
 `;
@@ -218,7 +218,7 @@ export const HomeContent3 = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    weight: 100%;
+    width: 100%;
     height: 100vh;
     background-color: white;
 `;
