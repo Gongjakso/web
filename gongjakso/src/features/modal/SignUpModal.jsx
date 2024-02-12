@@ -1,18 +1,17 @@
-// SignUpModal.js
-import React, { useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './Modal.Styled';
 import { useForm } from 'react-hook-form';
-import { SelectInput } from '../../components/common/Input/Input';
-const SignUpModal = ({ closeModal1 }) => {
+import majorData from '../../utils/majorData.json'; // 전공 데이터 import
+import jobData from '../../utils/jobData.json' // 직무 데이터 import
+
+const SignUpModal = ({ closeSignUpModal }) => {
     const navigate1 = useNavigate();
     const handleModalClick = path => {
-        closeModal1();
+        closeSignUpModal();
         navigate1(path);
     };
-    const handleModalDeleteClick = path => {
-        closeModal1();
-    };
+
     const {
         register,
         setError,
@@ -21,20 +20,47 @@ const SignUpModal = ({ closeModal1 }) => {
         mode: 'onSubmit',
     });
 
+    useEffect(() => {
+        document.body.style.cssText = `
+          position: fixed; 
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+        return () => {
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
+    }, []);
+
     const status_options = [
         '대학 재학 중',
         '대학 휴학 중',
         '취업 준비 중',
         '기타',
     ];
-    const major_options = ['인문 사회 계열', '공학 계열', '예체능 계열'];
-    const job_options = [
-        '기획/전략',
-        '마케팅/홍보',
-        'IT 개발',
-        '디자인',
-        '미디어/문화',
-    ];
+
+    const groupMajorData = data => {
+        return data.reduce((groups, item) => {
+            const group = groups[item.id] || [];
+            group.push(item.key);
+            groups[item.id] = group;
+            return groups;
+        }, {});
+    };
+
+    const groupJobData = data => {
+        return data.reduce((groups, item) => {
+            const group = groups[item.id] || [];
+            group.push(item.key);
+            groups[item.id] = group;
+            return groups;
+        }, {});
+    };
+
+    const groupedMajorData = useMemo(() => groupMajorData(majorData), []);
+    const groupedJobData = useMemo(() => groupJobData(jobData), []);
+
     return (
         <S.ModalBg>
             <S.Container>
@@ -44,53 +70,51 @@ const SignUpModal = ({ closeModal1 }) => {
                 </S.Title>
                 <S.BoxContainer>
                     <S.Box>
-                        <SelectInput
-                            label={'현재상태'}
-                            id={'productName'}
-                            error={errors.productName}
-                            placeholder="*현재 당신의 상태를 선택해주세요."
-                            selectOptions={status_options}
-                            register={register}
-                            registerOptions={{
-                                required: '상품명을 입력하세요.',
-                            }}
-                        />
+                        <S.SubTitle>현재 상태</S.SubTitle>
+                        <S.SelectField>
+                        <option value="" disabled selected> *현재 당신의 상태를 선택해주세요.</option>
+                        {status_options.map(status => (
+                                        <option key={status} value={status}>
+                                            {status}
+                                        </option>
+                                    ))}
+                        </S.SelectField>
                     </S.Box>
                     <S.Box>
-                        <SelectInput
-                            label={'전공'}
-                            id={'productName'}
-                            error={errors.productName}
-                            placeholder="*현재 전공하고 있는 분야를 선택해주세요."
-                            selectOptions={major_options}
-                            register={register}
-                            registerOptions={{
-                                required: '상품명을 입력하세요.',
-                            }}
-                        />
+                    <S.SubTitle>전공</S.SubTitle>
+                    <S.SelectField>
+                    <option value="" disabled selected> *현재 전공하고 있는 분야를 선택해주세요.</option>
+                        {Object.entries(groupedMajorData).map(
+                            ([group, majors]) => (
+                                <optgroup key={group} label={group}>
+                                    {majors.map(major => (
+                                        <option key={major} value={major}>
+                                            {major}
+                                        </option>
+                                    ))}
+                                </optgroup>
+                            ),
+                        )}
+                    </S.SelectField>
                     </S.Box>
                     <S.Box>
-                        <SelectInput
-                            label={'희망 직무'}
-                            id={'productName'}
-                            error={errors.productName}
-                            placeholder="*희망하시는 직무를 선택해주세요."
-                            selectOptions={job_options}
-                            register={register}
-                            registerOptions={{
-                                required: '상품명을 입력하세요.',
-                            }}
-                        />
+                    <S.SubTitle>희망 직무</S.SubTitle>
+                    <S.SelectField>
+                    <option value="" disabled selected> *희망하시는 직무를 선택해주세요.</option>
+                        {Object.entries(groupedJobData).map(([group, jobs]) => (
+                            <optgroup key={group} label={group}>
+                                {jobs.map(job => (
+                                    <option key={job} value={job}>
+                                        {job}
+                                    </option>
+                                ))}
+                            </optgroup>
+                        ))}
+                    </S.SelectField>
                     </S.Box>
                 </S.BoxContainer>
 
                 <S.ButtonBox>
-                    <S.BlueButton
-                        isDelete={true}
-                        onClick={() => handleModalDeleteClick()}
-                    >
-                        취소
-                    </S.BlueButton>
                     <S.BlueButton onClick={() => handleModalClick('/')}>
                         완료
                     </S.BlueButton>
