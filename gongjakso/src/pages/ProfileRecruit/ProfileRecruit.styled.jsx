@@ -133,13 +133,13 @@ export const TagP = styled.p`
     justify-content: center;
     ${props =>
         props.isleft
-            ? 'border-right: 0.5px solid black'
-            : 'border-left: 0.5px solid black'}
+            ? 'border-right: 0.5px solid #aaaaaa'
+            : 'border-left: 0.5px solid #aaaaaa'}
 `;
 
 export const StyledTh = styled.th`
     min-height: 60px;
-    border: 1px solid ${props => props.theme.Border};
+    border: 1px solid #aaaaaa;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -149,9 +149,9 @@ export const StyledTh = styled.th`
 
 export const StyledTd = styled.td`
     min-height: 60px;
-    border-bottom: 1px solid ${props => props.theme.Border};
-    border-left: 1px solid ${props => props.theme.Border};
-    border-right: 1px solid ${props => props.theme.Border};
+    border-bottom: 1px solid #aaaaaa;
+    border-left: 1px solid #aaaaaa;
+    border-right: 1px solid #aaaaaa;
     display: flex;
     flex-direction: row;
     justify-content: space-between;

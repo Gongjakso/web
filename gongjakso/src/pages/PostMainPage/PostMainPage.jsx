@@ -12,6 +12,8 @@ import {
     getProjectBanner,
 } from '../../service/banner_service';
 
+import Multilevel from '../../components/common/Input/Multilevel';
+
 const PostMainPage = () => {
     const location = useLocation();
 
@@ -87,6 +89,9 @@ const PostMainPage = () => {
                             register={register}
                         />
                     </S.Fillter1>
+
+                    <Multilevel />
+
                     <S.Fillter1>
                         <SelectInput
                             id={'local'}

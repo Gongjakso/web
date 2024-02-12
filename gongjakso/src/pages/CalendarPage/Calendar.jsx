@@ -22,7 +22,7 @@ const Calendar = () => {
                 headerToolbar={{
                     left: 'prev',
                     center: 'title',
-                    right: 'next today',
+                    right: 'next',
                 }}
             />
         </S.FullCalendarContainer>
