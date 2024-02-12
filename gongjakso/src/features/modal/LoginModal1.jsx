@@ -1,18 +1,21 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import * as S from './Modal.Styled';
+import useCustomNavigate from '../../hooks/useNavigate';
 
 const Modal1 = ({ closeModal1 }) => {
-    const navigate1 = useNavigate();
+    const handleCloseClick = () => {
+        closeModal1();
+    };
+    const navigate1 = useCustomNavigate();
     const handleModalClick = path => {
         closeModal1();
-        navigate1(path);
+        navigate1(`/${path}`);
     };
 
     return (
         <S.ModalBg>
             <S.Container>
-                <S.CloseButton onClick={closeModal1} />
+                <S.CloseButton onClick={handleCloseClick} />
                 <S.Title>공작소에 로그인 후</S.Title>
                 <S.Title>무한한 기회를 창출해보세요!</S.Title>
 

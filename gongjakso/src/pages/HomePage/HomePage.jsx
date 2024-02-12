@@ -8,11 +8,13 @@ import TopButton from '../../pages/HomePage/TopButton';
 import Banner from './Banner';
 
 const HomePage = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const authenticated = localStorage.getItem('accessToken');
+
+    const [isLoggedIn, setIsLoggedIn] = useState(!!authenticated);
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [path, setPath] = useState();
-    const { goToPage } = useCustomNavigate();
+    const goToPage = useCustomNavigate();
 
     const handleButtonClick = path => {
         if (isLoggedIn) {
@@ -112,7 +114,7 @@ const HomePage = () => {
                         </S.TeamImage>
                     </S.ImageBox>
                 </S.Wrapper>
-                <S.Button1 onClick={() => handleButtonClick('/teambuilding')}>
+                <S.Button1 onClick={() => handleButtonClick('/teambuild')}>
                     팀빌딩 바로가기
                 </S.Button1>
             </S.HomeContent1>
@@ -192,16 +194,14 @@ const HomePage = () => {
                     </div>
                     <S.PortFolioimg />
                 </S.Container>
-                {modal1Open && (
-                    <Modal1
-                        closeModal1={closeModal1}
-                        setIsLoggedIn={setIsLoggedIn}
-                    />
-                )}
-                {modal2Open && (
-                    <Modal2 goPath={path} closeModal2={closeModal2} />
-                )}
             </S.HomeContent3>
+            {modal1Open && (
+                <Modal1
+                    closeModal1={closeModal1}
+                    setIsLoggedIn={setIsLoggedIn}
+                />
+            )}
+            {modal2Open && <Modal2 goPath={path} closeModal2={closeModal2} />}
         </>
     );
 };
