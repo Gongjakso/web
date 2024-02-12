@@ -6,6 +6,11 @@ import * as S from './PostMainPage.Styled';
 import SwiperBanner from '../../components/SwiperBanner/SwiperBanner';
 import Pagination from '../../components/Pagination/Pagination';
 import { SelectInput } from '../../components/common/Input/Input';
+import {
+    getContestBanner,
+    getMainBanner,
+    getProjectBanner,
+} from '../../service/banner_service';
 
 const PostMainPage = () => {
     const location = useLocation();
@@ -51,6 +56,8 @@ const PostMainPage = () => {
         fetch('https://jsonplaceholder.typicode.com/posts')
             .then(res => res.json())
             .then(data => setPosts(data));
+        getProjectBanner().then(res => console.log(res.data));
+        getContestBanner().then(res => console.log(res.data));
     }, []);
 
     return (
