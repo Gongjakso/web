@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from './ParticipatedTeamStyled';
 import TeamBox from '../TeamBox/TeamBox';
-import TopButton from '../../pages/HomePage/TopButton';
+import Pagination from '../../components/Pagination/Pagination';
 
 const TeamPart = () => {
+    const [limit, setLimit] = useState(6);
+    const [page, setPage] = useState(1);
+
+    const offset = (page - 1) * limit;
     return (
         <div>
             <S.TopBox>
@@ -22,6 +26,12 @@ const TeamPart = () => {
                     borderColor="#6F6F6F"
                     showWaitingJoin={false}
                     showSubBox={false}
+                />
+                <Pagination
+                    total={13}
+                    limit={limit}
+                    page={page}
+                    setPage={setPage}
                 />
             </S.BoxDetail>
         </div>
