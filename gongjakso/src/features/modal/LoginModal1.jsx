@@ -10,7 +10,7 @@ const Modal1 = ({ closeModal1 }) => {
     const navigate1 = useCustomNavigate();
     const handleModalClick = path => {
         closeModal1();
-        navigate1(`/${path}`);
+        navigate1(path);
     };
 
     useEffect(() => {
