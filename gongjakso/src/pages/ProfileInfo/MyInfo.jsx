@@ -1,8 +1,9 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import * as S from './MyInfoStyled';
 import majorData from '../../utils/majorData.json';
 import jobData from '../../utils/jobData.json';
 import axios from 'axios';
+import { putMyInfo } from '../../service/profile_service';
 
 const groupMajorData = data => {
     return data.reduce((groups, item) => {
@@ -32,40 +33,23 @@ const MyInfo = () => {
     const [job, setJob] = useState('');
     const [userInfo, setUserInfo] = useState(null);
 
-    const saveInfo = async () => {
-        const baseURL = 'http://43.200.78.94:8080/';
-
-        try {
-            const response = await axios.put(`${baseURL}api/v1/member`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${accessToken}`,
-                },
-                body: {
-                    name,
-                    status,
-                    major,
-                    job,
-                },
-            });
-            if (response.status === 200) {
-                const userInfo = response.data;
-                console.log(userInfo);
-                setUserInfo(userInfo);
-            } else {
-                console.log('서버로부터의 응답이 예상과 다릅니다.', response);
-            }
-        } catch (error) {
-            console.error('서버 요청 중 오류가 발생했습니다: ', error);
-        }
-    };
-
     const status_options = [
         '대학 재학 중',
         '대학 휴학 중',
         '취업 준비 중',
         '기타',
     ];
+
+    const myInfoData = {
+        name: name,
+        status: status,
+        major: major,
+        job: job,
+    };
+
+    const handleProfileClick = () => {
+        putMyInfo(myInfoData).then(res => console.log(res.data));
+    };
 
     return (
         <S.Div>
@@ -135,7 +119,7 @@ const MyInfo = () => {
                 </S.DetailBox>
             </S.Formset>
             <S.Wrapper>
-                <S.SetBox onClick={saveInfo}>정보 저장하기</S.SetBox>
+                <S.SetBox onClick={handleProfileClick}>정보 저장하기</S.SetBox>
             </S.Wrapper>
         </S.Div>
     );
