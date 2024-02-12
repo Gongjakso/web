@@ -68,7 +68,6 @@ const HomePage = () => {
         }
     }, [isFirstLogin, isLoggedIn]);
 
-
     return (
         <>
             <TopButton />
@@ -211,14 +210,13 @@ const HomePage = () => {
 
                         <S.Button3
                             style={{ marginTop: '70px' }}
-                            onClick={() => handleButtonClick('/mail')}
+                            onClick={() => handleButtonClick('/teamPortfolio')}
                         >
                             출시 메일 받으러 가기
                         </S.Button3>
                     </div>
                     <S.PortFolioimg />
                 </S.Container>
-                
             </S.HomeContent3>
             {modal1Open && (
                 <Modal1
@@ -228,8 +226,8 @@ const HomePage = () => {
             )}
             {modal2Open && <Modal2 goPath={path} closeModal2={closeModal2} />}
             {SignUpModalOpen && (
-                    <SignUpModal closeSignUpModal={closeSignUpModal} />
-                )}
+                <SignUpModal closeSignUpModal={closeSignUpModal} />
+            )}
         </>
     );
 };
