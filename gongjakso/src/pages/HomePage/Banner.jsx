@@ -1,18 +1,17 @@
 import react, { useEffect, useState } from 'react';
 import * as S from './Banner.Styled';
+import { getMainBanner } from '../../service/banner_service';
 
 const Banner = () => {
-    const slides = [
-        { color: '#3292ff', target: '#' },
-        { color: '#53b7f1', target: '#' },
-        { color: '#7cd0ff', target: '#' },
-        { color: '#a1d8f8', target: '#' },
-        { color: '#c3e9ff', target: '#' },
-    ];
-
     const [animate, setAnimate] = useState(true);
     const onStop = () => setAnimate(false);
     const onRun = () => setAnimate(true);
+    const [slides, setSlides] = useState([]);
+    useEffect(() => {
+        getMainBanner().then(res => {
+            setSlides(res.data);
+        });
+    });
 
     return (
         <S.Wrapper>
@@ -21,16 +20,16 @@ const Banner = () => {
                     <S.Slide
                         className={`slide original ${animate ? '' : 'stop'}`}
                     >
-                        {slides.map((s, i) => (
+                        {slides.map((img, i) => (
                             <S.ListItem key={i}>
-                                <S.Item className="item" color={s.color} />
+                                <img src={img.imageUrl} alt="" />
                             </S.ListItem>
                         ))}
                     </S.Slide>
                     <S.Slide className={`slide clone ${animate ? '' : 'stop'}`}>
-                        {slides.map((s, i) => (
+                        {slides.map((img, i) => (
                             <S.ListItem key={i}>
-                                <S.Item className="item" color={s.color} />
+                                <img src={img.imageUrl} alt="" />
                             </S.ListItem>
                         ))}
                     </S.Slide>

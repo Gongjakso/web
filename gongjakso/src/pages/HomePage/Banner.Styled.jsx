@@ -69,10 +69,3 @@ export const ListItem = styled.li`
         transform: scale(0.98); //마우스 오버 시 살짝 줄어들게
     }
 `;
-
-export const Item = styled.div`
-    width: 300px;
-    height: 350px;
-    border-radius: 10px;
-    background-color: ${props => props.color};
-`;

@@ -227,7 +227,7 @@ export const WhiteBox = styled.div`
     background-color: white;
     width: 600px;
     height: 450px;
-    margin: 20px;
+    margin: 10px;
     border-radius: 50px;
     overflow: hidden;
 `;
@@ -236,7 +236,8 @@ export const Image = styled.img`
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     object-fit: contain;
 `;
 
