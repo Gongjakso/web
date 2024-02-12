@@ -1,13 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
 
 const ProfilePage = () => {
+    const [name, setName] = useState('');
+    const [major, setMajor] = useState('');
+
+    useEffect(() => {
+        const savedInfo = localStorage.getItem('myInfoData');
+
+        if (savedInfo) {
+            const parsedInfo = JSON.parse(savedInfo);
+            setName(parsedInfo.name);
+            setMajor(parsedInfo.major);
+            setUserInfo({
+                name: parsedInfo.name,
+                major: parsedInfo.major,
+            });
+        }
+    }, []);
+
     const [userInfo, setUserInfo] = useState({
-        name: '최수빈',
-        major: '공학계열/컴퓨터공학',
-        desiredJob: '',
+        name: name,
+        major: major,
     });
 
     return (
