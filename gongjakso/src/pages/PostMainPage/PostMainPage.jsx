@@ -82,7 +82,7 @@ const PostMainPage = () => {
                     </S.SearchBar>
                 </S.Search>
                 <S.Fillterbox>
-                    <S.Fillter1>
+                    {/* <S.Fillter1>
                         <SelectInput
                             id={'local'}
                             error={errors.local}
@@ -90,7 +90,7 @@ const PostMainPage = () => {
                             placeholder={'지역'}
                             register={register}
                         />
-                    </S.Fillter1>
+                    </S.Fillter1> */}
 
                     <Multilevel />
 
