@@ -4696,6 +4696,11 @@ clone-response@^1.0.2:
   dependencies:
     mimic-response "^1.0.0"
 
+clsx@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.npmjs.org/co/-/co-4.6.0.tgz"
@@ -12506,6 +12511,13 @@ react-multilevel-dropdown@^4.0.0:
   integrity sha512-0bAIwwyZLEc3tawRvHyo0J75UgtmZYiOayiwwofB3PfBsj8+lRoZXL1zLPpHSGTwBjaGFPgOWOEY0EMNZdmQUA==
   dependencies:
     react-style-classes "^2.0.2"
+
+react-nested-dropdown@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.npmjs.org/react-nested-dropdown/-/react-nested-dropdown-0.0.12.tgz"
+  integrity sha512-pKv9mCtkqoSiNCO64X0zv88fEci+M+XihFXopSxZfVbfS2JNTgIS6KzvdvM/2hM1/vfKT3X5EbfiJL4N3Vyx9g==
+  dependencies:
+    clsx "^1.2.1"
 
 react-onclickoutside@^6.13.0:
   version "6.13.0"
