@@ -59,10 +59,8 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
                 onClick={() => {
                     setActive(type);
                     if (['profile', 'teambuild', 'calendar'].includes(type)) {
-                        console.log('Profile, TeamBuild, Calendar', type);
                         handleProfileClick();
                     } else if (['project', 'contest'].includes(type)) {
-                        console.log('Notice', type);
                         setPath(type);
                         handlePostingClick();
                     } else {
