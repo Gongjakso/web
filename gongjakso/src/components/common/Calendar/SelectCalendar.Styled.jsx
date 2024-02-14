@@ -4,6 +4,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+    z-index: 9999;
 `;
 
 export const DateContent = styled.div`
@@ -29,6 +30,7 @@ export const DateSelect = styled.div`
     border: 1px solid ${({ theme }) => theme.subFont};
     border-radius: 15px;
     padding: 15px 0;
+    background-color: white;
 `;
 
 export const ButtonContent = styled.div`
