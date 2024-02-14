@@ -48,8 +48,6 @@ const ProfileRecruit = () => {
         }
     };
 
-    console.log(Data.length);
-
     return (
         <div>
             {finish ? (
