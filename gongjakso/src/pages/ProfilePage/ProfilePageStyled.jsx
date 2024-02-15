@@ -56,6 +56,8 @@ export const SubTitle = styled.p`
 export const ProfileImage = styled(My_page_big)`
     width: 200px;
     transform: translateY(50%);
+    display: flex;
+    justify-content: center;
 `;
 
 export const EditImage = styled(Edit)`

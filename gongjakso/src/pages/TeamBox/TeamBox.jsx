@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // useState 추가
+import React, { useState } from 'react';
 import * as S from '../TeamBox/TeamBoxStyled';
 import { Link } from 'react-router-dom';
 
@@ -9,41 +9,47 @@ const TeamBox = ({
     showSubBox,
     postContent,
 }) => {
-    //const partNames = ['기획', '디자인', '프론트엔드', '백엔드', '기타'];
-
-    const [title, setTitle] = useState('');
-    const [name, setName] = useState('');
-    const [startDate, setstartDate] = useState('');
-    const [endDate, setendDate] = useState('');
-    const [deadline, setDeadline] = useState('');
-    const [scrapnum, setScrapnum] = useState('');
-
     const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 
-    //console.log(postContent?.title);
+    //활동기간 형식 바꾸기
+    const startDate = new Date(postContent?.startDate)
+        .toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        })
+        .split('. ')
+        .join('.');
+
+    const endDate = new Date(postContent?.endDate)
+        .toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        })
+        .split('. ')
+        .join('.');
+
+    console.log(postContent);
 
     return (
-        <S.Box
-            borderColor={borderColor}
-            showMoreDetail={showMoreDetail}
-            deadline={postContent?.deadline === 0}
-        >
+        <S.Box borderColor={borderColor} showMoreDetail={showMoreDetail}>
             <S.BoxTopDetail>
                 <S.MainBox>
                     <S.Title>{postContent?.title}</S.Title>
                     <S.subTitle>
-                        | {postContent?.name} | 활동기간 정보 |
+                        | {postContent?.memberName} | {startDate}~{endDate} |
                     </S.subTitle>
                 </S.MainBox>
                 {showSubBox ? (
                     <S.SubBox>
                         <S.DeadLine>
                             <S.FireImage />
-                            마감 D-{postContent?.deadline}
+                            마감 D-{postContent?.daysRemaining}
                         </S.DeadLine>
                         <S.ScrapNum>
                             <S.UnScrapImage />
-                            스크랩 {postContent?.scrap}회
+                            스크랩 {postContent?.scrapCount}회
                         </S.ScrapNum>
                     </S.SubBox>
                 ) : (
@@ -52,8 +58,8 @@ const TeamBox = ({
             </S.BoxTopDetail>
             <S.BoxBottomDetail>
                 <S.MainBox>
-                    {postContent?.part.map((partName, index) => (
-                        <S.RoundForm key={index}>{partName}</S.RoundForm>
+                    {postContent?.categoryList.map((categoryList, index) => (
+                        <S.RoundForm key={index}>{categoryList}</S.RoundForm>
                     ))}
                 </S.MainBox>
                 {showWaitingJoin && <S.WaitingJoin>합류 대기중</S.WaitingJoin>}
@@ -64,7 +70,7 @@ const TeamBox = ({
                 </Link>
             )}
             {showWaitingJoin &&
-                postContent?.deadline === 0 &&
+                postContent?.daysRemaining === 0 &&
                 isOverlayVisible && (
                     <S.DeadlineOverlay>
                         모집이 연장되었습니다.

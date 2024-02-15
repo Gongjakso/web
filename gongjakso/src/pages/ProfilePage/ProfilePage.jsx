@@ -1,37 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
+import { getMyRecruiting } from '../../service/profile_service';
 
 const ProfilePage = () => {
     const [name, setName] = useState('');
     const [major, setMajor] = useState('');
-
-    const postContent1 = {
-        // 내가 모집중인 팀 데이터
-        title: '공작소 프로젝트',
-        name: '최수빈',
-        part: ['기획', '디자인', '프론트엔드', '백엔드', '기타'],
-        deadline: 13,
-        scrap: 30,
-        isState: 0,
-    };
-    const postContent2 = {
-        //내가 지원한 팀 데이터
-        title: '두번째 프로젝트',
-        name: '최혀진',
-        part: ['프론트엔드'],
-        deadline: 0,
-        scrap: 20,
-        isState: 0,
-    };
-    const postContent3 = {
-        //내가 참여한 팀 데이터
-        title: '공공 프로젝트',
-        name: '최혀진',
-        part: ['디자인'],
-        isState: 0,
-    };
+    const [data, setData] = useState(null);
+    const [userInfo, setUserInfo] = useState({
+        name: name,
+        major: major,
+    });
 
     useEffect(() => {
         const savedInfo = localStorage.getItem('myInfoData');
@@ -46,11 +26,44 @@ const ProfilePage = () => {
             });
         }
     }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await getMyRecruiting();
+                setData(response.data);
+                //console.log(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
-    const [userInfo, setUserInfo] = useState({
-        name: name,
-        major: major,
-    });
+    const postContent2 = {
+        //내가 지원한 팀 데이터
+        title: '두번째 프로젝트',
+        name: '최진',
+        categoryList: ['프론트엔드'],
+        daysRemaining: 2,
+        startDate: '2024-02-01T10:00:00',
+        endDate: '2024-02-25T10:00:00',
+        scrapCount: 20,
+        //0->공모전 1->프로젝트
+        isState: 1,
+    };
+    const postContent3 = {
+        //내가 참여한 팀 데이터
+        title: '공공 프로젝트',
+        name: '최혀진',
+        categoryList: ['디자인'],
+        startDate: '2024-02-01T10:00:00',
+        endDate: '2024-02-25T10:00:00',
+        status: 'RECRUITING',
+        isState: 0,
+    };
+
+    //내가 모집중인 팀 데이터
+    const postContent1 = data;
 
     return (
         <div>
@@ -80,7 +93,6 @@ const ProfilePage = () => {
                         postContent={postContent1}
                     />
                 </S.BoxDetail>
-
                 <S.BoxDetail>
                     <S.SubTitle>
                         <span>내가 지원한 팀</span>
@@ -92,14 +104,11 @@ const ProfilePage = () => {
                         showMoreDetail={false}
                         showWaitingJoin={true}
                         showSubBox={true}
-                        borderColor="rgba(0, 163, 255, 0.5)"
-                        postContent={postContent2}
-                    />
-                    <TeamBox
-                        showMoreDetail={false}
-                        showWaitingJoin={true}
-                        showSubBox={true}
-                        borderColor="rgba(231, 137, 255, 0.5)"
+                        borderColor={
+                            postContent2.isState === 0
+                                ? 'rgba(0, 163, 255, 0.5)'
+                                : 'rgba(231, 137, 255, 0.5)'
+                        }
                         postContent={postContent2}
                     />
                 </S.BoxDetail>
@@ -111,13 +120,6 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
-                    <TeamBox
-                        showMoreDetail={false}
-                        borderColor="#6F6F6F"
-                        showWaitingJoin={false}
-                        showSubBox={false}
-                        postContent={postContent3}
-                    />
                     <TeamBox
                         showMoreDetail={false}
                         borderColor="#6F6F6F"
