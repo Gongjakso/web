@@ -13,6 +13,7 @@ export const SearchBox = styled.div`
     font-size: ${({ theme }) => theme.fontSize.md};
     color: ${({ theme }) => theme.subFont};
     padding-left: 15px;
+    z-index: 9999;
 
     .rightDown {
         margin-left: 70px;
@@ -46,9 +47,10 @@ export const SelectQty = styled.div`
     position: absolute;
     display: ${props => (props.$isDisplay ? 'flex' : 'none')};
     flex-direction: column;
+    text-align: center;
     width: 350px;
-    height: 260px;
-    margin-top: 340px;
+    height: auto;
+    margin-top: 500px;
     padding: 20px;
     background-color: white;
     border: 1px solid ${({ theme }) => theme.borderline};

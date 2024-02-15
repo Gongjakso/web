@@ -16,7 +16,7 @@ const Input = props => {
     const isLabel = !!label;
     return (
         <>
-            <S.InputLabel isLabel={isLabel} htmlFor={id}>
+            <S.InputLabel $isLabel={isLabel} htmlFor={id}>
                 {label}
             </S.InputLabel>
             <S.InputText
