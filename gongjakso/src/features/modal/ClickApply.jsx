@@ -1,8 +1,23 @@
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
 import { Data, Fields, Skills } from '../../pages/ProfileRecruit/UserData';
+import { useEffect } from 'react';
 
 const ClickApply = props => {
+    // 스크롤 방지
+    useEffect(() => {
+        document.body.style.cssText = `
+          position: fixed; 
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+        return () => {
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
+    }, []);
+
     return (
         <div>
             <S.Background>

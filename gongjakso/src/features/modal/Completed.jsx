@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useCustomNavigate from '../../hooks/useNavigate';
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
@@ -6,10 +6,24 @@ import Close from '../../assets/images/Close.svg';
 const Completed = props => {
     const navigate = useCustomNavigate();
 
+    // 스크롤 방지
+    useEffect(() => {
+        document.body.style.cssText = `
+          position: fixed; 
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+        return () => {
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
+    }, []);
+
     return (
         <div>
             <S.Background>
-                <S.Modal w="55%" h="40%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="55%" h="450px" bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
                             navigate('/' + props.title[1]);

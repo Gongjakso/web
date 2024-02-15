@@ -53,10 +53,11 @@ export const InsideBox = styled.div`
     padding: 30px;
     font-size: ${({ theme }) => theme.fontSize.lg};
     font-weight: bold;
+    justify-content: space-between;
 `;
 
 export const Border = styled(InsideBox)`
-    width: 30%;
+    width: 50%;
     border-right: 2px solid ${({ theme }) => theme.box1};
     border-radius: 15px;
     display: flex;
@@ -76,7 +77,7 @@ export const ButtonSet = styled.div`
     display: flex;
     flex-direction: row;
     padding: 15px;
-    gap: 10px;
+    gap: 20px;
 `;
 
 export const InsideTitle = styled.div`
@@ -87,7 +88,7 @@ export const InsideTitle = styled.div`
 `;
 
 export const TagNUM = styled.p`
-    margin: 0 10px;
+    margin: 0 25px;
 `;
 
 export const InsideDetail = styled.div`
@@ -100,7 +101,7 @@ export const GreyBtn = styled.button`
     width: 30%;
     background: ${({ theme }) => theme.Grey};
     text-align: center;
-    padding: 15px;
+    padding: 20px 15px;
     font-weight: bold;
     border-radius: 15px;
     font-size: ${({ theme }) => theme.fontSize.md};

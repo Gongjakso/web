@@ -184,6 +184,6 @@ export const CompletedBox = styled.div`
     text-align: center;
     font-size: ${({ theme }) => theme.fontSize.lg};
     font-weight: bold;
-    line-height: 33px;
+    line-height: 20px;
     gap: 20px;
 `;

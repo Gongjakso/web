@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
 
@@ -16,6 +16,20 @@ const ApplyModal = props => {
     const [inputCount, setInputCount] = useState(0); // 글자 수
 
     const [showWarning, setShowWarning] = useState(false); // 주의사항 여부
+
+    // 스크롤 방지
+    useEffect(() => {
+        document.body.style.cssText = `
+          position: fixed; 
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+        return () => {
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
+    }, []);
 
     // 폼 선택
     const handleClick = index => {
