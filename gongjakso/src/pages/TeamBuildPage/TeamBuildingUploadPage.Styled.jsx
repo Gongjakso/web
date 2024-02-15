@@ -18,6 +18,10 @@ export const Title = styled.div`
         font-weight: 100;
     }
 `;
+export const MiniTitle = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
 
 export const Label = styled.label`
     display: flex;
@@ -55,8 +59,8 @@ export const ClickBtn = styled.button`
     margin-right: 10px;
     border: 1px solid ${({ theme }) => theme.border};
     border-radius: 25px;
-    background-color: ${props => (props.isSelected ? 'black' : 'white')};
-    color: ${props => (props.isSelected ? 'white' : props.theme.borderline)};
+    background-color: ${props => (props.$isselected ? 'black' : 'white')};
+    color: ${props => (props.$isselected ? 'white' : props.theme.borderline)};
     font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
