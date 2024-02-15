@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './ProfileRecruit.styled';
-import { Data } from './UserData';
 import User from '../../assets/images/My_page_big.svg';
-import TopButton from '../HomePage/TopButton';
 import MyPageTeam from '../../features/modal/MyPageTeam';
 import ClickApply from '../../features/modal/ClickApply';
 import Pagination from '../../components/Pagination/Pagination';
+import { getApplyList, getRecruitTeam } from '../../service/apply_service';
 
 const ProfileRecruit = () => {
     const [showApply, setShowApply] = useState(false); // 지원서 모달창 띄우는 경우
@@ -20,16 +19,23 @@ const ProfileRecruit = () => {
 
     const [type] = useState(['공모전', '프로젝트']);
 
-    const [clickedIndex, setClickedIndex] = useState([]);
-
     const [teamCase] = useState([
         { case: '마감하기', id: '1' },
         { case: '연장하기', id: '2' },
         { case: '취소하기', id: '3' },
     ]);
 
-    const [posts, setPosts] = useState([...Data]);
-    const [limit, setLimit] = useState(10);
+    useEffect(() => {
+        getApplyList('2').then(res => {
+            setPosts(res.data);
+        }, []);
+        getRecruitTeam('2').then(res => {
+            setRecruitTeam(res.data);
+        }, []);
+    });
+
+    const [posts, setPosts] = useState([]);
+    const [limit, setLimit] = useState(11);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
 
@@ -46,6 +52,17 @@ const ProfileRecruit = () => {
         } else {
             console.log(`ID ${id}에 해당하는 데이터를 찾을 수 없습니다.`);
         }
+    };
+
+    const [recruitTeam, setRecruitTeam] = useState([]);
+
+    // 활동기간 수정 함수
+    const formatDate = dateString => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}.${month}.${day}`;
     };
 
     return (
@@ -67,8 +84,6 @@ const ProfileRecruit = () => {
                 />
             ) : null}
 
-            <TopButton />
-
             <S.TopBox>
                 <S.Title>내가 모집 중인 팀</S.Title>
             </S.TopBox>
@@ -76,18 +91,26 @@ const ProfileRecruit = () => {
                 <S.BlueBox>
                     <S.Border>
                         <S.DetailGlobal>
-                            <S.InsideTitle>사용자 설정명</S.InsideTitle>
+                            <S.InsideTitle>{recruitTeam.title}</S.InsideTitle>
                         </S.DetailGlobal>
                         <S.DetailGlobal>
-                            <S.InsideDetail>활동기간 | 날짜</S.InsideDetail>
-                            <S.InsideDetail>모집인원 | 인원 수</S.InsideDetail>
+                            <S.InsideDetail>
+                                활동기간 | {formatDate(recruitTeam.startDate)} ~{' '}
+                                {formatDate(recruitTeam.endDate)}
+                            </S.InsideDetail>
+                            <S.InsideDetail>
+                                모집인원 | {recruitTeam.max_person}
+                            </S.InsideDetail>
                         </S.DetailGlobal>
                     </S.Border>
                     <S.InsideBox>
                         <S.DetailGlobal>
                             <S.InsideTitle>
                                 현재 모집 현황
-                                <S.TagNUM>4/6</S.TagNUM>
+                                <S.TagNUM>
+                                    {recruitTeam.current_person}/
+                                    {recruitTeam.max_person}
+                                </S.TagNUM>
                             </S.InsideTitle>
                         </S.DetailGlobal>
                         <S.ButtonSet>
@@ -123,8 +146,8 @@ const ProfileRecruit = () => {
                             <S.TagP isleft={true}>지원자명</S.TagP>
                             <S.TagP isleft={false}>현재상태</S.TagP>
                         </S.StyledTh>
-                        {posts
-                            .slice(offset, offset + limit)
+                        {posts?.applyLists
+                            ?.slice(offset, offset + limit)
                             .map((item, i, array) => (
                                 <tr key={item.id}>
                                     <S.StyledTd
@@ -163,7 +186,7 @@ const ProfileRecruit = () => {
                     </S.MainTable>
                 </S.Content>
                 <Pagination
-                    total={Data.length}
+                    total={11}
                     limit={limit}
                     page={page}
                     setPage={setPage}
