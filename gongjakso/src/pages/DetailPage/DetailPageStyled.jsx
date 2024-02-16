@@ -88,7 +88,7 @@ export const BlueBox = styled.div`
 // 박스 안 텍스트 박스 전체 틀
 export const TextBox = styled.div`
     width: 100%;
-    padding: 20px;
+    padding: 20px 1px 20px 20px;
     display: flex;
 `;
 
@@ -126,9 +126,9 @@ export const OpenKakao = styled(TextDetail)`
 // 검은색 둥근 틀
 export const RoundForm = styled(Globalstyle)`
     width: 160px;
-    padding: 12px;
+    padding: 12px 6px;
     background: black;
-    border-radius: 20px;
+    border-radius: 25px;
     font-size: ${({ theme }) => theme.fontSize.md};
     color: white;
     text-align: center;
