@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import * as S from './Input.Styled';
 import { WarningMsg } from './WarningMsg';
 
@@ -41,9 +41,15 @@ const SelectInput = props => {
         selectOptions,
         register,
         registerOptions,
+        onChange,
     } = props;
 
     const isLabel = !!label;
+
+    const handleSelectChange = event => {
+        const selectedValue = event.target.value;
+        onChange(selectedValue); // Call the onChange function with the selected value
+    };
     return (
         <>
             <S.InputLabel isLabel={isLabel} htmlFor={id}>
@@ -54,6 +60,7 @@ const SelectInput = props => {
                 id={id}
                 className={error ? 'warning' : null}
                 {...register(id, registerOptions)}
+                onChange={handleSelectChange}
             >
                 <option value="" disabled selected hidden>
                     {placeholder}

@@ -9,7 +9,7 @@ const Banner = () => {
     const [slides, setSlides] = useState([]);
     useEffect(() => {
         getMainBanner().then(res => {
-            setSlides(res.data);
+            setSlides(res?.data);
         });
     });
 

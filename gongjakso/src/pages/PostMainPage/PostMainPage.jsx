@@ -1,33 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import * as S from './PostMainPage.Styled';
 import SwiperBanner from '../../components/SwiperBanner/SwiperBanner';
 import Pagination from '../../components/Pagination/Pagination';
 import { SelectInput } from '../../components/common/Input/Input';
-import {
-    getContestBanner,
-    getMainBanner,
-    getProjectBanner,
-} from '../../service/banner_service';
+import { getProjectBanner } from '../../service/banner_service';
 import TopButton from '../HomePage/TopButton';
 
 import Multilevel from '../../components/common/Input/Multilevel';
+import { getContestPosts, getProjectPosts } from '../../service/post_service';
+import TeamBox from '../TeamBox/TeamBox';
 
 const PostMainPage = () => {
     const location = useLocation();
     const isProject = location.pathname.includes('/project');
     const isColor = isProject ? '#E789FF' : '#00A3FF';
-    const [posts, setPosts] = useState([]);
-    const [limit, setLimit] = useState(6);
+    const [contestPosts, setContestPosts] = useState();
+    const [projectPosts, setProjectPosts] = useState();
+    // const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(1);
     const [banners, setBanners] = useState([]);
+    const [contestTotalPage, setContestTotalPage] = useState();
+    const [ProjectTotalPage, setProjectTotalPage] = useState();
+    const [sortBy, setSortBy] = useState(null);
 
-    const offset = (page - 1) * limit;
+    const [selectedLocalData, setSelectedLocalData] = useState('');
+
+    // const offset = (page - 1) * limit;
 
     useEffect(() => {
-        setPage(1); // isProject가 변경될 때마다 페이지를 1로 초기화
+        setPage(1);
     }, [isProject]);
 
     const {
@@ -51,17 +55,45 @@ const PostMainPage = () => {
         },
     });
 
-    const options = ['서울', '인천', '경기도', '부산', '대구', '전라도'];
+    const options = ['전체', '인기순', '최신순'];
 
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/posts')
-            .then(res => res.json())
-            .then(data => setPosts(data));
         getProjectBanner().then(res => {
             const imageUrls = res.data.map(item => item.imageUrl);
             setBanners(imageUrls);
         });
-    }, []);
+        loadContestPosts(page, sortBy, selectedLocalData);
+        loadProjectPosts(page, sortBy, selectedLocalData);
+    }, [page, selectedLocalData, sortBy]);
+
+    const loadContestPosts = (page, sort, selectedLocalData) => {
+        getContestPosts(page, sort, selectedLocalData).then(res => {
+            setContestPosts(res?.data?.content);
+            setContestTotalPage(res?.data?.totalPages);
+        });
+    };
+    const loadProjectPosts = (page, sort, selectedLocalData) => {
+        getProjectPosts(page, sort, selectedLocalData).then(res => {
+            setProjectPosts(res?.data?.content);
+            setProjectTotalPage(res?.data?.totalPages);
+        });
+    };
+
+    const handleSelectChange = selectedValue => {
+        //선택한 정렬 방식으로 반환
+        if (selectedValue === '인기순') {
+            setSortBy('scrapCount');
+        } else if (selectedValue === '최신순') {
+            setSortBy('createdDate');
+        } else {
+            setSortBy(null);
+        }
+    };
+
+    const handleSelectedData = data => {
+        //선택한 지역 반환
+        setSelectedLocalData(data);
+    };
 
     return (
         <>
@@ -82,25 +114,16 @@ const PostMainPage = () => {
                     </S.SearchBar>
                 </S.Search>
                 <S.Fillterbox>
-                    {/* <S.Fillter1>
-                        <SelectInput
-                            id={'local'}
-                            error={errors.local}
-                            selectOptions={options}
-                            placeholder={'지역'}
-                            register={register}
-                        />
-                    </S.Fillter1> */}
-
-                    <Multilevel />
+                    <Multilevel onItemSelected={handleSelectedData} />
 
                     <S.Fillter1>
                         <SelectInput
-                            id={'local'}
-                            error={errors.local}
+                            id={'sortBy'}
+                            error={errors.sortBy}
                             selectOptions={options}
                             placeholder={'정렬'}
                             register={register}
+                            onChange={handleSelectChange}
                         />
                     </S.Fillter1>
                     {isProject && (
@@ -115,25 +138,56 @@ const PostMainPage = () => {
                         </S.Fillter1>
                     )}
                 </S.Fillterbox>
-
-                <S.PostContent>
-                    {posts
-                        .slice(offset, offset + limit)
-                        .map(({ id, title }) => (
-                            <S.Article $isColor={isColor} key={id}>
-                                <h3>
-                                    {id}. {title}
-                                </h3>
-                            </S.Article>
+                {isProject ? ( //여기는 프로젝트
+                    <S.PostContent>
+                        {projectPosts?.map(project => (
+                            <Link
+                                key={project?.postId}
+                                to={`/project/${project?.postId}`}
+                            >
+                                <S.Article
+                                    $isColor={isColor}
+                                    key={project.postId}
+                                >
+                                    <h3>{project.title}</h3>
+                                    <h3>{project.name}</h3>
+                                    <h3>{project.status}</h3>
+                                </S.Article>
+                            </Link>
                         ))}
-                </S.PostContent>
+                    </S.PostContent>
+                ) : (
+                    //아래는 공모전
+                    <S.PostContent>
+                        {contestPosts?.map(contest => (
+                            <Link
+                                key={contest?.postId}
+                                to={`/contest/${contest?.postId}`}
+                            >
+                                <TeamBox
+                                    showWaitingJoin={false}
+                                    showSubBox={true}
+                                />
+                            </Link>
+                        ))}
+                    </S.PostContent>
+                )}
 
-                <Pagination
-                    total={posts.length}
-                    limit={limit}
-                    page={page}
-                    setPage={setPage}
-                />
+                {isProject ? (
+                    <Pagination
+                        total={ProjectTotalPage}
+                        page={page}
+                        setPage={setPage}
+                        loadPosts={loadContestPosts}
+                    />
+                ) : (
+                    <Pagination
+                        total={contestTotalPage}
+                        page={page}
+                        setPage={setPage}
+                        loadPosts={loadProjectPosts}
+                    />
+                )}
             </S.MainContent>
         </>
     );

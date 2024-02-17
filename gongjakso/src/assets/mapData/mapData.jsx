@@ -1,6 +1,6 @@
 export const mapData = [
     {
-        city: '서울',
+        city: '서울시',
         region: [
             '전체',
             '강남구',
