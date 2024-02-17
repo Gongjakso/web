@@ -17,6 +17,17 @@ export const putMyInfo = async myinfo => {
     }
 };
 
+export const getMyInfo = async () => {
+    const reqURL = `member`;
+
+    try {
+        const response = await axiosInstance.get(reqURL);
+        return response.data; // 'data' 필드를 반환
+    } catch (error) {
+        throw new Error('나의 정보를 가져올 수 없습니다.');
+    }
+};
+
 
 //팀박스->내가 모집 중
 export const getMyRecruiting = async () => {

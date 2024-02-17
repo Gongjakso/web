@@ -30,7 +30,7 @@ const TeamBox = ({
         .split('. ')
         .join('.');
 
-    console.log(postContent);
+    //console.log(postContent);
 
     return (
         <S.Box borderColor={borderColor} showMoreDetail={showMoreDetail}>
@@ -58,7 +58,7 @@ const TeamBox = ({
             </S.BoxTopDetail>
             <S.BoxBottomDetail>
                 <S.MainBox>
-                    {postContent?.categoryList.map((categoryList, index) => (
+                    {postContent?.categoryList?.map((categoryList, index) => (
                         <S.RoundForm key={index}>{categoryList}</S.RoundForm>
                     ))}
                 </S.MainBox>
