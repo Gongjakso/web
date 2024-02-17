@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './Modal.Styled';
 import useCustomNavigate from '../../hooks/useNavigate';
@@ -20,11 +20,11 @@ const Modal1 = ({ closeModal1 }) => {
           overflow-y: scroll;
           width: 100%;`;
         return () => {
-          const scrollY = document.body.style.top;
-          document.body.style.cssText = '';
-          window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
         };
-      }, []);
+    }, []);
 
     return (
         <S.ModalBg>

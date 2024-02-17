@@ -7,6 +7,7 @@ import Modal2 from '../../features/modal/LoginModal2';
 import SignUpModal from '../../features/modal/SignUpModal';
 import TopButton from '../../pages/HomePage/TopButton';
 import Banner from './Banner';
+import { getMyInfo } from '../../service/auth_service';
 
 const HomePage = () => {
     const authenticated = localStorage.getItem('accessToken');
@@ -17,6 +18,8 @@ const HomePage = () => {
     const [SignUpModalOpen, setSignUpModalOpen] = useState(false);
     const [isFirstLogin, setIsFirstLogin] = useState(false);
     const [path, setPath] = useState();
+    const [myName, setMyName] = useState();
+    const [myjob, setMyJob] = useState();
     const goToPage = useCustomNavigate();
 
     const handleButtonClick = path => {
@@ -53,20 +56,26 @@ const HomePage = () => {
     };
 
     useEffect(() => {
-        const storedFirstLogin = localStorage.getItem('firstLogin');
-        if (storedFirstLogin === null) {
-            setIsFirstLogin(true);
-        } else if (isLoggedIn) {
+        getMyInfo().then(res => {
+            // console.log(res?.data?.name);
+            setMyJob(res?.data?.job);
+            setMyName(res?.data?.name);
+        });
+        if (isLoggedIn && myjob === '') {
+            console.log('첫 로그인');
+            setSignUpModalOpen(true);
+        } else {
+            console.log('2번째 로그인');
             setSignUpModalOpen(false);
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, myName, myjob]);
 
-    useEffect(() => {
-        if (isFirstLogin && isLoggedIn) {
-            setSignUpModalOpen(true);
-            localStorage.setItem('firstLogin', 'false');
-        }
-    }, [isFirstLogin, isLoggedIn]);
+    // useEffect(() => {
+    //     if (isFirstLogin && isLoggedIn) {
+    //         setSignUpModalOpen(true, myName);
+    //         // localStorage.setItem('firstLogin', 'false');
+    //     }
+    // }, [isFirstLogin, isLoggedIn, myName]);
 
     return (
         <>
@@ -226,7 +235,10 @@ const HomePage = () => {
             )}
             {modal2Open && <Modal2 goPath={path} closeModal2={closeModal2} />}
             {SignUpModalOpen && (
-                <SignUpModal closeSignUpModal={closeSignUpModal} />
+                <SignUpModal
+                    closeSignUpModal={closeSignUpModal}
+                    name={myName}
+                />
             )}
         </>
     );

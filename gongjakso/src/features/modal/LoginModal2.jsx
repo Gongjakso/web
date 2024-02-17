@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './Modal.Styled';
 import useCustomNavigate from '../../hooks/useNavigate';
@@ -10,6 +10,8 @@ const Modal2 = ({ goPath, closeModal2 }) => {
     const navigate2 = useCustomNavigate();
     const handleModalClick = path => {
         closeModal2();
+        console.log(path);
+
         navigate2(path);
     };
     useEffect(() => {
@@ -19,11 +21,11 @@ const Modal2 = ({ goPath, closeModal2 }) => {
           overflow-y: scroll;
           width: 100%;`;
         return () => {
-          const scrollY = document.body.style.top;
-          document.body.style.cssText = '';
-          window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
         };
-      }, []);
+    }, []);
     return (
         <S.ModalBg>
             <S.Container>
@@ -36,9 +38,7 @@ const Modal2 = ({ goPath, closeModal2 }) => {
                 <S.Image />
 
                 <S.ButtonBox>
-                    <S.GreyButton
-                        onClick={() => handleModalClick(`/${goPath}`)}
-                    >
+                    <S.GreyButton onClick={() => handleModalClick(`${goPath}`)}>
                         로그인하지 않고 둘러보기
                     </S.GreyButton>
                     <S.BlueButton onClick={() => handleModalClick('/login')}>
