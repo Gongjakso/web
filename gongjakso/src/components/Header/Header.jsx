@@ -10,6 +10,7 @@ import {
     ProfileBtn,
     ProjectBtn,
     TeambuildBtn,
+    LoginBtn,
 } from './Buttons';
 
 const Header = () => {
@@ -18,6 +19,7 @@ const Header = () => {
     const [hover, setHover] = useState({
         contest: false,
         project: false,
+        login: false,
         teambuild: false,
         calendar: false,
         profile: false,
@@ -29,6 +31,7 @@ const Header = () => {
         if (path.includes('/teambuild')) return 'teambuild';
         if (path.includes('/calendar')) return 'calendar';
         if (path.includes('/profile')) return 'profile';
+        if (path.includes('/login')) return 'login';
         return '';
     };
 
@@ -79,13 +82,24 @@ const Header = () => {
                             setActive={setActive}
                         />
                     </li>
+
                     <S.ProfileArea>
-                        <ProfileBtn
-                            hover={hover}
-                            setHover={setHover}
-                            active={active}
-                            setActive={setActive}
-                        />
+                        <li>
+                            <LoginBtn
+                                hover={hover}
+                                setHover={setHover}
+                                active={active}
+                                setActive={setActive}
+                            />
+                        </li>
+                        <li>
+                            <ProfileBtn
+                                hover={hover}
+                                setHover={setHover}
+                                active={active}
+                                setActive={setActive}
+                            />
+                        </li>
                     </S.ProfileArea>
                 </S.ItemList>
             </S.HeaderBase>

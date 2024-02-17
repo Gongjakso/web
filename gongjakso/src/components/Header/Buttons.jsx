@@ -4,31 +4,43 @@ import useCustomNavigate from '../../hooks/useNavigate';
 import myPageImage from '../../assets/images/My_page.svg';
 import Modal1 from '../../features/modal/LoginModal1';
 import Modal2 from '../../features/modal/LoginModal2';
-
-const iconNames = {
-    contest: '공모전 공고',
-    project: '프로젝트 공고',
-    teambuild: '팀빌딩',
-    calendar: '캘린더',
-    profile: 'MY',
-};
+import { logout } from '../../service/auth_service';
 
 const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
     const authenticated = localStorage.getItem('accessToken');
     const handleNavigate = useCustomNavigate();
-    const iconName = iconNames[type];
     const [isLoggedIn, setIsLoggedIn] = useState(!!authenticated);
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
     const [path, setPath] = useState();
 
+    const getIconName = () => {
+        const iconNames = {
+            contest: '공모전 공고',
+            project: '프로젝트 공고',
+            teambuild: '팀빌딩',
+            calendar: '캘린더',
+            profile: 'MY',
+            login: isLoggedIn ? '로그아웃' : '로그인',
+        };
+        return iconNames[type];
+    };
+
+    useEffect(() => {
+        setIsLoggedIn(!!authenticated);
+    }, [authenticated]);
+
+    const iconName = getIconName();
+
     const handleProfileClick = () => {
-        if (authenticated) {
+        const accessToken = localStorage.getItem('accessToken');
+        if (accessToken) {
             handleNavigate(`/${type}`);
         } else {
             setModal1Open(true);
         }
     };
+
     const handlePostingClick = () => {
         if (authenticated) {
             handleNavigate(`/${type}`);
@@ -36,6 +48,18 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
             setModal2Open(true);
         }
     };
+
+    const handleLogout = async () => {
+        const accessToken = localStorage.getItem('accessToken');
+        if (accessToken) {
+            await logout(accessToken);
+            setIsLoggedIn(false);
+            window.location.replace('/');
+        } else {
+            console.log('User is not logged in.');
+        }
+    };
+
     const closeModal1 = () => {
         setModal1Open(false);
     };
@@ -63,6 +87,12 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
                     } else if (['project', 'contest'].includes(type)) {
                         setPath(type);
                         handlePostingClick();
+                    } else if (type === 'login') {
+                        if (isLoggedIn) {
+                            handleLogout();
+                        } else {
+                            handleNavigate('/login');
+                        }
                     } else {
                         handleNavigate(`/${type}`);
                     }
@@ -100,3 +130,4 @@ export const CalendarBtn = props => (
 export const ProfileBtn = props => (
     <GenericIconButton type="profile" {...props} />
 );
+export const LoginBtn = props => <GenericIconButton type="login" {...props} />;
