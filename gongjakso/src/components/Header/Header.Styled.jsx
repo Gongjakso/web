@@ -29,10 +29,10 @@ export const logo = styled.div`
 
 export const ProfileArea = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    margin-left: 500px;
     align-items: center;
     width: 0;
-    margin-left: 500px;
     font-weight: 700;
     justify-content: flex-end;
     font-size: ${({ theme }) => theme.fontSize.lg};
