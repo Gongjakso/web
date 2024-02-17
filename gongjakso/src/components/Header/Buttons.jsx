@@ -53,6 +53,8 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
         const accessToken = localStorage.getItem('accessToken');
         if (accessToken) {
             await logout(accessToken);
+            setIsLoggedIn(false);
+            window.location.replace('/');
         } else {
             console.log('User is not logged in.');
         }
