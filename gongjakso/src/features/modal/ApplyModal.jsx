@@ -1,26 +1,27 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
+import { postApply } from '../../service/post_service';
 
 const ApplyModal = props => {
-    // 임시 데이터
-    const dataC = ['기획', '디자인'];
-    const dataP = ['프론트엔드', '백엔드'];
-    const skill = ['React', 'TypeScript', 'JavaScript'];
-
     const [clickedFields, setClickedFields] = useState(null); // 지원 분야 배열
     const [clickedSkill, setClickedSkill] = useState([]); // 기술 스택 배열
 
     const [form] = useState(props.title); // 공모전과 프로젝트 구분 목적
 
     const [inputCount, setInputCount] = useState(0); // 글자 수
+    const [inputValue, setInputValue] = useState(''); // 지원 이유
 
     const [showWarning, setShowWarning] = useState(false); // 주의사항 여부
+
+    // API 관련 변수
+    const [applyType] = useState(props.category); // 지원 분야
+    const [stackType] = useState(props.stackType); // 기술 스택
 
     // 스크롤 방지
     useEffect(() => {
         document.body.style.cssText = `
-          position: fixed; 
+          position: fixed;
           top: -${window.scrollY}px;
           overflow-y: scroll;
           width: 100%;`;
@@ -32,26 +33,14 @@ const ApplyModal = props => {
     }, []);
 
     // 폼 선택
-    const handleClick = index => {
-        setClickedFields(index);
+    const handleClick = type => {
+        setClickedFields(type);
     };
-    const DoubleClick = index => {
-        if (clickedSkill.includes(index)) {
-            setClickedSkill(
-                clickedSkill.filter(btnIndex => btnIndex !== index),
-            );
+    const DoubleClick = type => {
+        if (clickedSkill.includes(type)) {
+            setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
         } else {
-            setClickedSkill([...clickedSkill, index]);
-        }
-    };
-
-    // 필수항목 검사
-    const WarningApply = () => {
-        if (clickedFields === null) {
-            setShowWarning(true);
-        } else {
-            props.setApply(false);
-            props.setCompleted(true);
+            setClickedSkill([...clickedSkill, type]);
         }
     };
 
@@ -66,6 +55,47 @@ const ApplyModal = props => {
             e.target.value = e.target.value.slice(0, 500);
         }
         setInputCount(e.target.value.length);
+        setInputValue(e.target.value);
+    };
+
+    // 지원하기 POST
+    const submitContestApply = data => {
+        const newData = {
+            application: inputValue,
+            recruit_part: clickedFields,
+            recruit_role: [],
+            type: 'CONTEST',
+        };
+        console.log(newData);
+        postApply('103', newData); // ID 수정!!!!
+    };
+    const submitProjectApply = data => {
+        const newData = {
+            application: inputValue,
+            recruit_part: clickedFields,
+            recruit_role: clickedSkill,
+            type: 'PROJECT',
+        };
+        console.log(newData);
+        postApply('103', newData); // ID 수정!!!!
+    };
+
+    // 필수 항목 검사
+    const WarningApply = () => {
+        if (clickedFields === null) {
+            setShowWarning(true);
+        } else {
+            // 필수항목이 선택되었을 때만 post 처리
+            if (form[0] === '공모전') {
+                props.setApply(false);
+                props.setCompleted(true);
+                submitContestApply();
+            } else if (form[0] === '프로젝트') {
+                props.setApply(false);
+                props.setCompleted(true);
+                submitProjectApply();
+            }
+        }
     };
 
     return (
@@ -92,13 +122,25 @@ const ApplyModal = props => {
                                 )}
                             </S.WarningBox>
                             <S.FormBox>
-                                {dataC.map((item, i) => (
+                                {applyType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={clickedFields === i}
-                                        onClick={() => handleClick(i)}
+                                        isSelected={
+                                            clickedFields === item.categoryType
+                                        }
+                                        onClick={() =>
+                                            handleClick(item.categoryType)
+                                        }
                                     >
-                                        {item}
+                                        {item.categoryType === 'PLAN' && '기획'}
+                                        {item.categoryType === 'DESIGN' &&
+                                            '디자인'}
+                                        {item.categoryType === 'FE' &&
+                                            '프론트엔드'}
+                                        {item.categoryType === 'BE' && '백엔드'}
+                                        {item.categoryType === 'ETC' && '기타'}
+                                        {item.categoryType === 'LATER' &&
+                                            '기타2'}
                                     </S.RoundForm>
                                 ))}
                             </S.FormBox>
@@ -155,13 +197,25 @@ const ApplyModal = props => {
                                 )}
                             </S.WarningBox>
                             <S.FormBox>
-                                {dataP.map((item, i) => (
+                                {applyType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={clickedFields === i}
-                                        onClick={() => handleClick(i)}
+                                        isSelected={
+                                            clickedFields === item.categoryType
+                                        }
+                                        onClick={() =>
+                                            handleClick(item.categoryType)
+                                        }
                                     >
-                                        {item}
+                                        {item.categoryType === 'PLAN' && '기획'}
+                                        {item.categoryType === 'DESIGN' &&
+                                            '디자인'}
+                                        {item.categoryType === 'FE' &&
+                                            '프론트엔드'}
+                                        {item.categoryType === 'BE' && '백엔드'}
+                                        {item.categoryType === 'ETC' && '기타'}
+                                        {item.categoryType === 'LATER' &&
+                                            '기타2'}
                                     </S.RoundForm>
                                 ))}
                             </S.FormBox>
@@ -169,13 +223,17 @@ const ApplyModal = props => {
                         <S.DetailBox>
                             <S.SubTitle>기술 스택</S.SubTitle>
                             <S.FormBox>
-                                {skill.map((item, i) => (
+                                {stackType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={clickedSkill.includes(i)}
-                                        onClick={() => DoubleClick(i)}
+                                        isSelected={clickedSkill.includes(
+                                            item.stackNameType,
+                                        )}
+                                        onClick={() =>
+                                            DoubleClick(item.stackNameType)
+                                        }
                                     >
-                                        {item}
+                                        {item.stackNameType}
                                     </S.RoundForm>
                                 ))}
                             </S.FormBox>
