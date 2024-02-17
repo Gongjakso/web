@@ -19,19 +19,20 @@ const MyPageTeam = props => {
         setDates(selectedDates);
     };
 
+    const number = 86;
     const ClickFinishBtn = () => {
         // 아래 부분 2 로 넣은 부분 수정해야함
-        patchFinish('30').then(res => console.log(res));
+        patchFinish(number).then(res => console.log(res));
     };
 
     const ClickExtensionDate = () => {
         // 아래 부분 2 로 넣은 부분 수정해야함
-        patchExtension('30', dates.endDate);
+        patchExtension(number, dates.endDate);
     };
 
     const ClickCancelBtn = () => {
         // 아래 부분 2 로 넣은 부분 수정해야함
-        patchCancel('2');
+        patchCancel(number).then(res => console.log(res));
     };
 
     // 스크롤 방지

@@ -111,7 +111,7 @@ const DetailPageProject = () => {
                             <S.TextTitle>진행 기간</S.TextTitle>
                             <S.TextDetail>
                                 {formatDate(postData?.startDate)} ~{' '}
-                                {formatDate(postData?.endDate)}
+                                {formatDate(postData?.finishDate)}
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>

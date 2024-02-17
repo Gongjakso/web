@@ -24,15 +24,21 @@ const ProfileRecruit = () => {
         { case: '연장하기', id: '2' },
         { case: '취소하기', id: '3' },
     ]);
-
+    const number = 86;
     useEffect(() => {
-        getApplyList('2').then(res => {
-            setPosts(res.data);
-        }, []);
-        getRecruitTeam('2').then(res => {
-            setRecruitTeam(res.data);
-        }, []);
-    });
+        getApplyList(number).then(
+            res => {
+                setPosts(res?.data);
+            },
+            [number],
+        );
+        getRecruitTeam(number).then(
+            res => {
+                setRecruitTeam(res?.data);
+            },
+            [number],
+        );
+    }, []);
 
     const [posts, setPosts] = useState([]);
     const [limit, setLimit] = useState(11);
@@ -96,7 +102,7 @@ const ProfileRecruit = () => {
                         <S.DetailGlobal>
                             <S.InsideDetail>
                                 활동기간 | {formatDate(recruitTeam.startDate)} ~{' '}
-                                {formatDate(recruitTeam.endDate)}
+                                {formatDate(recruitTeam.finishDate)}
                             </S.InsideDetail>
                             <S.InsideDetail>
                                 모집인원 | {recruitTeam.max_person}
