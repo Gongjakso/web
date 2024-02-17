@@ -57,7 +57,7 @@ const Router = () => {
                             />
 
                             <Route
-                                path={'/contest/id'}
+                                path={'/contest/:id'}
                                 element={<DetailPageContest />}
                             />
                             <Route

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import * as S from './DetailPageStyled';
 import useCustomNavigate from '../../hooks/useNavigate';
 import Close from '../../assets/images/Close.svg';
@@ -33,15 +34,17 @@ const DetailPageContest = () => {
     const [scrapNum, setscrapNum] = useState(0);
     const [scrapStatus, setscrapStatus] = useState([]);
 
+    const { id } = useParams();
+
     useEffect(() => {
         // ID 수정!!!!
-        getPostDetail('103').then(res => {
+        getPostDetail(id).then(res => {
             console.log(res);
             setpostData(res?.data);
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
         });
-    }, []);
+    }, [id]);
 
     // 활동기간 수정 함수
     const formatDate = dateString => {

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Pagination({ total, limit, page, setPage }) {
-    const numPages = Math.ceil(total / limit);
+function Pagination({ total, page, setPage, loadPosts }) {
+    const numPages = total;
     const [currentPageRange, setCurrentPageRange] = useState([1, 10]);
 
     const handleNextPage = () => {
@@ -13,6 +13,7 @@ function Pagination({ total, limit, page, setPage }) {
             ]);
         }
         setPage(page + 1);
+        loadPosts(page + 1);
     };
 
     const handlePrevPage = () => {
@@ -23,6 +24,7 @@ function Pagination({ total, limit, page, setPage }) {
             ]);
         }
         setPage(page - 1);
+        loadPosts(page - 1);
     };
 
     return (

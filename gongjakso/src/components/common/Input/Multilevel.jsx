@@ -9,7 +9,7 @@ import 'react-nested-dropdown/dist/styles.css';
 
 import { mapData } from '../../../assets/mapData/mapData.jsx';
 
-const Multilevel = () => {
+const Multilevel = ({ onItemSelected }) => {
     const [title, setTitle] = useState('지역');
     const [isOpen, setIsOpen] = useState(false);
 
@@ -18,7 +18,9 @@ const Multilevel = () => {
         items: item.region.map(region => ({
             label: region,
             onSelect: () => {
-                setTitle(`${item.city} ${region}`);
+                const selectedData = `${item.city}${region}`;
+                setTitle(selectedData);
+                onItemSelected(selectedData);
             },
         })),
     }));
