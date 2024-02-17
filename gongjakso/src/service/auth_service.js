@@ -1,3 +1,5 @@
+import axiosInstance from './axiosInstance';
+
 const BaseUrl = process.env.REACT_APP_BASE_URL;
 
 export const getToken = async code => {
@@ -28,5 +30,48 @@ export const logout = async accessToken => {
         console.log(localStorage.getItem(accessToken));
     } catch (error) {
         console.error('Error logging out:', error);
+    }
+};
+
+export const SignUpApi = async myData => {
+    const reqURL = `member`;
+    try {
+        const response = await axiosInstance.put(reqURL, {
+            myData,
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getMyInfo = async () => {
+    const reqURL = `member`;
+
+    try {
+        const response = await axiosInstance.get(reqURL);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const putMyInfo = async (
+    name,
+    selectedMajor,
+    selectedJob,
+    selectedStatus,
+) => {
+    const reqURL = `member`;
+
+    try {
+        const response = await axiosInstance.put(reqURL, {
+            name: name,
+            status: selectedStatus,
+            major: selectedMajor,
+            job: selectedJob,
+        });
+        return response.data;
+    } catch (error) {
+        console.log(error);
     }
 };
