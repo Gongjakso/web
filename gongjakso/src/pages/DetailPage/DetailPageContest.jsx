@@ -15,9 +15,6 @@ import { getPostDetail, getScrap, postScrap } from '../../service/post_service';
 const DetailPageContest = () => {
     const navigate = useCustomNavigate();
 
-    // 스크랩하기 버튼
-    const [click, setClick] = useState(false);
-
     // 지원하기 버튼
     const [apply, setApply] = useState(false);
 
@@ -37,7 +34,6 @@ const DetailPageContest = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        // ID 수정!!!!
         getPostDetail(id).then(res => {
             console.log(res);
             setpostData(res?.data);
@@ -60,7 +56,6 @@ const DetailPageContest = () => {
 
     // 스크랩 POST
     const ClickScrapBtn = () => {
-        // ID 수정!!!!
         postScrap(id).then(res => {
             console.log(res);
         });
@@ -110,7 +105,7 @@ const DetailPageContest = () => {
                             <S.TextTitle>진행 기간</S.TextTitle>
                             <S.TextDetail>
                                 {formatDate(postData?.startDate)} ~{' '}
-                                {formatDate(postData?.finishDate)}
+                                {formatDate(postData?.endDate)}
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
@@ -124,26 +119,20 @@ const DetailPageContest = () => {
                             <S.TextTitle>모집 분야</S.TextTitle>
                             <S.TextDetail>
                                 {category?.map((item, i) => (
-                                    <React.Fragment key={i}>
-                                        {[...Array(item.size)].map(
-                                            (_, index) => (
-                                                <S.RoundForm key={index}>
-                                                    {item.categoryType ===
-                                                        'PLAN' && '기획'}
-                                                    {item.categoryType ===
-                                                        'DESIGN' && '디자인'}
-                                                    {item.categoryType ===
-                                                        'FE' && '프론트엔드'}
-                                                    {item.categoryType ===
-                                                        'BE' && '백엔드'}
-                                                    {item.categoryType ===
-                                                        'ETC' && '기타'}
-                                                    {item.categoryType ===
-                                                        'LATER' && '기타2'}
-                                                </S.RoundForm>
-                                            ),
-                                        )}
-                                    </React.Fragment>
+                                    <S.RoundForm key={i}>
+                                        {item.categoryType === 'PLAN' &&
+                                            `기획 ${item.size}`}
+                                        {item.categoryType === 'DESIGN' &&
+                                            `디자인 ${item.size}`}
+                                        {item.categoryType === 'FE' &&
+                                            `프론트엔드 ${item.size}`}
+                                        {item.categoryType === 'BE' &&
+                                            `백엔드 ${item.size}`}
+                                        {item.categoryType === 'ETC' &&
+                                            `기타 ${item.size}`}
+                                        {item.categoryType === 'LATER' &&
+                                            `추후조정 ${item.size}`}
+                                    </S.RoundForm>
                                 ))}
                             </S.TextDetail>
                         </S.TextBox>
