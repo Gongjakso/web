@@ -62,6 +62,11 @@ const ProfilePage = () => {
                             showMoreDetail={true}
                             showWaitingJoin={false}
                             showSubBox={true}
+                            borderColor={
+                                postContent1.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
                             postContent={postContent1}
                             isMyParticipation={false}
                         />
@@ -101,7 +106,11 @@ const ProfilePage = () => {
                         (postContent3, index) => (
                             <TeamBox
                                 showMoreDetail={false}
-                                borderColor="#6F6F6F"
+                                borderColor={
+                                    postContent3.postType === true
+                                        ? 'rgba(0, 163, 255, 0.5)'
+                                        : 'rgba(231, 137, 255, 0.5)'
+                                }
                                 showWaitingJoin={false}
                                 showSubBox={false}
                                 postContent={postContent3}
