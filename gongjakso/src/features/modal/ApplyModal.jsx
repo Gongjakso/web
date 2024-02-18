@@ -140,7 +140,7 @@ const ApplyModal = props => {
                                         {item.categoryType === 'BE' && '백엔드'}
                                         {item.categoryType === 'ETC' && '기타'}
                                         {item.categoryType === 'LATER' &&
-                                            '기타2'}
+                                            '추후조정'}
                                     </S.RoundForm>
                                 ))}
                             </S.FormBox>
@@ -215,7 +215,7 @@ const ApplyModal = props => {
                                         {item.categoryType === 'BE' && '백엔드'}
                                         {item.categoryType === 'ETC' && '기타'}
                                         {item.categoryType === 'LATER' &&
-                                            '기타2'}
+                                            '추후조정'}
                                     </S.RoundForm>
                                 ))}
                             </S.FormBox>
@@ -233,7 +233,25 @@ const ApplyModal = props => {
                                             DoubleClick(item.stackNameType)
                                         }
                                     >
-                                        {item.stackNameType}
+                                        {item.stackNameType === 'REACT' &&
+                                            'React'}
+                                        {item.stackNameType === 'TYPESCRIPT' &&
+                                            'TypeScript'}
+                                        {item.stackNameType === 'JAVASCRIPT' &&
+                                            'JavaScript'}
+                                        {item.stackNameType === 'NEXTJS' &&
+                                            'Next.js'}
+                                        {item.stackNameType === 'NODEJS' &&
+                                            'Node.js'}
+                                        {item.stackNameType === 'JAVA' &&
+                                            'Java'}
+                                        {item.stackNameType === 'SPRING' &&
+                                            'Spring'}
+                                        {item.stackNameType === 'KOTLIN' &&
+                                            'Kotlin'}
+                                        {item.stackNameType === 'FLUTTER' &&
+                                            'Flutter'}
+                                        {item.stackNameType === 'ETC' && 'etc'}
                                     </S.RoundForm>
                                 ))}
                             </S.FormBox>
