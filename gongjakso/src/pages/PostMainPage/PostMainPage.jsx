@@ -28,10 +28,17 @@ const PostMainPage = () => {
 
     const [selectedLocalData, setSelectedLocalData] = useState('');
     const [selectedStack, setSelectedStack] = useState('');
+    const [searchKeyword, setSearchKeyword] = useState('');
+
     // const offset = (page - 1) * limit;
 
     useEffect(() => {
         setPage(1);
+    }, [isProject, sortBy, selectedLocalData]);
+
+    useEffect(() => {
+        setSortBy(null);
+        setSelectedLocalData('');
     }, [isProject]);
 
     const {
@@ -51,35 +58,57 @@ const PostMainPage = () => {
 
     const options = ['전체', '인기순', '최신순'];
     const stackOptions = [
-        'React',
-        'TypeScript',
-        'JavaScript',
-        'Nextjs',
-        'Nodejs',
-        'Java',
-        'Spring',
-        'Kotlin',
-        'Swift',
-        'Flutter',
+        'REACT',
+        'TYPESCRIPT',
+        'JAVASCRIPT',
+        'NEXTJS',
+        'NODEJS',
+        'JAVA',
+        'SPRING',
+        'KOTLIN',
+        'SWIFT',
+        'FLUTTER',
+        'FIGMA',
+        'ETC',
     ];
     useEffect(() => {
         getProjectBanner().then(res => {
             const imageUrls = res?.data?.map(item => item.imageUrl);
             setBanners(imageUrls);
         });
-        loadContestPosts(page, sortBy, selectedLocalData);
-        loadProjectPosts(page, sortBy, selectedLocalData);
-    }, [page, selectedLocalData, sortBy]);
+        loadContestPosts(page, sortBy, selectedLocalData, searchKeyword);
+        loadProjectPosts(
+            page,
+            sortBy,
+            selectedLocalData,
+            selectedStack,
+            searchKeyword,
+        );
+    }, [page, selectedLocalData, sortBy, selectedStack, searchKeyword]);
 
-    const loadContestPosts = (page, sort, selectedLocalData) => {
-        getContestPosts(page, sort, selectedLocalData).then(res => {
-            console.log(res?.data.content);
-            setContestPosts(res?.data?.content);
-            setContestTotalPage(res?.data?.totalPages);
-        });
+    const loadContestPosts = (page, sort, selectedLocalData, searchKeyword) => {
+        getContestPosts(page, sort, selectedLocalData, searchKeyword).then(
+            res => {
+                console.log(res?.data.content);
+                setContestPosts(res?.data?.content);
+                setContestTotalPage(res?.data?.totalPages);
+            },
+        );
     };
-    const loadProjectPosts = (page, sort, selectedLocalData) => {
-        getProjectPosts(page, sort, selectedLocalData).then(res => {
+    const loadProjectPosts = (
+        page,
+        sort,
+        selectedLocalData,
+        selectedStack,
+        searchKeyword,
+    ) => {
+        getProjectPosts(
+            page,
+            sort,
+            selectedLocalData,
+            selectedStack,
+            searchKeyword,
+        ).then(res => {
             setProjectPosts(res?.data?.content);
             setProjectTotalPage(res?.data?.totalPages);
         });
@@ -97,6 +126,7 @@ const PostMainPage = () => {
     };
 
     const handleSelectStack = selectedStack => {
+        //기술 스택
         setSelectedStack(selectedStack);
     };
 
@@ -119,7 +149,13 @@ const PostMainPage = () => {
                         </S.Searchmark>
                         <S.SearchUsernameInput
                             type="text"
-                            placeholder="찾고 있는 공모전이 있나요?"
+                            placeholder={
+                                isProject
+                                    ? '찾고 있는 프로젝트가 있나요?'
+                                    : '찾고 있는 공모전이 있나요?'
+                            }
+                            value={searchKeyword}
+                            onChange={e => setSearchKeyword(e.target.value)}
                         />
                     </S.SearchBar>
                 </S.Search>
@@ -142,7 +178,7 @@ const PostMainPage = () => {
                                 id={'local'}
                                 error={errors.local}
                                 selectOptions={stackOptions}
-                                placeholder={'기술 스택'}
+                                placeholder={'사용 언어'}
                                 register={register}
                                 onChange={handleSelectStack}
                             />

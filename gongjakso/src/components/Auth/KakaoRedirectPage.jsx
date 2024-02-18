@@ -13,6 +13,7 @@ function KakaoRedirectPage() {
             .then(result => {
                 localStorage.setItem('accessToken', result.accessToken);
                 goToPage('/');
+                window.location.reload();
             })
             .catch(error => {
                 console.error('Error occurred while getting token:', error);

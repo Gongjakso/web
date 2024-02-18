@@ -36,8 +36,8 @@ const ProfilePage = () => {
                 <S.InfoBox>
                     <S.DetailBox>
                         <S.NameTitle>{data?.name}</S.NameTitle>
-                        <Link to="/MyInfo">
-                            <S.EditImage src={data?.profileUrl} />
+                        <Link to={'/myinfo'}>
+                            <S.EditImage />
                         </Link>
                     </S.DetailBox>
                     <S.MajorTitle>{data?.major}</S.MajorTitle>

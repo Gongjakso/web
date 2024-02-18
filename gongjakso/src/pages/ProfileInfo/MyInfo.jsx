@@ -4,7 +4,7 @@ import majorData from '../../utils/majorData.json';
 import jobData from '../../utils/jobData.json';
 import { putMyInfo } from '../../service/profile_service';
 import { getMyInfo } from '../../service/profile_service';
-import { Link, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const groupData = data => {
     return data.reduce((groups, item) => {
@@ -18,16 +18,27 @@ const groupData = data => {
 const MyInfo = () => {
     const groupedMajorData = useMemo(() => groupData(majorData), []);
     const groupedJobData = useMemo(() => groupData(jobData), []);
-    const accessToken = localStorage.getItem('accessToken');
-    const savedInfo = localStorage.getItem('myInfoData')
-        ? JSON.parse(localStorage.getItem('myInfoData'))
-        : {};
+    const navigate = useNavigate();
+    const [myData, setMyData] = useState(null);
 
     const [name, setName] = useState('');
     const [status, setStatus] = useState('');
     const [major, setMajor] = useState('');
     const [job, setJob] = useState('');
-    const navigate = useNavigate();
+    useEffect(() => {
+        getMyInfo().then(res => {
+            setMyData(res.data);
+        });
+    }, []);
+
+    useEffect(() => {
+        if (myData) {
+            setName(myData.name);
+            setStatus(myData.status);
+            setMajor(myData.major);
+            setJob(myData.job);
+        }
+    }, [myData]);
 
     const status_options = [
         '대학 재학 중',
@@ -35,48 +46,18 @@ const MyInfo = () => {
         '취업 준비 중',
         '기타',
     ];
-    const myInfoData = {
-        name: name,
-        status: status,
-        major: major,
-        job: job,
-    };
 
-    // MyInfo 컴포넌트에서 '정보 저장하기' 버튼 클릭 이벤트 처리
     const handleSaveClick = e => {
-        // 링크 클릭 이벤트의 기본 동작을 막음
         e.preventDefault();
 
-        putMyInfo(myInfoData, accessToken)
+        putMyInfo(name, major, job, status)
             .then(() => {
-                return getMyInfo(accessToken);
-            })
-            .then(res => {
-                setName(res.name);
-                setStatus(res.status);
-                setMajor(res.major);
-                setJob(res.job);
-
-                localStorage.setItem('myInfoData', JSON.stringify(myInfoData));
-
                 navigate('/profile');
             })
             .catch(error => {
                 console.error(error);
             });
     };
-
-    useEffect(() => {
-        const savedInfo = localStorage.getItem('myInfoData');
-
-        if (savedInfo) {
-            const parsedInfo = JSON.parse(savedInfo);
-            setName(parsedInfo.name);
-            setStatus(parsedInfo.status);
-            setMajor(parsedInfo.major);
-            setJob(parsedInfo.job);
-        }
-    }, []);
 
     return (
         <S.Div>

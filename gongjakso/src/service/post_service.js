@@ -61,8 +61,14 @@ export const postApply = async (post_id, postContent) => {
     }
 };
 
-export const getProjectPosts = async (pageNum, sort, selectLocalData) => {
-    const reqURL = `post/project?meetingArea=${selectLocalData}&stackName=&searchWord=&page=${pageNum}&sort=${sort},desc`;
+export const getProjectPosts = async (
+    pageNum,
+    sort,
+    selectLocalData,
+    selectedStack,
+    searchKeyword,
+) => {
+    const reqURL = `post/project?meetingArea=${selectLocalData}&stackName=${selectedStack}&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
 
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
@@ -75,8 +81,13 @@ export const getProjectPosts = async (pageNum, sort, selectLocalData) => {
         console.log(error);
     }
 };
-export const getContestPosts = async (pageNum, sort, selectLocalData) => {
-    const reqURL = `post/contest?meetingArea=${selectLocalData}&category=&searchWord=&page=${pageNum}&sort=${sort},desc`;
+export const getContestPosts = async (
+    pageNum,
+    sort,
+    selectLocalData,
+    searchKeyword,
+) => {
+    const reqURL = `post/contest?meetingArea=${selectLocalData}&category=&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
 
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
