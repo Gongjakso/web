@@ -38,7 +38,7 @@ const TeamSupport = () => {
                                 : 'rgba(231, 137, 255, 0.5)'
                         }
                         postContent={postContent2}
-                        isMyParticipation={true}
+                        isMyParticipation={false}
                     />
                 ))}
                 <Pagination

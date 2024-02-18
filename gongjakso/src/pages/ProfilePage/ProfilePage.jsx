@@ -21,10 +21,19 @@ const ProfilePage = () => {
             setPostContent1(response?.data);
         });
         getMyApplied().then(response => {
+<<<<<<< HEAD
             setPostContent2(response?.data);
         });
         getMyParticipatedMain().then(response => {
             setPostContent3(response?.data);
+=======
+            //console.log(response.data);
+            setPostContent2(response?.data.slice(0, 2));
+        });
+        getMyParticipatedMain().then(response => {
+            console.log(response.data);
+            setPostContent3(response?.data.participationLists.slice(0, 2));
+>>>>>>> abf62cc (:art: Update 프로필 메인페이지 팀 정보 최신 2개 뜨도록)
         });
     }, []);
 
@@ -96,6 +105,7 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
+<<<<<<< HEAD
                     {postContent3?.participationLists?.map(
                         (postContent3, index) => (
                             <TeamBox
@@ -113,6 +123,22 @@ const ProfilePage = () => {
                             />
                         ),
                     )}
+=======
+                    {postContent3?.map((postContent3, index) => (
+                        <TeamBox
+                            showMoreDetail={false}
+                            borderColor={
+                                postContent3.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
+                            showWaitingJoin={false}
+                            showSubBox={false}
+                            postContent={postContent3}
+                            isMyParticipation={true}
+                        />
+                    ))}
+>>>>>>> abf62cc (:art: Update 프로필 메인페이지 팀 정보 최신 2개 뜨도록)
                 </S.BoxDetail>
             </S.GlobalBox>
         </div>

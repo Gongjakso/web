@@ -31,7 +31,11 @@ const TeamPart = () => {
                         <TeamBox
                             key={index}
                             showMoreDetail={false}
-                            borderColor="#6F6F6F"
+                            borderColor={
+                                postContent3.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
                             showWaitingJoin={false}
                             showSubBox={false}
                             postContent={postContent3}
