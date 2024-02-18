@@ -12,6 +12,7 @@ export const Dropdown = styled.div`
     }
     .rnd__root-menu.rnd__menu {
         width: 250px !important;
+        z-index: 9999;
     }
 
     .rnd .rnd__root-menu.rnd__menu .rnd__option .rnd__option-label {

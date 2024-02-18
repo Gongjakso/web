@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './TeamBuildingUploadPage.Styled';
 import { Input } from '../../components/common/Input/Input';
 import { useForm } from 'react-hook-form';
@@ -30,10 +30,10 @@ const TeamBuildingUploadPage = ({ posts }) => {
         'Acc',
     ];
 
-    const [meeting, setMeeting] = useState(null);
+    const [meeting, setMeeting] = useState('OFFLINE');
     const [complaint, setComplaint] = useState('true');
 
-    const [selectedLanguages, setSelectedLanguages] = useState([]);
+    const [languages, setLanguages] = useState([]);
 
     const [btn, setBtn] = useState(false);
 
@@ -42,6 +42,9 @@ const TeamBuildingUploadPage = ({ posts }) => {
 
     const [dates, setDates] = useState([]);
     const [endDates, setEndDates] = useState([]);
+
+    const [selectedLocalData, setSelectedLocalData] = useState('');
+    const [selectedLanguage, setSelectedLanguage] = useState();
     //프로젝트/공모전 기간 설정
     const transformAndSetDates = (startDate, endDate) => {
         const parsedStartDate = new Date(startDate);
@@ -94,10 +97,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
         }));
     };
 
+    const category = {
+        categories: Object.entries(roles)
+            .filter(([_, size]) => size !== 0) // Filter out categories with size 0
+            .map(([categoryType, size]) => ({ categoryType, size })),
+    };
+
     const handleOptionChange = option => {
         if (option === 'ONLINE') {
             if (meeting === 'ONLINE') {
-                setMeeting(null);
+                alert('둘중 하나를 꼭 선택해주세요');
             } else if (meeting === 'OFFLINE') {
                 setMeeting('BOTH');
             } else if (meeting === 'BOTH') {
@@ -107,7 +116,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
             }
         } else if (option === 'OFFLINE') {
             if (meeting === 'OFFLINE') {
-                setMeeting(null);
+                alert('둘중 하나를 꼭 선택해주세요');
             } else if (meeting === 'ONLINE') {
                 setMeeting('BOTH');
             } else if (meeting === 'BOTH') {
@@ -126,18 +135,30 @@ const TeamBuildingUploadPage = ({ posts }) => {
         setBtn(true);
     };
 
+    const handleSelectedData = data => {
+        //선택한 지역 반환
+        setSelectedLocalData(data);
+    };
+
     const handleLanguageClick = language => {
-        const isSelected = selectedLanguages.includes(language);
+        const isSelected = languages.includes(language);
 
         if (isSelected) {
-            setSelectedLanguages(prevSelected =>
+            setLanguages(prevSelected =>
                 prevSelected.filter(lang => lang !== language),
             );
         } else {
-            setSelectedLanguages(prevSelected => [...prevSelected, language]);
+            setLanguages(prevSelected => [...prevSelected, language]);
         }
-        console.log(selectedLanguages);
     };
+
+    useEffect(() => {
+        const formattedLanguages = languages.map(language => ({
+            stackNameType: language,
+        }));
+        setSelectedLanguage(formattedLanguages);
+    }, [languages]);
+
     //프로젝트/공모전 기한 설정
     const handleApply = selectedDates => {
         transformAndSetDates(selectedDates.startDate, selectedDates.endDate);
@@ -151,14 +172,15 @@ const TeamBuildingUploadPage = ({ posts }) => {
         const newData = {
             title: data.title,
             contents: data.description,
+            contestLink: data.link, //공모전 주소
             startDate: dates.startDate,
-            endDate: endDates.endDate,
-            finishDate: dates.endDate,
-            // link: data.link, 공모전 주소
+            endDate: dates.endDate,
+            finishDate: endDates.endDate, // 공고 마감일
             maxPerson: data.people,
-            // categoryType: { ...roles }, 참여하는 팀의 역할
+            stackNames: [],
+            categories: category.categories, //참여하는 팀의 역할
             meetingMethod: meeting,
-            meetingArea: '서울시 구로구 천왕동',
+            meetingArea: selectedLocalData,
             questionMethod: complaint,
             questionLink: data.complainLink,
             postType: false,
@@ -169,14 +191,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
         const newData = {
             title: data.title,
             contents: data.description,
+            contestLink: '',
             startDate: dates.startDate,
             endDate: dates.endDate,
-            finishDate: dates.endDate,
+            finishDate: endDates.endDate,
             maxPerson: data.people,
             // guest: { ...roles },
+            stackNames: selectedLanguage,
+            categories: [],
             meetingMethod: meeting,
-            meetingArea: '서울시 구로구 천왕동',
-            // language: selectedLanguages,
+            meetingArea: selectedLocalData,
             questionMethod: complaint,
             questionLink: data.complainLink,
             postType: true,
@@ -281,7 +305,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 지역</S.TapP>
-                        <Multilevel />
+                        <Multilevel onItemSelected={handleSelectedData} />
                     </S.Label>
                     <S.Label>
                         <S.TapP>공모전 예상 기간</S.TapP>
@@ -410,9 +434,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             {language.map((lang, index) => (
                                 <S.ClickBtn
                                     key={index}
-                                    $isselected={selectedLanguages.includes(
-                                        lang,
-                                    )}
+                                    $isselected={languages.includes(lang)}
                                     onClick={() => handleLanguageClick(lang)}
                                 >
                                     {lang}
@@ -422,7 +444,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 지역</S.TapP>
-                        <Multilevel />
+                        <Multilevel onItemSelected={handleSelectedData} />
                     </S.Label>
                     <S.Label>
                         <S.TapP>예상 기간</S.TapP>
