@@ -13,17 +13,10 @@ const TeamSupport = () => {
     const [postContent2, setPostContent2] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getMyApplied();
-                setData(response?.data);
-                setPostContent2(response?.data);
-                console.log(response);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchData();
+        getMyApplied().then(response => {
+            console.log(response.data);
+            setPostContent2(response?.data);
+        });
     }, []);
 
     return (
@@ -34,7 +27,7 @@ const TeamSupport = () => {
                 <S.Title>내가 지원한 팀</S.Title>
             </S.TopBox>
             <S.BoxDetail>
-                {postContent2.map((postContent2, index) => (
+                {postContent2?.map((postContent2, index) => (
                     <TeamBox
                         showMoreDetail={false}
                         showWaitingJoin={true}
@@ -45,6 +38,7 @@ const TeamSupport = () => {
                                 : 'rgba(231, 137, 255, 0.5)'
                         }
                         postContent={postContent2}
+                        isMyParticipation={true}
                     />
                 ))}
                 <Pagination

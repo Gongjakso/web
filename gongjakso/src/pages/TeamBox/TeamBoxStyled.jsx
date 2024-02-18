@@ -175,6 +175,7 @@ export const MoreDetail = styled(ArrowDetail)`
     z-index: 1;
 `;
 
+/*
 //프로필페이지 -> 모집 마감, 연장, 취소 오버레이
 export const DeadlineOverlay = styled.div`
     position: absolute;
@@ -191,3 +192,4 @@ export const DeadlineOverlay = styled.div`
     align-items: center;
     color: white;
 `;
+*/

@@ -3,6 +3,7 @@ import * as S from './MyInfoStyled';
 import majorData from '../../utils/majorData.json';
 import jobData from '../../utils/jobData.json';
 import { putMyInfo } from '../../service/profile_service';
+import { getMyInfo } from '../../service/profile_service';
 import { Link, useNavigate } from 'react-router-dom';
 
 const groupData = data => {
@@ -18,6 +19,10 @@ const MyInfo = () => {
     const groupedMajorData = useMemo(() => groupData(majorData), []);
     const groupedJobData = useMemo(() => groupData(jobData), []);
     const accessToken = localStorage.getItem('accessToken');
+    const savedInfo = localStorage.getItem('myInfoData')
+        ? JSON.parse(localStorage.getItem('myInfoData'))
+        : {};
+
     const [name, setName] = useState('');
     const [status, setStatus] = useState('');
     const [major, setMajor] = useState('');
@@ -30,12 +35,35 @@ const MyInfo = () => {
         '취업 준비 중',
         '기타',
     ];
-
     const myInfoData = {
         name: name,
         status: status,
         major: major,
         job: job,
+    };
+
+    // MyInfo 컴포넌트에서 '정보 저장하기' 버튼 클릭 이벤트 처리
+    const handleSaveClick = e => {
+        // 링크 클릭 이벤트의 기본 동작을 막음
+        e.preventDefault();
+
+        putMyInfo(myInfoData, accessToken)
+            .then(() => {
+                return getMyInfo(accessToken);
+            })
+            .then(res => {
+                setName(res.name);
+                setStatus(res.status);
+                setMajor(res.major);
+                setJob(res.job);
+
+                localStorage.setItem('myInfoData', JSON.stringify(myInfoData));
+
+                navigate('/profile');
+            })
+            .catch(error => {
+                console.error(error);
+            });
     };
 
     useEffect(() => {
@@ -49,11 +77,6 @@ const MyInfo = () => {
             setJob(parsedInfo.job);
         }
     }, []);
-
-    const handleProfileClick = () => {
-        putMyInfo(myInfoData).then(res => console.log(res.data));
-        localStorage.setItem('myInfoData', JSON.stringify(myInfoData));
-    };
 
     return (
         <S.Div>
@@ -127,14 +150,7 @@ const MyInfo = () => {
                 </S.DetailBox>
             </S.Formset>
             <S.Wrapper>
-                <S.SetBox
-                    onClick={() => {
-                        handleProfileClick();
-                        navigate('/profile');
-                    }}
-                >
-                    정보 저장하기
-                </S.SetBox>
+                <S.SetBox onClick={handleSaveClick}>정보 저장하기</S.SetBox>
             </S.Wrapper>
         </S.Div>
     );

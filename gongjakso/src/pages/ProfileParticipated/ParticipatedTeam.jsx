@@ -13,17 +13,10 @@ const TeamPart = () => {
     const [postContent3, setPostContent3] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getMyParticipated();
-                setData(response?.data);
-                setPostContent3(response?.data);
-                console.log(response);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchData();
+        getMyParticipated().then(response => {
+            console.log(response.data);
+            setPostContent3(response?.data);
+        });
     }, []);
 
     return (
@@ -33,13 +26,19 @@ const TeamPart = () => {
                 <S.Title>내가 참여한 공모전/프로젝트</S.Title>
             </S.TopBox>
             <S.BoxDetail>
-                <TeamBox
-                    showMoreDetail={false}
-                    borderColor="#6F6F6F"
-                    showWaitingJoin={false}
-                    showSubBox={false}
-                    postContent={postContent3}
-                />
+                {postContent3?.participationLists?.map(
+                    (postContent3, index) => (
+                        <TeamBox
+                            showMoreDetail={false}
+                            borderColor="#6F6F6F"
+                            showWaitingJoin={false}
+                            showSubBox={false}
+                            postContent={postContent3}
+                            isMyParticipation={true}
+                        />
+                    ),
+                )}
+
                 <Pagination
                     total={13}
                     limit={limit}

@@ -2,71 +2,36 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
-import { getMyRecruiting } from '../../service/profile_service';
 import { getMyInfo } from '../../service/profile_service';
+import { getMyRecruiting } from '../../service/profile_service';
 import { getMyApplied } from '../../service/profile_service';
-import { getMyParticipated } from '../../service/profile_service';
+import { getMyParticipatedMain } from '../../service/profile_service';
 
 const ProfilePage = () => {
-    /*
-    const [name, setName] = useState('');
-    const [major, setMajor] = useState('');
-    const [data, setData] = useState(null);
-    const [userInfo, setUserInfo] = useState({
-        name: name,
-        major: major,
-    });
+    const accessToken = localStorage.getItem('accessToken');
+    const [data, setProfileData] = useState(); //프로필 내용
+    const [postContent1, setPostContent1] = useState();
+    const [postContent2, setPostContent2] = useState();
+    const [postContent3, setPostContent3] = useState();
 
     useEffect(() => {
-        const savedInfo = localStorage.getItem('myInfoData');
-
-        if (savedInfo) {
-            const parsedInfo = JSON.parse(savedInfo);
-            setName(parsedInfo.name);
-            setMajor(parsedInfo.major);
-            setUserInfo({
-                name: parsedInfo.name,
-                major: parsedInfo.major,
-            });
-        }
-    }, []);
-    */
-
-    const [data, setData] = useState([]); //프로필 내용
-    //프로필 정보
-    useEffect(() => {
-        getMyInfo().then(res => {
-            setData(res?.data); // 'response'를 바로 전달
-            console.log(res?.data);
+        getMyInfo(accessToken).then(res => {
+            setProfileData(res?.data); // 'response'를 바로 전달
+            //console.log(res?.data);
         });
-    }, [data]);
-
-    //내가 모집 중인 팀
-    const [postContent1, setPostContent1] = useState([]);
+    }, [accessToken]); // accessToken이 변경될 때마다 이 effect를 다시 실행
 
     useEffect(() => {
         getMyRecruiting().then(response => {
-            console.log(response.data);
+            //console.log(response.data);
             setPostContent1(response?.data);
         });
-    }, []);
-
-    //내가 지원한 팀
-    const [postContent2, setPostContent2] = useState([]);
-
-    useEffect(() => {
         getMyApplied().then(response => {
             console.log(response.data);
             setPostContent2(response?.data);
         });
-    }, []);
-
-    //내가 참여한 공모전/프로젝트
-    const [postContent3, setPostContent3] = useState([]);
-
-    useEffect(() => {
-        getMyParticipated().then(response => {
-            console.log(response.data);
+        getMyParticipatedMain().then(response => {
+            //console.log(response.data);
             setPostContent3(response?.data);
         });
     }, []);
@@ -92,12 +57,13 @@ const ProfilePage = () => {
             <S.GlobalBox>
                 <S.BoxDetail>
                     <S.SubTitle>내가 모집 중인 팀</S.SubTitle>
-                    {postContent1.map((postContent1, index) => (
+                    {postContent1?.map((postContent1, index) => (
                         <TeamBox
                             showMoreDetail={true}
                             showWaitingJoin={false}
                             showSubBox={true}
                             postContent={postContent1}
+                            isMyParticipation={false}
                         />
                     ))}
                 </S.BoxDetail>
@@ -108,7 +74,7 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
-                    {postContent2.map((postContent2, index) => (
+                    {postContent2?.map((postContent2, index) => (
                         <TeamBox
                             showMoreDetail={false}
                             showWaitingJoin={true}
@@ -119,6 +85,7 @@ const ProfilePage = () => {
                                     : 'rgba(231, 137, 255, 0.5)'
                             }
                             postContent={postContent2}
+                            isMyParticipation={false}
                         />
                     ))}
                 </S.BoxDetail>
@@ -130,13 +97,18 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
-                    <TeamBox
-                        showMoreDetail={false}
-                        borderColor="#6F6F6F"
-                        showWaitingJoin={false}
-                        showSubBox={false}
-                        postContent={postContent3}
-                    />
+                    {postContent3?.participationLists?.map(
+                        (postContent3, index) => (
+                            <TeamBox
+                                showMoreDetail={false}
+                                borderColor="#6F6F6F"
+                                showWaitingJoin={false}
+                                showSubBox={false}
+                                postContent={postContent3}
+                                isMyParticipation={true}
+                            />
+                        ),
+                    )}
                 </S.BoxDetail>
             </S.GlobalBox>
         </div>

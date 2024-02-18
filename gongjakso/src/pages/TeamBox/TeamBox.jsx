@@ -8,11 +8,21 @@ const TeamBox = ({
     showWaitingJoin,
     showSubBox,
     postContent,
+    isMyParticipation,
 }) => {
     const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 
     //활동기간 형식 바꾸기
     const startDate = new Date(postContent?.startDate)
+        .toLocaleDateString('ko-KR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+        })
+        .split('. ')
+        .join('.');
+
+    const finishDate = new Date(postContent?.finishDate)
         .toLocaleDateString('ko-KR', {
             year: 'numeric',
             month: '2-digit',
@@ -30,7 +40,31 @@ const TeamBox = ({
         .split('. ')
         .join('.');
 
-    //console.log(postContent);
+    function getDisplayCategory(recruit_part) {
+        let displayCategory;
+
+        switch (recruit_part) {
+            case 'PLAN':
+                displayCategory = '기획';
+                break;
+            case 'DESIGN':
+                displayCategory = '디자인';
+                break;
+            case 'FE':
+                displayCategory = '프론트엔드';
+                break;
+            case 'BE':
+                displayCategory = '백엔드';
+                break;
+            case 'ETC':
+                displayCategory = '기타';
+                break;
+            default:
+                displayCategory = recruit_part;
+        }
+
+        return displayCategory;
+    }
 
     return (
         <S.Box borderColor={borderColor} showMoreDetail={showMoreDetail}>
@@ -38,7 +72,9 @@ const TeamBox = ({
                 <S.MainBox>
                     <S.Title>{postContent?.title}</S.Title>
                     <S.subTitle>
-                        | {postContent?.memberName} | {startDate}~{endDate} |
+                        {isMyParticipation
+                            ? `| ${postContent?.leaderName} | ${startDate}~${finishDate} |`
+                            : `| ${postContent?.memberName} | ${startDate}~${endDate} |`}
                     </S.subTitle>
                 </S.MainBox>
                 {showSubBox ? (
@@ -53,58 +89,39 @@ const TeamBox = ({
                         </S.ScrapNum>
                     </S.SubBox>
                 ) : (
-                    <S.ActivityStatus>활동 중</S.ActivityStatus>
+                    <S.ActivityStatus>
+                        {postContent?.postStatus === 'RECRUITING'
+                            ? '활동 중'
+                            : '활동 종료'}
+                    </S.ActivityStatus>
                 )}
             </S.BoxTopDetail>
             <S.BoxBottomDetail>
                 <S.MainBox>
-                    {postContent?.categoryList?.map((categoryList, index) => {
-                        let displayCategory;
-
-                        switch (categoryList) {
-                            case 'PLAN':
-                                displayCategory = '기획';
-                                break;
-                            case 'DESIGN':
-                                displayCategory = '디자인';
-                                break;
-                            case 'FE':
-                                displayCategory = '프론트엔드';
-                                break;
-                            case 'BE':
-                                displayCategory = '백엔드';
-                                break;
-                            case 'ETC':
-                                displayCategory = '기타';
-                                break;
-                            default:
-                                displayCategory = categoryList;
-                        }
-
-                        return (
-                            <S.RoundForm key={index}>
-                                {displayCategory}
-                            </S.RoundForm>
-                        );
-                    })}
+                    {isMyParticipation ? (
+                        <S.RoundForm>
+                            {getDisplayCategory(postContent?.recruit_part)}
+                        </S.RoundForm>
+                    ) : (
+                        postContent?.categoryList?.map(
+                            (categoryList, index) => {
+                                return (
+                                    <S.RoundForm key={index}>
+                                        {getDisplayCategory(categoryList)}
+                                    </S.RoundForm>
+                                );
+                            },
+                        )
+                    )}
                 </S.MainBox>
                 {showWaitingJoin && <S.WaitingJoin>합류 대기중</S.WaitingJoin>}
             </S.BoxBottomDetail>
+
             {showMoreDetail && (
                 <Link to="/teamdetail">
                     <S.MoreDetail />
                 </Link>
             )}
-            {showWaitingJoin &&
-                postContent?.daysRemaining === 0 &&
-                isOverlayVisible && (
-                    <S.DeadlineOverlay>
-                        모집이 연장되었습니다.
-                        <S.CloseImage
-                            onClick={() => setIsOverlayVisible(false)}
-                        ></S.CloseImage>
-                    </S.DeadlineOverlay>
-                )}
         </S.Box>
     );
 };
