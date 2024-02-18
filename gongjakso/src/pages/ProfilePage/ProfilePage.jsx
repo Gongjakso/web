@@ -4,6 +4,8 @@ import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
 import { getMyRecruiting } from '../../service/profile_service';
 import { getMyInfo } from '../../service/profile_service';
+import { getMyApplied } from '../../service/profile_service';
+import { getMyParticipated } from '../../service/profile_service';
 
 const ProfilePage = () => {
     /*
@@ -30,63 +32,44 @@ const ProfilePage = () => {
     }, []);
     */
 
-    const [data, setData] = useState([]);
+    const [data, setData] = useState([]); //프로필 내용
     //프로필 정보
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getMyInfo();
-                setData(response?.data); // 'response'를 바로 전달
-                console.log(response);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchData();
-    }, []);
+        getMyInfo().then(res => {
+            setData(res?.data); // 'response'를 바로 전달
+            console.log(res?.data);
+        });
+    }, [data]);
 
     //내가 모집 중인 팀
-    const [postContent1, setPostContent] = useState([]);
+    const [postContent1, setPostContent1] = useState([]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await getMyRecruiting();
-                setData(response?.data);
-                setPostContent(response?.data); // 데이터를 postContents에 저장
-                console.log(response);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchData();
+        getMyRecruiting().then(response => {
+            console.log(response.data);
+            setPostContent1(response?.data);
+        });
     }, []);
 
-    const postContent2 = {
-        //내가 지원한 팀 데이터
-        title: '두번째 프로젝트',
-        memberName: '최진',
-        categoryList: ['프론트엔드'],
-        daysRemaining: 2,
-        startDate: '2024-02-01T10:00:00',
-        endDate: '2024-02-25T10:00:00',
-        scrapCount: 20,
-        //0->공모전 1->프로젝트
-        isState: 1,
-    };
-    const postContent3 = {
-        //내가 참여한 팀 데이터
-        title: '공공 프로젝트',
-        memberName: '최혀진',
-        categoryList: ['디자인'],
-        startDate: '2024-02-01T10:00:00',
-        endDate: '2024-02-25T10:00:00',
-        status: 'RECRUITING',
-        isState: 0,
-    };
+    //내가 지원한 팀
+    const [postContent2, setPostContent2] = useState([]);
 
-    //내가 모집중인 팀 데이터
-    //const postContent1 = data;
+    useEffect(() => {
+        getMyApplied().then(response => {
+            console.log(response.data);
+            setPostContent2(response?.data);
+        });
+    }, []);
+
+    //내가 참여한 공모전/프로젝트
+    const [postContent3, setPostContent3] = useState([]);
+
+    useEffect(() => {
+        getMyParticipated().then(response => {
+            console.log(response.data);
+            setPostContent3(response?.data);
+        });
+    }, []);
 
     return (
         <div>
@@ -125,17 +108,19 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
-                    <TeamBox
-                        showMoreDetail={false}
-                        showWaitingJoin={true}
-                        showSubBox={true}
-                        borderColor={
-                            postContent2.isState === 0
-                                ? 'rgba(0, 163, 255, 0.5)'
-                                : 'rgba(231, 137, 255, 0.5)'
-                        }
-                        postContent={postContent2}
-                    />
+                    {postContent2.map((postContent2, index) => (
+                        <TeamBox
+                            showMoreDetail={false}
+                            showWaitingJoin={true}
+                            showSubBox={true}
+                            borderColor={
+                                postContent2.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
+                            postContent={postContent2}
+                        />
+                    ))}
                 </S.BoxDetail>
 
                 <S.BoxDetail>

@@ -28,7 +28,6 @@ export const getMyInfo = async () => {
     }
 };
 
-
 //팀박스->내가 모집 중
 export const getMyRecruiting = async () => {
     const reqURL = `post/my`;
@@ -37,13 +36,30 @@ export const getMyRecruiting = async () => {
         const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
-        throw new Error('내가 모집 중인 글을 가져올 수 없습니다.');
+        throw new Error('내가 모집 중인 게시글을 가져올 수 없습니다.');
     }
 };
 
-
-
 //팀박스->내가 지원
+export const getMyApplied = async () => {
+    const reqURL = `apply/my`;
 
+    try {
+        const response = await axiosInstance.get(reqURL);
+        return response.data;
+    } catch (error) {
+        throw new Error('내가 지원한 게시글을 가져올 수 없습니다.');
+    }
+};
 
 //팀박스->내가 참여
+export const getMyParticipated = async () => {
+    const reqURL = `apply/my-participation-post`;
+
+    try {
+        const response = await axiosInstance.get(reqURL);
+        return response.data;
+    } catch (error) {
+        throw new Error('내가 참여한 글을 가져올 수 없습니다.');
+    }
+};

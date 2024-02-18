@@ -58,9 +58,35 @@ const TeamBox = ({
             </S.BoxTopDetail>
             <S.BoxBottomDetail>
                 <S.MainBox>
-                    {postContent?.categoryList?.map((categoryList, index) => (
-                        <S.RoundForm key={index}>{categoryList}</S.RoundForm>
-                    ))}
+                    {postContent?.categoryList?.map((categoryList, index) => {
+                        let displayCategory;
+
+                        switch (categoryList) {
+                            case 'PLAN':
+                                displayCategory = '기획';
+                                break;
+                            case 'DESIGN':
+                                displayCategory = '디자인';
+                                break;
+                            case 'FE':
+                                displayCategory = '프론트엔드';
+                                break;
+                            case 'BE':
+                                displayCategory = '백엔드';
+                                break;
+                            case 'ETC':
+                                displayCategory = '기타';
+                                break;
+                            default:
+                                displayCategory = categoryList;
+                        }
+
+                        return (
+                            <S.RoundForm key={index}>
+                                {displayCategory}
+                            </S.RoundForm>
+                        );
+                    })}
                 </S.MainBox>
                 {showWaitingJoin && <S.WaitingJoin>합류 대기중</S.WaitingJoin>}
             </S.BoxBottomDetail>

@@ -3,7 +3,7 @@ import * as S from './MyInfoStyled';
 import majorData from '../../utils/majorData.json';
 import jobData from '../../utils/jobData.json';
 import { putMyInfo } from '../../service/profile_service';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const groupData = data => {
     return data.reduce((groups, item) => {
@@ -22,6 +22,7 @@ const MyInfo = () => {
     const [status, setStatus] = useState('');
     const [major, setMajor] = useState('');
     const [job, setJob] = useState('');
+    const navigate = useNavigate();
 
     const status_options = [
         '대학 재학 중',
@@ -126,11 +127,14 @@ const MyInfo = () => {
                 </S.DetailBox>
             </S.Formset>
             <S.Wrapper>
-                <Link to="/profile">
-                    <S.SetBox onClick={handleProfileClick}>
-                        정보 저장하기
-                    </S.SetBox>
-                </Link>
+                <S.SetBox
+                    onClick={() => {
+                        handleProfileClick();
+                        navigate('/profile');
+                    }}
+                >
+                    정보 저장하기
+                </S.SetBox>
             </S.Wrapper>
         </S.Div>
     );

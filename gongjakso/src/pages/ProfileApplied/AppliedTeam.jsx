@@ -3,13 +3,28 @@ import * as S from './AppliedTeamStyled';
 import TeamBox from '../TeamBox/TeamBox';
 import TopButton from '../../pages/HomePage/TopButton';
 import Pagination from '../../components/Pagination/Pagination';
-//import { useHistory } from 'react-router-dom';
+import { getMyApplied } from '../../service/profile_service';
 
 const TeamSupport = () => {
     const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(1);
-
     const offset = (page - 1) * limit;
+    const [data, setData] = useState([]);
+    const [postContent2, setPostContent2] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await getMyApplied();
+                setData(response?.data);
+                setPostContent2(response?.data);
+                console.log(response);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        fetchData();
+    }, []);
 
     return (
         <div>
@@ -19,18 +34,19 @@ const TeamSupport = () => {
                 <S.Title>내가 지원한 팀</S.Title>
             </S.TopBox>
             <S.BoxDetail>
-                <TeamBox
-                    showMoreDetail={false}
-                    showWaitingJoin={true}
-                    showSubBox={true}
-                    borderColor="rgba(0, 163, 255, 0.5)"
-                />
-                <TeamBox
-                    showMoreDetail={false}
-                    showWaitingJoin={true}
-                    showSubBox={true}
-                    borderColor="rgba(231, 137, 255, 0.5)"
-                />
+                {postContent2.map((postContent2, index) => (
+                    <TeamBox
+                        showMoreDetail={false}
+                        showWaitingJoin={true}
+                        showSubBox={true}
+                        borderColor={
+                            postContent2.postType === true
+                                ? 'rgba(0, 163, 255, 0.5)'
+                                : 'rgba(231, 137, 255, 0.5)'
+                        }
+                        postContent={postContent2}
+                    />
+                ))}
                 <Pagination
                     total={13}
                     limit={limit}
