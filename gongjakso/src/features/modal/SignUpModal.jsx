@@ -4,7 +4,7 @@ import * as S from './Modal.Styled';
 import { useForm } from 'react-hook-form';
 import majorData from '../../utils/majorData.json'; // 전공 데이터 import
 import jobData from '../../utils/jobData.json'; // 직무 데이터 import
-import { putMyInfo } from '../../service/auth_service';
+import { putMyInfo } from '../../service/profile_service';
 
 const SignUpModal = ({ closeSignUpModal, name }) => {
     const navigate1 = useNavigate();
@@ -80,7 +80,7 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                             value={selectedStatus}
                             onChange={e => setSelectedStatus(e.target.value)}
                         >
-                            <option value="" disabled selected>
+                            <option value="" disabled>
                                 {' '}
                                 *현재 당신의 상태를 선택해주세요.
                             </option>
@@ -97,7 +97,7 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                             value={selectedMajor}
                             onChange={e => setSelectedMajor(e.target.value)}
                         >
-                            <option value="" disabled selected>
+                            <option value="" disabled>
                                 {' '}
                                 *현재 전공하고 있는 분야를 선택해주세요.
                             </option>
@@ -120,7 +120,7 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                             value={selectedJob}
                             onChange={e => setSelectedJob(e.target.value)}
                         >
-                            <option value="" disabled selected>
+                            <option value="" disabled>
                                 {' '}
                                 *희망하시는 직무를 선택해주세요.
                             </option>

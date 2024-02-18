@@ -55,15 +55,3 @@ export const getMyInfo = async () => {
         console.log(error);
     }
 };
-export const putMyInfo = async myInfoData => {
-    const reqURL = `member`;
-
-    try {
-        const response = await axiosInstance.put(reqURL, {
-            myInfoData,
-        });
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
