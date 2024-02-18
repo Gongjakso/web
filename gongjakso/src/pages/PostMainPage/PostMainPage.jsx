@@ -27,7 +27,7 @@ const PostMainPage = () => {
     const [sortBy, setSortBy] = useState(null);
 
     const [selectedLocalData, setSelectedLocalData] = useState('');
-
+    const [selectedStack, setSelectedStack] = useState('');
     // const offset = (page - 1) * limit;
 
     useEffect(() => {
@@ -56,7 +56,18 @@ const PostMainPage = () => {
     });
 
     const options = ['전체', '인기순', '최신순'];
-
+    const stackOptions = [
+        'React',
+        'TypeScript',
+        'JavaScript',
+        'Nextjs',
+        'Nodejs',
+        'Java',
+        'Spring',
+        'Kotlin',
+        'Swift',
+        'Flutter',
+    ];
     useEffect(() => {
         getProjectBanner().then(res => {
             const imageUrls = res.data.map(item => item.imageUrl);
@@ -88,6 +99,10 @@ const PostMainPage = () => {
         } else {
             setSortBy(null);
         }
+    };
+
+    const handleSelectStack = selectedStack => {
+        setSelectedStack(selectedStack);
     };
 
     const handleSelectedData = data => {
@@ -131,9 +146,10 @@ const PostMainPage = () => {
                             <SelectInput
                                 id={'local'}
                                 error={errors.local}
-                                selectOptions={options}
+                                selectOptions={stackOptions}
                                 placeholder={'기술 스택'}
                                 register={register}
+                                onChange={handleSelectStack}
                             />
                         </S.Fillter1>
                     )}
