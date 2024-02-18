@@ -10,7 +10,7 @@ import OpenKakao from '../../assets/images/OpenKakaoLink.svg';
 import DoScrap from '../../assets/images/Scrap.svg';
 import ApplyModal from '../../features/modal/ApplyModal';
 import Completed from '../../features/modal/Completed';
-import { getPostDetail, postScrap } from '../../service/post_service';
+import { getPostDetail, getScrap, postScrap } from '../../service/post_service';
 
 const DetailPageContest = () => {
     const navigate = useCustomNavigate();
@@ -44,6 +44,9 @@ const DetailPageContest = () => {
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
         });
+        getScrap(id).then(res => {
+            setscrapStatus(res?.data);
+        });
     }, [id]);
 
     // 활동기간 수정 함수
@@ -58,9 +61,10 @@ const DetailPageContest = () => {
     // 스크랩 POST
     const ClickScrapBtn = () => {
         // ID 수정!!!!
-        postScrap('103').then(res => {
+        postScrap(id).then(res => {
             console.log(res);
         });
+        window.location.reload();
     };
 
     return (
@@ -192,21 +196,15 @@ const DetailPageContest = () => {
                         <S.Globalstyle>
                             <S.ScrapButton
                                 bc={({ theme }) => theme.Green}
-                                click={click}
-                                onClick={() => {
-                                    if (click === true) {
-                                        ClickScrapBtn();
-                                        setscrapNum(scrapNum - 1);
-                                        setClick(false);
-                                    } else {
-                                        ClickScrapBtn();
-                                        setscrapNum(scrapNum + 1);
-                                        setClick(true);
-                                    }
-                                }}
+                                click={scrapStatus.ScrapStatus}
+                                onClick={ClickScrapBtn}
                             >
                                 <img
-                                    src={click === false ? ScrapNum : DoScrap}
+                                    src={
+                                        scrapStatus.ScrapStatus === false
+                                            ? ScrapNum
+                                            : DoScrap
+                                    }
                                     alt="scrap-button"
                                 />
                                 <span>스크랩하기</span>
