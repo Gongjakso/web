@@ -29,6 +29,7 @@ const TeamPart = () => {
                 {postContent3?.participationLists?.map(
                     (postContent3, index) => (
                         <TeamBox
+                            key={index}
                             showMoreDetail={false}
                             borderColor="#6F6F6F"
                             showWaitingJoin={false}

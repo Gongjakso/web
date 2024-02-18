@@ -8,30 +8,22 @@ import { getMyApplied } from '../../service/profile_service';
 import { getMyParticipatedMain } from '../../service/profile_service';
 
 const ProfilePage = () => {
-    const accessToken = localStorage.getItem('accessToken');
     const [data, setProfileData] = useState(); //프로필 내용
     const [postContent1, setPostContent1] = useState();
     const [postContent2, setPostContent2] = useState();
     const [postContent3, setPostContent3] = useState();
 
     useEffect(() => {
-        getMyInfo(accessToken).then(res => {
-            setProfileData(res?.data); // 'response'를 바로 전달
-            //console.log(res?.data);
+        getMyInfo().then(response => {
+            setProfileData(response?.data); // 'response'를 바로 전달
         });
-    }, [accessToken]); // accessToken이 변경될 때마다 이 effect를 다시 실행
-
-    useEffect(() => {
         getMyRecruiting().then(response => {
-            //console.log(response.data);
             setPostContent1(response?.data);
         });
         getMyApplied().then(response => {
-            console.log(response.data);
             setPostContent2(response?.data);
         });
         getMyParticipatedMain().then(response => {
-            //console.log(response.data);
             setPostContent3(response?.data);
         });
     }, []);
@@ -59,6 +51,7 @@ const ProfilePage = () => {
                     <S.SubTitle>내가 모집 중인 팀</S.SubTitle>
                     {postContent1?.map((postContent1, index) => (
                         <TeamBox
+                            key={index}
                             showMoreDetail={true}
                             showWaitingJoin={false}
                             showSubBox={true}
@@ -81,6 +74,7 @@ const ProfilePage = () => {
                     </S.SubTitle>
                     {postContent2?.map((postContent2, index) => (
                         <TeamBox
+                            key={index}
                             showMoreDetail={false}
                             showWaitingJoin={true}
                             showSubBox={true}
@@ -105,6 +99,7 @@ const ProfilePage = () => {
                     {postContent3?.participationLists?.map(
                         (postContent3, index) => (
                             <TeamBox
+                                key={index}
                                 showMoreDetail={false}
                                 borderColor={
                                     postContent3.postType === true

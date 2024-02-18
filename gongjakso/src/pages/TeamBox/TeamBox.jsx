@@ -72,9 +72,12 @@ const TeamBox = ({
                 <S.MainBox>
                     <S.Title>{postContent?.title}</S.Title>
                     <S.subTitle>
-                        {isMyParticipation
-                            ? `| ${postContent?.leaderName} | ${startDate}~${finishDate} |`
-                            : `| ${postContent?.memberName} | ${startDate}~${endDate} |`}
+                        {isMyParticipation === false &&
+                            `| ${postContent?.memberName} | ${startDate}~${endDate} |`}
+                        {isMyParticipation === true &&
+                            `| ${postContent?.leaderName} | ${startDate}~${finishDate} |`}
+                        {isMyParticipation === null &&
+                            `| ${postContent?.name} | ${startDate}~${finishDate} |`}
                     </S.subTitle>
                 </S.MainBox>
                 {showSubBox ? (
