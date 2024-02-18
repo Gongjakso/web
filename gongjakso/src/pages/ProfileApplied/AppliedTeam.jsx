@@ -29,6 +29,7 @@ const TeamSupport = () => {
             <S.BoxDetail>
                 {postContent2?.map((postContent2, index) => (
                     <TeamBox
+                        key={index}
                         showMoreDetail={false}
                         showWaitingJoin={true}
                         showSubBox={true}
