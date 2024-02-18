@@ -46,20 +46,14 @@ const PostMainPage = () => {
         formState: { errors, isSubmitted },
     } = useForm({
         mode: 'onSubmit',
-        defaultValues: {
-            category: '책상',
-            productName: null,
-            price: null,
-            store: null,
-            link: null,
-        },
+        defaultValues: {},
     });
 
     const options = ['전체', '인기순', '최신순'];
 
     useEffect(() => {
         getProjectBanner().then(res => {
-            const imageUrls = res.data.map(item => item.imageUrl);
+            const imageUrls = res?.data?.map(item => item.imageUrl);
             setBanners(imageUrls);
         });
         loadContestPosts(page, sortBy, selectedLocalData);
@@ -68,6 +62,7 @@ const PostMainPage = () => {
 
     const loadContestPosts = (page, sort, selectedLocalData) => {
         getContestPosts(page, sort, selectedLocalData).then(res => {
+            console.log(res?.data.content);
             setContestPosts(res?.data?.content);
             setContestTotalPage(res?.data?.totalPages);
         });
@@ -145,14 +140,13 @@ const PostMainPage = () => {
                                 key={project?.postId}
                                 to={`/project/${project?.postId}`}
                             >
-                                <S.Article
-                                    $isColor={isColor}
-                                    key={project.postId}
-                                >
-                                    <h3>{project.title}</h3>
-                                    <h3>{project.name}</h3>
-                                    <h3>{project.status}</h3>
-                                </S.Article>
+                                <TeamBox
+                                    showWaitingJoin={false}
+                                    showSubBox={true}
+                                    borderColor={'rgba(231, 137, 255, 0.5)'}
+                                    postContent={project}
+                                    isMyParticipation={null}
+                                />
                             </Link>
                         ))}
                     </S.PostContent>
@@ -167,6 +161,9 @@ const PostMainPage = () => {
                                 <TeamBox
                                     showWaitingJoin={false}
                                     showSubBox={true}
+                                    borderColor={'rgba(0, 163, 255, 0.5)'}
+                                    postContent={contest}
+                                    isMyParticipation={null}
                                 />
                             </Link>
                         ))}
