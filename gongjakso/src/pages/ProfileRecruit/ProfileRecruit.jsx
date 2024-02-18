@@ -12,9 +12,6 @@ import {
 
 const ProfileRecruit = () => {
     const [showApply, setShowApply] = useState(false); // 지원서 모달창 띄우는 경우
-    const [open, setOpen] = useState(false); // 지원서 보기를 눌렀을 경우
-    const [refuse, setRefuse] = useState(false); // 미선발을 눌렀을 경우
-    const [pick, setPick] = useState(false); // 합류를 눌렀을 경우
     const [item, setItem] = useState('');
 
     const [finish, setFinish] = useState(false); // 마감하기
@@ -39,6 +36,7 @@ const ProfileRecruit = () => {
     const [limit, setLimit] = useState(11);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
+    const [refresh, setRefresh] = useState(1);
 
     useEffect(() => {
         getApplyList(number).then(
@@ -46,7 +44,7 @@ const ProfileRecruit = () => {
                 console.log(res);
                 setPosts(res?.data.applyLists);
             },
-            [posts],
+            [number],
         );
         getRecruitTeam(number).then(
             res => {
@@ -57,13 +55,17 @@ const ProfileRecruit = () => {
             },
             [number],
         );
-    }, []);
+    }, [refresh]);
 
     const ClickOpen = id => {
         // ID 수정!!!!
         patchOpen(id).then(res => {
             console.log(res);
         });
+    };
+
+    const handleRefresh = () => {
+        setRefresh(refresh * -1);
     };
 
     // 현재상태 버튼
@@ -104,14 +106,12 @@ const ProfileRecruit = () => {
                 <ClickApply
                     setShowApply={setShowApply}
                     item={item}
-                    setRefuse={setRefuse}
-                    setPick={setPick}
-                    setOpen={setOpen}
                     type={recruitTeam.postType}
                     idNum={idNum}
                     idName={idName}
                     recruitPart={part}
                     recruitRole={role}
+                    Reload={handleRefresh}
                 />
             ) : null}
 
@@ -198,7 +198,6 @@ const ProfileRecruit = () => {
                                                 setItem(i);
                                                 handleClick(i, item.id);
                                                 setShowApply(true);
-                                                setOpen(true);
                                                 setidNum(item.apply_id);
                                                 setidName(item.name);
                                                 ClickOpen(item.apply_id);
@@ -208,11 +207,6 @@ const ProfileRecruit = () => {
                                         </S.ShowBtn>
 
                                         <S.TableBox>
-                                            {/* {item.open === true ? (
-                                                <S.StateBtn isOpen={true}>
-                                                    열람 완료
-                                                </S.StateBtn>
-                                            ) : null} */}
                                             {item?.state === '열람 완료' && (
                                                 <S.StateBtn
                                                     bg={({ theme }) =>
@@ -220,6 +214,24 @@ const ProfileRecruit = () => {
                                                     }
                                                 >
                                                     열람 완료
+                                                </S.StateBtn>
+                                            )}
+                                            {item?.state === '미선발' && (
+                                                <S.StateBtn
+                                                    bg={({ theme }) =>
+                                                        theme.LightGrey
+                                                    }
+                                                >
+                                                    미선발
+                                                </S.StateBtn>
+                                            )}
+                                            {item?.state === '합류 완료' && (
+                                                <S.StateBtn
+                                                    bg={({ theme }) =>
+                                                        theme.box1
+                                                    }
+                                                >
+                                                    합류 완료
                                                 </S.StateBtn>
                                             )}
                                         </S.TableBox>
