@@ -195,7 +195,6 @@ export const StateBtn = styled.div`
     color: white;
     font-weight: bold;
     font-size: ${({ theme }) => theme.fontSize.md};
-    background: ${props =>
-        props.isOpen ? ({ theme }) => theme.LimeGreen : ''};
+    background: ${props => props.bg};
     border-radius: 20px;
 `;

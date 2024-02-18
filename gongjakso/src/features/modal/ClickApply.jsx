@@ -1,9 +1,16 @@
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
 import { Data, Fields, Skills } from '../../pages/ProfileRecruit/UserData';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import {
+    getApplication,
+    patchNotRecruit,
+    patchRecruit,
+} from '../../service/apply_service';
 
 const ClickApply = props => {
+    const [applyData, setapplyData] = useState([]);
+
     // 스크롤 방지
     useEffect(() => {
         document.body.style.cssText = `
@@ -18,10 +25,33 @@ const ClickApply = props => {
         };
     }, []);
 
+    // 수정 사항!!!
+    const number = 105;
+    useEffect(() => {
+        getApplication(number, props.idNum).then(res => {
+            console.log(res);
+            setapplyData(res?.data);
+        });
+    }, []);
+
+    const ClickRecruitBtn = () => {
+        // ID 수정!!!!
+        patchRecruit(props.idNum).then(res => {
+            console.log(res);
+        });
+    };
+
+    const ClickNotRecruitBtn = () => {
+        // ID 수정!!!!
+        patchNotRecruit(props.idNum).then(res => {
+            console.log(res);
+        });
+    };
+
     return (
         <div>
             <S.Background>
-                <S.Modal w="53%" h="85%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="53%" h="80%" bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
                             props.setShowApply(false);
@@ -30,33 +60,47 @@ const ClickApply = props => {
                         <img src={Close} alt="close-btn" />
                     </S.Backbtn>
 
-                    <S.MainTitle>{Data[props.item].name}</S.MainTitle>
+                    <S.MainTitle>{props.idName}</S.MainTitle>
                     <S.DetailBox>
                         <S.SubTitle>지원 분야</S.SubTitle>
                         <S.FormBox>
-                            {Fields.map((item, i) => (
+                            {props.recruitPart.map((item, i) => (
                                 <S.RoundForm
-                                    isSelected={item === Data[props.item].type}
+                                    isSelected={item === applyData.recruit_part}
                                     style={{ cursor: 'default' }}
                                 >
-                                    {item}
+                                    {item === 'PLAN' && '기획'}
+                                    {item === 'DESIGN' && '디자인'}
+                                    {item === 'FE' && '프론트엔드'}
+                                    {item === 'BE' && '백엔드'}
+                                    {item === 'ETC' && '기타'}
+                                    {item === 'LATER' && '추후조정'}
                                 </S.RoundForm>
                             ))}
                         </S.FormBox>
                     </S.DetailBox>
 
-                    {props.type === '프로젝트' && (
+                    {props.type === false && (
                         <S.DetailBox>
                             <S.SubTitle>기술 스택</S.SubTitle>
                             <S.FormBox>
-                                {Skills.map((item, i) => (
+                                {props.recruitRole.map((item, i) => (
                                     <S.RoundForm
                                         isSelected={
-                                            item === Data[props.item].skill[i]
+                                            item === applyData.recruit_role
                                         }
                                         style={{ cursor: 'default' }}
                                     >
-                                        {item}
+                                        {item === 'REACT' && 'React'}
+                                        {item === 'TYPESCRIPT' && 'TypeScript'}
+                                        {item === 'JAVASCRIPT' && 'JavaScript'}
+                                        {item === 'NEXTJS' && 'Next.js'}
+                                        {item === 'NODEJS' && 'Node.js'}
+                                        {item === 'JAVA' && 'Java'}
+                                        {item === 'SPRING' && 'Spring'}
+                                        {item === 'KOTLIN' && 'Kotlin'}
+                                        {item === 'FLUTTER' && 'Flutter'}
+                                        {item === 'ETC' && 'etc'}
                                     </S.RoundForm>
                                 ))}
                             </S.FormBox>
@@ -66,7 +110,7 @@ const ClickApply = props => {
                     <S.DetailBox2>
                         <S.SubTitle>지원 이유</S.SubTitle>
                         <S.TextBox>
-                            <S.Content>{Data[props.item].content}</S.Content>
+                            <S.Content>{applyData?.application}</S.Content>
                         </S.TextBox>
                     </S.DetailBox2>
 
@@ -77,6 +121,7 @@ const ClickApply = props => {
                                 props.setShowApply(false);
                                 props.setOpen(false);
                                 props.setRefuse(true);
+                                ClickNotRecruitBtn();
                             }}
                         >
                             미선발
@@ -87,6 +132,7 @@ const ClickApply = props => {
                                 props.setShowApply(false);
                                 props.setOpen(false);
                                 props.setPick(true);
+                                ClickRecruitBtn();
                             }}
                         >
                             합류하기

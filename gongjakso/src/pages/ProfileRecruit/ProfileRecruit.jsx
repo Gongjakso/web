@@ -4,7 +4,11 @@ import User from '../../assets/images/My_page_big.svg';
 import MyPageTeam from '../../features/modal/MyPageTeam';
 import ClickApply from '../../features/modal/ClickApply';
 import Pagination from '../../components/Pagination/Pagination';
-import { getApplyList, getRecruitTeam } from '../../service/apply_service';
+import {
+    getApplyList,
+    getRecruitTeam,
+    patchOpen,
+} from '../../service/apply_service';
 
 const ProfileRecruit = () => {
     const [showApply, setShowApply] = useState(false); // 지원서 모달창 띄우는 경우
@@ -17,33 +21,50 @@ const ProfileRecruit = () => {
     const [extend, setExtend] = useState(false); // 연장하기
     const [cancel, setCancel] = useState(false); // 취소하기
 
-    const [type] = useState(['공모전', '프로젝트']);
+    const [idNum, setidNum] = useState('');
+    const [idName, setidName] = useState('');
+    const [part, setPart] = useState([]);
+    const [role, setRole] = useState([]);
 
     const [teamCase] = useState([
         { case: '마감하기', id: '1' },
         { case: '연장하기', id: '2' },
         { case: '취소하기', id: '3' },
     ]);
-    const number = 86;
-    useEffect(() => {
-        getApplyList(number).then(
-            res => {
-                setPosts(res?.data);
-            },
-            [number],
-        );
-        getRecruitTeam(number).then(
-            res => {
-                setRecruitTeam(res?.data);
-            },
-            [number],
-        );
-    }, []);
+
+    // 수정 사항!!
+    const number = 105;
 
     const [posts, setPosts] = useState([]);
     const [limit, setLimit] = useState(11);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
+
+    useEffect(() => {
+        getApplyList(number).then(
+            res => {
+                console.log(res);
+                setPosts(res?.data.applyLists);
+            },
+            [posts],
+        );
+        getRecruitTeam(number).then(
+            res => {
+                console.log(res);
+                setRecruitTeam(res?.data);
+                setPart(res?.data.category);
+                setRole(res?.data.stackName);
+            },
+            [number],
+        );
+    }, []);
+
+    const ClickOpen = id => {
+        // ID 수정!!!!
+        patchOpen(id).then(res => {
+            console.log(res);
+        });
+    };
 
     // 현재상태 버튼
 
@@ -86,7 +107,11 @@ const ProfileRecruit = () => {
                     setRefuse={setRefuse}
                     setPick={setPick}
                     setOpen={setOpen}
-                    type={type[1]}
+                    type={recruitTeam.postType}
+                    idNum={idNum}
+                    idName={idName}
+                    recruitPart={part}
+                    recruitRole={role}
                 />
             ) : null}
 
@@ -152,7 +177,7 @@ const ProfileRecruit = () => {
                             <S.TagP isleft={true}>지원자명</S.TagP>
                             <S.TagP isleft={false}>현재상태</S.TagP>
                         </S.StyledTh>
-                        {posts?.applyLists
+                        {posts
                             ?.slice(offset, offset + limit)
                             .map((item, i, array) => (
                                 <tr key={item.id}>
@@ -174,17 +199,29 @@ const ProfileRecruit = () => {
                                                 handleClick(i, item.id);
                                                 setShowApply(true);
                                                 setOpen(true);
+                                                setidNum(item.apply_id);
+                                                setidName(item.name);
+                                                ClickOpen(item.apply_id);
                                             }}
                                         >
                                             지원서 보기
                                         </S.ShowBtn>
 
                                         <S.TableBox>
-                                            {item.open === true ? (
+                                            {/* {item.open === true ? (
                                                 <S.StateBtn isOpen={true}>
                                                     열람 완료
                                                 </S.StateBtn>
-                                            ) : null}
+                                            ) : null} */}
+                                            {item?.state === '열람 완료' && (
+                                                <S.StateBtn
+                                                    bg={({ theme }) =>
+                                                        theme.LimeGreen
+                                                    }
+                                                >
+                                                    열람 완료
+                                                </S.StateBtn>
+                                            )}
                                         </S.TableBox>
                                     </S.StyledTd>
                                 </tr>
