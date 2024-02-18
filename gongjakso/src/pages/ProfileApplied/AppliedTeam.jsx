@@ -29,6 +29,7 @@ const TeamSupport = () => {
             <S.BoxDetail>
                 {postContent2?.map((postContent2, index) => (
                     <TeamBox
+                        key={index}
                         showMoreDetail={false}
                         showWaitingJoin={true}
                         showSubBox={true}
@@ -38,7 +39,7 @@ const TeamSupport = () => {
                                 : 'rgba(231, 137, 255, 0.5)'
                         }
                         postContent={postContent2}
-                        isMyParticipation={true}
+                        isMyParticipation={false}
                     />
                 ))}
                 <Pagination

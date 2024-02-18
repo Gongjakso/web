@@ -21,10 +21,12 @@ const ProfilePage = () => {
             setPostContent1(response?.data);
         });
         getMyApplied().then(response => {
-            setPostContent2(response?.data);
+            //console.log(response.data);
+            setPostContent2(response?.data.slice(0, 2));
         });
         getMyParticipatedMain().then(response => {
-            setPostContent3(response?.data);
+            console.log(response.data);
+            setPostContent3(response?.data.participationLists.slice(0, 2));
         });
     }, []);
 
@@ -45,7 +47,6 @@ const ProfilePage = () => {
                     <S.PortfolioBox>나의 포트폴리오</S.PortfolioBox>
                 </Link>
             </S.TopBox>
-
             <S.GlobalBox>
                 <S.BoxDetail>
                     <S.SubTitle>내가 모집 중인 팀</S.SubTitle>
@@ -88,7 +89,6 @@ const ProfilePage = () => {
                         />
                     ))}
                 </S.BoxDetail>
-
                 <S.BoxDetail>
                     <S.SubTitle>
                         <span>내가 참여한 공모전/프로젝트</span>
@@ -96,23 +96,20 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
-                    {postContent3?.participationLists?.map(
-                        (postContent3, index) => (
-                            <TeamBox
-                                key={index}
-                                showMoreDetail={false}
-                                borderColor={
-                                    postContent3.postType === true
-                                        ? 'rgba(0, 163, 255, 0.5)'
-                                        : 'rgba(231, 137, 255, 0.5)'
-                                }
-                                showWaitingJoin={false}
-                                showSubBox={false}
-                                postContent={postContent3}
-                                isMyParticipation={true}
-                            />
-                        ),
-                    )}
+                    {postContent3?.map((postContent3, index) => (
+                        <TeamBox
+                            showMoreDetail={false}
+                            borderColor={
+                                postContent3.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
+                            showWaitingJoin={false}
+                            showSubBox={false}
+                            postContent={postContent3}
+                            isMyParticipation={true}
+                        />
+                    ))}
                 </S.BoxDetail>
             </S.GlobalBox>
         </div>
