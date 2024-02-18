@@ -1,6 +1,5 @@
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
-import { Data, Fields, Skills } from '../../pages/ProfileRecruit/UserData';
 import { useEffect, useState } from 'react';
 import {
     getApplication,
@@ -8,7 +7,7 @@ import {
     patchRecruit,
 } from '../../service/apply_service';
 
-const ClickApply = props => {
+const ClickApply = ({ Reload, ...props }) => {
     const [applyData, setapplyData] = useState([]);
 
     // 스크롤 방지
@@ -32,19 +31,19 @@ const ClickApply = props => {
             console.log(res);
             setapplyData(res?.data);
         });
-    }, []);
+    }, [Reload]);
 
     const ClickRecruitBtn = () => {
-        // ID 수정!!!!
         patchRecruit(props.idNum).then(res => {
             console.log(res);
+            Reload();
         });
     };
 
     const ClickNotRecruitBtn = () => {
-        // ID 수정!!!!
         patchNotRecruit(props.idNum).then(res => {
             console.log(res);
+            Reload();
         });
     };
 
@@ -55,6 +54,7 @@ const ClickApply = props => {
                     <S.Backbtn
                         onClick={() => {
                             props.setShowApply(false);
+                            Reload();
                         }}
                     >
                         <img src={Close} alt="close-btn" />
@@ -80,7 +80,8 @@ const ClickApply = props => {
                         </S.FormBox>
                     </S.DetailBox>
 
-                    {props.type === false && (
+                    {/* 프로젝트의 경우 */}
+                    {props.type === true && (
                         <S.DetailBox>
                             <S.SubTitle>기술 스택</S.SubTitle>
                             <S.FormBox>
@@ -119,8 +120,6 @@ const ClickApply = props => {
                             bg={({ theme }) => theme.LightGrey}
                             onClick={() => {
                                 props.setShowApply(false);
-                                props.setOpen(false);
-                                props.setRefuse(true);
                                 ClickNotRecruitBtn();
                             }}
                         >
@@ -130,8 +129,6 @@ const ClickApply = props => {
                             bg={({ theme }) => theme.box1}
                             onClick={() => {
                                 props.setShowApply(false);
-                                props.setOpen(false);
-                                props.setPick(true);
                                 ClickRecruitBtn();
                             }}
                         >
