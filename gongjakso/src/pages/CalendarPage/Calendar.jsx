@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import * as S from './Calendar.styled.jsx';
@@ -11,13 +11,13 @@ const Calendar = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await getCalendar('105', '2024', '2');
+                const res = await getCalendar('105', '2024', '2'); // 수정 사항!!!
                 console.log(res);
 
                 const eventTitles = res?.data.scrapPosts.map(post => ({
                     title: post.title,
-                    color: post.postType ? '#00a2ff32' : '#e789ff32',
-                    textColor: post.postType ? '#00a3ff' : '#e789ff',
+                    color: post.postType ? '#e789ff32' : '#00a2ff32',
+                    textColor: post.postType ? '#e789ff' : '#00a3ff',
                     date: post.endDate.split('T')[0],
                 }));
                 setScrapPost(res?.data.scrapPosts);
