@@ -223,7 +223,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
     };
 
     return (
-        <>
+        <S.Container>
             {posts === 'contest' && (
                 <>
                     <S.Title>
@@ -417,7 +417,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             error={errors?.people}
                             register={register}
                             registerOptions={{
-                                required: '인원을 입력해주세요. ',
+                                required: '인원을 입력하세요 ',
                                 min: 1,
                             }}
                             step={1}
@@ -509,7 +509,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.ButtonContent>
                 </>
             )}
-        </>
+        </S.Container>
     );
 };
 

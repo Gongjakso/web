@@ -6,13 +6,13 @@ export const SearchBox = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 360px;
+    width: 300px;
     height: 60px;
     margin-right: 15px;
     background-color: white;
     border: 1px solid ${({ theme }) => theme.borderline};
     border-radius: 15px;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
     color: ${({ theme }) => theme.subFont};
     padding-left: 15px;
     z-index: 9999;
@@ -24,9 +24,9 @@ export const SearchBox = styled.div`
     }
     span {
         display: inline-block;
-        width: 220px;
+        width: 200px;
         margin-bottom: 10px;
-        font-size: ${({ theme }) => theme.fontSize.md};
+        font-size: ${({ theme }) => theme.fontSize.base};
         font-family: 'PreMedium';
         font-weight: 100;
         color: ${({ theme }) => theme.borderline};
@@ -39,7 +39,7 @@ export const SearchBox = styled.div`
 export const Span = styled.div`
     display: flex;
     width: 100%;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
     color: ${({ theme }) => theme.borderline};
     font-family: 'PreMedium';
     font-weight: 100;

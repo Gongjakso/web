@@ -25,10 +25,10 @@ export const FullCalendarContainer = styled.div`
     }
 
     .fc .fc-toolbar.fc-header-toolbar {
-        margin-bottom: 100px;
+        margin-bottom: 50px;
         height: 80px;
         font-weight: bold;
-        font-size: ${({ theme }) => theme.fontSize.lg};
+        font-size: ${({ theme }) => theme.fontSize.md};
         letter-spacing: 2px;
         display: flex;
         justify-content: center;
