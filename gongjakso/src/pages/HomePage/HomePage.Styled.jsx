@@ -6,7 +6,7 @@ import teambuilding3 from '../../assets/images/Teambuilding3.png';
 import portfolioimg from '../../assets/images/Portfolio.png';
 
 export const Title = styled.div`
-    font-size: ${({ theme }) => theme.fontSize.xl};
+    font-size: ${({ theme }) => theme.fontSize.ll};
     font-family: 'PreBold';
     text-align: center;
     padding: 10px;
@@ -80,7 +80,7 @@ export const Button1 = styled.button`
     background-color: black;
     border: none;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     border-radius: 10px;
     color: white;
     width: 300px;
@@ -93,7 +93,7 @@ export const Button2 = styled.button`
     background-color: white;
     border: none;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     border-radius: 10px;
     color: black;
     font-weight: bold;
@@ -108,7 +108,7 @@ export const Button3 = styled.button`
     background-color: ${({ theme }) => theme.Main1};
     border: none;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     border-radius: 10px;
     color: white;
     width: 300px;
@@ -145,13 +145,13 @@ export const Box = styled.div`
     border-radius: 100px;
     border: 2px solid rgba(255, 255, 255, 0.8);
     padding: 40px;
-    width: 480px;
+    width: 440px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 30px;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     text-align: center;
     margin: 10px;
 `;

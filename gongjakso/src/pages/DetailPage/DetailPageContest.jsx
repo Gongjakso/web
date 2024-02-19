@@ -32,6 +32,7 @@ const DetailPageContest = () => {
     const [scrapStatus, setscrapStatus] = useState([]);
 
     const { id } = useParams();
+    const [postId] = useState(id);
 
     useEffect(() => {
         getPostDetail(id).then(res => {
@@ -68,6 +69,7 @@ const DetailPageContest = () => {
                     title={title}
                     setCompleted={setCompleted}
                     category={category}
+                    id={postId}
                 />
             ) : null}
             {completed === true ? <Completed title={title} /> : null}
@@ -96,7 +98,7 @@ const DetailPageContest = () => {
                     <S.TitleBottom>팀장 : {postData?.memberName}</S.TitleBottom>
                 </S.Background>
 
-                <S.Background s="62.5%">
+                <S.Background s="60%">
                     <S.BlueBox bg={({ theme }) => theme.Light1}>
                         <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>

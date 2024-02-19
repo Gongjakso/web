@@ -9,6 +9,7 @@ const TeamBox = ({
     showSubBox,
     postContent,
     isMyParticipation,
+    postId,
 }) => {
     const [isOverlayVisible, setIsOverlayVisible] = useState(true);
 
@@ -129,7 +130,7 @@ const TeamBox = ({
             </S.BoxBottomDetail>
 
             {showMoreDetail && (
-                <Link to="/teamdetail">
+                <Link to={`/teamdetail/${postId}`}>
                     <S.MoreDetail />
                 </Link>
             )}

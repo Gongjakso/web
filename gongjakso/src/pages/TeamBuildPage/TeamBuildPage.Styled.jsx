@@ -19,8 +19,8 @@ export const TitleContent = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 300px;
+    width: 80%;
+    height: 250px;
     border: 1px solid black;
     border-radius: 35px;
     background-color: #0054ff;
@@ -48,6 +48,7 @@ export const ImageDiv = styled(TeamBuildIcon)`
     width: 100%;
     height: 100%;
     max-width: 340px;
+    margin-top: 8%;
     min-width: 120px;
     max-height: 340px;
     min-height: 120px;
@@ -88,14 +89,18 @@ export const Button = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 360px;
-    height: 80px;
+    width: 270px;
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    color: ${props => (props.$isMain === 'main' ? 'black' : '#ffffff')};
+    font-weight: 700;
+    height: 60px;
     border: 1px solid #ffffff;
     border-radius: 12px;
 `;
 
 export const Text = styled.p`
     color: ${props => (props.$isMain === 'main' ? 'black' : '#ffffff')};
-    font-weight: 700;
-    font-size: 30px;
+    font-family: 'PreBold';
+    letter-spacing: 1px;
+    font-size: ${({ theme }) => theme.fontSize.l};
 `;

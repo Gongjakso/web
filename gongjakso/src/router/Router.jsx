@@ -57,7 +57,7 @@ const Router = () => {
 
                         <Route path={'/login'} element={<Login />} />
                         <Route
-                            path={'/teamdetail'}
+                            path={'/teamdetail/:id'}
                             element={<ProfileRecruit />}
                         />
                         <Route path={'/myinfo'} element={<MyInfo />} />

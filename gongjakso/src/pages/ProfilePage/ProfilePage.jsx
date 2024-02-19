@@ -12,6 +12,7 @@ const ProfilePage = () => {
     const [postContent1, setPostContent1] = useState();
     const [postContent2, setPostContent2] = useState();
     const [postContent3, setPostContent3] = useState();
+    const [postId, setPostId] = useState();
 
     useEffect(() => {
         getMyInfo().then(response => {
@@ -19,6 +20,7 @@ const ProfilePage = () => {
         });
         getMyRecruiting().then(response => {
             setPostContent1(response?.data);
+            console.log(response?.data);
         });
         getMyApplied().then(response => {
             setPostContent2(response?.data.slice(0, 2));
@@ -27,7 +29,7 @@ const ProfilePage = () => {
             setPostContent3(response?.data.participationLists.slice(0, 2));
         });
     }, []);
-
+    console.log(postId);
     return (
         <div>
             <S.TopBox>
@@ -61,6 +63,7 @@ const ProfilePage = () => {
                             }
                             postContent={postContent1}
                             isMyParticipation={false}
+                            postId={postContent1?.postId}
                         />
                     ))}
                 </S.BoxDetail>

@@ -6,12 +6,14 @@ export const SelectContainer = styled.div`
 
 export const SelectValue = styled.div`
     display: block;
-    width: 250px;
+    width: 220px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 18px 15px;
-    font-size: 21px;
+    font-size: 18px;
+    text-align: center;
+    align-items: center;
     cursor: pointer;
     transition: border-color 0.2s ease;
 
@@ -23,7 +25,7 @@ export const SelectValue = styled.div`
 export const OptionList = styled.div`
     position: absolute;
     left: 0;
-    width: 250px;
+    width: 220px;
     font-size: 18px;
     margin: 7px 0;
     list-style: none;
@@ -57,14 +59,12 @@ export const InputLabel = styled.label`
 export const InputText = styled.input.attrs(props => ({
     type: props.type || 'text',
 }))`
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
 
-    width: 100%;
-    max-width: 1000px;
-    padding: 2.5px 0;
+    width: 70%;
+    padding: 10px 0;
     border-style: none;
     border-bottom: 1px solid ${({ theme }) => theme.border};
-    margin-bottom: 10px;
 
     &:focus {
         outline: none;

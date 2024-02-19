@@ -9,6 +9,7 @@ import {
     getRecruitTeam,
     patchOpen,
 } from '../../service/apply_service';
+import { useParams } from 'react-router-dom';
 
 const ProfileRecruit = () => {
     const [showApply, setShowApply] = useState(false); // 지원서 모달창 띄우는 경우
@@ -29,31 +30,33 @@ const ProfileRecruit = () => {
         { case: '취소하기', id: '3' },
     ]);
 
-    // 수정 사항!!
-    const number = 105;
-
     const [posts, setPosts] = useState([]);
     const [limit, setLimit] = useState(11);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
     const [refresh, setRefresh] = useState(1);
 
+    const [totalPage, setTotalPage] = useState();
+
+    const { id } = useParams();
+
+    const [postId, setpostId] = useState(id);
+
     useEffect(() => {
-        getApplyList(number).then(
-            res => {
+        if (id !== undefined) {
+            // number가 undefined가 아닌 경우에만 실행
+            getApplyList(id).then(res => {
+                console.log('getApplyList response:', res); // 응답을 콘솔에 출력
                 setPosts(res?.data.applyLists);
-            },
-            [number],
-        );
-        getRecruitTeam(number).then(
-            res => {
+            });
+            getRecruitTeam(id).then(res => {
+                console.log('getRecruitTeam response:', res); // 응답을 콘솔에 출력
                 setRecruitTeam(res?.data);
                 setPart(res?.data.category);
                 setRole(res?.data.stackName);
-            },
-            [number],
-        );
-    }, [refresh]);
+            });
+        }
+    }, [id]); // number가 변경될 때마다 실행
 
     const ClickOpen = id => {
         // ID 수정!!!!
@@ -93,11 +96,23 @@ const ProfileRecruit = () => {
     return (
         <div>
             {finish ? (
-                <MyPageTeam teamCase={teamCase[0]} CloseModal={setFinish} />
+                <MyPageTeam
+                    teamCase={teamCase[0]}
+                    CloseModal={setFinish}
+                    id={postId}
+                />
             ) : extend ? (
-                <MyPageTeam teamCase={teamCase[1]} CloseModal={setExtend} />
+                <MyPageTeam
+                    teamCase={teamCase[1]}
+                    CloseModal={setExtend}
+                    id={postId}
+                />
             ) : cancel ? (
-                <MyPageTeam teamCase={teamCase[2]} CloseModal={setCancel} />
+                <MyPageTeam
+                    teamCase={teamCase[2]}
+                    CloseModal={setCancel}
+                    id={postId}
+                />
             ) : showApply ? (
                 <ClickApply
                     setShowApply={setShowApply}
@@ -108,6 +123,7 @@ const ProfileRecruit = () => {
                     recruitPart={part}
                     recruitRole={role}
                     Reload={handleRefresh}
+                    id={postId}
                 />
             ) : null}
 
@@ -122,8 +138,8 @@ const ProfileRecruit = () => {
                         </S.DetailGlobal>
                         <S.DetailGlobal>
                             <S.InsideDetail>
-                                활동기간 | {formatDate(recruitTeam.startDate)} ~{' '}
-                                {formatDate(recruitTeam.finishDate)}
+                                활동기간 | {formatDate(recruitTeam.startDate)} ~
+                                {formatDate(recruitTeam.endDate)}
                             </S.InsideDetail>
                             <S.InsideDetail>
                                 모집인원 | {recruitTeam.max_person}
@@ -237,7 +253,7 @@ const ProfileRecruit = () => {
                     </S.MainTable>
                 </S.Content>
                 <Pagination
-                    total={11}
+                    total={totalPage}
                     limit={limit}
                     page={page}
                     setPage={setPage}
