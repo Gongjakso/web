@@ -23,14 +23,10 @@ export const getMyInfo = async () => {
     const reqURL = `member`;
 
     try {
-        const response = await axios.get(`${BaseUrl}${reqURL}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
-        console.log('내가 모집 중인 게시글을 가져올 수 없습니다.');
+        console.log('내가 지원한 게시글을 가져올 수 없습니다.');
     }
 };
 
@@ -39,11 +35,7 @@ export const getMyRecruiting = async () => {
     const reqURL = `post/my`;
 
     try {
-        const response = await axios.get(`${BaseUrl}${reqURL}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
         console.log('내가 모집 중인 게시글을 가져올 수 없습니다.');
@@ -55,11 +47,7 @@ export const getMyApplied = async () => {
     const reqURL = `apply/my`;
 
     try {
-        const response = await axios.get(`${BaseUrl}${reqURL}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
         console.log('내가 지원한 게시글을 가져올 수 없습니다.');
