@@ -42,6 +42,7 @@ const HomePage = () => {
             getMyInfo().then(res => {
                 setMyName(res?.data?.name);
                 if (res?.data?.job === '') {
+                    console.log(res?.data);
                     setSignUpModalOpen(true);
                 } else {
                     setSignUpModalOpen(false);
