@@ -14,12 +14,18 @@ const Footer = () => {
                     />
                 </li>
                 <S.FooterInfoBox>
-                    <S.FooterInfo>Contact: gongjack@naver.com</S.FooterInfo>
-                    <S.FooterInfo>All copyright by 2023 공작소</S.FooterInfo>
+                    <S.FooterInfo>Contact: gongjaksoo@gmail.com</S.FooterInfo>
+                    <S.FooterInfo>All copyright by 2024 공작소</S.FooterInfo>
                 </S.FooterInfoBox>
                 <li>
                     <S.FooterButtonBox>
-                        <S.FooterButton>문의하기</S.FooterButton>
+                        <S.FooterButton
+                            onClick={() =>
+                                window.open('https://pf.kakao.com/_flurG')
+                            }
+                        >
+                            문의하기
+                        </S.FooterButton>
                         <S.FooterButton
                             onClick={() =>
                                 window.open(
@@ -29,6 +35,7 @@ const Footer = () => {
                         >
                             이용약관
                         </S.FooterButton>
+
                         <S.FooterButton
                             onClick={() =>
                                 window.open(
@@ -38,6 +45,7 @@ const Footer = () => {
                         >
                             개인정보처리방침
                         </S.FooterButton>
+
                         <S.FooterButton
                             onClick={() =>
                                 window.open(

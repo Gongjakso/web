@@ -12,8 +12,13 @@ import TopButton from '../HomePage/TopButton';
 import Multilevel from '../../components/common/Input/Multilevel';
 import { getContestPosts, getProjectPosts } from '../../service/post_service';
 import TeamBox from '../TeamBox/TeamBox';
+import Modal2 from '../../features/modal/LoginModal2';
+import Modal1 from '../../features/modal/LoginModal1';
 
 const PostMainPage = () => {
+    const authenticated = localStorage.getItem('accessToken');
+    const [isLoggedIn, setIsLoggedIn] = useState(!!authenticated);
+
     const location = useLocation();
     const isProject = location.pathname.includes('/project');
     const isColor = isProject ? '#E789FF' : '#00A3FF';
@@ -29,6 +34,8 @@ const PostMainPage = () => {
     const [selectedLocalData, setSelectedLocalData] = useState('');
     const [selectedStack, setSelectedStack] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
+
+    const [modal1Open, setModal1Open] = useState(false);
 
     // const offset = (page - 1) * limit;
 
@@ -134,6 +141,14 @@ const PostMainPage = () => {
         setSelectedLocalData(data);
     };
 
+    const showModal1 = () => {
+        setModal1Open(true);
+    };
+
+    const closeModal1 = () => {
+        setModal1Open(false);
+    };
+
     return (
         <>
             <TopButton />
@@ -187,36 +202,69 @@ const PostMainPage = () => {
                 {isProject ? ( //여기는 프로젝트
                     <S.PostContent>
                         {projectPosts?.map(project => (
-                            <Link
-                                key={project?.postId}
-                                to={`/project/${project?.postId}`}
-                            >
-                                <TeamBox
-                                    showWaitingJoin={false}
-                                    showSubBox={true}
-                                    borderColor={'rgba(231, 137, 255, 0.5)'}
-                                    postContent={project}
-                                    isMyParticipation={null}
-                                />
-                            </Link>
+                            <React.Fragment key={project?.postId}>
+                                {isLoggedIn ? (
+                                    <Link to={`/project/${project?.postId}`}>
+                                        <TeamBox
+                                            showWaitingJoin={false}
+                                            showSubBox={true}
+                                            borderColor={
+                                                'rgba(231, 137, 255, 0.5)'
+                                            }
+                                            postContent={project}
+                                            isMyParticipation={null}
+                                        />
+                                    </Link>
+                                ) : (
+                                    <button onClick={() => showModal1()}>
+                                        <TeamBox
+                                            showWaitingJoin={false}
+                                            showSubBox={true}
+                                            borderColor={
+                                                'rgba(231, 137, 255, 0.5)'
+                                            }
+                                            postContent={project}
+                                            isMyParticipation={null}
+                                        />
+                                    </button>
+                                )}
+                            </React.Fragment>
                         ))}
                     </S.PostContent>
                 ) : (
                     //아래는 공모전
                     <S.PostContent>
                         {contestPosts?.map(contest => (
-                            <Link
-                                key={contest?.postId}
-                                to={`/contest/${contest?.postId}`}
-                            >
-                                <TeamBox
-                                    showWaitingJoin={false}
-                                    showSubBox={true}
-                                    borderColor={'rgba(0, 163, 255, 0.5)'}
-                                    postContent={contest}
-                                    isMyParticipation={null}
-                                />
-                            </Link>
+                            <React.Fragment key={contest?.postId}>
+                                {isLoggedIn ? (
+                                    <Link
+                                        key={contest?.postId}
+                                        to={`/contest/${contest?.postId}`}
+                                    >
+                                        <TeamBox
+                                            showWaitingJoin={false}
+                                            showSubBox={true}
+                                            borderColor={
+                                                'rgba(0, 163, 255, 0.5)'
+                                            }
+                                            postContent={contest}
+                                            isMyParticipation={null}
+                                        />
+                                    </Link>
+                                ) : (
+                                    <button onClick={() => showModal1()}>
+                                        <TeamBox
+                                            showWaitingJoin={false}
+                                            showSubBox={true}
+                                            borderColor={
+                                                'rgba(0, 163, 255, 0.5)'
+                                            }
+                                            postContent={contest}
+                                            isMyParticipation={null}
+                                        />
+                                    </button>
+                                )}
+                            </React.Fragment>
                         ))}
                     </S.PostContent>
                 )}
@@ -237,6 +285,7 @@ const PostMainPage = () => {
                     />
                 )}
             </S.MainContent>
+            {modal1Open && <Modal1 closeModal1={closeModal1} />}
         </>
     );
 };
