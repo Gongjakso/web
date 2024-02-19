@@ -19,7 +19,7 @@ const TeamPortfolio = () => {
             });
 
             if (response.status === 200) {
-                alert('메일을 전송 했습니다!');
+                alert('출시 후 메일 전송해 드리겠습니다!');
                 goToPage('/');
             } else {
                 console.log('서버로부터의 응답이 예상과 다릅니다.', response);

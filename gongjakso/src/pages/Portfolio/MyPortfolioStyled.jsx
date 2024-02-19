@@ -34,6 +34,9 @@ export const InputEmail = styled.input`
     width: 100%;
     font-size: ${({ theme }) => theme.fontSize.md};
     padding-bottom: 10px;
+    &::placeholder {
+        white-space: nowrap; // 텍스트가 줄바꿈 되지 않도록 설정
+    }
 `;
 
 export const BottomBox = styled.div`
@@ -57,4 +60,8 @@ export const CheckBox = styled.button`
     color: black;
     border-radius: 10px;
     font-size: ${({ theme }) => theme.fontSize.md};
+    &:hover {
+        background-color: black;
+        color: white;
+    }
 `;
