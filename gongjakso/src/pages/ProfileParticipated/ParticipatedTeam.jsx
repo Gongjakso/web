@@ -11,6 +11,7 @@ const TeamPart = () => {
     const [data, setData] = useState([]);
 
     const [postContent3, setPostContent3] = useState([]);
+    const [totalPage, setTotalPage] = useState();
 
     useEffect(() => {
         getMyParticipated().then(response => {
@@ -45,7 +46,7 @@ const TeamPart = () => {
                 )}
 
                 <Pagination
-                    total={13}
+                    total={totalPage}
                     limit={limit}
                     page={page}
                     setPage={setPage}

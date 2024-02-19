@@ -11,11 +11,10 @@ const TeamSupport = () => {
     const offset = (page - 1) * limit;
     const [data, setData] = useState([]);
     const [postContent2, setPostContent2] = useState([]);
+    const [totalPage, setTotalPage] = useState();
 
     useEffect(() => {
-        getMyApplied().then(response => {
-            setPostContent2(response?.data);
-        });
+        setPage(1);
     }, []);
 
     return (
@@ -42,7 +41,7 @@ const TeamSupport = () => {
                     />
                 ))}
                 <Pagination
-                    total={13}
+                    total={totalPage}
                     limit={limit}
                     page={page}
                     setPage={setPage}
