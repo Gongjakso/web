@@ -59,14 +59,12 @@ export const InputLabel = styled.label`
 export const InputText = styled.input.attrs(props => ({
     type: props.type || 'text',
 }))`
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
 
-    width: 100%;
-    max-width: 1000px;
-    padding: 2.5px 0;
+    width: 70%;
+    padding: 10px 0;
     border-style: none;
     border-bottom: 1px solid ${({ theme }) => theme.border};
-    margin-bottom: 10px;
 
     &:focus {
         outline: none;

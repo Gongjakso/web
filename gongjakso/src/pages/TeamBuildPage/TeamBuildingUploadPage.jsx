@@ -223,7 +223,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
     };
 
     return (
-        <>
+        <S.Container>
             {posts === 'contest' && (
                 <>
                     <S.Title>
@@ -254,11 +254,11 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TextArea
                             name=""
                             id="description"
-                            cols="30"
-                            rows="10"
+                            cols="20"
+                            rows="5"
                             value={description}
                             onChange={handleDescriptionChange}
-                            placeholder="사용자들이 공모전/프로젝트을 더 잘 이해할 수 있는 설명글을 적어주세요."
+                            placeholder="사용자들이 공모전/프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
                         ></S.TextArea>
                     </S.Label>
 
@@ -286,7 +286,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             error={errors?.people}
                             register={register}
                             registerOptions={{
-                                required: '인원을 입력해주세요. ',
+                                required: '인원을 입력하세요 ',
                                 min: 1,
                             }}
                             step={1}
@@ -400,10 +400,10 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             name=""
                             id="description"
                             cols="30"
-                            rows="10"
+                            rows="5"
                             value={description}
                             onChange={handleDescriptionChange}
-                            placeholder="사용자들이 공모전/프로젝트을 더 잘 이해할 수 있는 설명글을 적어주세요."
+                            placeholder="사용자들이 공모전/프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
                         ></S.TextArea>
                     </S.Label>
                     <S.Label>
@@ -417,7 +417,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             error={errors?.people}
                             register={register}
                             registerOptions={{
-                                required: '인원을 입력해주세요. ',
+                                required: '인원을 입력하세요 ',
                                 min: 1,
                             }}
                             step={1}
@@ -509,7 +509,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.ButtonContent>
                 </>
             )}
-        </>
+        </S.Container>
     );
 };
 

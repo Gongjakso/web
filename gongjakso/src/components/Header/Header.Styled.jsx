@@ -6,6 +6,8 @@ export const Header = styled.div`
     width: 100%;
     justify-content: center;
     height: 60px;
+    padding: 10px;
+    padding-left: 80px;
     position: absolute;
     top: 0;
 `;
