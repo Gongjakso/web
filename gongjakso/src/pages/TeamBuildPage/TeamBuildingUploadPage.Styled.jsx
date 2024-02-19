@@ -42,10 +42,16 @@ export const TapT = styled.p`
 export const TextArea = styled.textarea.attrs(props => ({
     type: props.type || 'text',
 }))`
-    font-size: ${({ theme }) => theme.fontSize.md};
-    width: 100%;
-    max-width: 900px;
-    padding: 2.5px 0;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    width: 70%;
+    height: 100%;
+    max-height: 200px;
+    font-family: 'PreMedium';
+    color: ${({ theme }) => theme.greyFont};
+    overflow: auto;
+    resize: vertical;
+    margin-left: 5px;
+    padding: 10px 0;
     border-style: none;
     border-bottom: 1px solid ${({ theme }) => theme.border};
     margin-bottom: 10px;
