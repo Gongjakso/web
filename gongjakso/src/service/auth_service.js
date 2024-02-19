@@ -5,12 +5,16 @@ export const getToken = async code => {
     if (!code) {
         return alert('Please log in normally');
     }
-    const response = await fetch(`${BaseUrl}auth/sign-in?code=${code}`, {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    const response = await fetch(
+        `${BaseUrl}/auth/sign-in?code=${code}&prompt=login`,
+        {
+            method: 'POST',
+            headers: {
+                'Content-type':
+                    'application/x-www-form-urlencoded;charset=utf-8',
+            },
         },
-    });
+    );
     const result = await response.json();
     return result.data;
 };

@@ -6,34 +6,36 @@ import CountGuest from '../../components/common/CountGuest/CountGuest';
 import SelectCalendar from '../../components/common/Calendar/SelectCalendar';
 import { postPosting } from '../../service/post_service';
 import Multilevel from '../../components/common/Input/Multilevel';
+import useCustomNavigate from '../../hooks/useNavigate';
 
 const TeamBuildingUploadPage = ({ posts }) => {
-    const [roles, setRoles] = useState({
-        PLAN: 0,
-        DESIGN: 0,
-        FE: 0,
-        BE: 0,
-        ETC: 0,
-        LATER: 0,
-    });
+    const goToPage = useCustomNavigate();
 
     const language = [
-        'React',
-        'TypeScript',
-        'JavaSript',
-        'Next.js',
-        'Node.js',
-        'Java',
-        'Spring',
-        'Kotlin',
-        'Flutter',
-        'Acc',
+        'REACT',
+        'TYPESCRIPT',
+        'JAVASCRIPT',
+        'NEXTJS',
+        'NODEJS',
+        'JAVA',
+        'SPRING',
+        'KOTLIN',
+        'FLUTTER',
+        'ETC',
     ];
 
     const [meeting, setMeeting] = useState('OFFLINE');
     const [complaint, setComplaint] = useState('true');
 
+    const [description, setDescription] = useState('');
+
+    const handleDescriptionChange = event => {
+        setDescription(event.target.value);
+    };
+
     const [languages, setLanguages] = useState([]);
+
+    const [category, setCategory] = useState();
 
     const [btn, setBtn] = useState(false);
 
@@ -55,6 +57,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
 
         setDates({ startDate: formattedStartDate, endDate: formattedEndDate });
     };
+
     //마감 기한 설정
     const transformAndSetEndDates = (startDate, endDate) => {
         const parsedStartDate = new Date(startDate);
@@ -82,26 +85,25 @@ const TeamBuildingUploadPage = ({ posts }) => {
         mode: 'onSubmit',
         defaultValues: {
             title: null,
-            description: null,
             link: null,
             people: null,
         },
     });
 
-    const handleQuantityChange = (role, increment) => {
-        setRoles(prevRoles => ({
-            ...prevRoles,
-            [role]: increment
-                ? prevRoles[role] + 1
-                : Math.max(0, prevRoles[role] - 1),
-        }));
-    };
+    // const handleQuantityChange = (role, increment) => {
+    //     setRoles(prevRoles => ({
+    //         ...prevRoles,
+    //         [role]: increment
+    //             ? prevRoles[role] + 1
+    //             : Math.max(0, prevRoles[role] - 1),
+    //     }));
+    // };
 
-    const category = {
-        categories: Object.entries(roles)
-            .filter(([_, size]) => size !== 0) // Filter out categories with size 0
-            .map(([categoryType, size]) => ({ categoryType, size })),
-    };
+    // const category = {
+    //     categories: Object.entries(roles)
+    //         .filter(([_, size]) => size !== 0) // Filter out categories with size 0
+    //         .map(([categoryType, size]) => ({ categoryType, size })),
+    // };
 
     const handleOptionChange = option => {
         if (option === 'ONLINE') {
@@ -168,10 +170,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
         transformAndSetEndDates(selectedDates.startDate, selectedDates.endDate);
     };
 
+    const handleCategory = selectCategory => {
+        setCategory(selectCategory.category);
+    };
+
     const submitContestBuild = data => {
         const newData = {
             title: data.title,
-            contents: data.description,
+            contents: description,
             contestLink: data.link, //공모전 주소
             startDate: dates.startDate,
             endDate: dates.endDate,
@@ -185,27 +191,35 @@ const TeamBuildingUploadPage = ({ posts }) => {
             questionLink: data.complainLink,
             postType: false,
         };
-        postPosting(newData);
+        console.log(newData);
+        postPosting(newData).then(res => {
+            console.log(res);
+        });
+        goToPage('/contest');
     };
     const submitProjectBuild = data => {
         const newData = {
             title: data.title,
-            contents: data.description,
+            contents:
+                '프로젝트 팀에 합류하세요: 열정적이고 재능 있는 구성원 모집!',
             contestLink: '',
             startDate: dates.startDate,
             endDate: dates.endDate,
             finishDate: endDates.endDate,
-            maxPerson: data.people,
-            // guest: { ...roles },
+            maxPerson: 10,
             stackNames: selectedLanguage,
-            categories: [],
+            categories: category.categories,
             meetingMethod: meeting,
             meetingArea: selectedLocalData,
             questionMethod: complaint,
             questionLink: data.complainLink,
             postType: true,
         };
-        postPosting(newData);
+        console.log(newData);
+        postPosting(newData).then(res => {
+            console.log(res);
+        });
+        goToPage('/project');
     };
 
     return (
@@ -236,15 +250,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
 
                     <S.Label>
-                        <Input
-                            label={'설명'}
-                            id={'description'}
-                            placeholder={
-                                '사용자들이 공모전을 더 잘 이해할 수 있는 설명글을 적어주세요.'
-                            }
-                            register={register}
-                            registerOptions={{ required: '내용을 입력하세요' }}
-                        />
+                        <S.TapT>설명</S.TapT>
+                        <S.TextArea
+                            name=""
+                            id="description"
+                            cols="30"
+                            rows="10"
+                            value={description}
+                            onChange={handleDescriptionChange}
+                            placeholder="사용자들이 공모전/프로젝트을 더 잘 이해할 수 있는 설명글을 적어주세요."
+                        ></S.TextArea>
                     </S.Label>
 
                     <S.Label>
@@ -280,8 +295,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     <S.Label>
                         <S.TapP>모집 분야</S.TapP>
                         <CountGuest
-                            roles={roles}
-                            onQuantityChange={handleQuantityChange}
+                            isProject={false}
+                            onApply={handleCategory}
                         />
                     </S.Label>
                     <S.Label>
@@ -305,7 +320,10 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 지역</S.TapP>
-                        <Multilevel onItemSelected={handleSelectedData} />
+                        <Multilevel
+                            isPost={true}
+                            onItemSelected={handleSelectedData}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>공모전 예상 기간</S.TapP>
@@ -335,9 +353,11 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             <Input
                                 type={'url'}
                                 id={'complainLink'}
-                                placeholder={'*오픈채팅 링크를 입력해주세요.'}
+                                placeholder={'*링크를 입력해주세요.'}
                                 register={register}
-                                registerOptions={{}}
+                                registerOptions={{
+                                    required: '*문의사항 링크를 입력하세요',
+                                }}
                             />
                         </S.Complain>
                     </S.Label>
@@ -404,10 +424,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>모집 분야</S.TapP>
-                        <CountGuest
-                            roles={roles}
-                            onQuantityChange={handleQuantityChange}
-                        />
+                        <CountGuest isProject={true} onApply={handleCategory} />
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 방식</S.TapP>
@@ -444,7 +461,10 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 지역</S.TapP>
-                        <Multilevel onItemSelected={handleSelectedData} />
+                        <Multilevel
+                            isPost={true}
+                            onItemSelected={handleSelectedData}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>예상 기간</S.TapP>
