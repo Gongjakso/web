@@ -66,7 +66,7 @@ const ApplyModal = props => {
             recruit_role: [],
             type: 'CONTEST',
         };
-        postApply('103', newData); // ID 수정!!!!
+        postApply(props.id, newData);
     };
     const submitProjectApply = data => {
         const newData = {
@@ -75,7 +75,7 @@ const ApplyModal = props => {
             recruit_role: clickedSkill,
             type: 'PROJECT',
         };
-        postApply('103', newData); // ID 수정!!!!
+        postApply(props.id, newData);
     };
 
     // 필수 항목 검사

@@ -32,6 +32,7 @@ const DetailPageContest = () => {
     const [scrapStatus, setscrapStatus] = useState([]);
 
     const { id } = useParams();
+    const [postId] = useState(id);
 
     useEffect(() => {
         getPostDetail(id).then(res => {
@@ -68,6 +69,7 @@ const DetailPageContest = () => {
                     title={title}
                     setCompleted={setCompleted}
                     category={category}
+                    id={postId}
                 />
             ) : null}
             {completed === true ? <Completed title={title} /> : null}
