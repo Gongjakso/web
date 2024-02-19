@@ -395,15 +395,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
 
                     <S.Label>
-                        <Input
-                            label={'설명'}
-                            id={'description'}
-                            placeholder={
-                                '사용자들이 공모전을 더 잘 이해할 수 있는 설명글을 적어주세요.'
-                            }
-                            register={register}
-                            registerOptions={{ required: '내용을 입력하세요' }}
-                        />
+                        <S.TapT>설명</S.TapT>
+                        <S.TextArea
+                            name=""
+                            id="description"
+                            cols="30"
+                            rows="10"
+                            value={description}
+                            onChange={handleDescriptionChange}
+                            placeholder="사용자들이 공모전/프로젝트을 더 잘 이해할 수 있는 설명글을 적어주세요."
+                        ></S.TextArea>
                     </S.Label>
                     <S.Label>
                         <Input
