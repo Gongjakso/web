@@ -6,7 +6,8 @@ export const Dropdown = styled.div`
         text-align: left;
         padding: 18px 20px;
         width: 220px;
-        font-size: ${props => props.theme.fontSize.md};
+        font-size: ${({ theme, isPost }) =>
+            isPost ? '1.15rem' : theme.fontSize.md};
         color: black;
         border-radius: 10px;
     }
@@ -16,7 +17,8 @@ export const Dropdown = styled.div`
     }
 
     .rnd .rnd__root-menu.rnd__menu .rnd__option .rnd__option-label {
-        font-size: ${props => props.theme.fontSize.md};
+        font-size: ${({ theme, isPost }) =>
+            isPost ? '1.15rem' : theme.fontSize.md};
         padding-left: 20px;
     }
 
@@ -27,6 +29,17 @@ export const Dropdown = styled.div`
         max-height: 300px;
         overflow-y: scroll;
         width: 200px !important;
+    }
+    .rnd__option--with-menu:hover > .rnd__submenu {
+        display: block;
+        color: black;
+    }
+    .rnd__option:not(.rnd__option--disabled):hover {
+        background-color: ${props =>
+            props.isPost ? 'hsl(0, 0%, 90%)' : 'black'};
+        color: ${props => (props.isPost ? 'black' : 'white')};
+        transition: background-color 0.2s ease;
+        border-radius: 4px;
     }
 `;
 

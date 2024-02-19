@@ -12,6 +12,7 @@ import { mapData } from '../../../assets/mapData/mapData.jsx';
 const Multilevel = ({ onItemSelected }) => {
     const [title, setTitle] = useState('지역');
     const [isOpen, setIsOpen] = useState(false);
+    const [isPost, setIsPost] = useState(false);
 
     const items = mapData.map(item => ({
         label: item.city,
@@ -26,7 +27,7 @@ const Multilevel = ({ onItemSelected }) => {
     }));
 
     return (
-        <S.Dropdown>
+        <S.Dropdown isPost={isPost}>
             <Dropdown items={items} closeOnScroll={false}>
                 {({ isOpen, onClick }) => (
                     <S.Button
