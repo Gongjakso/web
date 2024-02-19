@@ -23,7 +23,7 @@ const Completed = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal w="55%" h="450px" bc={({ theme }) => theme.box1}>
+                <S.Modal w="50%" h="400px" bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
                             navigate('/' + props.title[1]);

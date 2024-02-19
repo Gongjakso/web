@@ -99,7 +99,7 @@ const DetailPageProject = () => {
                     <S.TitleBottom>팀장 : {postData?.memberName}</S.TitleBottom>
                 </S.Background>
 
-                <S.Background s="62.5%">
+                <S.Background s="60%">
                     <S.BlueBox bg={({ theme }) => theme.Pink}>
                         <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>

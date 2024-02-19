@@ -6,12 +6,14 @@ export const SelectContainer = styled.div`
 
 export const SelectValue = styled.div`
     display: block;
-    width: 250px;
+    width: 220px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 18px 15px;
-    font-size: 21px;
+    font-size: 18px;
+    text-align: center;
+    align-items: center;
     cursor: pointer;
     transition: border-color 0.2s ease;
 
@@ -23,7 +25,7 @@ export const SelectValue = styled.div`
 export const OptionList = styled.div`
     position: absolute;
     left: 0;
-    width: 250px;
+    width: 220px;
     font-size: 18px;
     margin: 7px 0;
     list-style: none;

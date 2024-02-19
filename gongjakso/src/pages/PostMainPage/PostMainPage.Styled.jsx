@@ -9,7 +9,7 @@ export const Searchicon = styled(SearchIcon)`
 
 export const MainContent = styled.div`
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     margin-top: 90px;
     display: flex;
@@ -25,7 +25,7 @@ export const Banners = styled(Banner)`
 `;
 
 export const Div = styled.div`
-    width: 1200px;
+    width: 1000px;
     height: 100%;
     display: flex;
 `;
@@ -37,9 +37,9 @@ export const Search = styled.div`
     padding-top: 50px;
 `;
 export const SearchBar = styled.div`
-    width: 80%;
+    width: 85%;
     padding: 10px;
-    border: 1px solid ${props => props.theme.Main1};
+    border: 2px solid ${props => props.theme.Main1};
     border-radius: 40px;
     display: flex;
     align-items: center;
@@ -52,7 +52,9 @@ export const Searchmark = styled.div`
 
 export const SearchUsernameInput = styled.input`
     width: 100%;
-    font-size: ${props => props.theme.fontSize.lg};
+    font-size: ${props => props.theme.fontSize.md};
+    font-family: 'PreMedium';
+    color: #c4c4c4;
     border: none;
     outline: none;
 `;
@@ -65,7 +67,7 @@ export const Fillterbox = styled.div`
     margin-bottom: 30px;
 `;
 export const Fillter1 = styled.div`
-    width: 250px;
+    width: 220px;
     border-radius: 10px;
     border: 1.5px solid #c4c4c4;
     display: flex;

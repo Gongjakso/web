@@ -5,13 +5,13 @@ export const Dropdown = styled.div`
         border: 1.5px solid #c4c4c4;
         text-align: left;
         padding: 18px 20px;
-        width: 250px;
-        font-size: ${props => props.theme.fontSize.lg};
+        width: 220px;
+        font-size: ${props => props.theme.fontSize.md};
         color: black;
         border-radius: 10px;
     }
     .rnd__root-menu.rnd__menu {
-        width: 250px !important;
+        width: 220px !important;
         z-index: 9999;
     }
 
