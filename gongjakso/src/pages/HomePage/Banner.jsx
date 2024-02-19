@@ -20,16 +20,16 @@ const Banner = () => {
                     <S.Slide
                         className={`slide original ${animate ? '' : 'stop'}`}
                     >
-                        {slides.map((img, i) => (
+                        {slides?.map((img, i) => (
                             <S.ListItem key={i}>
-                                <img src={img.imageUrl} alt="" />
+                                <img src={img?.imageUrl} alt="" />
                             </S.ListItem>
                         ))}
                     </S.Slide>
                     <S.Slide className={`slide clone ${animate ? '' : 'stop'}`}>
-                        {slides.map((img, i) => (
+                        {slides?.map((img, i) => (
                             <S.ListItem key={i}>
-                                <img src={img.imageUrl} alt="" />
+                                <img src={img?.imageUrl} alt="" />
                             </S.ListItem>
                         ))}
                     </S.Slide>
