@@ -20,7 +20,7 @@ const SwiperBanner = banners => {
             }}
             scrollbar={{ draggable: true }}
         >
-            {bannerData.map((img, i) => (
+            {bannerData?.map((img, i) => (
                 <SwiperSlide key={i}>
                     <S.Banners src={img} />
                 </SwiperSlide>
