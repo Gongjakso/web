@@ -9,14 +9,17 @@ const DefaultLayout = () => {
 
     const isContestDetail = location.pathname.includes('/contest/');
     const isProjectDetail2 = location.pathname.includes('/project/');
+    const isLogining = location.pathname.includes('/auth/kakao/');
 
     return (
         <>
-            {isContestDetail ? null : isProjectDetail2 ? null : <Header />}
+            {isContestDetail ? null : isProjectDetail2 ? null : isLogining ? null : (
+                <Header />
+            )}
             <S.Main>
                 <Outlet />
             </S.Main>
-            <Footer />
+            {isLogining ? null : <Footer />}
         </>
     );
 };

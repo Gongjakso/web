@@ -6,14 +6,13 @@ const Login = () => {
     const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}`;
 
-    const handleLogin = () => {
-        window.location.href = KAKAO_AUTH_URL;
-    };
     return (
         <S.LoginContent>
             <S.LoginInfo>
                 3초만에 로그인하고 <br /> 공모전과 프로젝트를 시작해보세요!
-                <S.Button onClick={handleLogin} />
+                <a href={KAKAO_AUTH_URL}>
+                    <S.Button />
+                </a>
             </S.LoginInfo>
             <S.Image />
         </S.LoginContent>

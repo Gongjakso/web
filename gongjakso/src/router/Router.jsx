@@ -21,67 +21,51 @@ import MyInfo from '../pages/ProfileInfo/MyInfo';
 const Router = () => {
     return (
         <BrowserRouter>
-            <Suspense fallback={<div>Loding....</div>}>
+            <Suspense>
                 <Routes>
-                    <Route element={<PublicRoutePage />}>
-                        <Route element={<DefaultLayout />}>
-                            <Route path={'/'} element={<HomePage />} />
-                            <Route
-                                path={'/contest'}
-                                element={<PostMainPage />}
-                            />
-                            <Route
-                                path={'/project'}
-                                element={<PostMainPage />}
-                            />
-                            <Route path={'/calendar'} element={<Calendar />} />
-                            <Route
-                                path={'/teambuild'}
-                                element={<TeamBuildPage />}
-                            />
-                            <Route
-                                path={'/profile'}
-                                element={<ProfilePage />}
-                            />
-                            <Route
-                                path={'/appliedTeam'}
-                                element={<TeamSupport />}
-                            />
-                            <Route
-                                path={'/participatedTeam'}
-                                element={<TeamPart />}
-                            />
-                            <Route
-                                path={'/teamPortfolio'}
-                                element={<TeamPortfolio />}
-                            />
+                    <Route element={<DefaultLayout />}>
+                        <Route path={'/'} element={<HomePage />} />
+                        <Route path={'/contest'} element={<PostMainPage />} />
+                        <Route path={'/project'} element={<PostMainPage />} />
+                        <Route path={'/calendar'} element={<Calendar />} />
+                        <Route
+                            path={'/teambuild'}
+                            element={<TeamBuildPage />}
+                        />
+                        <Route path={'/profile'} element={<ProfilePage />} />
+                        <Route
+                            path={'/appliedTeam'}
+                            element={<TeamSupport />}
+                        />
+                        <Route
+                            path={'/participatedTeam'}
+                            element={<TeamPart />}
+                        />
+                        <Route
+                            path={'/teamPortfolio'}
+                            element={<TeamPortfolio />}
+                        />
 
-                            <Route
-                                path={'/contest/:id'}
-                                element={<DetailPageContest />}
-                            />
-                            <Route
-                                path={'/project/:id'}
-                                element={<DetailPageProject />}
-                            />
+                        <Route
+                            path={'/contest/:id'}
+                            element={<DetailPageContest />}
+                        />
+                        <Route
+                            path={'/project/:id'}
+                            element={<DetailPageProject />}
+                        />
 
-                            <Route path={'/login'} element={<Login />} />
-                            <Route
-                                path={'/teamdetail'}
-                                element={<ProfileRecruit />}
-                            />
-                            <Route path={'/myinfo'} element={<MyInfo />} />
-                            <Route
-                                path="/api/v1/auth/kakao/callback"
-                                element={<KakaoRedirectPage />}
-                            />
-                        </Route>
+                        <Route path={'/login'} element={<Login />} />
+                        <Route
+                            path={'/teamdetail'}
+                            element={<ProfileRecruit />}
+                        />
+                        <Route path={'/myinfo'} element={<MyInfo />} />
+                        <Route
+                            path="/api/v1/auth/kakao/callback"
+                            element={<KakaoRedirectPage />}
+                        />
                     </Route>
-                </Routes>
-            </Suspense>
-            <Suspense fallback={<div>loding....</div>}>
-                <Routes>
-                    <Route element={<PrivateRoutePage />}></Route>
                 </Routes>
             </Suspense>
         </BrowserRouter>

@@ -33,6 +33,10 @@ const HomePage = () => {
         }
     };
 
+    const handleButtonEmailClick = path => {
+        goToPage(path);
+    };
+
     useEffect(() => {
         if (isLoggedIn) {
             getMyInfo().then(res => {
@@ -208,7 +212,9 @@ const HomePage = () => {
 
                         <S.Button3
                             style={{ marginTop: '70px' }}
-                            onClick={() => handleButtonClick('/teamPortfolio')}
+                            onClick={() =>
+                                handleButtonEmailClick('/teamPortfolio')
+                            }
                         >
                             출시 메일 받으러 가기
                         </S.Button3>

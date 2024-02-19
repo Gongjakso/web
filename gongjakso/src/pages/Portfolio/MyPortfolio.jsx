@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import * as S from './MyPortfolioStyled';
 import axios from 'axios';
+import useCustomNavigate from '../../hooks/useNavigate';
 
 const TeamPortfolio = () => {
     const [email, setEmail] = useState('');
 
+    const goToPage = useCustomNavigate();
+
     const handleEmailChange = e => {
         setEmail(e.target.value);
     };
-
+    const baseURL = process.env.REACT_APP_BASE_URL;
     const handleEmailSubmit = async () => {
-        const baseURL = 'http://43.200.78.94:8080/';
-
         try {
-            const response = await axios.post(`${baseURL}api/v1/email`, {
+            const response = await axios.post(`${baseURL}email`, {
                 address: email,
             });
 
             if (response.status === 200) {
-                setEmail(''); // 이메일 상태 초기화
+                alert('메일을 전송 했습니다!');
+                goToPage('/');
             } else {
                 console.log('서버로부터의 응답이 예상과 다릅니다.', response);
             }
