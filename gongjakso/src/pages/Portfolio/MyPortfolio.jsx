@@ -18,7 +18,6 @@ const TeamPortfolio = () => {
             });
 
             if (response.status === 200) {
-                console.log(response.data);
                 setEmail(''); // 이메일 상태 초기화
             } else {
                 console.log('서버로부터의 응답이 예상과 다릅니다.', response);

@@ -89,7 +89,6 @@ const PostMainPage = () => {
     const loadContestPosts = (page, sort, selectedLocalData, searchKeyword) => {
         getContestPosts(page, sort, selectedLocalData, searchKeyword).then(
             res => {
-                console.log(res?.data.content);
                 setContestPosts(res?.data?.content);
                 setContestTotalPage(res?.data?.totalPages);
             },

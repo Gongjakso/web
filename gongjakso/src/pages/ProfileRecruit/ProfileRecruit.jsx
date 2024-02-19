@@ -41,14 +41,12 @@ const ProfileRecruit = () => {
     useEffect(() => {
         getApplyList(number).then(
             res => {
-                console.log(res);
                 setPosts(res?.data.applyLists);
             },
             [number],
         );
         getRecruitTeam(number).then(
             res => {
-                console.log(res);
                 setRecruitTeam(res?.data);
                 setPart(res?.data.category);
                 setRole(res?.data.stackName);
@@ -59,9 +57,7 @@ const ProfileRecruit = () => {
 
     const ClickOpen = id => {
         // ID 수정!!!!
-        patchOpen(id).then(res => {
-            console.log(res);
-        });
+        patchOpen(id);
     };
 
     const handleRefresh = () => {
@@ -79,7 +75,7 @@ const ProfileRecruit = () => {
             // 여기서 API 호출 또는 상태 업데이트 등의 작업 수행
             setPosts(newData); // 상태 업데이트
         } else {
-            console.log(`ID ${id}에 해당하는 데이터를 찾을 수 없습니다.`);
+            console.error(`ID ${id}에 해당하는 데이터를 찾을 수 없습니다.`);
         }
     };
 

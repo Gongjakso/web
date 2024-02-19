@@ -56,7 +56,7 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
             setIsLoggedIn(false);
             window.location.replace('/');
         } else {
-            console.log('User is not logged in.');
+            console.error('User is not logged in.');
         }
     };
 

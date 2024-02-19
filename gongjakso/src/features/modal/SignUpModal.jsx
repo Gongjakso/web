@@ -54,14 +54,8 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
     const groupedMajorData = useMemo(() => groupMajorData(majorData), []);
     const groupedJobData = useMemo(() => groupJobData(jobData), []);
 
-    console.log(name, selectedMajor, selectedJob, selectedStatus);
-
     const handleModalClick = path => {
-        putMyInfo(name, selectedMajor, selectedJob, selectedStatus).then(
-            res => {
-                console.log(res.data);
-            },
-        );
+        putMyInfo(name, selectedMajor, selectedJob, selectedStatus);
         closeSignUpModal();
         navigate1(path);
     };

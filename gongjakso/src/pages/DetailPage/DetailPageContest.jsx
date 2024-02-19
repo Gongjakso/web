@@ -35,7 +35,6 @@ const DetailPageContest = () => {
 
     useEffect(() => {
         getPostDetail(id).then(res => {
-            console.log(res);
             setpostData(res?.data);
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
@@ -56,9 +55,7 @@ const DetailPageContest = () => {
 
     // 스크랩 POST
     const ClickScrapBtn = () => {
-        postScrap(id).then(res => {
-            console.log(res);
-        });
+        postScrap(id);
         window.location.reload();
     };
 

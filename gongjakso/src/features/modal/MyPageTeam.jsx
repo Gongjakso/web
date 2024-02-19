@@ -22,7 +22,7 @@ const MyPageTeam = props => {
     const number = 86;
     const ClickFinishBtn = () => {
         // 아래 부분 2 로 넣은 부분 수정해야함
-        patchFinish(number).then(res => console.log(res));
+        patchFinish(number);
     };
 
     const ClickExtensionDate = () => {
@@ -32,7 +32,7 @@ const MyPageTeam = props => {
 
     const ClickCancelBtn = () => {
         // 아래 부분 2 로 넣은 부분 수정해야함
-        patchCancel(number).then(res => console.log(res));
+        patchCancel(number);
     };
 
     // 스크롤 방지

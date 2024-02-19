@@ -21,11 +21,9 @@ const ProfilePage = () => {
             setPostContent1(response?.data);
         });
         getMyApplied().then(response => {
-            //console.log(response.data);
             setPostContent2(response?.data.slice(0, 2));
         });
         getMyParticipatedMain().then(response => {
-            console.log(response.data);
             setPostContent3(response?.data.participationLists.slice(0, 2));
         });
     }, []);

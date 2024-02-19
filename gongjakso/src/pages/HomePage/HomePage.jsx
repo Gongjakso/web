@@ -38,10 +38,8 @@ const HomePage = () => {
             getMyInfo().then(res => {
                 setMyName(res?.data?.name);
                 if (res?.data?.job === '') {
-                    console.log('첫 로그인');
                     setSignUpModalOpen(true);
                 } else {
-                    console.log('2번째 로그인');
                     setSignUpModalOpen(false);
                 }
             });

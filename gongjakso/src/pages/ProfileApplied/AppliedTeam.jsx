@@ -14,7 +14,6 @@ const TeamSupport = () => {
 
     useEffect(() => {
         getMyApplied().then(response => {
-            console.log(response.data);
             setPostContent2(response?.data);
         });
     }, []);

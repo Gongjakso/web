@@ -66,7 +66,6 @@ const ApplyModal = props => {
             recruit_role: [],
             type: 'CONTEST',
         };
-        console.log(newData);
         postApply('103', newData); // ID 수정!!!!
     };
     const submitProjectApply = data => {
@@ -76,7 +75,6 @@ const ApplyModal = props => {
             recruit_role: clickedSkill,
             type: 'PROJECT',
         };
-        console.log(newData);
         postApply('103', newData); // ID 수정!!!!
     };
 

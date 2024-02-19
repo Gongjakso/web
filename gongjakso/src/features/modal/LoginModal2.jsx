@@ -10,7 +10,6 @@ const Modal2 = ({ goPath, closeModal2 }) => {
     const navigate2 = useCustomNavigate();
     const handleModalClick = path => {
         closeModal2();
-        console.log(path);
 
         navigate2(path);
     };

@@ -28,21 +28,18 @@ const ClickApply = ({ Reload, ...props }) => {
     const number = 105;
     useEffect(() => {
         getApplication(number, props.idNum).then(res => {
-            console.log(res);
             setapplyData(res?.data);
         });
     }, [Reload]);
 
     const ClickRecruitBtn = () => {
         patchRecruit(props.idNum).then(res => {
-            console.log(res);
             Reload();
         });
     };
 
     const ClickNotRecruitBtn = () => {
         patchNotRecruit(props.idNum).then(res => {
-            console.log(res);
             Reload();
         });
     };
