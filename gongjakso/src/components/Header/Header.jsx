@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logoImage from '../../assets/images/logo.png';
+import logoImage from '../../assets/images/logo.svg';
 import * as S from './Header.Styled';
 
 // import backGroundImage from '../../assets/images/background.png';
