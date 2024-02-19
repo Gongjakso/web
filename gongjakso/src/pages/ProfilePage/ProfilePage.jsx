@@ -20,7 +20,7 @@ const ProfilePage = () => {
         });
         getMyRecruiting().then(response => {
             setPostContent1(response?.data);
-            console.log(response.data);
+            console.log(response?.data);
         });
         getMyApplied().then(response => {
             setPostContent2(response?.data.slice(0, 2));
