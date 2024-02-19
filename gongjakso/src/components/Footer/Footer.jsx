@@ -14,12 +14,18 @@ const Footer = () => {
                     />
                 </li>
                 <S.FooterInfoBox>
-                    <S.FooterInfo>Contact: gongjack@naver.com</S.FooterInfo>
-                    <S.FooterInfo>All copyright by 2023 공작소</S.FooterInfo>
+                    <S.FooterInfo>Contact: gongjaksoo@gmail.com</S.FooterInfo>
+                    <S.FooterInfo>All copyright by 2024 공작소</S.FooterInfo>
                 </S.FooterInfoBox>
                 <li>
                     <S.FooterButtonBox>
-                        <S.FooterButton>문의하기</S.FooterButton>
+                        <S.FooterButton
+                            onClick={() =>
+                                window.open('http://pf.kakao.com/_lRErG')
+                            }
+                        >
+                            문의하기
+                        </S.FooterButton>
                         <S.FooterButton
                             onClick={() =>
                                 window.open(
