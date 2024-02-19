@@ -105,7 +105,7 @@ export const Button2 = styled.button`
 `;
 
 export const Button3 = styled.button`
-    background-color:${({ theme }) => theme.Main1};
+    background-color: ${({ theme }) => theme.Main1};
     border: none;
     font-family: 'PreMedium';
     font-size: ${({ theme }) => theme.fontSize.ll};
@@ -132,7 +132,7 @@ export const HomeContent = styled.div`
         ),
         url(${backGroundImage});
     background-size: cover;
-    weight: 100%;
+    width: 100%;
     padding: 200px 0;
     background-repeat: no-repeat;
     justify-content: center;
@@ -166,10 +166,10 @@ export const HomeContent1 = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    weight: 100%;
+    width: 100%;
     height: 100vh;
     flex-direction: column;
-    background-color:${({ theme }) => theme.Main1};
+    background-color: ${({ theme }) => theme.Main1};
 `;
 
 export const Wrapper = styled.div`
@@ -201,7 +201,7 @@ export const HomeContent2 = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    weight: 100%;
+    width: 100%;
     height: 100vh;
     background-color: black;
 `;
@@ -218,7 +218,7 @@ export const HomeContent3 = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    weight: 100%;
+    width: 100%;
     height: 100vh;
     background-color: white;
 `;
@@ -227,7 +227,7 @@ export const WhiteBox = styled.div`
     background-color: white;
     width: 600px;
     height: 450px;
-    margin: 20px;
+    margin: 10px;
     border-radius: 50px;
     overflow: hidden;
 `;
@@ -236,7 +236,8 @@ export const Image = styled.img`
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
     object-fit: contain;
 `;
 

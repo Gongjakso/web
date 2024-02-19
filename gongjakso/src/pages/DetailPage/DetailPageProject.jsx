@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import * as S from './DetailPageStyled';
 import useCustomNavigate from '../../hooks/useNavigate';
 import Close from '../../assets/images/Close.svg';
@@ -9,14 +10,10 @@ import OpenKakao from '../../assets/images/OpenKakaoLink.svg';
 import DoScrap from '../../assets/images/Scrap.svg';
 import ApplyModal from '../../features/modal/ApplyModal';
 import Completed from '../../features/modal/Completed';
-import { typeData2, stackData, meeting } from './DetailPageData';
+import { getPostDetail, getScrap, postScrap } from '../../service/post_service';
 
 const DetailPageProject = () => {
     const navigate = useCustomNavigate();
-
-    // 스크랩하기 버튼
-    const [scrap, setScrap] = useState(0);
-    const [click, setClick] = useState(false);
 
     // 지원하기 버튼
     const [apply, setApply] = useState(false);
@@ -25,13 +22,44 @@ const DetailPageProject = () => {
     const [completed, setCompleted] = useState(false);
 
     // 모달창 구분 목적
-    const [title] = useState(['프로젝트', '프로젝트공고']);
+    const [title] = useState(['프로젝트', 'project']);
 
-    const [meeting] = useState([
-        ['온라인', '오프라인'],
-        ['온라인'],
-        ['오프라인'],
-    ]);
+    // API 관련 변수
+    const [postData, setpostData] = useState([]);
+    const [category, setCategory] = useState([]);
+    const [stackType, setStackType] = useState([]);
+
+    const [scrapNum, setscrapNum] = useState(0);
+    const [scrapStatus, setscrapStatus] = useState([]);
+
+    const { id } = useParams();
+
+    useEffect(() => {
+        getPostDetail(id).then(res => {
+            setpostData(res?.data);
+            setCategory(res?.data.categories);
+            setscrapNum(res?.data.scrapCount);
+            setStackType(res?.data.stackNames);
+        });
+        getScrap(id).then(res => {
+            setscrapStatus(res?.data);
+        });
+    }, [id]);
+
+    // 활동기간 수정 함수
+    const formatDate = dateString => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}.${month}.${day}`;
+    };
+
+    // 스크랩 POST
+    const ClickScrapBtn = () => {
+        postScrap(id);
+        window.location.reload();
+    };
 
     return (
         <>
@@ -41,6 +69,8 @@ const DetailPageProject = () => {
                     setApply={setApply}
                     title={title}
                     setCompleted={setCompleted}
+                    category={category}
+                    stackType={stackType}
                 />
             ) : null}
             {completed === true ? <Completed title={title} /> : null}
@@ -58,18 +88,15 @@ const DetailPageProject = () => {
                     <S.TitleBox>
                         <S.Title>
                             <img src={Logo} alt="title-logo" />
-                            <p>리액트 활용 프젝이요~</p>
+                            <p>{postData?.title}</p>
                             <img src={Logo} alt="title-logo" />
                         </S.Title>
                         <S.ScrapNum>
                             <img src={ScrapNum} alt="scrap-num" />
-                            <p>{scrap}</p>
+                            스크랩 {scrapNum}회
                         </S.ScrapNum>
                     </S.TitleBox>
-                    <S.TitleBottom>
-                        <span>팀장 : </span>
-                        <span>김지은</span>
-                    </S.TitleBottom>
+                    <S.TitleBottom>팀장 : {postData?.memberName}</S.TitleBottom>
                 </S.Background>
 
                 <S.Background s="62.5%">
@@ -77,54 +104,96 @@ const DetailPageProject = () => {
                         <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>
                             <S.TextDetail>
-                                <span>2024.1.15</span>
-                                <span> ~ </span>
-                                <span>2024.2.28</span>
+                                {formatDate(postData?.startDate)} ~{' '}
+                                {formatDate(postData?.endDate)}
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>모집 현황</S.TextTitle>
                             <S.TextDetail>
-                                <span>1</span>
-                                <span> / </span>
-                                <span>4</span>
-                                <span>명</span>
+                                {postData?.currentPerson}/{postData?.maxPerson}{' '}
+                                명
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>모집 분야</S.TextTitle>
                             <S.TextDetail>
-                                {typeData2.map((item, i) => (
-                                    <S.RoundForm>{item}</S.RoundForm>
+                                {category?.map((item, i) => (
+                                    <S.RoundForm key={i}>
+                                        {item.categoryType === 'PLAN' &&
+                                            `기획 ${item.size}`}
+                                        {item.categoryType === 'DESIGN' &&
+                                            `디자인 ${item.size}`}
+                                        {item.categoryType === 'FE' &&
+                                            `프론트엔드 ${item.size}`}
+                                        {item.categoryType === 'BE' &&
+                                            `백엔드 ${item.size}`}
+                                        {item.categoryType === 'ETC' &&
+                                            `기타 ${item.size}`}
+                                        {item.categoryType === 'LATER' &&
+                                            `추후조정 ${item.size}`}
+                                    </S.RoundForm>
                                 ))}
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>기술 스택</S.TextTitle>
                             <S.TextDetail>
-                                {stackData.map((item, i) => (
-                                    <S.RoundForm>{item}</S.RoundForm>
-                                ))}
+                                {stackType?.map((item, i) =>
+                                    item.stackNameType === '' ? null : (
+                                        <S.RoundForm key={i}>
+                                            {item.stackNameType === 'REACT' &&
+                                                'React'}
+                                            {item.stackNameType ===
+                                                'TYPESCRIPT' && 'TypeScript'}
+                                            {item.stackNameType ===
+                                                'JAVASCRIPT' && 'JavaScript'}
+                                            {item.stackNameType === 'NEXTJS' &&
+                                                'Next.js'}
+                                            {item.stackNameType === 'NODEJS' &&
+                                                'Node.js'}
+                                            {item.stackNameType === 'JAVA' &&
+                                                'Java'}
+                                            {item.stackNameType === 'SPRING' &&
+                                                'Spring'}
+                                            {item.stackNameType === 'KOTLIN' &&
+                                                'Kotlin'}
+                                            {item.stackNameType === 'FLUTTER' &&
+                                                'Flutter'}
+                                            {item.stackNameType === 'ETC' &&
+                                                'etc'}
+                                        </S.RoundForm>
+                                    ),
+                                )}
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>회의 방식</S.TextTitle>
                             <S.TextDetail>
-                                {meeting[0].map((item, i) => (
-                                    <S.RoundForm key={i}>{item}</S.RoundForm>
-                                ))}
+                                {postData?.meetingMethod === 'OFFLINE' && (
+                                    <S.RoundForm>오프라인</S.RoundForm>
+                                )}
+                                {postData?.meetingMethod === 'ONLINE' && (
+                                    <S.RoundForm>온라인</S.RoundForm>
+                                )}
+                                {postData?.meetingMethod === 'BOTH' && (
+                                    <>
+                                        <S.RoundForm>온라인</S.RoundForm>
+                                        <S.RoundForm>오프라인</S.RoundForm>
+                                    </>
+                                )}
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>회의 지역</S.TextTitle>
                             <S.Meeting>
                                 <img src={Place} alt="place-icon" />
-                                <span>서울특별시 강남구 역삼동</span>
+                                <span>{postData?.meetingArea}</span>
                             </S.Meeting>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>공모전 홈페이지</S.TextTitle>
-                            <S.TextDetail>www.naver11.com</S.TextDetail>
+                            <S.TextDetail>{postData?.urlLink}</S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>기타 문의</S.TextTitle>
@@ -132,7 +201,10 @@ const DetailPageProject = () => {
                                 <img
                                     src={OpenKakao}
                                     alt="kakao-link"
-                                    onClick={() => navigate('/생성링크')}
+                                    onClick={() => {
+                                        window.location.href =
+                                            postData?.questionLink;
+                                    }}
                                 />
                             </S.OpenKakao>
                         </S.TextBox>
@@ -140,29 +212,19 @@ const DetailPageProject = () => {
                         <S.TextBox>
                             <S.TextTitle>설명글</S.TextTitle>
                         </S.TextBox>
-                        <S.MainText h="27%">
-                            제 3회 공공데이터 공모전에 함께 나갈 팀원을
-                            모집합니다. 약 한 달동안 기획부터 PPT 디자인까지
-                            끝내는 일정을 생각하고 있습니다. 경험이 많지
-                            않더라도 열심히 임할 수 있으신 분과 함께 하고
-                            싶습니다.
-                        </S.MainText>
+                        <S.MainText h="27%">{postData?.contents}</S.MainText>
                         <S.Globalstyle>
                             <S.ScrapButton
                                 bc={({ theme }) => theme.Green}
-                                click={click}
-                                onClick={() => {
-                                    if (click === true) {
-                                        setScrap(scrap - 1);
-                                        setClick(false);
-                                    } else {
-                                        setScrap(scrap + 1);
-                                        setClick(true);
-                                    }
-                                }}
+                                click={scrapStatus.ScrapStatus}
+                                onClick={ClickScrapBtn}
                             >
                                 <img
-                                    src={click === false ? ScrapNum : DoScrap}
+                                    src={
+                                        scrapStatus.ScrapStatus === false
+                                            ? ScrapNum
+                                            : DoScrap
+                                    }
                                     alt="scrap-button"
                                 />
                                 <span>스크랩하기</span>

@@ -81,10 +81,20 @@ export const SetBox = styled.button`
     color: #ffffff;
     border-radius: 10px;
 `;
-
+/*
+const SelectField = styled.select`
+    width: 100%;
+    height: 40px;
+    max-height: 200px;
+    overflow-y: auto;
+    // 기타 스타일 설정
+`;
+*/
 export const SelectField = styled.select`
     width: 480px;
     height: 55px;
+    max-height: 50px;
+    overflow-y: auto;
     padding: 5px;
     border: 1px solid #a3a3a3;
     border-radius: 5px;

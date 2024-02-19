@@ -65,17 +65,16 @@ export const Fillterbox = styled.div`
     margin-bottom: 30px;
 `;
 export const Fillter1 = styled.div`
-    width: 230px;
-    height: 70px;
-    border-radius: 8px;
-    border: 1px solid black;
+    width: 250px;
+    border-radius: 10px;
+    border: 1.5px solid #c4c4c4;
     display: flex;
     align-items: center;
 `;
 export const Fillter2 = styled.div`
     width: 100%;
     height: 70px;
-    border-radius: 8px;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
 `;

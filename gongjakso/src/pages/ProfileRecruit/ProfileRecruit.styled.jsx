@@ -53,10 +53,11 @@ export const InsideBox = styled.div`
     padding: 30px;
     font-size: ${({ theme }) => theme.fontSize.lg};
     font-weight: bold;
+    justify-content: space-between;
 `;
 
 export const Border = styled(InsideBox)`
-    width: 30%;
+    width: 50%;
     border-right: 2px solid ${({ theme }) => theme.box1};
     border-radius: 15px;
     display: flex;
@@ -76,7 +77,7 @@ export const ButtonSet = styled.div`
     display: flex;
     flex-direction: row;
     padding: 15px;
-    gap: 10px;
+    gap: 20px;
 `;
 
 export const InsideTitle = styled.div`
@@ -87,7 +88,7 @@ export const InsideTitle = styled.div`
 `;
 
 export const TagNUM = styled.p`
-    margin: 0 10px;
+    margin: 0 25px;
 `;
 
 export const InsideDetail = styled.div`
@@ -100,7 +101,7 @@ export const GreyBtn = styled.button`
     width: 30%;
     background: ${({ theme }) => theme.Grey};
     text-align: center;
-    padding: 15px;
+    padding: 20px 15px;
     font-weight: bold;
     border-radius: 15px;
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -133,13 +134,13 @@ export const TagP = styled.p`
     justify-content: center;
     ${props =>
         props.isleft
-            ? 'border-right: 0.5px solid black'
-            : 'border-left: 0.5px solid black'}
+            ? 'border-right: 0.5px solid #aaaaaa'
+            : 'border-left: 0.5px solid #aaaaaa'}
 `;
 
 export const StyledTh = styled.th`
     min-height: 60px;
-    border: 1px solid ${props => props.theme.Border};
+    border: 1px solid #aaaaaa;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -149,9 +150,9 @@ export const StyledTh = styled.th`
 
 export const StyledTd = styled.td`
     min-height: 60px;
-    border-bottom: 1px solid ${props => props.theme.Border};
-    border-left: 1px solid ${props => props.theme.Border};
-    border-right: 1px solid ${props => props.theme.Border};
+    border-bottom: 1px solid #aaaaaa;
+    border-left: 1px solid #aaaaaa;
+    border-right: 1px solid #aaaaaa;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -194,7 +195,6 @@ export const StateBtn = styled.div`
     color: white;
     font-weight: bold;
     font-size: ${({ theme }) => theme.fontSize.md};
-    background: ${props =>
-        props.isOpen ? ({ theme }) => theme.LimeGreen : ''};
+    background: ${props => props.bg};
     border-radius: 20px;
 `;

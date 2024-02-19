@@ -31,7 +31,7 @@ export const InputEmail = styled.input`
     border: none;
     outline: none;
     background-color: transparent;
-    width: 75%;
+    width: 100%;
     font-size: ${({ theme }) => theme.fontSize.md};
     padding-bottom: 10px;
 `;
@@ -41,7 +41,7 @@ export const BottomBox = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #b7b7b7;
-    width: 35%;
+    width: 600px;
     margin: auto;
 `;
 

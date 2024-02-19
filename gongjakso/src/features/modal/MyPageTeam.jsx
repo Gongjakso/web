@@ -1,16 +1,58 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useCustomNavigate from '../../hooks/useNavigate';
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
+import SelectCalendar from '../../components/common/Calendar/SelectCalendar';
+import {
+    patchCancel,
+    patchExtension,
+    patchFinish,
+} from '../../service/apply_service';
 
 const MyPageTeam = props => {
     const navigate = useCustomNavigate();
     const [checkedCase] = useState(props.teamCase.id);
 
+    const [dates, setDates] = useState([]);
+
+    const handleApply = selectedDates => {
+        setDates(selectedDates);
+    };
+
+    const number = 86;
+    const ClickFinishBtn = () => {
+        // 아래 부분 2 로 넣은 부분 수정해야함
+        patchFinish(number);
+    };
+
+    const ClickExtensionDate = () => {
+        // 아래 부분 2 로 넣은 부분 수정해야함
+        patchExtension(number, dates.endDate);
+    };
+
+    const ClickCancelBtn = () => {
+        // 아래 부분 2 로 넣은 부분 수정해야함
+        patchCancel(number);
+    };
+
+    // 스크롤 방지
+    useEffect(() => {
+        document.body.style.cssText = `
+          position: fixed; 
+          top: -${window.scrollY}px;
+          overflow-y: scroll;
+          width: 100%;`;
+        return () => {
+            const scrollY = document.body.style.top;
+            document.body.style.cssText = '';
+            window.scrollTo(0, parseInt(scrollY || '0', 10) * -1);
+        };
+    }, []);
+
     return (
         <>
             <S.Background>
-                <S.Modal w="50%" h="40%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="50%" h="450px" bc={({ theme }) => theme.box1}>
                     <S.Backbtn onClick={() => props.CloseModal(false)}>
                         <img src={Close} alt="close-btn" />
                     </S.Backbtn>
@@ -26,7 +68,12 @@ const MyPageTeam = props => {
                             </S.CompletedBox>
                         )}
 
-                        {checkedCase === '2' && <p>미정</p>}
+                        {checkedCase === '2' && (
+                            <S.CompletedBox>
+                                <p>희망하는 마감일을 선택해주세요!</p>
+                                <SelectCalendar onApply={handleApply} />
+                            </S.CompletedBox>
+                        )}
 
                         {checkedCase === '3' && (
                             <S.CompletedBox>
@@ -43,9 +90,16 @@ const MyPageTeam = props => {
                         <S.ApplyBtn
                             w="40%"
                             onClick={() => {
-                                checkedCase === '2'
-                                    ? props.CloseModal(false)
-                                    : navigate('/profile');
+                                if (checkedCase === '1') {
+                                    ClickFinishBtn();
+                                    navigate('/profile');
+                                } else if (checkedCase === '2') {
+                                    ClickExtensionDate();
+                                    props.CloseModal(false);
+                                } else if (checkedCase === '3') {
+                                    ClickCancelBtn();
+                                    navigate('/profile');
+                                }
                             }}
                         >
                             {props.teamCase.case}

@@ -1,45 +1,69 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
-import TopButton from '../../pages/HomePage/TopButton';
+import { getMyInfo } from '../../service/profile_service';
+import { getMyRecruiting } from '../../service/profile_service';
+import { getMyApplied } from '../../service/profile_service';
+import { getMyParticipatedMain } from '../../service/profile_service';
 
 const ProfilePage = () => {
-    const [userInfo, setUserInfo] = useState({
-        name: '최수빈',
-        major: '공학계열/컴퓨터공학',
-        desiredJob: '',
-    });
+    const [data, setProfileData] = useState(); //프로필 내용
+    const [postContent1, setPostContent1] = useState();
+    const [postContent2, setPostContent2] = useState();
+    const [postContent3, setPostContent3] = useState();
+
+    useEffect(() => {
+        getMyInfo().then(response => {
+            setProfileData(response?.data); // 'response'를 바로 전달
+        });
+        getMyRecruiting().then(response => {
+            setPostContent1(response?.data);
+        });
+        getMyApplied().then(response => {
+            setPostContent2(response?.data.slice(0, 2));
+        });
+        getMyParticipatedMain().then(response => {
+            setPostContent3(response?.data.participationLists.slice(0, 2));
+        });
+    }, []);
 
     return (
         <div>
-            <TopButton />
             <S.TopBox>
                 <S.InfoBox>
                     <S.DetailBox>
-                        <S.NameTitle>{userInfo.name}</S.NameTitle>
-                        <Link to="/MyInfo">
+                        <S.NameTitle>{data?.name}</S.NameTitle>
+                        <Link to={'/myinfo'}>
                             <S.EditImage />
                         </Link>
                     </S.DetailBox>
-                    <S.MajorTitle>{userInfo.major}</S.MajorTitle>
+                    <S.MajorTitle>{data?.major}</S.MajorTitle>
                 </S.InfoBox>
                 <S.ProfileImage />
                 <Link to="/teamPortfolio">
                     <S.PortfolioBox>나의 포트폴리오</S.PortfolioBox>
                 </Link>
             </S.TopBox>
-
             <S.GlobalBox>
                 <S.BoxDetail>
                     <S.SubTitle>내가 모집 중인 팀</S.SubTitle>
-                    <TeamBox
-                        showMoreDetail={true}
-                        showWaitingJoin={false}
-                        showSubBox={true}
-                    />
+                    {postContent1?.map((postContent1, index) => (
+                        <TeamBox
+                            key={index}
+                            showMoreDetail={true}
+                            showWaitingJoin={false}
+                            showSubBox={true}
+                            borderColor={
+                                postContent1.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
+                            postContent={postContent1}
+                            isMyParticipation={false}
+                        />
+                    ))}
                 </S.BoxDetail>
-
                 <S.BoxDetail>
                     <S.SubTitle>
                         <span>내가 지원한 팀</span>
@@ -47,20 +71,22 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
-                    <TeamBox
-                        showMoreDetail={false}
-                        showWaitingJoin={true}
-                        showSubBox={true}
-                        borderColor="rgba(0, 163, 255, 0.5)"
-                    />
-                    <TeamBox
-                        showMoreDetail={false}
-                        showWaitingJoin={true}
-                        showSubBox={true}
-                        borderColor="rgba(231, 137, 255, 0.5)"
-                    />
+                    {postContent2?.map((postContent2, index) => (
+                        <TeamBox
+                            key={index}
+                            showMoreDetail={false}
+                            showWaitingJoin={true}
+                            showSubBox={true}
+                            borderColor={
+                                postContent2.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
+                            postContent={postContent2}
+                            isMyParticipation={false}
+                        />
+                    ))}
                 </S.BoxDetail>
-
                 <S.BoxDetail>
                     <S.SubTitle>
                         <span>내가 참여한 공모전/프로젝트</span>
@@ -68,26 +94,21 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
-                    <TeamBox
-                        showMoreDetail={false}
-                        borderColor="#6F6F6F"
-                        showWaitingJoin={false}
-                        showSubBox={false}
-                    />
-                    <TeamBox
-                        showMoreDetail={false}
-                        borderColor="#6F6F6F"
-                        showWaitingJoin={false}
-                        showSubBox={false}
-                    />
+                    {postContent3?.map((postContent3, index) => (
+                        <TeamBox
+                            showMoreDetail={false}
+                            borderColor={
+                                postContent3.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
+                            showWaitingJoin={false}
+                            showSubBox={false}
+                            postContent={postContent3}
+                            isMyParticipation={true}
+                        />
+                    ))}
                 </S.BoxDetail>
-                {/*
-                <S.Div>
-                    <S.UpImage
-                        onClick={() => window.scrollTo(0, 0)}
-                    ></S.UpImage>
-                </S.Div>
-                */}
             </S.GlobalBox>
         </div>
     );

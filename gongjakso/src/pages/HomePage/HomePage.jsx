@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './HomePage.Styled';
 import useCustomNavigate from '../../hooks/useNavigate';
 import calendarImage from '../../assets/images/calendar.png';
 import Modal1 from '../../features/modal/LoginModal1';
 import Modal2 from '../../features/modal/LoginModal2';
+import SignUpModal from '../../features/modal/SignUpModal';
 import TopButton from '../../pages/HomePage/TopButton';
 import Banner from './Banner';
+import { getMyInfo } from '../../service/auth_service';
 
 const HomePage = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const authenticated = localStorage.getItem('accessToken');
+
+    const [isLoggedIn, setIsLoggedIn] = useState(!!authenticated);
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
+    const [SignUpModalOpen, setSignUpModalOpen] = useState(false);
     const [path, setPath] = useState();
-    const { goToPage } = useCustomNavigate();
+    const [myName, setMyName] = useState();
+    const goToPage = useCustomNavigate();
 
     const handleButtonClick = path => {
         if (isLoggedIn) {
@@ -26,6 +32,19 @@ const HomePage = () => {
             }
         }
     };
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            getMyInfo().then(res => {
+                setMyName(res?.data?.name);
+                if (res?.data?.job === '') {
+                    setSignUpModalOpen(true);
+                } else {
+                    setSignUpModalOpen(false);
+                }
+            });
+        }
+    }, [isLoggedIn]);
 
     const showModal1 = () => {
         setModal1Open(true);
@@ -41,6 +60,10 @@ const HomePage = () => {
 
     const closeModal2 = () => {
         setModal2Open(false);
+    };
+
+    const closeSignUpModal = () => {
+        setSignUpModalOpen(false);
     };
 
     return (
@@ -112,7 +135,7 @@ const HomePage = () => {
                         </S.TeamImage>
                     </S.ImageBox>
                 </S.Wrapper>
-                <S.Button1 onClick={() => handleButtonClick('/teambuilding')}>
+                <S.Button1 onClick={() => handleButtonClick('/teambuild')}>
                     팀빌딩 바로가기
                 </S.Button1>
             </S.HomeContent1>
@@ -185,23 +208,27 @@ const HomePage = () => {
 
                         <S.Button3
                             style={{ marginTop: '70px' }}
-                            onClick={() => handleButtonClick('/mail')}
+                            onClick={() => handleButtonClick('/teamPortfolio')}
                         >
                             출시 메일 받으러 가기
                         </S.Button3>
                     </div>
                     <S.PortFolioimg />
                 </S.Container>
-                {modal1Open && (
-                    <Modal1
-                        closeModal1={closeModal1}
-                        setIsLoggedIn={setIsLoggedIn}
-                    />
-                )}
-                {modal2Open && (
-                    <Modal2 goPath={path} closeModal2={closeModal2} />
-                )}
             </S.HomeContent3>
+            {modal1Open && (
+                <Modal1
+                    closeModal1={closeModal1}
+                    setIsLoggedIn={setIsLoggedIn}
+                />
+            )}
+            {modal2Open && <Modal2 goPath={path} closeModal2={closeModal2} />}
+            {SignUpModalOpen && (
+                <SignUpModal
+                    closeSignUpModal={closeSignUpModal}
+                    name={myName}
+                />
+            )}
         </>
     );
 };

@@ -6,17 +6,11 @@ export const FullCalendarContainer = styled.div`
     display: flex;
     justify-content: center;
 
-    :root {
-        --fc-border-color: #aaaaaa;
-        --fc-daygrid-event-dot-width: 5px;
-        --fc-border-radius: 20px;
-    }
-
     .fc .fc-col-header-cell-cushion {
         display: inline-block;
-        padding: 5px 15px;
-        font-size: 14px;
-        font-weight: 500;
+        padding: 10px 15px;
+        font-size: ${({ theme }) => theme.fontSize.md};
+        font-family: 'PreRegular';
         display: flex;
         text-align: left;
         text-transform: uppercase;
@@ -25,21 +19,21 @@ export const FullCalendarContainer = styled.div`
 
     .fc {
         width: 60%;
-        margin-top: 20px;
+        height: 100%;
+        margin-top: 130px;
         margin-bottom: 100px;
     }
 
     .fc .fc-toolbar.fc-header-toolbar {
-        margin-top: 40px;
-        margin-bottom: 80px;
-        margin-left: 60px;
-        background-color: none;
-        height: 50px;
-        font-weight: 600;
-        font-size: 13px;
-        letter-spacing: 1px;
-        color: black;
-        border-radius: 20px 20px 0px 0px;
+        margin-bottom: 100px;
+        height: 80px;
+        font-weight: bold;
+        font-size: ${({ theme }) => theme.fontSize.lg};
+        letter-spacing: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
     }
 
     .fc .fc-button-primary {
@@ -55,58 +49,36 @@ export const FullCalendarContainer = styled.div`
     }
 
     .fc .fc-daygrid-day.fc-day-today {
-        background-color: #aaaaaa39;
+        background-color: #aaaaaa31;
         color: red;
     }
 
     .fc .fc-daygrid-day-frame {
-        padding: 5px;
+        padding: 8px 3px;
     }
 
     .fc .fc-daygrid-day-top {
         flex-direction: row;
         margin-bottom: 3px;
         margin-top: -3px;
-        font-size: 12px;
-        font-weight: 550;
+        font-family: 'PreRegular';
+        font-size: ${({ theme }) => theme.fontSize.md};
     }
 
     .fc-event {
-        padding: 1px 3px;
-        margin-bottom: 2px;
-        border-radius: 4px;
-        font-weight: 550;
-        font-size: 12px;
+        padding: 2px 3px;
+        margin-bottom: 3px;
+        border-radius: 5px;
+        font-family: 'PreRegular';
+        font-size: ${({ theme }) => theme.fontSize.md};
         border: none;
-    }
-
-    .fc .fc-toolbar.fc-header-toolbar .fc-prev-button {
-        position: relative;
-        left: 300px;
-    }
-
-    .fc .fc-toolbar.fc-header-toolbar .fc-next-button {
-        position: relative;
-        right: 300px;
-        top: 2px;
-    }
-
-    .fc .fc-toolbar.fc-header-toolbar .fc-today-button {
-        padding: 8px;
-        border-radius: 17px;
-        position: relative;
-        top: 72px;
-        background-color: #aaaaaa59;
-        color: rgb(62, 57, 57);
-        border: 2px solid #aaaaaa;
-        font-weight: 500;
     }
 
     .fc .fc-daygrid-day {
         border: 1px solid #aaaaaa59;
-    }
-
-    .hide {
-        display: none;
+        color: #3e3e3e;
     }
 `;
+
+// 공모전 배경색: #00a2ff32 & 글자색: #00a3ff
+// 프로젝트 배경색: #e789ff32 & 글자색: #e789ff
