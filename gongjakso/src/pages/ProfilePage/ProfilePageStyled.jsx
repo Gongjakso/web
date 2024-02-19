@@ -33,19 +33,22 @@ export const InfoBox = styled.div`
 
 //이름
 export const NameTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.xl};
-    font-weight: bold;
+    font-size: ${({ theme }) => theme.fontSize.ll};
+    font-family: 'PreBold';
+    margin-right: 50px;
     margin-bottom: 5px;
 `;
 
 //학과
 export const MajorTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    margin-right: 50px;
+    font-family: 'PreRegular';
+    font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 //소제목
 export const SubTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.xl};
+    font-size: ${({ theme }) => theme.fontSize.l};
     font-weight: 900;
     margin-bottom: 25px;
     display: flex;
@@ -65,8 +68,10 @@ export const EditImage = styled(Edit)`
 `;
 
 export const ArrowImage = styled(Arrow)`
-    width: 100px;
-    height: 38px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    height: 25px;
 `;
 
 //나의 포트폴리오 박스

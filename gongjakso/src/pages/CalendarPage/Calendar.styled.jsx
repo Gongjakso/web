@@ -9,7 +9,7 @@ export const FullCalendarContainer = styled.div`
     .fc .fc-col-header-cell-cushion {
         display: inline-block;
         padding: 10px 15px;
-        font-size: ${({ theme }) => theme.fontSize.md};
+        font-size: ${({ theme }) => theme.fontSize.base};
         font-family: 'PreRegular';
         display: flex;
         text-align: left;
@@ -25,10 +25,10 @@ export const FullCalendarContainer = styled.div`
     }
 
     .fc .fc-toolbar.fc-header-toolbar {
-        margin-bottom: 100px;
+        margin-bottom: 50px;
         height: 80px;
         font-weight: bold;
-        font-size: ${({ theme }) => theme.fontSize.lg};
+        font-size: ${({ theme }) => theme.fontSize.md};
         letter-spacing: 2px;
         display: flex;
         justify-content: center;
@@ -62,7 +62,7 @@ export const FullCalendarContainer = styled.div`
         margin-bottom: 3px;
         margin-top: -3px;
         font-family: 'PreRegular';
-        font-size: ${({ theme }) => theme.fontSize.md};
+        font-size: ${({ theme }) => theme.fontSize.base};
     }
 
     .fc-event {
@@ -70,7 +70,7 @@ export const FullCalendarContainer = styled.div`
         margin-bottom: 3px;
         border-radius: 5px;
         font-family: 'PreRegular';
-        font-size: ${({ theme }) => theme.fontSize.md};
+        font-size: ${({ theme }) => theme.fontSize.base};
         border: none;
     }
 

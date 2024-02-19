@@ -33,6 +33,7 @@ const DetailPageProject = () => {
     const [scrapStatus, setscrapStatus] = useState([]);
 
     const { id } = useParams();
+    const [postId] = useState(id);
 
     useEffect(() => {
         getPostDetail(id).then(res => {
@@ -71,6 +72,7 @@ const DetailPageProject = () => {
                     setCompleted={setCompleted}
                     category={category}
                     stackType={stackType}
+                    id={postId}
                 />
             ) : null}
             {completed === true ? <Completed title={title} /> : null}
@@ -99,7 +101,7 @@ const DetailPageProject = () => {
                     <S.TitleBottom>팀장 : {postData?.memberName}</S.TitleBottom>
                 </S.Background>
 
-                <S.Background s="62.5%">
+                <S.Background s="60%">
                     <S.BlueBox bg={({ theme }) => theme.Pink}>
                         <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>

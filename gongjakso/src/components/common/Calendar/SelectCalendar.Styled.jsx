@@ -10,12 +10,12 @@ export const Container = styled.div`
 export const DateContent = styled.div`
     display: flex;
     align-items: center;
-    width: 360px;
+    width: 300px;
     height: 60px;
     background-color: white;
     border: 1px solid ${({ theme }) => theme.borderline};
     border-radius: 15px;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
     color: ${({ theme }) => theme.subFont};
     padding-left: 15px;
     font-family: 'PreMedium';

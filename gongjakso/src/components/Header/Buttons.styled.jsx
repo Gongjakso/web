@@ -22,7 +22,7 @@ export const IconNameSpan = styled.span`
     font-weight: ${({ $hover, $active }) =>
         $active ? '700' : $hover ? '700' : '100'};
 
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     color: ${({ theme, $hover, $active }) =>
         $active ? theme.main : $hover ? theme.main : theme.mainFont};
 `;

@@ -21,7 +21,7 @@ const Footer = () => {
                     <S.FooterButtonBox>
                         <S.FooterButton
                             onClick={() =>
-                                window.open('https://pf.kakao.com/_flurG')
+                                window.open('http://pf.kakao.com/_lRErG')
                             }
                         >
                             문의하기
