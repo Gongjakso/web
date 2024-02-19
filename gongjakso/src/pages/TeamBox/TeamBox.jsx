@@ -77,7 +77,7 @@ const TeamBox = ({
                         {isMyParticipation === true &&
                             `| ${postContent?.leaderName} | ${startDate}~${finishDate} |`}
                         {isMyParticipation === null &&
-                            `| ${postContent?.name} | ${startDate}~${finishDate} |`}
+                            `| ${postContent?.name} | ${startDate}~${endDate} |`}
                     </S.subTitle>
                 </S.MainBox>
                 {showSubBox ? (
@@ -105,6 +105,14 @@ const TeamBox = ({
                         <S.RoundForm>
                             {getDisplayCategory(postContent?.recruit_part)}
                         </S.RoundForm>
+                    ) : isMyParticipation === null ? (
+                        postContent?.categories?.map((category, index) => {
+                            return (
+                                <S.RoundForm key={index}>
+                                    {getDisplayCategory(category.categoryType)}
+                                </S.RoundForm>
+                            );
+                        })
                     ) : (
                         postContent?.categoryList?.map(
                             (categoryList, index) => {
