@@ -8,7 +8,7 @@ export const Dropdown = styled.div`
         width: 220px;
         font-size: ${({ theme, isPost }) =>
             isPost ? '1.15rem' : theme.fontSize.md};
-        color: black;
+        color: ${props => (props.isPost ? 'gray' : 'black')};
         border-radius: 10px;
     }
     .rnd__root-menu.rnd__menu {
@@ -35,9 +35,8 @@ export const Dropdown = styled.div`
         color: black;
     }
     .rnd__option:not(.rnd__option--disabled):hover {
-        background-color: ${props =>
-            props.isPost ? 'hsl(0, 0%, 90%)' : 'black'};
-        color: ${props => (props.isPost ? 'black' : 'white')};
+        background-color: black;
+        color: white;
         transition: background-color 0.2s ease;
         border-radius: 4px;
     }

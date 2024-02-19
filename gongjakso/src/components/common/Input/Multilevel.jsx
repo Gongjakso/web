@@ -12,7 +12,7 @@ import { mapData } from '../../../assets/mapData/mapData.jsx';
 const Multilevel = ({ onItemSelected }) => {
     const [title, setTitle] = useState('지역');
     const [isOpen, setIsOpen] = useState(false);
-    const [isPost, setIsPost] = useState(false);
+    const [isPost, setIsPost] = useState(true);
 
     const items = mapData.map(item => ({
         label: item.city,
