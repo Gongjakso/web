@@ -13,8 +13,8 @@ export const Button = styled.button`
     background: url(${TopButtonimg});
     right: 150px;
     background-size: contain;
-    width: 70px;
-    height: 70px;
+    width: 50px;
+    height: 50px;
     border-radius: 100%;
     position: absolute;
     cursor: pointer;

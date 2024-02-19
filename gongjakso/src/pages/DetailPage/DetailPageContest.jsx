@@ -182,12 +182,12 @@ const DetailPageContest = () => {
                         <S.Globalstyle>
                             <S.ScrapButton
                                 bc={({ theme }) => theme.Green}
-                                click={scrapStatus.ScrapStatus}
+                                click={scrapStatus?.ScrapStatus}
                                 onClick={ClickScrapBtn}
                             >
                                 <img
                                     src={
-                                        scrapStatus.ScrapStatus === false
+                                        scrapStatus?.ScrapStatus === false
                                             ? ScrapNum
                                             : DoScrap
                                     }

@@ -4,21 +4,19 @@ import macbookImage from '../../assets/images/macBookImage.svg';
 
 export const Button = styled.button`
     cursor: pointer;
-    width: 600px;
-    height: 90px;
-    margin: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background: url(${kakaoLogin});
+    width: 450px;
+    height: 68px;
+    margin: 30px 0;
+    background-size: cover;
+    background: url(${kakaoLogin}) no-repeat;
 `;
 export const LoginInfo = styled.div`
-    align-items: center;
+    align-items: baseline;
     display: flex;
+    font-family: 'PreBold';
+    font-size: ${({ theme }) => theme.fontSize.ll};
     flex-direction: column;
-    font-size: 40px;
-    font-weight: 700;
-    line-height: 134%;
-    font-weight: bold;
+    line-height: 150%;
 `;
 
 export const LoginContent = styled.div`
@@ -26,16 +24,16 @@ export const LoginContent = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    margin: 400px 0;
+    padding: 150px;
     height: 100%;
     background: white;
     flex-direction: row;
 `;
 export const Image = styled.div`
     background: url(${macbookImage});
-    width: 570px;
+    width: 400px;
     margin: 35px;
-    height: 470px;
+    height: 450px;
     background-size: contain;
     background-repeat: no-repeat;
 `;

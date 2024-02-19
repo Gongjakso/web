@@ -21,14 +21,14 @@ export const Container = styled.div`
     top: 50%;
     left: 50%;
     width: 100%;
-    max-width: 1200px;
+    max-width: 750px;
     height: 100%;
-    max-height: 800px;
+    max-height: 550px;
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
     background: white;
-    border-radius: 32px;
+    border-radius: 20px;
     flex-direction: column;
     padding: 70px 0;
 `;
@@ -46,9 +46,9 @@ export const ModalBg = styled.div`
 `;
 
 export const Image = styled.div`
-    width: 340px;
-    height: 340px;
-    padding: 200px;
+    width: 300px;
+    height: auto;
+    padding: 150px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -61,7 +61,7 @@ export const Title = styled.div`
     color: black;
     font-family: 'PreBold';
     padding: 5px;
-    font-size: ${({ theme }) => theme.fontSize.xxlg};
+    font-size: ${({ theme }) => theme.fontSize.l};
     text-align: center;
     display: flex;
 `;
@@ -70,8 +70,7 @@ export const ButtonBox = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    max-width: 800px;
-    height: 90px;
+    max-width: 550px;
     justify-content: center;
     align-items: center;
 `;
@@ -79,13 +78,13 @@ export const ButtonBox = styled.div`
 export const GreyButton = styled.button`
     background: ${({ theme }) => theme.Grey};
     color: black;
-    width: 50%;
+    width: 45%;
     height: 100%;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.l};
+    font-size: ${({ theme }) => theme.fontSize.md};
     border-radius: 15px;
     text-align: center;
-    padding: 10px ; 
+    padding: 10px;
     margin: 10px;
 `;
 
@@ -94,11 +93,11 @@ export const BlueButton = styled.button`
     color: white;
     border-radius: 15px;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.l};
-    width: 50%;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    width: 45%;
     height: 100%;
     text-align: center;
-    padding:10px;
+    padding: 10px;
     margin: 10px;
 `;
 
@@ -106,8 +105,9 @@ export const BoxContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 90%;
-    justify-content: center;
+    height: 80%;
+    padding: 30px;
+    justify-content: baseline;
     align-items: center;
 `;
 
@@ -116,26 +116,26 @@ export const Box = styled.div`
     position: relative;
     line-height: 25px;
     width: 100%;
-    max-width: 700px;
+    max-width: 500px;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
     flex-direction: row;
-    padding: 30px;
+    padding: 20px;
 `;
 
 export const SubTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.l};
-    font-weight: bold;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreMedium';
     display: flex;
     align-items: center;
 `;
 
 export const SelectField = styled.select`
-    width: 480px;
-    height: 55px;
+    width: 350px;
+    height: 45px;
     border: 1px solid #a3a3a3;
     border-radius: 5px;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
     padding: 10px;
     background-color: white;
     color: black;

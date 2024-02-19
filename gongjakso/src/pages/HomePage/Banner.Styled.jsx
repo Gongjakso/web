@@ -28,8 +28,8 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 65%;
-    height: 500px;
+    width: 70%;
+    height: 420px;
 `;
 
 export const SlideContainer = styled.div`
