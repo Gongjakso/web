@@ -24,10 +24,8 @@ const ClickApply = ({ Reload, ...props }) => {
         };
     }, []);
 
-    // 수정 사항!!!
-    const number = 105;
     useEffect(() => {
-        getApplication(number, props.idNum).then(res => {
+        getApplication(props.id, props.idNum).then(res => {
             setapplyData(res?.data);
         });
     }, [Reload]);
