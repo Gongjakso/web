@@ -35,11 +35,12 @@ const ProfileRecruit = () => {
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
     const [refresh, setRefresh] = useState(1);
-    const [number, setNumber] = useState();
 
     const [totalPage, setTotalPage] = useState();
 
     const { id } = useParams();
+
+    const [postId, setpostId] = useState(id);
 
     useEffect(() => {
         if (id !== undefined) {
@@ -95,11 +96,23 @@ const ProfileRecruit = () => {
     return (
         <div>
             {finish ? (
-                <MyPageTeam teamCase={teamCase[0]} CloseModal={setFinish} />
+                <MyPageTeam
+                    teamCase={teamCase[0]}
+                    CloseModal={setFinish}
+                    id={postId}
+                />
             ) : extend ? (
-                <MyPageTeam teamCase={teamCase[1]} CloseModal={setExtend} />
+                <MyPageTeam
+                    teamCase={teamCase[1]}
+                    CloseModal={setExtend}
+                    id={postId}
+                />
             ) : cancel ? (
-                <MyPageTeam teamCase={teamCase[2]} CloseModal={setCancel} />
+                <MyPageTeam
+                    teamCase={teamCase[2]}
+                    CloseModal={setCancel}
+                    id={postId}
+                />
             ) : showApply ? (
                 <ClickApply
                     setShowApply={setShowApply}
@@ -110,6 +123,7 @@ const ProfileRecruit = () => {
                     recruitPart={part}
                     recruitRole={role}
                     Reload={handleRefresh}
+                    id={postId}
                 />
             ) : null}
 
