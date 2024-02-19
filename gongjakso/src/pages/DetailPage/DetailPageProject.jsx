@@ -33,6 +33,7 @@ const DetailPageProject = () => {
     const [scrapStatus, setscrapStatus] = useState([]);
 
     const { id } = useParams();
+    const [postId] = useState(id);
 
     useEffect(() => {
         getPostDetail(id).then(res => {
@@ -71,6 +72,7 @@ const DetailPageProject = () => {
                     setCompleted={setCompleted}
                     category={category}
                     stackType={stackType}
+                    id={postId}
                 />
             ) : null}
             {completed === true ? <Completed title={title} /> : null}
