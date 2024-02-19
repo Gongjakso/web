@@ -276,7 +276,7 @@ const ApplyModal = props => {
                         </S.DetailBox>
 
                         <S.ApplyBox>
-                            <S.ApplyBtn w="30%" onClick={WarningApply}>
+                            <S.ApplyBtn w="15%" onClick={WarningApply}>
                                 지원하기
                             </S.ApplyBtn>
                         </S.ApplyBox>

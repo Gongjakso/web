@@ -6,15 +6,15 @@ import { ReactComponent as CloseWhite } from '../../assets/images/CloseWhite.svg
 
 export const Box = styled.div`
     position: relative;
-    width: 1200px;
-    height: 170px;
+    width: 1150px;
+    height: 160px;
     background-color: transparent;
     border: 1.5px solid ${props => props.borderColor || '#0054FF'};
     display: flex;
     flex-direction: column;
     color: ${({ theme }) => theme.mainFont};
     border-radius: 15px;
-    padding: 25px ${props => (props.showMoreDetail ? '90px' : '50px')} 25px 50px;
+    padding: 20px ${props => (props.showMoreDetail ? '90px' : '50px')} 20px 50px;
     margin: 10px 0px;
     //마감일수가 0일 때 상태 변환
 `;
@@ -53,7 +53,7 @@ export const MainBox = styled.div`
 `;
 
 export const SubBox = styled.div`
-    width: 31%;
+    width: 32%;
     display: flex;
     justify-content: space-between;
 `;
@@ -76,8 +76,8 @@ export const UnScrapImage = styled(UnScrap)`
 
 //마감 일수 이미지
 export const FireImage = styled(Fire)`
-    width: 25px;
-    margin-right: 13px;
+    width: 20px;
+    margin-right: 10px;
 `;
 
 export const CloseImage = styled(CloseWhite)`

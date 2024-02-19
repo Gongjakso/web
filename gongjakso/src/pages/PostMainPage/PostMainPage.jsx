@@ -29,7 +29,9 @@ const PostMainPage = () => {
     const [selectedLocalData, setSelectedLocalData] = useState('');
     const [selectedStack, setSelectedStack] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
-
+    const handleLinkClick = () => {
+        window.scrollTo(0, 0);
+    };
     // const offset = (page - 1) * limit;
 
     useEffect(() => {
@@ -190,6 +192,7 @@ const PostMainPage = () => {
                             <Link
                                 key={project?.postId}
                                 to={`/project/${project?.postId}`}
+                                onClick={handleLinkClick}
                             >
                                 <TeamBox
                                     showWaitingJoin={false}
@@ -208,6 +211,7 @@ const PostMainPage = () => {
                             <Link
                                 key={contest?.postId}
                                 to={`/contest/${contest?.postId}`}
+                                onClick={handleLinkClick}
                             >
                                 <TeamBox
                                     showWaitingJoin={false}
