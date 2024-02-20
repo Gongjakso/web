@@ -11,7 +11,7 @@ const Banner = () => {
         getMainBanner().then(res => {
             setSlides(res?.data);
         });
-    });
+    }, []);
 
     return (
         <S.Wrapper>
