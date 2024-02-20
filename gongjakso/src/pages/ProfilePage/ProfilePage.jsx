@@ -29,7 +29,7 @@ const ProfilePage = () => {
             setPostContent3(response?.data.participationLists.slice(0, 2));
         });
     }, []);
-    console.log(postId);
+    console.log(postContent2);
     return (
         <div>
             <S.TopBox>

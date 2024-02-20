@@ -5,7 +5,7 @@ import { postApply } from '../../service/post_service';
 
 const ApplyModal = props => {
     const [clickedFields, setClickedFields] = useState(null); // 지원 분야 배열
-    const [clickedSkill, setClickedSkill] = useState([]); // 기술 스택 배열
+    const [clickedSkill, setClickedSkill] = useState(null); // 기술 스택 배열
 
     const [form] = useState(props.title); // 공모전과 프로젝트 구분 목적
 
@@ -63,7 +63,7 @@ const ApplyModal = props => {
         const newData = {
             application: inputValue,
             recruit_part: clickedFields,
-            recruit_role: [],
+            recruit_role: '',
             type: 'CONTEST',
             isPass: 'true',
             is_open: 'true',
@@ -77,7 +77,7 @@ const ApplyModal = props => {
         const newData = {
             application: inputValue,
             recruit_part: clickedFields,
-            recruit_role: clickedSkill,
+            recruit_role: '',
             type: 'PROJECT',
             isPass: 'true',
             is_open: 'true',
@@ -232,11 +232,11 @@ const ApplyModal = props => {
                                 {stackType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={clickedSkill.includes(
-                                            item.stackNameType,
-                                        )}
+                                        isSelected={
+                                            clickedSkill === item.stackNameType
+                                        }
                                         onClick={() =>
-                                            DoubleClick(item.stackNameType)
+                                            handleClick(item.stackNameType)
                                         }
                                     >
                                         {item.stackNameType === 'REACT' &&
