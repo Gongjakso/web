@@ -29,7 +29,7 @@ const PostMainPage = () => {
     const [banners, setBanners] = useState([]);
     const [contestTotalPage, setContestTotalPage] = useState();
     const [ProjectTotalPage, setProjectTotalPage] = useState();
-    const [sortBy, setSortBy] = useState(null);
+    const [sortBy, setSortBy] = useState('createdAt');
 
     const [selectedLocalData, setSelectedLocalData] = useState('');
     const [selectedStack, setSelectedStack] = useState('');
@@ -44,7 +44,7 @@ const PostMainPage = () => {
     }, [isProject, sortBy, selectedLocalData]);
 
     useEffect(() => {
-        setSortBy(null);
+        setSortBy('createdAt');
         setSelectedLocalData('');
     }, [isProject]);
 
