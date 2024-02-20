@@ -48,8 +48,8 @@ export const getScrap = async id => {
     }
 };
 
-export const postApply = async (post_id, postContent) => {
-    const reqURL = `post/${post_id}`;
+export const postApply = async (apply_id, postContent) => {
+    const reqURL = `apply/${apply_id}`;
 
     try {
         const response = await axiosInstance.post(reqURL, {

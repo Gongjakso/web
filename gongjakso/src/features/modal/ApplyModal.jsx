@@ -65,8 +65,13 @@ const ApplyModal = props => {
             recruit_part: clickedFields,
             recruit_role: [],
             type: 'CONTEST',
+            isPass: 'true',
+            is_open: 'true',
+            isDecision: 'true',
         };
-        postApply(props.id, newData);
+        postApply(props.id, newData).then(res => {
+            console.log(res);
+        });
     };
     const submitProjectApply = data => {
         const newData = {
@@ -74,6 +79,9 @@ const ApplyModal = props => {
             recruit_part: clickedFields,
             recruit_role: clickedSkill,
             type: 'PROJECT',
+            isPass: 'true',
+            is_open: 'true',
+            isDecision: 'true',
         };
         postApply(props.id, newData);
     };
@@ -276,7 +284,7 @@ const ApplyModal = props => {
                         </S.DetailBox>
 
                         <S.ApplyBox>
-                            <S.ApplyBtn w="30%" onClick={WarningApply}>
+                            <S.ApplyBtn w="15%" onClick={WarningApply}>
                                 지원하기
                             </S.ApplyBtn>
                         </S.ApplyBox>
