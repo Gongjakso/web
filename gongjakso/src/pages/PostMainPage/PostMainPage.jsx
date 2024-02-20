@@ -125,7 +125,7 @@ const PostMainPage = () => {
         if (selectedValue === '인기순') {
             setSortBy('scrapCount');
         } else if (selectedValue === '최신순') {
-            setSortBy('createdDate');
+            setSortBy('createdAt');
         } else {
             setSortBy(null);
         }
