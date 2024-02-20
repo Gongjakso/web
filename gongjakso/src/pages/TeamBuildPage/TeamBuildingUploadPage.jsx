@@ -195,6 +195,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
         postPosting(newData).then(res => {
             console.log(res);
         });
+        alert('공모전 게시글이 업로드 되었습니다!');
         goToPage('/contest');
     };
     const submitProjectBuild = data => {
@@ -215,10 +216,10 @@ const TeamBuildingUploadPage = ({ posts }) => {
             questionLink: data.complainLink,
             postType: true,
         };
-        console.log(newData);
         postPosting(newData).then(res => {
             console.log(res);
         });
+        alert('프로젝트 게시글이 업로드 되었습니다!');
         goToPage('/project');
     };
 
