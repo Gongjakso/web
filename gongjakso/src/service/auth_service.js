@@ -6,7 +6,7 @@ export const getToken = async code => {
         return alert('Please log in normally');
     }
     const response = await fetch(
-        `${BaseUrl}/auth/sign-in?code=${code}&prompt=login`,
+        `${BaseUrl}auth/sign-in?code=${code}&prompt=login`,
         {
             method: 'POST',
             headers: {
