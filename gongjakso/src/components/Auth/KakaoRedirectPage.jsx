@@ -10,7 +10,7 @@ const KakaoRedirectPage = () => {
     useEffect(() => {
         getToken(code)
             .then(result => {
-                localStorage.setItem('accessToken', result?.data.accessToken);
+                localStorage.setItem('accessToken', result?.accessToken);
                 goToPage('/');
                 window.location.reload();
             })
