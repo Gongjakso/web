@@ -11,7 +11,7 @@ const Calendar = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await getCalendar('105', '2024', '2'); // 수정 사항!!!
+                const res = await getCalendar('105', '2024', '3'); // 수정 사항!!!
                 console.log(res);
 
                 const eventTitles = res?.data.scrapPosts.map(post => ({

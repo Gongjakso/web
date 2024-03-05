@@ -16,9 +16,7 @@ const DefaultLayout = () => {
             {isContestDetail ? null : isProjectDetail2 ? null : isLogining ? null : (
                 <Header />
             )}
-            <S.Main>
-                <Outlet />
-            </S.Main>
+            <Outlet />
             {isLogining ? null : <Footer />}
         </>
     );
