@@ -89,7 +89,7 @@ const TeamBox = ({
                         </S.DeadLine>
                         <S.ScrapNum>
                             <S.UnScrapImage />
-                            스크랩 {postContent?.scrapCount}회
+                            {postContent?.scrapCount}회
                         </S.ScrapNum>
                     </S.SubBox>
                 ) : (
@@ -101,7 +101,7 @@ const TeamBox = ({
                 )}
             </S.BoxTopDetail>
             <S.BoxBottomDetail>
-                <S.MainBox>
+                <S.BottomBox>
                     {isMyParticipation ? (
                         <S.RoundForm>
                             {getDisplayCategory(postContent?.recruit_part)}
@@ -125,7 +125,7 @@ const TeamBox = ({
                             },
                         )
                     )}
-                </S.MainBox>
+                </S.BottomBox>
                 {showWaitingJoin && <S.WaitingJoin>합류 대기중</S.WaitingJoin>}
             </S.BoxBottomDetail>
 

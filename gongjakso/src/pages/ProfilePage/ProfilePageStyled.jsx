@@ -68,7 +68,7 @@ export const EditImage = styled(Edit)`
 `;
 
 export const ArrowImage = styled(Arrow)`
-    width: 80px;
+    width: 60px;
     display: flex;
     align-items: center;
     height: 25px;

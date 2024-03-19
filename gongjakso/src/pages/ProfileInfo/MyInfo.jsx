@@ -27,7 +27,7 @@ const MyInfo = () => {
     const [job, setJob] = useState('');
     useEffect(() => {
         getMyInfo().then(res => {
-            setMyData(res.data);
+            setMyData(res?.data);
         });
     }, []);
 
