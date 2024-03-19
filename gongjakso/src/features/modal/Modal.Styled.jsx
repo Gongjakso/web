@@ -116,7 +116,7 @@ export const Box = styled.div`
     position: relative;
     line-height: 25px;
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
@@ -124,7 +124,7 @@ export const Box = styled.div`
 `;
 
 export const SubTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: 1.35rem;
     font-family: 'PreMedium';
     display: flex;
     align-items: center;

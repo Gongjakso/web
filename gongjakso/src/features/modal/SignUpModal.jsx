@@ -2,20 +2,30 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as S from './Modal.Styled';
 import { useForm } from 'react-hook-form';
-import majorData from '../../utils/majorData.json'; // 전공 데이터 import
-import jobData from '../../utils/jobData.json'; // 직무 데이터 import
+
 import { putMyInfo } from '../../service/profile_service';
+import InfoDrop from '../../components/common/Input/InfoDrop';
+import { SelectInput } from '../../components/common/Input/Input';
+
+import { majorData } from '../../utils/majorData.jsx';
+import { jobData } from '../../utils/jobData.jsx';
 
 const SignUpModal = ({ closeSignUpModal, name }) => {
     const navigate1 = useNavigate();
 
-    const [selectedStatus, setSelectedStatus] = useState('');
-    const [selectedMajor, setSelectedMajor] = useState('');
-    const [selectedJob, setSelectedJob] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState(
+        '* 현재 당신의 상태를 선택해주세요.',
+    );
+    const [selectedMajor, setSelectedMajor] = useState(
+        '* 현재 전공하고 있는 분야를 선택해주세요.',
+    );
+    const [selectedJob, setSelectedJob] = useState(
+        '* 희망하시는 직무를 선택해주세요.',
+    );
 
     useEffect(() => {
         document.body.style.cssText = `
-          position: fixed; 
+          position: fixed;
           top: -${window.scrollY}px;
           overflow-y: scroll;
           width: 100%;`;
@@ -33,31 +43,60 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
         '기타',
     ];
 
-    const groupMajorData = data => {
-        return data.reduce((groups, item) => {
-            const group = groups[item.id] || [];
-            group.push(item.key);
-            groups[item.id] = group;
-            return groups;
-        }, {});
-    };
+    // const groupMajorData = data => {
+    //     return data.reduce((groups, item) => {
+    //         const group = groups[item.id] || [];
+    //         group.push(item.key);
+    //         groups[item.id] = group;
+    //         return groups;
+    //     }, {});
+    // };
 
-    const groupJobData = data => {
-        return data.reduce((groups, item) => {
-            const group = groups[item.id] || [];
-            group.push(item.key);
-            groups[item.id] = group;
-            return groups;
-        }, {});
-    };
+    // const groupJobData = data => {
+    //     return data.reduce((groups, item) => {
+    //         const group = groups[item.id] || [];
+    //         group.push(item.key);
+    //         groups[item.id] = group;
+    //         return groups;
+    //     }, {});
+    // };
 
-    const groupedMajorData = useMemo(() => groupMajorData(majorData), []);
-    const groupedJobData = useMemo(() => groupJobData(jobData), []);
+    // const groupedMajorData = useMemo(() => groupMajorData(majorData), []);
+    // const groupedJobData = useMemo(() => groupJobData(jobData), []);
 
     const handleModalClick = path => {
         putMyInfo(name, selectedMajor, selectedJob, selectedStatus);
         closeSignUpModal();
         navigate1(path);
+    };
+
+    const status_items = status_options.map(item => ({
+        label: item,
+        onSelect: () => {
+            setSelectedStatus(item);
+        },
+    }));
+    const major_items = () => {
+        return majorData.map(item => ({
+            label: item.class,
+            items: item.major.map(major => ({
+                label: major,
+                onSelect: () => {
+                    setSelectedMajor(major);
+                },
+            })),
+        }));
+    };
+    const job_items = () => {
+        return jobData.map(item => ({
+            label: item.type,
+            items: item.work.map(work => ({
+                label: work,
+                onSelect: () => {
+                    setSelectedJob(work);
+                },
+            })),
+        }));
     };
 
     return (
@@ -70,7 +109,8 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                 <S.BoxContainer>
                     <S.Box>
                         <S.SubTitle>현재 상태</S.SubTitle>
-                        <S.SelectField
+
+                        {/* <S.SelectField
                             value={selectedStatus}
                             onChange={e => setSelectedStatus(e.target.value)}
                         >
@@ -83,11 +123,13 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                                     {status}
                                 </option>
                             ))}
-                        </S.SelectField>
+                        </S.SelectField> */}
+
+                        <InfoDrop items={status_items} title={selectedStatus} />
                     </S.Box>
                     <S.Box>
                         <S.SubTitle>전공</S.SubTitle>
-                        <S.SelectField
+                        {/* <S.SelectField
                             value={selectedMajor}
                             onChange={e => setSelectedMajor(e.target.value)}
                         >
@@ -106,11 +148,13 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                                     </optgroup>
                                 ),
                             )}
-                        </S.SelectField>
+                        </S.SelectField> */}
+                        <InfoDrop items={major_items()} title={selectedMajor} />
                     </S.Box>
                     <S.Box>
                         <S.SubTitle>희망 직무</S.SubTitle>
-                        <S.SelectField
+
+                        {/* <S.SelectField
                             value={selectedJob}
                             onChange={e => setSelectedJob(e.target.value)}
                         >
@@ -129,7 +173,8 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                                     </optgroup>
                                 ),
                             )}
-                        </S.SelectField>
+                        </S.SelectField> */}
+                        <InfoDrop items={job_items()} title={selectedJob} />
                     </S.Box>
                 </S.BoxContainer>
 
