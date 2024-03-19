@@ -1,6 +1,6 @@
 export const mapData = [
     {
-        city: '서울시',
+        city: '서울',
         region: [
             '전체',
             '강남구',
@@ -119,12 +119,8 @@ export const mapData = [
         ],
     },
     {
-        city: '대전',
-        region: ['전체', '대덕구', '동구', '서구', '유성구', '중구'],
-    },
-    {
-        city: '세종',
-        region: ['세종시'],
+        city: '대전/세종',
+        region: ['전체', '대덕구', '동구', '서구', '유성구', '중구', '세종시'],
     },
     {
         city: '충남',

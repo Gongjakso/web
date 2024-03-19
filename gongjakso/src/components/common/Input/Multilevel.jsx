@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from 'react';
 
 import * as S from './Multilevel.styled';
-import Down from '../../../assets/images/Down.svg';
-import Up from '../../../assets/images/dropUp.png';
 
 import { Dropdown } from 'react-nested-dropdown';
 import 'react-nested-dropdown/dist/styles.css';
 
 import { mapData } from '../../../assets/mapData/mapData.jsx';
 
-const Multilevel = ({ onItemSelected }) => {
+const Multilevel = ({ onItemSelected, ...props }) => {
     const [title, setTitle] = useState('지역');
     const [isOpen, setIsOpen] = useState(false);
-    const [isPost, setIsPost] = useState(true);
 
     const items = mapData.map(item => ({
         label: item.city,
         items: item.region.map(region => ({
             label: region,
             onSelect: () => {
-                const selectedData = `${item.city}${region}`;
+                const selectedData = `${item.city} ${region}`;
                 setTitle(selectedData);
                 onItemSelected(selectedData);
             },
@@ -27,7 +24,7 @@ const Multilevel = ({ onItemSelected }) => {
     }));
 
     return (
-        <S.Dropdown isPost={isPost}>
+        <S.Dropdown isPost={props.isPost} isOpen={isOpen}>
             <Dropdown items={items} closeOnScroll={false}>
                 {({ isOpen, onClick }) => (
                     <S.Button
@@ -38,7 +35,10 @@ const Multilevel = ({ onItemSelected }) => {
                         }}
                     >
                         {title}
-                        {isOpen ? <img src={Up} /> : <img src={Down} />}
+                        <S.UpdownComponent
+                            isPost={props.isPost}
+                            isOpen={isOpen}
+                        />
                     </S.Button>
                 )}
             </Dropdown>
