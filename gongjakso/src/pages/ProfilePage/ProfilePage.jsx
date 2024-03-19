@@ -58,8 +58,8 @@ const ProfilePage = () => {
                             showSubBox={true}
                             borderColor={
                                 postContent1.postType === true
-                                    ? 'rgba(0, 163, 255, 0.5)'
-                                    : 'rgba(231, 137, 255, 0.5)'
+                                    ? 'rgba(231, 137, 255, 0.5)'
+                                    : 'rgba(0, 163, 255, 0.5)'
                             }
                             postContent={postContent1}
                             isMyParticipation={false}

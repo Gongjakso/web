@@ -6,7 +6,7 @@ import { ReactComponent as CloseWhite } from '../../assets/images/CloseWhite.svg
 
 export const Box = styled.div`
     position: relative;
-    width: 1150px;
+    width: 1200px;
     height: 160px;
     background-color: transparent;
     border: 1.5px solid ${props => props.borderColor || '#0054FF'};
@@ -22,11 +22,15 @@ export const Box = styled.div`
 export const Title = styled.p`
     font-size: ${({ theme }) => theme.fontSize.l};
     color: ${({ theme }) => theme.mainFont};
-    display: flex;
+    //display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex;
     font-family: 'TheJamsilRegular';
     margin-right: 30px;
+    width: 330px; // 너비 설정
+    white-space: nowrap; // 내용이 줄바꿈되지 않고 한 줄에 표시되도록 설정
+    overflow: hidden; // 내용이 너비를 초과할 경우 숨김 처리
+    text-overflow: ellipsis; // 내용이 너비를 초과할 경우 ...으로 표시
 `;
 
 export const subTitle = styled.p`
@@ -52,8 +56,14 @@ export const MainBox = styled.div`
     justify-content: space-between;
 `;
 
+export const BottomBox = styled.div`
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+`;
+
 export const SubBox = styled.div`
-    width: 32%;
+    width: 27%;
     display: flex;
     justify-content: space-between;
 `;
@@ -106,7 +116,7 @@ export const DeadLine = styled.div`
 
 //스크랩 횟수
 export const ScrapNum = styled.div`
-    width: 165px;
+    width: 110px;
     height: 40px;
     display: flex;
     align-items: center;
