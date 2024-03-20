@@ -27,7 +27,7 @@ export const Title = styled.p`
     justify-content: flex;
     font-family: 'TheJamsilRegular';
     margin-right: 30px;
-    width: 330px; // 너비 설정
+    width: 330px;
     white-space: nowrap; // 내용이 줄바꿈되지 않고 한 줄에 표시되도록 설정
     overflow: hidden; // 내용이 너비를 초과할 경우 숨김 처리
     text-overflow: ellipsis; // 내용이 너비를 초과할 경우 ...으로 표시
@@ -81,13 +81,13 @@ export const BoxBottomDetail = styled.div`
 //프로필 이미지
 export const UnScrapImage = styled(UnScrap)`
     width: 25px;
-    margin-right: 13px;
+    margin-right: 8px;
 `;
 
 //마감 일수 이미지
 export const FireImage = styled(Fire)`
     width: 20px;
-    margin-right: 10px;
+    margin-right: 8px;
 `;
 
 export const CloseImage = styled(CloseWhite)`
@@ -152,7 +152,8 @@ export const ActivityStatus = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0054ff;
+    background: ${({ theme, postStatus }) =>
+        postStatus === 'ACTIVE' ? theme.box1 : theme.box2};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: 600;

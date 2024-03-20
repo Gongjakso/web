@@ -85,7 +85,9 @@ const TeamBox = ({
                     <S.SubBox>
                         <S.DeadLine>
                             <S.FireImage />
-                            마감 D-{postContent?.daysRemaining}
+                            {postContent?.daysRemaining < 0
+                                ? '마감된 공고'
+                                : `마감 D-${postContent?.daysRemaining}`}
                         </S.DeadLine>
                         <S.ScrapNum>
                             <S.UnScrapImage />
@@ -94,7 +96,7 @@ const TeamBox = ({
                     </S.SubBox>
                 ) : (
                     <S.ActivityStatus>
-                        {postContent?.postStatus === 'RECRUITING'
+                        {postContent?.postStatus === 'ACTIVE'
                             ? '활동 중'
                             : '활동 종료'}
                     </S.ActivityStatus>
