@@ -8,21 +8,20 @@ const KakaoRedirectPage = () => {
     const code = new URL(window.location.href).searchParams.get('code');
 
     useEffect(() => {
-        getToken(code)
-            .then(result => {
-                localStorage.setItem('accessToken', result?.accessToken);
-                goToPage('/');
-                window.location.reload();
-            })
-            .catch(error => {
-                console.error('Error occurred while getting token:', error);
-            });
-    });
-    return (
-        <div>
-            <S.Spinner />
-        </div>
-    );
+        console.log(code);
+
+        // goToPage('/');
+        // getToken(code)
+        //     .then(result => {
+        //         console.log(result);
+        //         localStorage.setItem('accessToken', result?.accessToken);
+        //         window.location.reload();
+        //     })
+        //     .catch(error => {
+        //         console.error('Error occurred while getting token:', error);
+        //     });
+    }, [code]);
+    return <div>{/* <S.Spinner /> */}</div>;
 };
 
 export default KakaoRedirectPage;
