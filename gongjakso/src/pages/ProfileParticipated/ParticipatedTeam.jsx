@@ -20,6 +20,12 @@ const TeamPart = () => {
         });
     }, []);
 
+    const loadParticipatedPosts = page => {
+        getMyParticipated(page).then(response => {
+            setPostContent3(response?.data);
+        });
+    };
+
     return (
         <div>
             <S.TopBox>
@@ -47,9 +53,9 @@ const TeamPart = () => {
 
                 <Pagination
                     total={totalPage}
-                    limit={limit}
                     page={page}
                     setPage={setPage}
+                    loadPosts={loadParticipatedPosts}
                 />
             </S.BoxDetail>
         </div>

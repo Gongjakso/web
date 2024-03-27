@@ -4,9 +4,13 @@ import TeamBuildingUploadPage from './TeamBuildingUploadPage';
 
 const TeamBuildPage = () => {
     const [currentContent, setCurrentContent] = useState('default'); // default 값을 설정
+    const [buttonClicked, setButtonClicked] = useState(false);
     const handleButtonClick = content => {
+        setButtonClicked(content);
         setCurrentContent(content);
     };
+
+    console.log(buttonClicked);
     return (
         <>
             <S.Container>
@@ -17,12 +21,24 @@ const TeamBuildPage = () => {
                     <S.ButtonSet>
                         <S.Button
                             type="button"
+                            className={
+                                buttonClicked === 'contest'
+                                    ? 'contest active'
+                                    : 'contest'
+                            }
+                            $isClick={buttonClicked}
                             onClick={() => handleButtonClick('contest')}
                         >
                             공모전 팀 만들기
                         </S.Button>
                         <S.Button
                             type="button"
+                            className={
+                                buttonClicked === 'project'
+                                    ? 'project active'
+                                    : 'project'
+                            }
+                            $isClick={buttonClicked}
                             onClick={() => handleButtonClick('project')}
                         >
                             프로젝트 팀 만들기
