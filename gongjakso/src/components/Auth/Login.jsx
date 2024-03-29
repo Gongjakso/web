@@ -8,7 +8,6 @@ const Login = () => {
     const handleLogin = () => {
         // 여기서 다른 작업을 수행할 수도 있습니다.
         window.location.replace(`${KAKAO_AUTH_URL}`);
-        console.log('넘어가지니?');
     };
 
     return (

@@ -62,7 +62,7 @@ const Router = () => {
                         />
                         <Route path={'/myinfo'} element={<MyInfo />} />
                         <Route
-                            path="/api/v1/auth/kakao/callback"
+                            path="/kakao/callback"
                             element={<KakaoRedirectPage />}
                         />
                     </Route>
