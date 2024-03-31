@@ -91,7 +91,7 @@ const TeamBox = ({
                         </S.DeadLine>
                         <S.ScrapNum>
                             <S.UnScrapImage />
-                            스크랩 {postContent?.scrapCount}회
+                            {postContent?.scrapCount}회
                         </S.ScrapNum>
                     </S.SubBox>
                 ) : (
