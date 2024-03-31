@@ -5,7 +5,6 @@ export const Header = styled.div`
     display: flex;
     width: 100%;
     justify-content: center;
-    height: 60px;
     padding: 10px;
     padding-left: 80px;
     position: absolute;
@@ -15,7 +14,7 @@ export const HeaderBase = styled.div`
     display: flex;
     width: 1380px;
     justify-content: start;
-    height: 60px;
+    height: 40px;
 `;
 export const ItemList = styled.ul`
     display: flex;
@@ -37,5 +36,4 @@ export const ProfileArea = styled.div`
     width: 0;
     font-weight: 700;
     justify-content: flex-end;
-    font-size: ${({ theme }) => theme.fontSize.lg};
 `;

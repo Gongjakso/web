@@ -2,20 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import logoImage from '../../assets/images/logo.svg';
 import * as S from './Header.Styled';
+import Bubble from './Bubble';
 
-// import backGroundImage from '../../assets/images/background.png';
 import {
     CalendarBtn,
     ContestBtn,
     ProfileBtn,
     ProjectBtn,
     TeambuildBtn,
-    LoginBtn,
 } from './Buttons';
 
 const Header = () => {
     const location = useLocation();
-    // const isMainPage = location.pathname === '/'; // 메인 페이지 여부 확인
     const [hover, setHover] = useState({
         contest: false,
         project: false,
@@ -24,7 +22,7 @@ const Header = () => {
         calendar: false,
         profile: false,
     });
-
+    const [showBubble, setShowBubble] = useState(false);
     const activeTab = path => {
         if (path.includes('/contest')) return 'contest';
         if (path.includes('/project')) return 'project';
@@ -36,6 +34,14 @@ const Header = () => {
     };
 
     const [active, setActive] = useState(activeTab(location.pathname));
+
+    const handleProfileIconClick = () => {
+        setShowBubble(prev => !prev);
+    };
+
+    const closeBubble = () => {
+        setShowBubble(false);
+    };
 
     useEffect(() => {
         setActive(activeTab(location.pathname));
@@ -85,22 +91,21 @@ const Header = () => {
 
                     <S.ProfileArea>
                         <li>
-                            <LoginBtn
-                                hover={hover}
-                                setHover={setHover}
-                                active={active}
-                                setActive={setActive}
-                            />
-                        </li>
-                        <li>
                             <ProfileBtn
                                 hover={hover}
                                 setHover={setHover}
                                 active={active}
                                 setActive={setActive}
+                                onClick={handleProfileIconClick}
                             />
                         </li>
                     </S.ProfileArea>
+                    {showBubble && (
+                        <Bubble
+                            closeBubble={closeBubble}
+                            handleProfileIconClick={handleProfileIconClick}
+                        />
+                    )}
                 </S.ItemList>
             </S.HeaderBase>
         </S.Header>

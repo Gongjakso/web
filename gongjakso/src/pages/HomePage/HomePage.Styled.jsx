@@ -6,37 +6,36 @@ import teambuilding3 from '../../assets/images/Teambuilding3.png';
 import portfolioimg from '../../assets/images/Portfolio.png';
 
 export const Title = styled.div`
-    font-size: ${({ theme }) => theme.fontSize.ll};
+    font-size: ${({ theme }) => theme.fontSize.lg};
     font-family: 'PreBold';
     text-align: center;
-    padding: 10px;
-    font-weight: bold;
+    padding: 0.5rem;
 `;
 
 export const Title1 = styled.div`
     color: white;
     font-family: 'PreBold';
-    font-size: ${({ theme }) => theme.fontSize.ll};
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
 export const Title2 = styled.div`
     color: white;
-    padding: 7px;
+    padding: 0.5em;
     font-family: 'PreBold';
-    font-size: ${({ theme }) => theme.fontSize.ll};
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
 export const Title3 = styled.div`
     color: black;
-    padding: 7px;
     font-family: 'PreBold';
-    font-size: ${({ theme }) => theme.fontSize.ll};
+    padding: 0.2em;
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
 export const Subtitle2 = styled.div`
     color: white;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     padding: 20px;
 `;
 
@@ -44,21 +43,21 @@ export const Subtitle3 = styled.div`
     color: ${({ theme }) => theme.Main1};
     align-items: center;
     font-weight: bold;
-    padding: 10px;
+    padding: 0.2em;
     font-family: 'PreBold';
     font-size: ${({ theme }) => theme.fontSize.l};
 `;
 
 export const Detail1 = styled.p`
-    font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
-    padding: 3px;
+    font-family: 'PreRegualr';
+    font-size: ${({ theme }) => theme.fontSize.m};
+    padding: 0.2em;
     color: white;
 `;
 
 export const Detail2 = styled.p`
-    font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreRegular';
+    font-size: ${({ theme }) => theme.fontSize.m};
     padding: 15px;
     color: white;
 `;
@@ -66,13 +65,13 @@ export const Detail2 = styled.p`
 export const Detail3 = styled.p`
     color: black;
     padding: 15px;
-    font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreRegular';
+    font-size: ${({ theme }) => theme.fontSize.m};
 `;
 
 export const Button = styled.p`
     display: flex;
-    margin-top: 50px;
+    margin-top: 10px;
     flex-direction: row;
 `;
 
@@ -80,27 +79,25 @@ export const Button1 = styled.button`
     background-color: black;
     border: none;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.m};
     border-radius: 10px;
     color: white;
-    width: 300px;
-    height: 70px;
+    width: 17em;
+    height: 3.5em;
     margin: 10px;
-    padding: 20px;
     cursor: pointer;
 `;
 export const Button2 = styled.button`
     background-color: white;
     border: none;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.m};
     border-radius: 10px;
     color: black;
     font-weight: bold;
-    width: 300px;
-    height: 70px;
+    width: 17em;
+    height: 3.5em;
     margin: 10px;
-    padding: 20px;
     cursor: pointer;
 `;
 
@@ -108,7 +105,7 @@ export const Button3 = styled.button`
     background-color: ${({ theme }) => theme.Main1};
     border: none;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.m};
     border-radius: 10px;
     color: white;
     width: 300px;
@@ -132,7 +129,7 @@ export const HomeContent = styled.div`
         url(${backGroundImage});
     background-size: cover;
     width: 100%;
-    padding: 150px 0;
+    height: 100vh;
     background-repeat: no-repeat;
     justify-content: center;
     flex-direction: column;
@@ -144,16 +141,16 @@ export const Box = styled.div`
     background-color: rgba(255, 255, 255, 0.47);
     border-radius: 100px;
     border: 2px solid rgba(255, 255, 255, 0.8);
-    padding: 40px;
-    width: 440px;
+    padding: 25px;
+    width: 370px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 30px;
+    height: 22px;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.m};
     text-align: center;
-    margin: 10px;
+    margin: 7px 10px;
 `;
 export const BoxContainer = styled.div`
     display: flex;
@@ -166,21 +163,20 @@ export const HomeContent1 = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding: 150px 0;
+    height: 100vh;
     flex-direction: column;
     background-color: ${({ theme }) => theme.Main1};
 `;
 
 export const Wrapper = styled.div`
     background-color: rgba(255, 255, 255, 0.4);
-    margin: 30px;
+    margin: 30px 0;
     border: 1px solid white;
-    border-radius: 50px;
-    width: 1000px;
-    height: 450px;
-    font-family: 'PreBold';
-    font-size: ${({ theme }) => theme.fontSize.ll};
-    padding: 50px 0;
+    border-radius: 40px;
+    width: 60%;
+    height: 50%;
+    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.m};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -192,6 +188,7 @@ export const Wrapper = styled.div`
 export const ImageBox = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
     text-align: center;
     width: 75%;
     flex-direction: row;
@@ -202,16 +199,17 @@ export const HomeContent2 = styled.div`
     align-items: center;
     flex-direction: column;
     width: 100%;
-    padding: 150px 0;
+    height: 100vh;
     background-color: black;
 `;
 export const Container = styled.div`
     display: flex;
-    gap: 80px;
     flex-direction: row;
+    width: 65%;
+    height: 50%;
     padding: 10px;
     justify-content: space-around;
-    margin: 30px 0;
+    margin: 10px 0;
 `;
 
 export const HomeContent3 = styled.div`
@@ -220,17 +218,16 @@ export const HomeContent3 = styled.div`
     align-items: center;
     flex-direction: column;
     width: 100%;
-    padding: 150px 0;
+    height: 100vh;
     background-color: white;
 `;
 
 export const WhiteBox = styled.div`
+    width: 40%;
     background-color: white;
-    width: 450px;
     margin-top: 20px;
-    height: 350px;
-    border-radius: 50px;
-    overflow: hidden;
+    height: 85%;
+    border-radius: 30px;
 `;
 
 export const Image = styled.img`
@@ -243,32 +240,32 @@ export const Image = styled.img`
 `;
 
 export const TeamBuildingImg1 = styled.div`
-    width: 220px;
+    width: 180px;
     background: url(${teambuilding1});
-    height: 220px;
+    height: 180px;
     background-size: contain;
     background-repeat: no-repeat;
 `;
 
 export const TeamBuildingImg2 = styled.div`
-    width: 220px;
+    width: 180px;
     background: url(${teambuilding2});
-    height: 220px;
+    height: 180px;
     background-size: contain;
     background-repeat: no-repeat;
 `;
 
 export const TeamBuildingImg3 = styled.div`
-    width: 220px;
+    width: 180px;
     background: url(${teambuilding3});
-    height: 220px;
+    height: 180px;
     background-size: contain;
     background-repeat: no-repeat;
 `;
 
 export const TeamImage = styled.div`
     font-size: ${({ theme }) => theme.fontSize.md};
-    margin: 30px 0;
+    margin: 20px 0;
 `;
 
 export const PortFolioimg = styled.div`

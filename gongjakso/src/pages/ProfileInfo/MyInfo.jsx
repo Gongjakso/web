@@ -39,7 +39,6 @@ const MyInfo = () => {
     useEffect(() => {
         getMyInfo().then(res => {
             setMyData(res?.data);
-            console.log(res?.data);
         });
     }, []);
 
