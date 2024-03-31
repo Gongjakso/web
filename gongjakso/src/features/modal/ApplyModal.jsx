@@ -4,13 +4,7 @@ import Close from '../../assets/images/Close.svg';
 import { postApply } from '../../service/post_service';
 
 const ApplyModal = props => {
-    const [clickedFields, setClickedFields] = useState(null); // 지원 분야 배열
-    const [clickedSkill, setClickedSkill] = useState(null); // 기술 스택 배열
-
     const [form] = useState(props.title); // 공모전과 프로젝트 구분 목적
-
-    const [inputCount, setInputCount] = useState(0); // 글자 수
-    const [inputValue, setInputValue] = useState(''); // 지원 이유
 
     const [showWarning, setShowWarning] = useState(false); // 주의사항 여부
 
@@ -33,16 +27,19 @@ const ApplyModal = props => {
     }, []);
 
     // 폼 선택
-    const handleClick = type => {
-        setClickedFields(type);
+    const handleClick1 = type => {
+        props.setClickedFields(type);
     };
-    const DoubleClick = type => {
-        if (clickedSkill.includes(type)) {
-            setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
-        } else {
-            setClickedSkill([...clickedSkill, type]);
-        }
+    const handleClick2 = type => {
+        props.setClickedSkill(type);
     };
+    // const DoubleClick = type => {
+    //     if (clickedSkill.includes(type)) {
+    //         setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
+    //     } else {
+    //         setClickedSkill([...clickedSkill, type]);
+    //     }
+    // };
 
     // 지원 이유 작성란 기능 설정
     const textarea = useRef();
@@ -54,52 +51,22 @@ const ApplyModal = props => {
         if (e.target.value.length > 500) {
             e.target.value = e.target.value.slice(0, 500);
         }
-        setInputCount(e.target.value.length);
-        setInputValue(e.target.value);
-    };
-
-    // 지원하기 POST
-    const submitContestApply = data => {
-        const newData = {
-            application: inputValue,
-            recruit_part: clickedFields,
-            recruit_role: '',
-            type: 'CONTEST',
-            isPass: 'true',
-            is_open: 'true',
-            isDecision: 'true',
-        };
-        postApply(props.id, newData).then(res => {
-            console.log(res);
-        });
-    };
-    const submitProjectApply = data => {
-        const newData = {
-            application: inputValue,
-            recruit_part: clickedFields,
-            recruit_role: '',
-            type: 'PROJECT',
-            isPass: 'true',
-            is_open: 'true',
-            isDecision: 'true',
-        };
-        postApply(props.id, newData);
+        props.setInputCount(e.target.value.length);
+        props.setInputValue(e.target.value);
     };
 
     // 필수 항목 검사
     const WarningApply = () => {
-        if (clickedFields === null) {
+        if (props.clickedFields === null) {
             setShowWarning(true);
         } else {
             // 필수항목이 선택되었을 때만 post 처리
             if (form[0] === '공모전') {
                 props.setApply(false);
-                props.setCompleted(true);
-                submitContestApply();
+                props.setApplyCheck(true);
             } else if (form[0] === '프로젝트') {
                 props.setApply(false);
-                props.setCompleted(true);
-                submitProjectApply();
+                props.setApplyCheck(true);
             }
         }
     };
@@ -132,10 +99,11 @@ const ApplyModal = props => {
                                     <S.RoundForm
                                         key={i}
                                         isSelected={
-                                            clickedFields === item.categoryType
+                                            props.clickedFields ===
+                                            item.categoryType
                                         }
                                         onClick={() =>
-                                            handleClick(item.categoryType)
+                                            handleClick1(item.categoryType)
                                         }
                                     >
                                         {item.categoryType === 'PLAN' && '기획'}
@@ -166,7 +134,7 @@ const ApplyModal = props => {
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
-                                    <span>{inputCount}</span>
+                                    <span>{props.inputCount}</span>
                                     <span>/500</span>
                                 </S.InputNum>
                             </S.TextBox>
@@ -207,10 +175,11 @@ const ApplyModal = props => {
                                     <S.RoundForm
                                         key={i}
                                         isSelected={
-                                            clickedFields === item.categoryType
+                                            props.clickedFields ===
+                                            item.categoryType
                                         }
                                         onClick={() =>
-                                            handleClick(item.categoryType)
+                                            handleClick1(item.categoryType)
                                         }
                                     >
                                         {item.categoryType === 'PLAN' && '기획'}
@@ -233,10 +202,11 @@ const ApplyModal = props => {
                                     <S.RoundForm
                                         key={i}
                                         isSelected={
-                                            clickedSkill === item.stackNameType
+                                            props.clickedSkill ===
+                                            item.stackNameType
                                         }
                                         onClick={() =>
-                                            handleClick(item.stackNameType)
+                                            handleClick2(item.stackNameType)
                                         }
                                     >
                                         {item.stackNameType === 'REACT' &&
@@ -277,14 +247,14 @@ const ApplyModal = props => {
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
-                                    <span>{inputCount}</span>
+                                    <span>{props.inputCount}</span>
                                     <span>/500</span>
                                 </S.InputNum>
                             </S.TextBox>
                         </S.DetailBox>
 
                         <S.ApplyBox>
-                            <S.ApplyBtn w="15%" onClick={WarningApply}>
+                            <S.ApplyBtn w="230px" onClick={WarningApply}>
                                 지원하기
                             </S.ApplyBtn>
                         </S.ApplyBox>
