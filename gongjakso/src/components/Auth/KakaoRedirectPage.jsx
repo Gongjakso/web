@@ -10,14 +10,15 @@ const KakaoRedirectPage = () => {
     useEffect(() => {
         getToken(code)
             .then(result => {
+                console.log(result);
                 localStorage.setItem('accessToken', result?.accessToken);
-                goToPage('/');
                 window.location.reload();
             })
             .catch(error => {
                 console.error('Error occurred while getting token:', error);
             });
-    });
+        goToPage('/');
+    }, [code]);
     return (
         <div>
             <S.Spinner />
