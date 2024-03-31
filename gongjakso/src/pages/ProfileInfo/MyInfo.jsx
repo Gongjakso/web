@@ -1,10 +1,18 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import * as S from './MyInfoStyled';
-import majorData from '../../utils/majorData.json';
-import jobData from '../../utils/jobData.json';
 import { putMyInfo } from '../../service/profile_service';
 import { getMyInfo } from '../../service/profile_service';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { SelectInput } from '../../components/common/Input/Input';
+import * as T from '../../components/common/Input/infoDrop.styled.jsx';
+import Down from '../../assets/images/Down.svg';
+import Up from '../../assets/images/icon.svg';
+
+import { Dropdown } from 'react-nested-dropdown';
+import 'react-nested-dropdown/dist/styles.css';
+
+import { jobData } from '../../utils/jobData.jsx';
+import { majorData } from '../../utils/majorData.jsx';
 
 const groupData = data => {
     return data.reduce((groups, item) => {
@@ -24,10 +32,14 @@ const MyInfo = () => {
     const [name, setName] = useState('');
     const [status, setStatus] = useState('');
     const [major, setMajor] = useState('');
-    const [job, setJob] = useState('');
+    const [job, setJob] = useState([]);
+
+    const [isOpen, setIsOpen] = useState(false);
+
     useEffect(() => {
         getMyInfo().then(res => {
-            setMyData(res.data);
+            setMyData(res?.data);
+            console.log(res?.data);
         });
     }, []);
 
@@ -40,13 +52,6 @@ const MyInfo = () => {
         }
     }, [myData]);
 
-    const status_options = [
-        '대학 재학 중',
-        '대학 휴학 중',
-        '취업 준비 중',
-        '기타',
-    ];
-
     const handleSaveClick = e => {
         e.preventDefault();
 
@@ -58,6 +63,42 @@ const MyInfo = () => {
                 console.error(error);
             });
     };
+
+    const handleSelectStatus = selectedValue => {
+        setStatus(selectedValue);
+    };
+    const handleSelectMajor = selectedValue => {
+        setMajor(selectedValue);
+    };
+    const handleSelectJob = selectedValue => {
+        setJob(selectedValue);
+    };
+
+    const status_options = [
+        '대학 재학 중',
+        '대학 휴학 중',
+        '취업 준비 중',
+        '기타',
+    ];
+    const items1 = majorData.map(item => ({
+        label: item.class,
+        items: item.major.map(major => ({
+            label: major,
+            onSelect: () => {
+                const selectedData = `${item.class}/${major}`;
+                setMajor(selectedData);
+            },
+        })),
+    }));
+    const items2 = jobData.map(item => ({
+        label: item.type,
+        items: item.work.map(work => ({
+            label: work,
+            onSelect: () => {
+                setJob(work);
+            },
+        })),
+    }));
 
     return (
         <S.Div>
@@ -76,7 +117,8 @@ const MyInfo = () => {
                 </S.DetailBox>
                 <S.DetailBox>
                     <S.SubTitle>현재 상태</S.SubTitle>
-                    <S.SelectField
+
+                    {/* <S.SelectField
                         value={status}
                         onChange={e => setStatus(e.target.value)}
                     >
@@ -85,11 +127,22 @@ const MyInfo = () => {
                                 {option}
                             </option>
                         ))}
-                    </S.SelectField>
+                    </S.SelectField> */}
+
+                    <S.Fillter1>
+                        <SelectInput
+                            id={'status'}
+                            selectOptions={status_options}
+                            placeholder={status}
+                            onChange={handleSelectStatus}
+                            case={false}
+                        />
+                    </S.Fillter1>
                 </S.DetailBox>
                 <S.DetailBox>
                     <S.SubTitle>전공</S.SubTitle>
-                    <S.SelectField
+
+                    {/* <S.SelectField
                         value={major}
                         onChange={e => setMajor(e.target.value)}
                     >
@@ -107,11 +160,32 @@ const MyInfo = () => {
                                 </optgroup>
                             ),
                         )}
-                    </S.SelectField>
+                    </S.SelectField> */}
+
+                    <T.Dropdown2>
+                        <Dropdown items={items1} closeOnScroll={false}>
+                            {({ isOpen, onClick }) => (
+                                <T.Button
+                                    type="button"
+                                    onClick={() => {
+                                        onClick();
+                                        setIsOpen(isOpen);
+                                    }}
+                                >
+                                    {major}
+                                    {isOpen ? (
+                                        <img src={Down} />
+                                    ) : (
+                                        <img src={Up} />
+                                    )}
+                                </T.Button>
+                            )}
+                        </Dropdown>
+                    </T.Dropdown2>
                 </S.DetailBox>
                 <S.DetailBox>
                     <S.SubTitle>희망 직무</S.SubTitle>
-                    <S.SelectField
+                    {/* <S.SelectField
                         value={job}
                         onChange={e => setJob(e.target.value)}
                     >
@@ -127,7 +201,27 @@ const MyInfo = () => {
                                 ))}
                             </optgroup>
                         ))}
-                    </S.SelectField>
+                    </S.SelectField> */}
+                    <T.Dropdown2>
+                        <Dropdown items={items2} closeOnScroll={false}>
+                            {({ isOpen, onClick }) => (
+                                <T.Button
+                                    type="button"
+                                    onClick={() => {
+                                        onClick();
+                                        setIsOpen(isOpen);
+                                    }}
+                                >
+                                    {job}
+                                    {isOpen ? (
+                                        <img src={Down} />
+                                    ) : (
+                                        <img src={Up} />
+                                    )}
+                                </T.Button>
+                            )}
+                        </Dropdown>
+                    </T.Dropdown2>
                 </S.DetailBox>
             </S.Formset>
             <S.Wrapper>

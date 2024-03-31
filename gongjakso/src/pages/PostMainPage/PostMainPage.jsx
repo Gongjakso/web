@@ -65,18 +65,18 @@ const PostMainPage = () => {
 
     const options = ['전체', '인기순', '최신순'];
     const stackOptions = [
-        'REACT',
-        'TYPESCRIPT',
-        'JAVASCRIPT',
-        'NEXTJS',
-        'NODEJS',
-        'JAVA',
-        'SPRING',
-        'KOTLIN',
-        'SWIFT',
-        'FLUTTER',
-        'FIGMA',
-        'ETC',
+        'React',
+        'TypeScript',
+        'JavaScript',
+        'Nextjs',
+        'Nodejs',
+        'Java',
+        'Spring',
+        'Kotlin',
+        'Swift',
+        'Flutter',
+        'Figma',
+        '기타',
     ];
     useEffect(() => {
         getProjectBanner().then(res => {
@@ -174,7 +174,10 @@ const PostMainPage = () => {
                     </S.SearchBar>
                 </S.Search>
                 <S.Fillterbox>
-                    <Multilevel onItemSelected={handleSelectedData} />
+                    <Multilevel
+                        isPost={false}
+                        onItemSelected={handleSelectedData}
+                    />
 
                     <S.Fillter1>
                         <SelectInput
@@ -184,6 +187,8 @@ const PostMainPage = () => {
                             placeholder={'정렬'}
                             register={register}
                             onChange={handleSelectChange}
+                            scroll={false}
+                            case={true}
                         />
                     </S.Fillter1>
                     {isProject && (
@@ -194,6 +199,8 @@ const PostMainPage = () => {
                                 selectOptions={stackOptions}
                                 placeholder={'사용 언어'}
                                 register={register}
+                                case={true}
+                                scroll={true}
                                 onChange={handleSelectStack}
                             />
                         </S.Fillter1>

@@ -6,16 +6,16 @@ export const SelectContainer = styled.div`
 
 export const SelectValue = styled.div`
     display: block;
-    width: 220px;
+    width: ${props => (props.case === true ? '220px' : '430px')};
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 18px 15px;
-    font-size: 18px;
+    padding: ${props => (props.case === true ? '0px 15px' : '13px')};
+    font-size: ${({ theme }) => theme.fontSize.md};
     text-align: center;
     align-items: center;
     cursor: pointer;
-    transition: border-color 0.2s ease;
+    transition: border-color 0.1s ease;
 
     &:hover {
         border-color: #007bff;
@@ -25,19 +25,21 @@ export const SelectValue = styled.div`
 export const OptionList = styled.div`
     position: absolute;
     left: 0;
-    width: 220px;
-    font-size: 18px;
-    margin: 7px 0;
+    width: ${props => (props.case === true ? '220px' : '430px')};
+    font-size: ${({ theme }) => theme.fontSize.md};
+    margin: ${props => (props.case === true ? '20px 0px' : '10px 0px')};
     list-style: none;
     border-radius: 4px;
     background-color: #fff;
     z-index: 1;
     border: 1px solid hsl(0, 0%, 90%);
+    max-height: 300px;
+    overflow-y: ${props => (props.scroll === true ? 'scroll' : 'hidden')};
     .option {
         padding: 15px;
         cursor: pointer;
         border-radius: 4px;
-        transition: background-color 0.2s ease;
+        transition: background-color 0.1s ease;
 
         &:hover {
             background-color: black;
