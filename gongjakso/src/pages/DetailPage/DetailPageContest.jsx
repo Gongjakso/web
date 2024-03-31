@@ -41,6 +41,11 @@ const DetailPageContest = () => {
     // 모달창 구분 목적
     const [title] = useState(['공모전', 'contest']);
 
+    const [clickedFields, setClickedFields] = useState(null); // 지원 분야 배열
+    const [clickedSkill, setClickedSkill] = useState(null); // 기술 스택 배열
+    const [inputCount, setInputCount] = useState(0); // 글자 수
+    const [inputValue, setInputValue] = useState(''); // 지원 이유
+
     // API 관련 변수
     const [postData, setpostData] = useState([]);
     const [category, setCategory] = useState([]);

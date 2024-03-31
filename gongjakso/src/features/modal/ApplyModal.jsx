@@ -36,8 +36,8 @@ const ApplyModal = props => {
     }, []);
 
     // 폼 선택
-    const handleClick = type => {
-        setClickedFields(type);
+    const handleClick1 = type => {
+        props.setClickedFields(type);
     };
 
     const DoubleClick = type => {
@@ -47,6 +47,13 @@ const ApplyModal = props => {
             setClickedSkill([...clickedSkill, type]);
         }
     };
+    // const DoubleClick = type => {
+    //     if (clickedSkill.includes(type)) {
+    //         setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
+    //     } else {
+    //         setClickedSkill([...clickedSkill, type]);
+    //     }
+    // };
 
     // 지원 이유 작성란 기능 설정
     const textarea = useRef();
@@ -64,7 +71,7 @@ const ApplyModal = props => {
 
     // 필수 항목 검사
     const WarningApply = () => {
-        if (clickedFields === null) {
+        if (props.clickedFields === null) {
             setShowWarning(true);
         } else {
             // 필수항목이 선택되었을 때만 post 처리
@@ -119,10 +126,11 @@ const ApplyModal = props => {
                                     <S.RoundForm
                                         key={i}
                                         isSelected={
-                                            clickedFields === item.categoryType
+                                            props.clickedFields ===
+                                            item.categoryType
                                         }
                                         onClick={() =>
-                                            handleClick(item.categoryType)
+                                            handleClick1(item.categoryType)
                                         }
                                     >
                                         {item.categoryType === 'PLAN' && '기획'}
@@ -153,7 +161,7 @@ const ApplyModal = props => {
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
-                                    <span>{inputCount}</span>
+                                    <span>{props.inputCount}</span>
                                     <span>/500</span>
                                 </S.InputNum>
                             </S.TextBox>
@@ -194,10 +202,11 @@ const ApplyModal = props => {
                                     <S.RoundForm
                                         key={i}
                                         isSelected={
-                                            clickedFields === item.categoryType
+                                            props.clickedFields ===
+                                            item.categoryType
                                         }
                                         onClick={() =>
-                                            handleClick(item.categoryType)
+                                            handleClick1(item.categoryType)
                                         }
                                     >
                                         {item.categoryType === 'PLAN' && '기획'}
@@ -267,7 +276,7 @@ const ApplyModal = props => {
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
-                                    <span>{inputCount}</span>
+                                    <span>{props.inputCount}</span>
                                     <span>/500</span>
                                 </S.InputNum>
                             </S.TextBox>
