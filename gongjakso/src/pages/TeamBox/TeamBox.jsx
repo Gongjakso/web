@@ -128,7 +128,13 @@ const TeamBox = ({
                         )
                     )}
                 </S.MainBox>
-                {showWaitingJoin && <S.WaitingJoin>합류 대기중</S.WaitingJoin>}
+                {showWaitingJoin && (
+                    <S.WaitingJoin>
+                        {postContent?.status === '합류대기중_수정필요'
+                            ? '합류 대기중'
+                            : '미선발'}
+                    </S.WaitingJoin>
+                )}
             </S.BoxBottomDetail>
 
             {showMoreDetail && (

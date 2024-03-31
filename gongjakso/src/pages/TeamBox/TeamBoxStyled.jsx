@@ -137,6 +137,8 @@ export const WaitingJoin = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    background: ${({ theme, postStatus }) =>
+        postStatus === '합류대기중_수정필요' ? theme.Light1 : theme.LightGrey};
     background: ${({ theme }) => theme.Light1};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -186,7 +188,6 @@ export const MoreDetail = styled(ArrowDetail)`
     z-index: 1;
 `;
 
-/*
 //프로필페이지 -> 모집 마감, 연장, 취소 오버레이
 export const DeadlineOverlay = styled.div`
     position: absolute;
@@ -203,4 +204,3 @@ export const DeadlineOverlay = styled.div`
     align-items: center;
     color: white;
 `;
-*/

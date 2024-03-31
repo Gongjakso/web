@@ -30,6 +30,7 @@ const colorSystem = {
     border: '#dbdbdb',
     borderline: '#969696',
     box1: '#0054FF',
+    box2: '#EB5959'
 };
 
 const defaultfont = {
