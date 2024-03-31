@@ -96,6 +96,7 @@ const PostMainPage = () => {
     const loadContestPosts = (page, sort, selectedLocalData, searchKeyword) => {
         getContestPosts(page, sort, selectedLocalData, searchKeyword).then(
             res => {
+                // console.log(res?.data);
                 setContestPosts(res?.data?.content);
                 setContestTotalPage(res?.data?.totalPages);
             },
@@ -115,6 +116,7 @@ const PostMainPage = () => {
             selectedStack,
             searchKeyword,
         ).then(res => {
+            // console.log(res?.data);
             setProjectPosts(res?.data?.content);
             setProjectTotalPage(res?.data?.totalPages);
         });

@@ -174,6 +174,18 @@ const TeamBuildingUploadPage = ({ posts }) => {
         setCategory(selectCategory.category);
     };
 
+    const handleCancel = () => {
+        const scrollStep = -window.scrollY / 20;
+        const scrollInterval = setInterval(() => {
+            if (window.scrollY !== 0) {
+                window.scrollBy(0, scrollStep);
+            } else {
+                clearInterval(scrollInterval);
+                window.location.reload(); // Reload the page after scrolling to the top
+            }
+        }, 15);
+    };
+
     const submitContestBuild = data => {
         const newData = {
             title: data.title,
@@ -201,13 +213,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
     const submitProjectBuild = data => {
         const newData = {
             title: data.title,
-            contents:
-                '프로젝트 팀에 합류하세요: 열정적이고 재능 있는 구성원 모집!',
+            contents: description,
             contestLink: '',
             startDate: dates.startDate,
             endDate: dates.endDate,
             finishDate: endDates.endDate,
-            maxPerson: 10,
+            maxPerson: data.people,
             stackNames: selectedLanguage,
             categories: category.categories,
             meetingMethod: meeting,
@@ -321,10 +332,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 지역</S.TapP>
-                        <Multilevel
-                            isPost={true}
-                            onItemSelected={handleSelectedData}
-                        />
+                        <Multilevel onItemSelected={handleSelectedData} />
                     </S.Label>
                     <S.Label>
                         <S.TapP>공모전 예상 기간</S.TapP>
@@ -363,7 +371,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         </S.Complain>
                     </S.Label>
                     <S.ButtonContent>
-                        <S.Button $isDelete={true}>취소하기</S.Button>
+                        <S.Button
+                            $isDelete={true}
+                            onClick={() => handleCancel()}
+                        >
+                            취소하기
+                        </S.Button>
                         <S.Button onClick={handleSubmit(submitContestBuild)}>
                             모집 시작하기
                         </S.Button>
@@ -463,10 +476,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 지역</S.TapP>
-                        <Multilevel
-                            isPost={true}
-                            onItemSelected={handleSelectedData}
-                        />
+                        <Multilevel onItemSelected={handleSelectedData} />
                     </S.Label>
                     <S.Label>
                         <S.TapP>예상 기간</S.TapP>
@@ -503,7 +513,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         </S.Complain>
                     </S.Label>
                     <S.ButtonContent>
-                        <S.Button $isDelete={true}>취소하기</S.Button>
+                        <S.Button
+                            $isDelete={true}
+                            onClick={() => handleCancel()}
+                        >
+                            취소하기
+                        </S.Button>
                         <S.Button onClick={handleSubmit(submitProjectBuild)}>
                             모집 시작하기
                         </S.Button>

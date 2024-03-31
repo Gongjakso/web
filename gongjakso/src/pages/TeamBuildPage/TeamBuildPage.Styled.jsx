@@ -96,6 +96,17 @@ export const Button = styled.button`
     height: 60px;
     border: 1px solid #ffffff;
     border-radius: 12px;
+
+    &.contest {
+        background-color: ${props =>
+            props.$isClick === 'contest' ? '#FFFFFF' : ''};
+        color: ${props => (props.$isClick === 'contest' ? '#000000' : '')};
+    }
+    &.project {
+        background-color: ${props =>
+            props.$isClick === 'project' ? '#FFFFFF' : ''};
+        color: ${props => (props.$isClick === 'project' ? '#000000' : '')};
+    }
 `;
 
 export const Text = styled.p`

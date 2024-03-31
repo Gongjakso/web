@@ -11,6 +11,8 @@ function Pagination({ total, page, setPage, loadPosts }) {
                 currentPageRange[1] + 1,
                 currentPageRange[1] + 10,
             ]);
+        } else {
+            alert('페이지가 없습니다');
         }
         setPage(page + 1);
         loadPosts(page + 1);
