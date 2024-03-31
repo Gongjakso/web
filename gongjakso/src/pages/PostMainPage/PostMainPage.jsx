@@ -14,6 +14,7 @@ import { getContestPosts, getProjectPosts } from '../../service/post_service';
 import TeamBox from '../TeamBox/TeamBox';
 import Modal2 from '../../features/modal/LoginModal2';
 import Modal1 from '../../features/modal/LoginModal1';
+import NoContents from '../../features/NoContents/NoContents';
 
 const PostMainPage = () => {
     const authenticated = localStorage.getItem('accessToken');
@@ -210,88 +211,118 @@ const PostMainPage = () => {
                 </S.Fillterbox>
                 {isProject ? ( //여기는 프로젝트
                     <S.PostContent>
-                        {projectPosts?.map(project => (
-                            <React.Fragment key={project?.postId}>
-                                {isLoggedIn ? (
-                                    <Link to={`/project/${project?.postId}`}>
-                                        <TeamBox
-                                            showWaitingJoin={false}
-                                            showSubBox={true}
-                                            borderColor={
-                                                'rgba(231, 137, 255, 0.5)'
-                                            }
-                                            postContent={project}
-                                            isMyParticipation={null}
+                        {projectPosts && projectPosts.length > 0 ? (
+                            projectPosts.map(project => (
+                                <React.Fragment key={project?.postId}>
+                                    {isLoggedIn ? (
+                                        <Link
+                                            to={`/project/${project?.postId}`}
+                                        >
+                                            <TeamBox
+                                                showWaitingJoin={false}
+                                                showSubBox={true}
+                                                borderColor={
+                                                    'rgba(231, 137, 255, 0.5)'
+                                                }
+                                                postContent={project}
+                                                isMyParticipation={null}
+                                            />
+                                        </Link>
+                                    ) : (
+                                        <button onClick={() => showModal1()}>
+                                            <TeamBox
+                                                showWaitingJoin={false}
+                                                showSubBox={true}
+                                                borderColor={
+                                                    'rgba(231, 137, 255, 0.5)'
+                                                }
+                                                postContent={project}
+                                                isMyParticipation={null}
+                                            />
+                                        </button>
+                                    )}
+                                    {isProject ? (
+                                        <Pagination
+                                            total={ProjectTotalPage}
+                                            page={page}
+                                            setPage={setPage}
+                                            loadPosts={loadContestPosts}
                                         />
-                                    </Link>
-                                ) : (
-                                    <button onClick={() => showModal1()}>
-                                        <TeamBox
-                                            showWaitingJoin={false}
-                                            showSubBox={true}
-                                            borderColor={
-                                                'rgba(231, 137, 255, 0.5)'
-                                            }
-                                            postContent={project}
-                                            isMyParticipation={null}
+                                    ) : (
+                                        <Pagination
+                                            total={contestTotalPage}
+                                            page={page}
+                                            setPage={setPage}
+                                            loadPosts={loadProjectPosts}
                                         />
-                                    </button>
-                                )}
-                            </React.Fragment>
-                        ))}
+                                    )}
+                                </React.Fragment>
+                            ))
+                        ) : (
+                            <NoContents
+                                mainTxt={'찾으시는 내용을 발견하지 못했어요!'}
+                                subTxt={'다른 내용을 검색해보세요'}
+                            />
+                        )}
                     </S.PostContent>
                 ) : (
                     //아래는 공모전
                     <S.PostContent>
-                        {contestPosts?.map(contest => (
-                            <React.Fragment key={contest?.postId}>
-                                {isLoggedIn ? (
-                                    <Link
-                                        key={contest?.postId}
-                                        to={`/contest/${contest?.postId}`}
-                                    >
-                                        <TeamBox
-                                            showWaitingJoin={false}
-                                            showSubBox={true}
-                                            borderColor={
-                                                'rgba(0, 163, 255, 0.5)'
-                                            }
-                                            postContent={contest}
-                                            isMyParticipation={null}
+                        {contestPosts && contestPosts.length > 0 ? (
+                            contestPosts.map(contest => (
+                                <React.Fragment key={contest?.postId}>
+                                    {isLoggedIn ? (
+                                        <Link
+                                            key={contest?.postId}
+                                            to={`/contest/${contest?.postId}`}
+                                        >
+                                            <TeamBox
+                                                showWaitingJoin={false}
+                                                showSubBox={true}
+                                                borderColor={
+                                                    'rgba(0, 163, 255, 0.5)'
+                                                }
+                                                postContent={contest}
+                                                isMyParticipation={null}
+                                            />
+                                        </Link>
+                                    ) : (
+                                        <button onClick={() => showModal1()}>
+                                            <TeamBox
+                                                showWaitingJoin={false}
+                                                showSubBox={true}
+                                                borderColor={
+                                                    'rgba(0, 163, 255, 0.5)'
+                                                }
+                                                postContent={contest}
+                                                isMyParticipation={null}
+                                            />
+                                        </button>
+                                    )}
+                                    {isProject ? (
+                                        <Pagination
+                                            total={ProjectTotalPage}
+                                            page={page}
+                                            setPage={setPage}
+                                            loadPosts={loadContestPosts}
                                         />
-                                    </Link>
-                                ) : (
-                                    <button onClick={() => showModal1()}>
-                                        <TeamBox
-                                            showWaitingJoin={false}
-                                            showSubBox={true}
-                                            borderColor={
-                                                'rgba(0, 163, 255, 0.5)'
-                                            }
-                                            postContent={contest}
-                                            isMyParticipation={null}
+                                    ) : (
+                                        <Pagination
+                                            total={contestTotalPage}
+                                            page={page}
+                                            setPage={setPage}
+                                            loadPosts={loadProjectPosts}
                                         />
-                                    </button>
-                                )}
-                            </React.Fragment>
-                        ))}
+                                    )}
+                                </React.Fragment>
+                            ))
+                        ) : (
+                            <NoContents
+                                mainTxt={'찾으시는 내용을 발견하지 못했어요!'}
+                                subTxt={'다른 내용을 검색해보세요'}
+                            />
+                        )}
                     </S.PostContent>
-                )}
-
-                {isProject ? (
-                    <Pagination
-                        total={ProjectTotalPage}
-                        page={page}
-                        setPage={setPage}
-                        loadPosts={loadContestPosts}
-                    />
-                ) : (
-                    <Pagination
-                        total={contestTotalPage}
-                        page={page}
-                        setPage={setPage}
-                        loadPosts={loadProjectPosts}
-                    />
                 )}
             </S.MainContent>
             {modal1Open && <Modal1 closeModal1={closeModal1} />}
