@@ -63,7 +63,7 @@ export const BottomBox = styled.div`
 `;
 
 export const SubBox = styled.div`
-    width: 27%;
+    width: 28%;
     display: flex;
     justify-content: space-between;
 `;
@@ -100,7 +100,7 @@ export const CloseImage = styled(CloseWhite)`
 
 //마감일수
 export const DeadLine = styled.div`
-    width: 145px;
+    width: 140px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -116,7 +116,7 @@ export const DeadLine = styled.div`
 
 //스크랩 횟수
 export const ScrapNum = styled.div`
-    width: 110px;
+    width: 140px;
     height: 40px;
     display: flex;
     align-items: center;
