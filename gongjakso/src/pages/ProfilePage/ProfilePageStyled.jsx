@@ -23,7 +23,7 @@ export const DetailBox = styled.div`
 export const InfoBox = styled.div`
     position: relative;
     transform: translateY(150%);
-    padding-right: 45px;
+    padding-right: 50px;
     line-height: 25px;
     text-align: left;
     display: flex;
@@ -35,15 +35,19 @@ export const InfoBox = styled.div`
 export const NameTitle = styled.p`
     font-size: ${({ theme }) => theme.fontSize.ll};
     font-family: 'PreBold';
-    margin-right: 50px;
+    //margin-right: 50px;
     margin-bottom: 5px;
 `;
 
 //학과
 export const MajorTitle = styled.p`
-    margin-right: 50px;
+    //margin-right: 50px;
     font-family: 'PreRegular';
     font-size: ${({ theme }) => theme.fontSize.md};
+    width: 170px;
+    white-space: nowrap; // 내용이 줄바꿈되지 않고 한 줄에 표시되도록 설정
+    overflow: hidden; // 내용이 너비를 초과할 경우 숨김 처리
+    text-overflow: ellipsis; // 내용이 너비를 초과할 경우 ...으로 표시
 `;
 
 //소제목
@@ -68,7 +72,7 @@ export const EditImage = styled(Edit)`
 `;
 
 export const ArrowImage = styled(Arrow)`
-    width: 80px;
+    width: 60px;
     display: flex;
     align-items: center;
     height: 25px;
@@ -77,7 +81,7 @@ export const ArrowImage = styled(Arrow)`
 //나의 포트폴리오 박스
 export const PortfolioBox = styled.button`
     width: 170px;
-    height: 45px;
+    height: 47px;
     font-size: ${({ theme }) => theme.fontSize.md};
     background-color: #0054ff;
     display: flex;
@@ -86,7 +90,7 @@ export const PortfolioBox = styled.button`
     color: ${({ theme }) => theme.mainFont2};
     transform: translateY(150%);
     border-radius: 25px;
-    margin-left: 45px;
+    margin-left: 50px;
 `;
 
 export const GlobalBox = styled.div`
