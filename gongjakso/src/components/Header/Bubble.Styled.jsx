@@ -65,7 +65,7 @@ export const MypageImg = styled(Mypage)`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 110px;
+    width: 100px;
     height: auto;
     cursor: pointer;
 `;
@@ -79,14 +79,16 @@ export const InfoBox = styled.div`
 
 //이름
 export const NameTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.mdd};
     font-family: 'PreMedium';
+    margin: 2px 0px;
 `;
 
 //학과
 export const MajorTitle = styled.p`
     font-family: 'PreRegular';
     font-size: ${({ theme }) => theme.fontSize.base};
+    margin: 2px 0px;
 `;
 
 //프로필 이미지
