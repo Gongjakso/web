@@ -332,7 +332,10 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 지역</S.TapP>
-                        <Multilevel onItemSelected={handleSelectedData} />
+                        <Multilevel
+                            isPost={true}
+                            onItemSelected={handleSelectedData}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>공모전 예상 기간</S.TapP>
@@ -476,7 +479,10 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 지역</S.TapP>
-                        <Multilevel onItemSelected={handleSelectedData} />
+                        <Multilevel
+                            isPost={true}
+                            onItemSelected={handleSelectedData}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>예상 기간</S.TapP>
