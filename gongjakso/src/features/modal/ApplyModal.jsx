@@ -64,7 +64,7 @@ const ApplyModal = props => {
 
     // 필수 항목 검사
     const WarningApply = () => {
-        if (props.clickedFields === null) {
+        if (clickedFields === null) {
             setShowWarning(true);
         } else {
             // 필수항목이 선택되었을 때만 post 처리
