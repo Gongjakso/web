@@ -10,6 +10,10 @@ export const Background = styled.div`
     z-index: 5;
 `;
 
+export const Background2 = styled(Background)`
+    z-index: 10;
+`;
+
 export const Modal = styled.div`
     border: 2px solid ${props => props.bc};
     position: relative;

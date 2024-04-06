@@ -26,7 +26,7 @@ export const BgButton = styled.div`
     margin-top: 10px;
     margin-bottom: 50px;
     img {
-        width: 3%;
+        width: 2.5%;
         cursor: pointer;
     }
 `;
@@ -48,8 +48,8 @@ export const TitleBox2 = styled(TitleBox)`
 export const BtnLayout = styled.div`
     display: flex;
     position: absolute;
-    top: 98px;
-    right: 70px;
+    top: 105px;
+    right: 50px;
 `;
 
 // 타이틀

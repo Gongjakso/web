@@ -28,9 +28,6 @@ const Completed = props => {
             recruit_part: props.clickedFields,
             recruit_role: '',
             type: 'CONTEST',
-            isPass: 'true',
-            is_open: 'true',
-            isDecision: 'true',
         };
         postApply(props.id, newData).then(res => {
             console.log(res);
@@ -41,18 +38,18 @@ const Completed = props => {
             application: props.inputValue,
             recruit_part: props.clickedFields,
             recruit_role: '',
+            stack: props.clickedSkill,
             type: 'PROJECT',
-            isPass: 'true',
-            is_open: 'true',
-            isDecision: 'true',
         };
-        postApply(props.id, newData);
+        postApply(props.id, newData).then(res => {
+            console.log(res);
+        });
     };
 
     return (
         <div>
             {props.case === 1 && (
-                <S.Background>
+                <S.Background2>
                     <S.Modal w="50%" h="450px" bc={({ theme }) => theme.box1}>
                         <S.Backbtn
                             onClick={() => {
@@ -61,7 +58,7 @@ const Completed = props => {
                         >
                             <img src={Close} alt="close-btn" />
                         </S.Backbtn>
-                        <S.MainTitle>{props.title[0]} 팀 지원하기</S.MainTitle>
+                        <S.MainTitle>{props.title} 팀 지원하기</S.MainTitle>
                         <S.CompletedBox>
                             <p>지원서를 정말 제출하시겠습니까?</p>
                             <p>제출 완료 시 수정이 불가합니다.</p>
@@ -84,7 +81,7 @@ const Completed = props => {
                                 onClick={() => {
                                     props.setApplyCheck(false);
                                     props.setCompleted(true);
-                                    props.title[0] === '공모전'
+                                    props.title === '공모전'
                                         ? submitContestApply()
                                         : submitProjectApply();
                                 }}
@@ -93,7 +90,7 @@ const Completed = props => {
                             </S.newBtn>
                         </S.ApplyBox2>
                     </S.Modal>
-                </S.Background>
+                </S.Background2>
             )}
             {props.case === 2 && (
                 <S.Background>
