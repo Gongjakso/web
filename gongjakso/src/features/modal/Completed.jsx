@@ -28,6 +28,12 @@ const Completed = props => {
             recruit_part: props.clickedFields,
             recruit_role: '',
             type: 'CONTEST',
+<<<<<<< HEAD
+=======
+            isPass: 'true',
+            is_open: 'true',
+            isDecision: 'true',
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
         };
         postApply(props.id, newData).then(res => {
             console.log(res);
@@ -38,18 +44,31 @@ const Completed = props => {
             application: props.inputValue,
             recruit_part: props.clickedFields,
             recruit_role: '',
+<<<<<<< HEAD
             stack: props.clickedSkill,
             type: 'PROJECT',
         };
         postApply(props.id, newData).then(res => {
             console.log(res);
         });
+=======
+            type: 'PROJECT',
+            isPass: 'true',
+            is_open: 'true',
+            isDecision: 'true',
+        };
+        postApply(props.id, newData);
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
     };
 
     return (
         <div>
             {props.case === 1 && (
+<<<<<<< HEAD
                 <S.Background2>
+=======
+                <S.Background>
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
                     <S.Modal w="50%" h="450px" bc={({ theme }) => theme.box1}>
                         <S.Backbtn
                             onClick={() => {
@@ -58,7 +77,11 @@ const Completed = props => {
                         >
                             <img src={Close} alt="close-btn" />
                         </S.Backbtn>
+<<<<<<< HEAD
                         <S.MainTitle>{props.title} 팀 지원하기</S.MainTitle>
+=======
+                        <S.MainTitle>{props.title[0]} 팀 지원하기</S.MainTitle>
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
                         <S.CompletedBox>
                             <p>지원서를 정말 제출하시겠습니까?</p>
                             <p>제출 완료 시 수정이 불가합니다.</p>
@@ -81,7 +104,11 @@ const Completed = props => {
                                 onClick={() => {
                                     props.setApplyCheck(false);
                                     props.setCompleted(true);
+<<<<<<< HEAD
                                     props.title === '공모전'
+=======
+                                    props.title[0] === '공모전'
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
                                         ? submitContestApply()
                                         : submitProjectApply();
                                 }}
@@ -90,7 +117,11 @@ const Completed = props => {
                             </S.newBtn>
                         </S.ApplyBox2>
                     </S.Modal>
+<<<<<<< HEAD
                 </S.Background2>
+=======
+                </S.Background>
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
             )}
             {props.case === 2 && (
                 <S.Background>

@@ -48,8 +48,13 @@ export const TitleBox2 = styled(TitleBox)`
 export const BtnLayout = styled.div`
     display: flex;
     position: absolute;
+<<<<<<< HEAD
     top: 105px;
     right: 50px;
+=======
+    top: 98px;
+    right: 70px;
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
 `;
 
 // 타이틀

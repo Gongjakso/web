@@ -17,7 +17,11 @@ const DetailPageProject = () => {
     const navigate = useCustomNavigate();
 
     // 임시 구분용 - 처음보는 공고 & 지원한 공고
+<<<<<<< HEAD
     const [isApply] = useState(false);
+=======
+    const [isApply] = useState(true);
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
 
     // 지원하기 버튼
     const [apply, setApply] = useState(false);
@@ -30,6 +34,11 @@ const DetailPageProject = () => {
 
     // 모달창 구분 목적
     const [title] = useState(['프로젝트', 'project']);
+
+    const [clickedFields, setClickedFields] = useState(null); // 지원 분야 배열
+    const [clickedSkill, setClickedSkill] = useState(null); // 기술 스택 배열
+    const [inputCount, setInputCount] = useState(0); // 글자 수
+    const [inputValue, setInputValue] = useState(''); // 지원 이유
 
     // API 관련 변수
     const [postData, setpostData] = useState([]);
@@ -80,12 +89,44 @@ const DetailPageProject = () => {
                     setCompleted={setCompleted}
                     setApplyCheck={setApplyCheck}
                     category={category}
+<<<<<<< HEAD
+=======
+                    stackType={stackType}
+                    clickedFields={clickedFields}
+                    setClickedFields={setClickedFields}
+                    setClickedSkill={setClickedSkill}
+                    clickedSkill={clickedSkill}
+                    inputCount={inputCount}
+                    setInputCount={setInputCount}
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
                     id={postId}
                     stackType={stackType}
                 />
             ) : null}
+<<<<<<< HEAD
 
             {/* 지원완료 모달 (확인사살 모달 아님!) */}
+=======
+            {applyCheck === true ? (
+                <Completed
+                    title={title}
+                    case={1}
+                    clickedFields={clickedFields}
+                    setClickedFields={setClickedFields}
+                    setClickedSkill={setClickedSkill}
+                    clickedSkill={clickedSkill}
+                    inputCount={inputCount}
+                    setInputCount={setInputCount}
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    setApply={setApply}
+                    setApplyCheck={setApplyCheck}
+                    setCompleted={setCompleted}
+                />
+            ) : null}
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
             {completed === true ? <Completed title={title} case={2} /> : null}
 
             <S.Layout>
