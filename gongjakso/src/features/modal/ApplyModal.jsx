@@ -7,12 +7,15 @@ import Completed from './Completed';
 const ApplyModal = props => {
     const [form] = useState(props.title); // 공모전과 프로젝트 구분 목적
 
+<<<<<<< HEAD
     const [clickedFields, setClickedFields] = useState(null); // 지원 분야 배열
     const [clickedSkill, setClickedSkill] = useState([]); // 기술 스택 배열
 
     const [inputCount, setInputCount] = useState(0); // 글자 수
     const [inputValue, setInputValue] = useState(''); // 지원 이유
 
+=======
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
     const [showWarning, setShowWarning] = useState(false); // 주의사항 여부
 
     // API 관련 변수
@@ -36,9 +39,10 @@ const ApplyModal = props => {
     }, []);
 
     // 폼 선택
-    const handleClick = type => {
-        setClickedFields(type);
+    const handleClick1 = type => {
+        props.setClickedFields(type);
     };
+<<<<<<< HEAD
 
     const DoubleClick = type => {
         if (clickedSkill.includes(type)) {
@@ -46,7 +50,18 @@ const ApplyModal = props => {
         } else {
             setClickedSkill([...clickedSkill, type]);
         }
+=======
+    const handleClick2 = type => {
+        props.setClickedSkill(type);
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
     };
+    // const DoubleClick = type => {
+    //     if (clickedSkill.includes(type)) {
+    //         setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
+    //     } else {
+    //         setClickedSkill([...clickedSkill, type]);
+    //     }
+    // };
 
     // 지원 이유 작성란 기능 설정
     const textarea = useRef();
@@ -58,8 +73,13 @@ const ApplyModal = props => {
         if (e.target.value.length > 500) {
             e.target.value = e.target.value.slice(0, 500);
         }
+<<<<<<< HEAD
         setInputCount(e.target.value.length);
         setInputValue(e.target.value);
+=======
+        props.setInputCount(e.target.value.length);
+        props.setInputValue(e.target.value);
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
     };
 
     // 필수 항목 검사
@@ -69,11 +89,19 @@ const ApplyModal = props => {
         } else {
             // 필수항목이 선택되었을 때만 post 처리
             if (form[0] === '공모전') {
+<<<<<<< HEAD
                 props.setApply(true);
                 setApplyCheck(true);
             } else if (form[0] === '프로젝트') {
                 props.setApply(true);
                 setApplyCheck(true);
+=======
+                props.setApply(false);
+                props.setApplyCheck(true);
+            } else if (form[0] === '프로젝트') {
+                props.setApply(false);
+                props.setApplyCheck(true);
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
             }
         }
     };
@@ -119,10 +147,11 @@ const ApplyModal = props => {
                                     <S.RoundForm
                                         key={i}
                                         isSelected={
-                                            clickedFields === item.categoryType
+                                            props.clickedFields ===
+                                            item.categoryType
                                         }
                                         onClick={() =>
-                                            handleClick(item.categoryType)
+                                            handleClick1(item.categoryType)
                                         }
                                     >
                                         {item.categoryType === 'PLAN' && '기획'}
@@ -153,7 +182,7 @@ const ApplyModal = props => {
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
-                                    <span>{inputCount}</span>
+                                    <span>{props.inputCount}</span>
                                     <span>/500</span>
                                 </S.InputNum>
                             </S.TextBox>
@@ -194,10 +223,11 @@ const ApplyModal = props => {
                                     <S.RoundForm
                                         key={i}
                                         isSelected={
-                                            clickedFields === item.categoryType
+                                            props.clickedFields ===
+                                            item.categoryType
                                         }
                                         onClick={() =>
-                                            handleClick(item.categoryType)
+                                            handleClick1(item.categoryType)
                                         }
                                     >
                                         {item.categoryType === 'PLAN' && '기획'}
@@ -220,11 +250,19 @@ const ApplyModal = props => {
                                     <S.RoundForm
                                         key={i}
                                         isSelected={
+<<<<<<< HEAD
                                             clickedSkill[i] ===
                                             item.stackNameType
                                         }
                                         onClick={() =>
                                             DoubleClick(item.stackNameType)
+=======
+                                            props.clickedSkill ===
+                                            item.stackNameType
+                                        }
+                                        onClick={() =>
+                                            handleClick2(item.stackNameType)
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
                                         }
                                     >
                                         {item.stackNameType === 'REACT' &&
@@ -267,7 +305,7 @@ const ApplyModal = props => {
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
-                                    <span>{inputCount}</span>
+                                    <span>{props.inputCount}</span>
                                     <span>/500</span>
                                 </S.InputNum>
                             </S.TextBox>

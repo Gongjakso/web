@@ -19,7 +19,11 @@ const DetailPageContest = () => {
     const { id } = useParams();
 
     // 임시 구분용 - 처음보는 공고 & 지원한 공고
+<<<<<<< HEAD
     const [isApply] = useState(false);
+=======
+    const [isApply] = useState(true);
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
 
     // 지원서 모달창 띄우는 경우
     const [showApply, setShowApply] = useState(false);
@@ -92,10 +96,40 @@ const DetailPageContest = () => {
                     category={category}
                     id={postId}
                     setApplyCheck={setApplyCheck}
+<<<<<<< HEAD
                 />
             ) : null}
 
             {/* 지원완료 모달 (확인사살 모달 아님!) */}
+=======
+                    clickedFields={clickedFields}
+                    setClickedFields={setClickedFields}
+                    setClickedSkill={setClickedSkill}
+                    clickedSkill={clickedSkill}
+                    inputCount={inputCount}
+                    setInputCount={setInputCount}
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                />
+            ) : null}
+            {applyCheck === true ? (
+                <Completed
+                    title={title}
+                    case={1}
+                    clickedFields={clickedFields}
+                    setClickedFields={setClickedFields}
+                    setClickedSkill={setClickedSkill}
+                    clickedSkill={clickedSkill}
+                    inputCount={inputCount}
+                    setInputCount={setInputCount}
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    setApply={setApply}
+                    setApplyCheck={setApplyCheck}
+                    setCompleted={setCompleted}
+                />
+            ) : null}
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
             {completed === true ? <Completed title={title} case={2} /> : null}
             {showApply && (
                 <ClickApply
@@ -104,6 +138,10 @@ const DetailPageContest = () => {
                     idNum={idNum}
                     idName={idName}
                     recruitPart={category}
+<<<<<<< HEAD
+=======
+                    // recruitRole={role}
+>>>>>>> 1b0e67038e720a95583f7f7ebfd25b868040af18
                     id={postId}
                 />
             )}
