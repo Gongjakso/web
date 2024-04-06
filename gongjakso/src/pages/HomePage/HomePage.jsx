@@ -8,6 +8,7 @@ import SignUpModal from '../../features/modal/SignUpModal';
 import TopButton from '../../pages/HomePage/TopButton';
 import Banner from './Banner';
 import { getMyInfo } from '../../service/auth_service';
+
 const HomePage = () => {
     const authenticated = localStorage.getItem('accessToken');
     const [isLoggedIn, setIsLoggedIn] = useState(!!authenticated);

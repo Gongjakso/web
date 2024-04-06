@@ -99,13 +99,13 @@ const Header = () => {
                                 onClick={handleProfileIconClick}
                             />
                         </li>
+                        {showBubble && (
+                            <Bubble
+                                closeBubble={closeBubble}
+                                handleProfileIconClick={handleProfileIconClick}
+                            />
+                        )}
                     </S.ProfileArea>
-                    {showBubble && (
-                        <Bubble
-                            closeBubble={closeBubble}
-                            handleProfileIconClick={handleProfileIconClick}
-                        />
-                    )}
                 </S.ItemList>
             </S.HeaderBase>
         </S.Header>

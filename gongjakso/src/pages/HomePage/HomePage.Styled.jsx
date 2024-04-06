@@ -173,8 +173,8 @@ export const Wrapper = styled.div`
     margin: 30px 0;
     border: 1px solid white;
     border-radius: 40px;
-    width: 60%;
-    height: 50%;
+    width: 900px;
+    height: 400px;
     font-family: 'PreMedium';
     font-size: ${({ theme }) => theme.fontSize.m};
     display: flex;
@@ -205,7 +205,7 @@ export const HomeContent2 = styled.div`
 export const Container = styled.div`
     display: flex;
     flex-direction: row;
-    width: 65%;
+    width: 1000px;
     height: 50%;
     padding: 10px;
     justify-content: space-around;
@@ -223,10 +223,10 @@ export const HomeContent3 = styled.div`
 `;
 
 export const WhiteBox = styled.div`
-    width: 40%;
+    width: 400px;
     background-color: white;
     margin-top: 20px;
-    height: 85%;
+    height: 320px;
     border-radius: 30px;
 `;
 

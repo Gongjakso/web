@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60%;
+    width: 900px;
     height: 20em;
 `;
 

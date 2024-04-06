@@ -13,8 +13,8 @@ export const BubbleContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    top: 70px;
-    width: 25%;
+    top: 55px;
+    width: 370px;
     right: 5%;
     display: flex;
     border-radius: 20px;
