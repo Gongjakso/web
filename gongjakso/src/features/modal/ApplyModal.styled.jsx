@@ -10,6 +10,10 @@ export const Background = styled.div`
     z-index: 5;
 `;
 
+export const Background2 = styled(Background)`
+    z-index: 10;
+`;
+
 export const Modal = styled.div`
     border: 2px solid ${props => props.bc};
     position: relative;
@@ -25,12 +29,12 @@ export const Modal = styled.div`
 
 export const Backbtn = styled.button`
     position: absolute;
-    right: 10%;
+    right: 6%;
 `;
 
 export const MainTitle = styled.p`
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSize.l};
+    font-size: ${({ theme }) => theme.fontSize.ll};
     font-family: 'PreBold';
     letter-spacing: 0.5px;
     margin-bottom: 30px;
@@ -102,9 +106,9 @@ export const InputArea = styled.textarea`
     border-bottom: 1.5px solid black;
     padding: 5px;
     resize: vertical;
-    overflow: auto;
+    overflow: hidden;
     color: ${({ theme }) => theme.greyFont};
-    font-size: ${({ theme }) => theme.fontSize.base};
+    font-size: 1.15rem;
     font-family: 'PreRegular';
     &:focus {
         outline: none;
@@ -117,7 +121,7 @@ export const InputArea = styled.textarea`
 // 글자 수 체크
 export const InputNum = styled.p`
     color: ${({ theme }) => theme.greyFont};
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
     font-family: 'PreRegular';
     letter-spacing: 1px;
     margin-top: 10px;
@@ -130,7 +134,27 @@ export const ApplyBox = styled.div`
     justify-content: center;
     width: 100%;
 `;
+export const ApplyBox2 = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
+export const newBtn = styled.button`
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+    border-radius: 15px;
+    margin: 15px;
+    padding: 18px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    background: ${props => props.bg};
+    font-family: 'PreBold';
+    color: ${props => props.c};
+`;
 export const ApplyBtn = styled.button`
     position: absolute;
     bottom: 40px;
@@ -141,10 +165,10 @@ export const ApplyBtn = styled.button`
     height: 50px;
     border-radius: 10px;
     margin: 15px;
-    padding: 20px;
+    padding: 27px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    font-weight: bold;
     background: ${({ theme }) => theme.box1};
+    font-family: 'PreBold';
     color: white;
 `;
 
@@ -183,13 +207,14 @@ export const Content = styled.div`
 // 지원 완료 창 텍스트 틀
 export const CompletedBox = styled.div`
     width: 100%;
-    height: 50%;
+    height: 55%;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: 1.3rem;
     font-family: 'PreMedium';
-    gap: 20px;
+    gap: 8px;
 `;

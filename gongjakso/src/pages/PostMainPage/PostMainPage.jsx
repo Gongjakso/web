@@ -75,7 +75,6 @@ const PostMainPage = () => {
         'Kotlin',
         'Swift',
         'Flutter',
-        'Figma',
         '기타',
     ];
     useEffect(() => {

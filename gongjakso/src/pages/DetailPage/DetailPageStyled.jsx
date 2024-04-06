@@ -16,6 +16,7 @@ export const Layout = styled(Globalstyle)`
 export const Background = styled.div`
     margin-top: ${props => props.mgt};
     width: ${props => props.s};
+    position: relative;
 `;
 
 // X 버튼
@@ -25,7 +26,7 @@ export const BgButton = styled.div`
     margin-top: 10px;
     margin-bottom: 50px;
     img {
-        width: 3%;
+        width: 2.5%;
         cursor: pointer;
     }
 `;
@@ -33,11 +34,22 @@ export const BgButton = styled.div`
 // 상단 타이틀 틀
 export const TitleBox = styled.div`
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    width: 800px;
+    padding: 0px 40px;
+`;
+
+export const TitleBox2 = styled(TitleBox)`
+    justify-content: space-between;
     margin-left: 30px;
     margin-bottom: 30px;
-    width: 800px;
+`;
+
+export const BtnLayout = styled.div`
+    display: flex;
+    position: absolute;
+    top: 105px;
+    right: 50px;
 `;
 
 // 타이틀
@@ -51,32 +63,44 @@ export const Title = styled.div`
     p {
         margin: 15px;
     }
+    margin-left: 80px;
+    margin-bottom: 35px;
 `;
 
-// 타이틀 옆 스크랩 횟수 표시 박스
-export const ScrapNum = styled.div`
-    display: flex;
-    padding: 7px 10px;
-    justify-content: center;
+// 타이틀 옆 합류 대기 박스
+export const Status = styled.div`
+    padding: 10px;
     text-align: center;
-    align-items: center;
-    width: 170px;
-    background: none;
-    border: 2px solid ${({ theme }) => theme.Green};
-    border-radius: 55px;
+    width: 130px;
+    background: ${({ theme }) => theme.Light1};
+    border-radius: 20px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    font-weight: bold;
-    color: ${({ theme }) => theme.Green};
+    color: white;
+    font-family: 'PreBold';
+`;
+
+export const ApplyBtn = styled.button`
+    position: relative;
+    padding-right: 10px;
+    background: none;
+    width: 132px;
+    border: 2px solid #c8c8c8;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    margin-left: 20px;
+    border-radius: 10px;
+    font-family: 'PreBold';
     img {
-        margin-right: 12px;
+        position: absolute;
+        top: 10px;
+        right: 5px;
+        width: 17px;
     }
 `;
 
 // 팀장 표시 부분
 export const TitleBottom = styled.div`
-    font-size: ${({ theme }) => theme.fontSize.lg};
-    margin-left: 50px;
-    padding: 5px;
+    font-size: 1.45rem;
+    margin-left: 45px;
 `;
 
 export const BlueBox = styled.div`
@@ -85,7 +109,7 @@ export const BlueBox = styled.div`
     height: auto;
     border: 2px solid ${props => props.bg};
     border-radius: 40px;
-    margin-top: 10px;
+    margin-top: 15px;
     padding: 55px;
 `;
 
@@ -99,8 +123,8 @@ export const TextBox = styled.div`
 
 // 텍스트 박스 안 굵은 제목
 export const TextTitle = styled.p`
-    width: 25%;
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    width: 23%;
+    font-size: 1.6rem;
     font-family: 'PreBold';
 `;
 
@@ -108,7 +132,7 @@ export const TextTitle = styled.p`
 export const TextDetail = styled.div`
     width: 75%;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: 1.45rem;
     display: flex;
 `;
 
@@ -137,7 +161,7 @@ export const RoundForm = styled(Globalstyle)`
     justify-content: center;
     align-items: center;
     border-radius: 25px;
-    font-size: ${({ theme }) => theme.fontSize.base};
+    font-size: 1.13rem;
     color: white;
     text-align: center;
     margin-right: 10px;
@@ -151,11 +175,11 @@ export const Line = styled.div`
 
 // 설명글 안 내용
 export const MainText = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: 1.45rem;
     padding-left: 20px;
     line-height: 2;
     height: ${props => props.h};
-    padding-bottom: 100px;
+    padding-bottom: 180px;
 `;
 
 // 스크랩하기 & 지원하기 버튼
@@ -175,14 +199,15 @@ export const ScrapButton = styled.button`
     background: ${props =>
         props.click === false ? 'none' : ({ theme }) => theme.Green};
     color: ${props => (props.click === false ? 'black' : 'white')};
-    border: 3px solid ${props => props.bc};
+    border: 2px solid ${props => props.bc};
 
     img {
-        margin-right: 20px;
+        margin-right: 18px;
+        margin-left: -20px;
     }
 `;
 
 export const ApplyButton = styled(ScrapButton)`
-    background: ${({ theme }) => theme.box1};
+    background: ${props => props.bg};
     color: white;
 `;
