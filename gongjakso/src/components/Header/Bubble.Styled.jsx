@@ -42,6 +42,7 @@ export const SubTitle = styled.span`
     font-family: 'PreMedium';
     margin: 10px;
     display: flex;
+    cursor: pointer;
     justify-content: space-between;
     align-items: center;
 `;
