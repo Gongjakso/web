@@ -50,7 +50,7 @@ export const Subtitle3 = styled.div`
 
 export const Detail1 = styled.p`
     font-family: 'PreRegualr';
-    font-size: ${({ theme }) => theme.fontSize.m};
+    font-size: ${({ theme }) => theme.fontSize.base};
     padding: 2px;
     color: white;
 `;
@@ -177,7 +177,7 @@ export const Wrapper = styled.div`
     width: 920px;
     height: 400px;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.m};
+    font-size: ${({ theme }) => theme.fontSize.base};
     display: flex;
     flex-direction: column;
     justify-content: center;
