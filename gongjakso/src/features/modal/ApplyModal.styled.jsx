@@ -224,3 +224,9 @@ export const Major = styled.p`
     font-size: ${({ theme }) => theme.fontSize.md};
     font-family: 'PreMedium';
 `;
+
+export const Major = styled.p`
+    margin: 5px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreMedium';
+`;
