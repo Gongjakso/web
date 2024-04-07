@@ -83,8 +83,17 @@ export const ButtonSet = styled.div`
 export const InsideTitle = styled.div`
     display: flex;
     flex-direction: row;
-    width: 100%;
-    font-size: ${({ theme }) => theme.fontSize.l};
+    font-size: ${({ title, theme }) =>
+        title ? theme.fontSize.l : theme.fontSize.lg};
+    font-family: ${({ title, theme }) => (title ? 'TheJamsilRegular' : '')};
+`;
+
+export const InsideTitleFront = styled(InsideTitle)`
+    display: block;
+    width: 370px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 `;
 
 export const TagNUM = styled.p`
@@ -101,7 +110,7 @@ export const GreyBtn = styled.button`
     width: 30%;
     background: ${({ theme }) => theme.Grey};
     text-align: center;
-    padding: 20px 15px;
+    padding: 15px 15px;
     font-weight: bold;
     border-radius: 15px;
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -186,14 +195,13 @@ export const ShowBtn = styled.button`
     color: ${props => props.theme.subFont};
     background: transparent;
     text-align: right;
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 export const StateBtn = styled.div`
-    width: 60%;
+    width: 40%;
     padding: 10px;
     color: white;
-    font-weight: bold;
     font-size: ${({ theme }) => theme.fontSize.md};
     background: ${props => props.bg};
     border-radius: 20px;

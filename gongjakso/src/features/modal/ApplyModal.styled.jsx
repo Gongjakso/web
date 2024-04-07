@@ -47,7 +47,7 @@ export const DetailBox = styled.div`
 `;
 
 export const DetailBox2 = styled.div`
-    padding: 5px;
+    padding: 15px;
 `;
 
 export const SubTitle = styled.p`
@@ -184,12 +184,12 @@ export const ProfileApplyBox = styled.div`
 `;
 
 export const ProfileApplyBtn = styled.button`
-    width: 30%;
+    width: 25%;
     margin: 15px;
     border-radius: 12px;
     padding: 20px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    font-weight: bold;
+    font-family: 'PreBold';
     background: ${props => props.bg};
     color: white;
 `;
@@ -197,10 +197,10 @@ export const ProfileApplyBtn = styled.button`
 // 지원 이유
 export const Content = styled.div`
     border: none;
-    padding-bottom: 10px;
-    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid black;
     color: ${({ theme }) => theme.greyFont};
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     line-height: 30px;
 `;
 
@@ -217,4 +217,10 @@ export const CompletedBox = styled.div`
     font-size: 1.3rem;
     font-family: 'PreMedium';
     gap: 8px;
+`;
+
+export const Major = styled.p`
+    margin: 5px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreMedium';
 `;
