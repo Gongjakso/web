@@ -9,7 +9,7 @@ export const Title = styled.div`
     font-size: ${({ theme }) => theme.fontSize.lg};
     font-family: 'PreBold';
     text-align: center;
-    padding: 0.5rem;
+    padding: 5px;
 `;
 
 export const Title1 = styled.div`
@@ -20,7 +20,7 @@ export const Title1 = styled.div`
 
 export const Title2 = styled.div`
     color: white;
-    padding: 0.5em;
+    padding: 5px;
     font-family: 'PreBold';
     font-size: ${({ theme }) => theme.fontSize.lg};
 `;
@@ -28,7 +28,7 @@ export const Title2 = styled.div`
 export const Title3 = styled.div`
     color: black;
     font-family: 'PreBold';
-    padding: 0.2em;
+    padding: 2px;
     font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
@@ -43,7 +43,7 @@ export const Subtitle3 = styled.div`
     color: ${({ theme }) => theme.Main1};
     align-items: center;
     font-weight: bold;
-    padding: 0.2em;
+    padding: 1px;
     font-family: 'PreBold';
     font-size: ${({ theme }) => theme.fontSize.l};
 `;
@@ -51,7 +51,7 @@ export const Subtitle3 = styled.div`
 export const Detail1 = styled.p`
     font-family: 'PreRegualr';
     font-size: ${({ theme }) => theme.fontSize.m};
-    padding: 0.2em;
+    padding: 2px;
     color: white;
 `;
 
@@ -174,7 +174,7 @@ export const Wrapper = styled.div`
     padding: 10px;
     border: 1px solid white;
     border-radius: 40px;
-    width: 950px;
+    width: 920px;
     height: 400px;
     font-family: 'PreMedium';
     font-size: ${({ theme }) => theme.fontSize.m};
