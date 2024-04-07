@@ -171,9 +171,10 @@ export const HomeContent1 = styled.div`
 export const Wrapper = styled.div`
     background-color: rgba(255, 255, 255, 0.4);
     margin: 30px 0;
+    padding: 10px;
     border: 1px solid white;
     border-radius: 40px;
-    width: 900px;
+    width: 950px;
     height: 400px;
     font-family: 'PreMedium';
     font-size: ${({ theme }) => theme.fontSize.m};
