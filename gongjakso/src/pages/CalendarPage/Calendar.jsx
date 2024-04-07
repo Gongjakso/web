@@ -6,29 +6,35 @@ import { getCalendar } from '../../service/calendar_service.js';
 
 const Calendar = () => {
     const [event, setEvent] = useState([]);
-    const [scrapPost, setScrapPost] = useState([]);
+    const [currentYear, setCurrentYear] = useState(0);
+    const [currentMonth, setCurrentMonth] = useState(0);
+
+    // fetchData 함수 정의
+    const fetchData = async (year, month) => {
+        try {
+            const res = await getCalendar('105', year, month);
+            const scrapPosts = res?.data.scrapPosts || [];
+
+            const eventTitles = scrapPosts.map(post => ({
+                title: post.title,
+                color: post.postType ? '#e789ff32' : '#00a2ff32',
+                textColor: post.postType ? '#e789ff' : '#00a3ff',
+                date: post.endDate.split('T')[0],
+            }));
+
+            setEvent(eventTitles);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await getCalendar('105', '2024', '3'); // 수정 사항!!!
-                console.log(res);
-
-                const eventTitles = res?.data.scrapPosts.map(post => ({
-                    title: post.title,
-                    color: post.postType ? '#e789ff32' : '#00a2ff32',
-                    textColor: post.postType ? '#e789ff' : '#00a3ff',
-                    date: post.endDate.split('T')[0],
-                }));
-                setScrapPost(res?.data.scrapPosts);
-
-                setEvent(prevEvents => [...prevEvents, ...eventTitles]);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
-
-        fetchData();
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = currentDate.getMonth() + 1;
+        setCurrentYear(year);
+        setCurrentMonth(month);
+        fetchData(year.toString(), month.toString()); // fetchData 호출
     }, []);
 
     return (
@@ -46,6 +52,14 @@ const Calendar = () => {
                     left: 'prev',
                     center: 'title',
                     right: 'next',
+                }}
+                datesSet={arg => {
+                    setCurrentYear(arg.start.getFullYear());
+                    setCurrentMonth(arg.start.getMonth() + 2);
+                    fetchData(
+                        arg.start.getFullYear(),
+                        arg.start.getMonth() + 2,
+                    );
                 }}
             />
         </S.FullCalendarContainer>
