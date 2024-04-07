@@ -25,19 +25,20 @@ export const Banners = styled(Banner)`
 `;
 
 export const Div = styled.div`
-    width: 1000px;
+    width: 900px;
     height: 100%;
     display: flex;
 `;
 
 export const Search = styled.div`
     width: 100%;
+    height: 85px;
     display: flex;
     justify-content: center;
-    padding-top: 50px;
+    padding-top: 20px;
 `;
 export const SearchBar = styled.div`
-    width: 85%;
+    width: 70%;
     padding: 10px;
     border: 2px solid ${props => props.theme.Main1};
     border-radius: 40px;
@@ -60,7 +61,7 @@ export const SearchUsernameInput = styled.input`
 `;
 
 export const Fillterbox = styled.div`
-    width: 80%;
+    width: 70%;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -90,6 +91,8 @@ export const PostContent = styled.div`
     align-items: center;
     gap: 10px;
 `;
+
+export const TeamBoxContent = styled.div``;
 
 export const Article = styled.div`
     width: 100%;
