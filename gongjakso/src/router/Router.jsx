@@ -16,58 +16,77 @@ import KakaoRedirectPage from '../components/Auth/KakaoRedirectPage';
 import TeamBuildPage from '../pages/TeamBuildPage/TeamBuildPage';
 import PostMainPage from '../pages/PostMainPage/PostMainPage';
 import ProfileRecruit from '../pages/ProfileRecruit/ProfileRecruit';
+import RecruitedTeam from '../pages/ProfileRecruited/RecruitedTeam';
 import MyInfo from '../pages/ProfileInfo/MyInfo';
+import Scrap from '../pages/ScrapPage/Scrap';
+import ScrollToTop from '../pages/HomePage/ScrollToTop';
 
 const Router = () => {
     return (
         <BrowserRouter>
-            <Suspense>
-                <Routes>
-                    <Route element={<DefaultLayout />}>
-                        <Route path={'/'} element={<HomePage />} />
-                        <Route path={'/contest'} element={<PostMainPage />} />
-                        <Route path={'/project'} element={<PostMainPage />} />
-                        <Route path={'/calendar'} element={<Calendar />} />
-                        <Route
-                            path={'/teambuild'}
-                            element={<TeamBuildPage />}
-                        />
-                        <Route path={'/profile'} element={<ProfilePage />} />
-                        <Route
-                            path={'/appliedTeam'}
-                            element={<TeamSupport />}
-                        />
-                        <Route
-                            path={'/participatedTeam'}
-                            element={<TeamPart />}
-                        />
-                        <Route
-                            path={'/teamPortfolio'}
-                            element={<TeamPortfolio />}
-                        />
+            <ScrollToTop>
+                <Suspense>
+                    <Routes>
+                        <Route element={<DefaultLayout />}>
+                            <Route path={'/'} element={<HomePage />} />
+                            <Route
+                                path={'/contest'}
+                                element={<PostMainPage />}
+                            />
+                            <Route
+                                path={'/project'}
+                                element={<PostMainPage />}
+                            />
+                            <Route path={'/calendar'} element={<Calendar />} />
+                            <Route
+                                path={'/teambuild'}
+                                element={<TeamBuildPage />}
+                            />
+                            <Route
+                                path={'/profile'}
+                                element={<ProfilePage />}
+                            />
+                            <Route
+                                path={'/recruitedTeam'}
+                                element={<RecruitedTeam />}
+                            />
+                            <Route
+                                path={'/appliedTeam'}
+                                element={<TeamSupport />}
+                            />
+                            <Route
+                                path={'/participatedTeam'}
+                                element={<TeamPart />}
+                            />
+                            <Route path={'/scrap'} element={<Scrap />} />
+                            <Route
+                                path={'/teamPortfolio'}
+                                element={<TeamPortfolio />}
+                            />
 
-                        <Route
-                            path={'/contest/:id'}
-                            element={<DetailPageContest />}
-                        />
-                        <Route
-                            path={'/project/:id'}
-                            element={<DetailPageProject />}
-                        />
+                            <Route
+                                path={'/contest/:id'}
+                                element={<DetailPageContest />}
+                            />
+                            <Route
+                                path={'/project/:id'}
+                                element={<DetailPageProject />}
+                            />
 
-                        <Route path={'/login'} element={<Login />} />
-                        <Route
-                            path={'/teamdetail/:id'}
-                            element={<ProfileRecruit />}
-                        />
-                        <Route path={'/myinfo'} element={<MyInfo />} />
-                        <Route
-                            path="/kakao/callback"
-                            element={<KakaoRedirectPage />}
-                        />
-                    </Route>
-                </Routes>
-            </Suspense>
+                            <Route path={'/login'} element={<Login />} />
+                            <Route
+                                path={'/teamdetail/:id'}
+                                element={<ProfileRecruit />}
+                            />
+                            <Route path={'/myinfo'} element={<MyInfo />} />
+                            <Route
+                                path="/kakao/callback"
+                                element={<KakaoRedirectPage />}
+                            />
+                        </Route>
+                    </Routes>
+                </Suspense>
+            </ScrollToTop>
         </BrowserRouter>
     );
 };

@@ -7,8 +7,8 @@ export const CloseButton = styled.button`
     justify-content: flex-end;
     padding: 10px;
     position: fixed;
-    top: 50px;
-    right: 50px;
+    top: 30px;
+    right: 30px;
     cursor: pointer;
     background: url(${closebuttonimg});
     background-size: cover;
@@ -20,10 +20,8 @@ export const Container = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    width: 100%;
-    max-width: 750px;
-    height: 100%;
-    max-height: 550px;
+    width: 50%;
+    height: 60%;
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
@@ -46,9 +44,8 @@ export const ModalBg = styled.div`
 `;
 
 export const Image = styled.div`
-    width: 300px;
     height: auto;
-    padding: 150px;
+    padding: 130px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,8 +57,8 @@ export const Image = styled.div`
 export const Title = styled.div`
     color: black;
     font-family: 'PreBold';
-    padding: 5px;
-    font-size: ${({ theme }) => theme.fontSize.l};
+    padding: 3px;
+    font-size: ${({ theme }) => theme.fontSize.lg};
     text-align: center;
     display: flex;
 `;
@@ -69,8 +66,7 @@ export const Title = styled.div`
 export const ButtonBox = styled.div`
     display: flex;
     flex-direction: row;
-    width: 100%;
-    max-width: 550px;
+    width: 70%;
     justify-content: center;
     align-items: center;
 `;
@@ -78,11 +74,11 @@ export const ButtonBox = styled.div`
 export const GreyButton = styled.button`
     background: ${({ theme }) => theme.Grey};
     color: black;
-    width: 45%;
-    height: 100%;
+    width: 40%;
+    height: 90%;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
-    border-radius: 15px;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    border-radius: 10px;
     text-align: center;
     padding: 10px;
     margin: 10px;
@@ -91,11 +87,11 @@ export const GreyButton = styled.button`
 export const BlueButton = styled.button`
     background: ${({ theme }) => theme.Main1};
     color: white;
-    border-radius: 15px;
+    border-radius: 10px;
     font-family: 'PreMedium';
-    font-size: ${({ theme }) => theme.fontSize.md};
-    width: 45%;
-    height: 100%;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    width: 40%;
+    height: 90%;
     text-align: center;
     padding: 10px;
     margin: 10px;
@@ -106,7 +102,7 @@ export const BoxContainer = styled.div`
     flex-direction: column;
     width: 100%;
     height: 80%;
-    padding: 30px;
+    padding: 20px;
     justify-content: baseline;
     align-items: center;
 `;
@@ -120,7 +116,7 @@ export const Box = styled.div`
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    padding: 20px;
+    padding: 18px;
 `;
 
 export const SubTitle = styled.p`
@@ -131,20 +127,19 @@ export const SubTitle = styled.p`
 `;
 
 export const SelectField = styled.select`
-    width: 350px;
-    height: 45px;
+    width: 320px;
+    height: 42px;
+    padding: 0 10px;
     border: 1px solid #a3a3a3;
     border-radius: 5px;
     font-size: ${({ theme }) => theme.fontSize.base};
-    padding: 10px;
     background-color: white;
-    color: black;
+    color: #a3a3a3;
 
     option {
         background-color: white;
         color: black;
     }
-
     option:hover {
         background-color: black;
         color: white;

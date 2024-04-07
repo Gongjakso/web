@@ -28,8 +28,8 @@ export const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70%;
-    height: 420px;
+    width: 900px;
+    height: 20em;
 `;
 
 export const SlideContainer = styled.div`
@@ -60,12 +60,16 @@ export const Slide = styled.div`
 `;
 
 export const ListItem = styled.li`
-    margin: 0 15px;
+    margin: 0 10px;
     cursor: pointer;
     z-index: 2;
     transition: 0.3s;
     transform: scale(1); //원래 크기 1
     &:hover {
         transform: scale(0.98); //마우스 오버 시 살짝 줄어들게
+    }
+    img {
+        max-height: 16em;
+        max-width: auto;
     }
 `;
