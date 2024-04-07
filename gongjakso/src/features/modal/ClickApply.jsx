@@ -9,11 +9,11 @@ import {
 
 const ClickApply = props => {
     const [applyData, setapplyData] = useState([]);
-    const [refresh, setRefresh] = useState(1);
+    // const [refresh, setRefresh] = useState(1);
 
-    const handleRefresh = () => {
-        setRefresh(refresh * -1);
-    };
+    // const handleRefresh = () => {
+    //     setRefresh(refresh * -1);
+    // };
 
     // 스크롤 방지
     useEffect(() => {
@@ -34,11 +34,11 @@ const ClickApply = props => {
             setapplyData(res?.data);
             console.log(res?.data);
         });
-    }, [refresh, handleRefresh]);
+    }, [props.id, props.idNum]);
 
     const ClickRecruitBtn = () => {
         patchRecruit(props.idNum).then(res => {
-            handleRefresh();
+            // handleRefresh();
         });
         alert('지원자가 합류되었습니다.');
         props.setShowApply(false);
@@ -46,7 +46,7 @@ const ClickApply = props => {
 
     const ClickNotRecruitBtn = () => {
         patchNotRecruit(props.idNum).then(res => {
-            handleRefresh();
+            // handleRefresh();
         });
     };
 
@@ -57,7 +57,7 @@ const ClickApply = props => {
                     <S.Backbtn
                         onClick={() => {
                             props.setShowApply(false);
-                            handleRefresh();
+                            // handleRefresh();
                         }}
                     >
                         <img src={Close} alt="close-btn" />
