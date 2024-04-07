@@ -8,15 +8,32 @@ import ScrapNum from '../../assets/images/UnScrap.svg';
 import Place from '../../assets/images/Place.svg';
 import OpenKakao from '../../assets/images/OpenKakaoLink.svg';
 import DoScrap from '../../assets/images/Scrap.svg';
+import arrow from '../../assets/images/Arrow.svg';
 import ApplyModal from '../../features/modal/ApplyModal';
 import Completed from '../../features/modal/Completed';
+import ClickApply from '../../features/modal/ClickApply';
 import { getPostDetail, getScrap, postScrap } from '../../service/post_service';
 
 const DetailPageContest = () => {
     const navigate = useCustomNavigate();
+    const { id } = useParams();
+
+    // 임시 구분용 - 처음보는 공고 & 지원한 공고
+    const [isApply] = useState(false);
+
+    // 지원서 모달창 띄우는 경우
+    const [showApply, setShowApply] = useState(false);
+    const [idNum, setidNum] = useState(''); // post_id..?
+    const [idName, setidName] = useState(''); // member API에서 따로 받아와야 하나..
+    const [part, setPart] = useState([]);
+    const [role, setRole] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     // 지원하기 버튼
     const [apply, setApply] = useState(false);
+
+    // 지원체크 버튼
+    const [applyCheck, setApplyCheck] = useState(false);
 
     // 지원완료 버튼
     const [completed, setCompleted] = useState(false);
@@ -31,7 +48,6 @@ const DetailPageContest = () => {
     const [scrapNum, setscrapNum] = useState(0);
     const [scrapStatus, setscrapStatus] = useState([]);
 
-    const { id } = useParams();
     const [postId] = useState(id);
 
     useEffect(() => {
@@ -70,9 +86,22 @@ const DetailPageContest = () => {
                     setCompleted={setCompleted}
                     category={category}
                     id={postId}
+                    setApplyCheck={setApplyCheck}
                 />
             ) : null}
-            {completed === true ? <Completed title={title} /> : null}
+
+            {/* 지원완료 모달 (확인사살 모달 아님!) */}
+            {completed === true ? <Completed title={title} case={2} /> : null}
+            {showApply && (
+                <ClickApply
+                    setShowApply={setShowApply}
+                    type={false}
+                    idNum={idNum}
+                    idName={idName}
+                    recruitPart={category}
+                    id={postId}
+                />
+            )}
 
             <S.Layout>
                 <S.Background s="60%" mgt="50px">
@@ -84,18 +113,41 @@ const DetailPageContest = () => {
                         />
                     </S.BgButton>
 
-                    <S.TitleBox>
+                    {isApply ? (
+                        <div>
+                            <S.Title>
+                                <img src={Logo} alt="title-logo" />
+                                <p>{postData?.title}</p>
+                                <img src={Logo} alt="title-logo" />
+                            </S.Title>
+                            <S.BtnLayout>
+                                <S.Status>합류 대기중</S.Status>
+                                <S.ApplyBtn
+                                    onClick={() => {
+                                        setShowApply(true);
+                                        // setidNum();
+                                    }}
+                                >
+                                    지원서 보기
+                                    <img src={arrow} />
+                                </S.ApplyBtn>
+                            </S.BtnLayout>
+                        </div>
+                    ) : (
                         <S.Title>
                             <img src={Logo} alt="title-logo" />
                             <p>{postData?.title}</p>
                             <img src={Logo} alt="title-logo" />
                         </S.Title>
-                        <S.ScrapNum>
-                            <img src={ScrapNum} alt="scrap-num" />
-                            스크랩 {scrapNum}회
-                        </S.ScrapNum>
+                    )}
+
+                    <S.TitleBox>
+                        <S.TitleBottom>
+                            팀장 : {postData?.memberName}
+                        </S.TitleBottom>
+                        <S.TitleBottom>스크랩 수 : {scrapNum}회</S.TitleBottom>
+                        <S.TitleBottom>조회수 : {scrapNum}회</S.TitleBottom>
                     </S.TitleBox>
-                    <S.TitleBottom>팀장 : {postData?.memberName}</S.TitleBottom>
                 </S.Background>
 
                 <S.Background s="60%">
@@ -197,14 +249,28 @@ const DetailPageContest = () => {
                                 />
                                 <span>스크랩하기</span>
                             </S.ScrapButton>
-                            <S.ApplyButton
-                                bc={({ theme }) => theme.box1}
-                                onClick={() => {
-                                    setApply(true);
-                                }}
-                            >
-                                지원하기
-                            </S.ApplyButton>
+                            {isApply ? (
+                                <S.ApplyButton
+                                    bc="none"
+                                    bg={({ theme }) => theme.LightGrey}
+                                    onClick={() => {
+                                        // 여기 수정해야 함!
+                                        setApply(true);
+                                    }}
+                                >
+                                    지원 취소
+                                </S.ApplyButton>
+                            ) : (
+                                <S.ApplyButton
+                                    bc="none"
+                                    bg={({ theme }) => theme.box1}
+                                    onClick={() => {
+                                        setApply(true);
+                                    }}
+                                >
+                                    지원하기
+                                </S.ApplyButton>
+                            )}
                         </S.Globalstyle>
                     </S.BlueBox>
                 </S.Background>
