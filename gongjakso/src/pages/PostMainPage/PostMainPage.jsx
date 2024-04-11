@@ -33,6 +33,8 @@ const PostMainPage = () => {
     const [sortBy, setSortBy] = useState('createdAt');
 
     const [selectedLocalData, setSelectedLocalData] = useState('');
+    const [selectedCityData, setSelectedCityData] = useState('');
+    const [selectedTownData, setSelectedTownData] = useState('');
     const [selectedStack, setSelectedStack] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -46,7 +48,8 @@ const PostMainPage = () => {
 
     useEffect(() => {
         setSortBy('createdAt');
-        setSelectedLocalData('');
+        setSelectedTownData('');
+        setSelectedCityData('');
     }, [isProject]);
 
     const {
@@ -83,36 +86,62 @@ const PostMainPage = () => {
             const imageUrls = res?.data?.map(item => item.imageUrl);
             setBanners(imageUrls);
         });
-        loadContestPosts(page, sortBy, selectedLocalData, searchKeyword);
+        loadContestPosts(
+            page,
+            sortBy,
+            selectedCityData,
+            selectedTownData,
+            searchKeyword,
+        );
         loadProjectPosts(
             page,
             sortBy,
-            selectedLocalData,
+            selectedCityData,
+            selectedTownData,
             selectedStack,
             searchKeyword,
         );
-    }, [page, selectedLocalData, sortBy, selectedStack, searchKeyword]);
+    }, [
+        page,
+        sortBy,
+        selectedStack,
+        searchKeyword,
+        selectedCityData,
+        selectedTownData,
+    ]);
 
-    const loadContestPosts = (page, sort, selectedLocalData, searchKeyword) => {
-        getContestPosts(page, sort, selectedLocalData, searchKeyword).then(
-            res => {
-                // console.log(res?.data);
-                setContestPosts(res?.data?.content);
-                setContestTotalPage(res?.data?.totalPages);
-            },
-        );
+    const loadContestPosts = (
+        page,
+        sort,
+        selectedCityData,
+        selectedTownData,
+        searchKeyword,
+    ) => {
+        getContestPosts(
+            page,
+            sort,
+            selectedCityData,
+            selectedTownData,
+            searchKeyword,
+        ).then(res => {
+            // console.log(res?.data);
+            setContestPosts(res?.data?.content);
+            setContestTotalPage(res?.data?.totalPages);
+        });
     };
     const loadProjectPosts = (
         page,
         sort,
-        selectedLocalData,
+        selectedCityData,
+        selectedTownData,
         selectedStack,
         searchKeyword,
     ) => {
         getProjectPosts(
             page,
             sort,
-            selectedLocalData,
+            selectedCityData,
+            selectedTownData,
             selectedStack,
             searchKeyword,
         ).then(res => {
@@ -138,9 +167,13 @@ const PostMainPage = () => {
         setSelectedStack(selectedStack);
     };
 
-    const handleSelectedData = data => {
+    const handleSelectedDataCity = data => {
         //선택한 지역 반환
-        setSelectedLocalData(data);
+        setSelectedCityData(data);
+    };
+    const handleSelectedDataTown = data => {
+        //선택한 지역 반환
+        setSelectedTownData(data);
     };
 
     const showModal1 = () => {
@@ -178,7 +211,8 @@ const PostMainPage = () => {
                 <S.Fillterbox>
                     <Multilevel
                         isPost={false}
-                        onItemSelected={handleSelectedData}
+                        onItemSelectedCity={handleSelectedDataCity}
+                        onItemSelectedTown={handleSelectedDataTown}
                     />
 
                     <S.Fillter1>
