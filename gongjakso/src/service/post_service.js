@@ -75,11 +75,12 @@ export const postApply = async (apply_id, postContent) => {
 export const getProjectPosts = async (
     pageNum,
     sort,
-    selectLocalData,
+    selectedCityData,
+    selectedTownData,
     selectedStack,
     searchKeyword,
 ) => {
-    const reqURL = `post/project?meetingArea=${selectLocalData}&stackName=${selectedStack}&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
+    const reqURL = `post/project?meetingArea=${selectedCityData}&stackName=${selectedStack}&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
 
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
@@ -95,10 +96,11 @@ export const getProjectPosts = async (
 export const getContestPosts = async (
     pageNum,
     sort,
-    selectLocalData,
+    selectedCityData,
+    selectedTownData,
     searchKeyword,
 ) => {
-    const reqURL = `post/contest?meetingArea=${selectLocalData}&category=&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
+    const reqURL = `post/contest?meetingArea=${selectedCityData}&category=&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
 
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
