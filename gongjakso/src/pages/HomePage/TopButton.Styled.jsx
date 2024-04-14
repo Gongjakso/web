@@ -5,7 +5,7 @@ export const Container = styled.div`
     position: fixed;
     width: 100%;
     transition: opacity 2s ease-in-out;
-    bottom: 200px;
+    bottom: 150px;
     z-index: 1000;
 `;
 
