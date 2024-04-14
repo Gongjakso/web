@@ -7,8 +7,13 @@ import {
     patchRecruit,
 } from '../../service/apply_service';
 
-const ClickApply = ({ Reload, ...props }) => {
+const ClickApply = props => {
     const [applyData, setapplyData] = useState([]);
+    // const [refresh, setRefresh] = useState(1);
+
+    // const handleRefresh = () => {
+    //     setRefresh(refresh * -1);
+    // };
 
     // 스크롤 방지
     useEffect(() => {
@@ -27,35 +32,44 @@ const ClickApply = ({ Reload, ...props }) => {
     useEffect(() => {
         getApplication(props.id, props.idNum).then(res => {
             setapplyData(res?.data);
+            console.log(res?.data);
         });
-    }, [Reload]);
+    }, [props.id, props.idNum]);
 
     const ClickRecruitBtn = () => {
         patchRecruit(props.idNum).then(res => {
-            Reload();
+            // handleRefresh();
         });
+        alert('지원자가 합류되었습니다.');
+        props.setShowApply(false);
     };
 
     const ClickNotRecruitBtn = () => {
         patchNotRecruit(props.idNum).then(res => {
-            Reload();
+            // handleRefresh();
         });
     };
 
     return (
         <div>
             <S.Background>
-                <S.Modal w="53%" h="80%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="55%" h="90%" bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
                             props.setShowApply(false);
-                            Reload();
+                            // handleRefresh();
                         }}
                     >
                         <img src={Close} alt="close-btn" />
                     </S.Backbtn>
 
-                    <S.MainTitle>{props.idName}</S.MainTitle>
+                    <S.MainTitle>
+                        <p>{props.idName}</p>
+
+                        {/* 여기 전공 api 들어가야 함!! */}
+                        <S.Major>컴퓨터공학과</S.Major>
+                        <S.Major>010-0000-0000</S.Major>
+                    </S.MainTitle>
                     <S.DetailBox>
                         <S.SubTitle>지원 분야</S.SubTitle>
                         <S.FormBox>
@@ -123,7 +137,6 @@ const ClickApply = ({ Reload, ...props }) => {
                         <S.ProfileApplyBtn
                             bg={({ theme }) => theme.box1}
                             onClick={() => {
-                                props.setShowApply(false);
                                 ClickRecruitBtn();
                             }}
                         >

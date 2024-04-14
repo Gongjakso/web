@@ -40,13 +40,27 @@ const ApplyModal = props => {
         setClickedFields(type);
     };
 
+    // const DoubleClick = type => {
+    //     if (clickedSkill.includes(type)) {
+    //         setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
+    //     } else {
+    //         setClickedSkill([...clickedSkill, type]);
+    //     }
+    // };
+
     const DoubleClick = type => {
-        if (clickedSkill.includes(type)) {
-            setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
+        const isSelected = clickedSkill.includes(type);
+
+        if (isSelected) {
+            setClickedSkill(prevSelected =>
+                prevSelected.filter(btnIndex => btnIndex !== type),
+            );
         } else {
-            setClickedSkill([...clickedSkill, type]);
+            setClickedSkill(prevSelected => [...prevSelected, type]);
         }
     };
+
+    console.log(clickedSkill);
 
     // 지원 이유 작성란 기능 설정
     const textarea = useRef();
@@ -219,10 +233,9 @@ const ApplyModal = props => {
                                 {stackType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={
-                                            clickedSkill[i] ===
-                                            item.stackNameType
-                                        }
+                                        isSelected={clickedSkill.includes(
+                                            item.stackNameType,
+                                        )}
                                         onClick={() =>
                                             DoubleClick(item.stackNameType)
                                         }

@@ -34,7 +34,6 @@ const ProfileRecruit = () => {
     const [limit, setLimit] = useState(11);
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
-    const [refresh, setRefresh] = useState(1);
 
     const [totalPage, setTotalPage] = useState();
 
@@ -61,10 +60,6 @@ const ProfileRecruit = () => {
     const ClickOpen = id => {
         // ID 수정!!!!
         patchOpen(id);
-    };
-
-    const handleRefresh = () => {
-        setRefresh(refresh * -1);
     };
 
     // 현재상태 버튼
@@ -122,7 +117,6 @@ const ProfileRecruit = () => {
                     idName={idName}
                     recruitPart={part}
                     recruitRole={role}
-                    Reload={handleRefresh}
                     id={postId}
                 />
             ) : null}
@@ -134,7 +128,9 @@ const ProfileRecruit = () => {
                 <S.BlueBox>
                     <S.Border>
                         <S.DetailGlobal>
-                            <S.InsideTitle>{recruitTeam.title}</S.InsideTitle>
+                            <S.InsideTitleFront title={true}>
+                                {recruitTeam.title}
+                            </S.InsideTitleFront>
                         </S.DetailGlobal>
                         <S.DetailGlobal>
                             <S.InsideDetail>
@@ -148,7 +144,7 @@ const ProfileRecruit = () => {
                     </S.Border>
                     <S.InsideBox>
                         <S.DetailGlobal>
-                            <S.InsideTitle>
+                            <S.InsideTitle title={false}>
                                 현재 모집 현황
                                 <S.TagNUM>
                                     {recruitTeam.current_person}/
