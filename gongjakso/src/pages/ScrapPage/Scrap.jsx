@@ -4,7 +4,6 @@ import TeamBox from '../TeamBox/TeamBox';
 import TopButton from '../HomePage/TopButton';
 import Pagination from '../../components/Pagination/Pagination';
 import { getMyRecruiting } from '../../service/profile_service';
-//임시로 recruit 페이지와 동일하게
 
 const Scrap = () => {
     const [limit, setLimit] = useState(6);
@@ -13,6 +12,7 @@ const Scrap = () => {
     const [data, setData] = useState([]);
     const [postContent4, setPostContent4] = useState([]);
     const [totalPage, setTotalPage] = useState();
+    const [filter, setFilter] = useState(null); // 추가: 필터 상태 추가
 
     useEffect(() => {
         setPage(1);
@@ -22,30 +22,67 @@ const Scrap = () => {
         });
     }, []);
 
+    const showContest = () => {
+        setFilter('contest'); // 공모전 필터링
+    };
+
+    const showProject = () => {
+        setFilter('project'); // 프로젝트 필터링
+    };
+
     return (
         <div>
             <TopButton />
             <S.TopBox>
                 <S.Spacer />
-                <S.Title>내가 스크랩한 공고</S.Title>
+                <S.Title>나의 스크랩</S.Title>
             </S.TopBox>
+            <S.OptionBox>
+                <S.Option
+                    onClick={showContest}
+                    style={{
+                        color: filter === 'contest' ? 'black' : '#D9D9D9',
+                        borderBottomColor:
+                            filter === 'contest' ? 'black' : '#D9d9d9',
+                    }}
+                >
+                    공모전
+                </S.Option>
+                <S.Option
+                    onClick={showProject}
+                    style={{
+                        color: filter === 'project' ? 'black' : '#D9D9D9',
+                        borderBottomColor:
+                            filter === 'project' ? 'black' : '#D9d9d9',
+                    }}
+                >
+                    프로젝트
+                </S.Option>
+            </S.OptionBox>
             <S.BoxDetail>
-                {postContent4?.map((postContent4, index) => (
-                    <TeamBox
-                        key={index}
-                        showMoreDetail={true}
-                        showWaitingJoin={false}
-                        showSubBox={true}
-                        borderColor={
-                            postContent4.postType === true
-                                ? 'rgba(0, 163, 255, 0.5)'
-                                : 'rgba(231, 137, 255, 0.5)'
-                        }
-                        postContent={postContent4}
-                        isMyParticipation={false}
-                        postId={postContent4?.postId}
-                    />
-                ))}
+                {postContent4
+                    .filter(
+                        post =>
+                            filter === null ||
+                            (filter === 'contest' && post.postType) ||
+                            (filter === 'project' && !post.postType),
+                    )
+                    .map((postContent4, index) => (
+                        <TeamBox
+                            key={index}
+                            showMoreDetail={true}
+                            showWaitingJoin={false}
+                            showSubBox={true}
+                            borderColor={
+                                postContent4.postType === true
+                                    ? 'rgba(0, 163, 255, 0.5)'
+                                    : 'rgba(231, 137, 255, 0.5)'
+                            }
+                            postContent={postContent4}
+                            isMyParticipation={false}
+                            postId={postContent4?.postId}
+                        />
+                    ))}
                 <Pagination
                     total={totalPage}
                     limit={limit}

@@ -28,5 +28,22 @@ export const BoxDetail = styled.div`
     justify-content: center;
     height: 25%;
     flex-direction: column;
-    margin: 100px;
+    margin: 50px 100px 100px 100px;
+`;
+
+export const OptionBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
+`;
+export const Option = styled.div`
+    width: 100px;
+    padding: 5px 0;
+    border-bottom: 1px solid #d9d9d9;
+    font-family: 'PreRegular';
+    font-size: ${({ theme }) => theme.fontSize.lg};
+    cursor: pointer;
 `;
