@@ -1,21 +1,12 @@
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
 import { useEffect, useState } from 'react';
-import {
-    getApplication,
-    patchNotRecruit,
-    patchRecruit,
-} from '../../service/apply_service';
+import { getMyApplication } from '../../service/apply_service';
 
-const ClickApply = props => {
-    const [applyData, setapplyData] = useState([]);
-    const [part, setPart] = useState([]);
-    const [stack, setStack] = useState([]);
-    // const [refresh, setRefresh] = useState(1);
-
-    // const handleRefresh = () => {
-    //     setRefresh(refresh * -1);
-    // };
+const ClickmyApply = props => {
+    const [myApp, setmyApp] = useState([]);
+    const [category, setCategory] = useState([]);
+    const [stackCategory, setstackCategory] = useState([]);
 
     // 스크롤 방지
     useEffect(() => {
@@ -32,58 +23,36 @@ const ClickApply = props => {
     }, []);
 
     useEffect(() => {
-        getApplication(props.id, props.idNum).then(res => {
-            setapplyData(res?.data);
-            setPart(res?.data.category);
-            setStack(res?.data.postStack);
+        getMyApplication(props.id).then(res => {
+            setmyApp(res?.data);
+            setCategory(res?.data.category);
+            setstackCategory(res?.data.postStack);
             console.log(res?.data);
         });
-    }, [props.id, props.idNum]);
-
-    const ClickRecruitBtn = () => {
-        patchRecruit(props.idNum).then(res => {
-            // handleRefresh();
-        });
-        alert('지원자가 합류되었습니다.');
-        props.setShowApply(false);
-    };
-
-    const ClickNotRecruitBtn = () => {
-        patchNotRecruit(props.idNum).then(res => {
-            // handleRefresh();
-        });
-        alert('지원자를 미선발하였습니다.');
-        props.setShowApply(false);
-    };
+    }, [props.id]);
 
     return (
         <div>
             <S.Background>
-                <S.Modal w="55%" h="90%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="55%" h="85%" bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
-                            props.setShowApply(false);
-                            // handleRefresh();
+                            props.setOpen(false);
                         }}
                     >
                         <img src={Close} alt="close-btn" />
                     </S.Backbtn>
 
                     <S.MainTitle>
-                        <p>{applyData?.member_name}</p>
-
-                        {/* 여기 전공, 전화번호 api 들어가야 함!! */}
-                        <S.Major>{applyData?.major}</S.Major>
-                        <S.Major>010-0000-0000</S.Major>
+                        <p>{myApp?.member_name}</p>
+                        <S.Major>{myApp?.major}</S.Major>
                     </S.MainTitle>
                     <S.DetailBox>
                         <S.SubTitle>지원 분야</S.SubTitle>
                         <S.FormBox>
-                            {part.map((item, i) => (
+                            {category.map((item, i) => (
                                 <S.RoundForm
-                                    isSelected={
-                                        item === applyData?.recruit_part
-                                    }
+                                    isSelected={item === myApp?.recruit_part}
                                     style={{ cursor: 'default' }}
                                 >
                                     {item === 'PLAN' && '기획'}
@@ -102,10 +71,10 @@ const ClickApply = props => {
                         <S.DetailBox>
                             <S.SubTitle>기술 스택</S.SubTitle>
                             <S.FormBox>
-                                {stack.map((item, i) => (
+                                {stackCategory.map((item, i) => (
                                     <S.RoundForm
                                         isSelected={
-                                            item === applyData?.applyStack[i]
+                                            item === myApp?.applyStack[i]
                                         }
                                         style={{ cursor: 'default' }}
                                     >
@@ -128,38 +97,13 @@ const ClickApply = props => {
                     <S.DetailBox2>
                         <S.SubTitle>지원 이유</S.SubTitle>
                         <S.TextBox>
-                            {props.type ? (
-                                <S.ContentProject>
-                                    {applyData?.application}
-                                </S.ContentProject>
-                            ) : (
-                                <S.Content>{applyData?.application}</S.Content>
-                            )}
+                            <S.Content>{myApp?.application}</S.Content>
                         </S.TextBox>
                     </S.DetailBox2>
-
-                    <S.ProfileApplyBox>
-                        <S.ProfileApplyBtn
-                            bg={({ theme }) => theme.LightGrey}
-                            onClick={() => {
-                                ClickNotRecruitBtn();
-                            }}
-                        >
-                            미선발
-                        </S.ProfileApplyBtn>
-                        <S.ProfileApplyBtn
-                            bg={({ theme }) => theme.box1}
-                            onClick={() => {
-                                ClickRecruitBtn();
-                            }}
-                        >
-                            합류하기
-                        </S.ProfileApplyBtn>
-                    </S.ProfileApplyBox>
                 </S.Modal>
             </S.Background>
         </div>
     );
 };
 
-export default ClickApply;
+export default ClickmyApply;

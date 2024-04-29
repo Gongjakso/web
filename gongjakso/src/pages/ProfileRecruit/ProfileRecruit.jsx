@@ -24,6 +24,9 @@ const ProfileRecruit = () => {
     const [part, setPart] = useState([]);
     const [role, setRole] = useState([]);
 
+    // 임시저장용
+    const [cancelState, setCancelState] = useState(false);
+
     const [teamCase] = useState([
         { case: '마감하기', id: '1' },
         { case: '연장하기', id: '2' },
@@ -57,9 +60,10 @@ const ProfileRecruit = () => {
         }
     }, [id]); // number가 변경될 때마다 실행
 
-    const ClickOpen = id => {
-        // ID 수정!!!!
-        patchOpen(id);
+    const ClickOpen = (id, state) => {
+        if (state === '미열람') {
+            patchOpen(id);
+        }
     };
 
     // 현재상태 버튼
@@ -115,8 +119,8 @@ const ProfileRecruit = () => {
                     type={recruitTeam.postType}
                     idNum={idNum}
                     idName={idName}
-                    recruitPart={part}
-                    recruitRole={role}
+                    // recruitPart={part}
+                    // recruitRole={role}
                     id={postId}
                 />
             ) : null}
@@ -129,16 +133,16 @@ const ProfileRecruit = () => {
                     <S.Border>
                         <S.DetailGlobal>
                             <S.InsideTitleFront title={true}>
-                                {recruitTeam.title}
+                                {recruitTeam?.title}
                             </S.InsideTitleFront>
                         </S.DetailGlobal>
                         <S.DetailGlobal>
                             <S.InsideDetail>
-                                활동기간 | {formatDate(recruitTeam.startDate)} ~
-                                {formatDate(recruitTeam.endDate)}
+                                활동기간 | {formatDate(recruitTeam?.startDate)}{' '}
+                                ~{formatDate(recruitTeam?.endDate)}
                             </S.InsideDetail>
                             <S.InsideDetail>
-                                모집인원 | {recruitTeam.max_person}
+                                모집인원 | {recruitTeam?.max_person}
                             </S.InsideDetail>
                         </S.DetailGlobal>
                     </S.Border>
@@ -147,8 +151,8 @@ const ProfileRecruit = () => {
                             <S.InsideTitle title={false}>
                                 현재 모집 현황
                                 <S.TagNUM>
-                                    {recruitTeam.current_person}/
-                                    {recruitTeam.max_person}
+                                    {recruitTeam?.current_person}/
+                                    {recruitTeam?.max_person}
                                 </S.TagNUM>
                             </S.InsideTitle>
                         </S.DetailGlobal>
@@ -190,6 +194,7 @@ const ProfileRecruit = () => {
                             .map((item, i, array) => (
                                 <tr key={item.id}>
                                     <S.StyledTd
+                                        state={cancelState}
                                         style={{
                                             borderRadius:
                                                 i !== array.length - 1
@@ -201,19 +206,27 @@ const ProfileRecruit = () => {
                                             <img src={User} alt="UserImage" />
                                             {item.name}
                                         </S.User>
-                                        <S.ShowBtn
-                                            onClick={() => {
-                                                setItem(i);
-                                                handleClick(i, item.id);
-                                                setShowApply(true);
-                                                setidNum(item.apply_id);
-                                                setidName(item.name);
-                                                ClickOpen(item.apply_id);
-                                            }}
-                                        >
-                                            지원서 보기
-                                        </S.ShowBtn>
-
+                                        {cancelState ? (
+                                            <S.CancelBox>
+                                                지원이 취소되었습니다.
+                                            </S.CancelBox>
+                                        ) : (
+                                            <S.ShowBtn
+                                                onClick={() => {
+                                                    setItem(i);
+                                                    handleClick(i, item.id);
+                                                    setShowApply(true);
+                                                    setidNum(item.apply_id);
+                                                    setidName(item.name);
+                                                    ClickOpen(
+                                                        item.apply_id,
+                                                        item.state,
+                                                    );
+                                                }}
+                                            >
+                                                지원서 보기
+                                            </S.ShowBtn>
+                                        )}
                                         <S.TableBox>
                                             {item?.state === '열람 완료' && (
                                                 <S.StateBtn

@@ -107,7 +107,7 @@ export const InputArea = styled.textarea`
     padding: 5px;
     resize: vertical;
     overflow: hidden;
-    color: ${({ theme }) => theme.greyFont};
+    color: #5c5c5c;
     font-size: 1.15rem;
     font-family: 'PreRegular';
     &:focus {
@@ -199,9 +199,14 @@ export const Content = styled.div`
     border: none;
     padding-bottom: 5px;
     border-bottom: 1.5px solid black;
-    color: ${({ theme }) => theme.greyFont};
+    color: #5c5c5c;
     font-size: ${({ theme }) => theme.fontSize.md};
     line-height: 30px;
+`;
+
+export const ContentProject = styled(Content)`
+    overflow-y: scroll;
+    height: 180px;
 `;
 
 // 지원 완료 창 텍스트 틀
@@ -222,5 +227,6 @@ export const CompletedBox = styled.div`
 export const Major = styled.p`
     margin: 5px;
     font-size: ${({ theme }) => theme.fontSize.md};
+    color: #5c5c5c;
     font-family: 'PreMedium';
 `;

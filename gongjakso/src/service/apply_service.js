@@ -7,11 +7,8 @@ export const getRecruitTeam = async post_id => {
     const reqURL = `apply/${post_id}`;
 
     try {
-        const response = await axios.get(`${BaseUrl}${reqURL}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axiosInstance.get(reqURL);
+        console.log(response);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -57,11 +54,7 @@ export const getApplyList = async post_id => {
     const reqURL = `apply/${post_id}/applylist?page=0&size=11`;
 
     try {
-        const response = await axios.get(`${BaseUrl}${reqURL}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -106,6 +99,18 @@ export const patchOpen = async apply_id => {
 
     try {
         const response = await axiosInstance.patch(reqURL);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getMyApplication = async postid => {
+    const reqURL = `apply/my/${postid}`;
+
+    try {
+        const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
         console.log(error);

@@ -158,7 +158,7 @@ export const StyledTh = styled.th`
 `;
 
 export const StyledTd = styled.td`
-    min-height: 60px;
+    min-height: 80px;
     border-bottom: 1px solid #aaaaaa;
     border-left: 1px solid #aaaaaa;
     border-right: 1px solid #aaaaaa;
@@ -166,6 +166,15 @@ export const StyledTd = styled.td`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background: ${props => (props.state ? '#545454aa' : 'none')};
+`;
+
+export const CancelBox = styled.div`
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    z-index: 5;
+    color: white;
 `;
 
 export const TableBox = styled.div`
@@ -184,6 +193,7 @@ export const User = styled(TableBox)`
     img {
         width: 15%;
         margin-right: 10px;
+        z-index: 1;
     }
 `;
 

@@ -15,8 +15,19 @@ export const postPosting = async postContent => {
     }
 };
 
-export const getPostDetail = async id => {
-    const reqURL = `post/${id}`;
+export const getPostDetail = async (id, role) => {
+    const reqURL = `post/read?id=${id}&role=${role}`;
+
+    try {
+        const response = await axiosInstance.get(reqURL);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const getCheckStatus = async id => {
+    const reqURL = `post/check/${id}`;
 
     try {
         const response = await axiosInstance.get(reqURL);
