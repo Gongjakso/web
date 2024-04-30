@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './ProfileRecruit.styled';
 import User from '../../assets/images/My_page_big.svg';
+import arrow from '../../assets/images/Arrow.svg';
 import MyPageTeam from '../../features/modal/MyPageTeam';
 import ClickApply from '../../features/modal/ClickApply';
 import Pagination from '../../components/Pagination/Pagination';
@@ -10,8 +11,10 @@ import {
     patchOpen,
 } from '../../service/apply_service';
 import { useParams } from 'react-router-dom';
+import useCustomNavigate from '../../hooks/useNavigate';
 
 const ProfileRecruit = () => {
+    const navigate = useCustomNavigate();
     const [showApply, setShowApply] = useState(false); // 지원서 모달창 띄우는 경우
     const [item, setItem] = useState('');
 
@@ -147,15 +150,31 @@ const ProfileRecruit = () => {
                         </S.DetailGlobal>
                     </S.Border>
                     <S.InsideBox>
-                        <S.DetailGlobal>
-                            <S.InsideTitle title={false}>
-                                현재 모집 현황
-                                <S.TagNUM>
-                                    {recruitTeam?.current_person}/
-                                    {recruitTeam?.max_person}
-                                </S.TagNUM>
-                            </S.InsideTitle>
-                        </S.DetailGlobal>
+                        <S.GlobalBox2>
+                            <S.DetailGlobal2>
+                                <S.InsideTitle title={false}>
+                                    현재 모집 현황
+                                    <S.TagNUM>
+                                        {recruitTeam?.current_person}/
+                                        {recruitTeam?.max_person}
+                                    </S.TagNUM>
+                                </S.InsideTitle>
+                            </S.DetailGlobal2>
+
+                            {/* true: 프로젝트 / false: 공모전 */}
+                            <S.Postcheck
+                                onClick={() => {
+                                    if (recruitTeam?.postType) {
+                                        navigate(`/project/${id}`);
+                                    } else {
+                                        navigate(`/contest/${id}`);
+                                    }
+                                }}
+                            >
+                                공고 보기
+                                <img src={arrow} />
+                            </S.Postcheck>
+                        </S.GlobalBox2>
                         <S.ButtonSet>
                             <S.GreyBtn
                                 onClick={() => {

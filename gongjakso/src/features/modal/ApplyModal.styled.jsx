@@ -32,6 +32,14 @@ export const Backbtn = styled.button`
     right: 6%;
 `;
 
+export const Decisionbtn = styled.div`
+    position: absolute;
+    left: 7%;
+    top: 7%;
+    width: 110px;
+    text-align: center;
+`;
+
 export const MainTitle = styled.p`
     text-align: center;
     font-size: ${({ theme }) => theme.fontSize.ll};
@@ -229,4 +237,13 @@ export const Major = styled.p`
     font-size: ${({ theme }) => theme.fontSize.md};
     color: #5c5c5c;
     font-family: 'PreMedium';
+`;
+
+export const StateBtn = styled.div`
+    width: 100%;
+    padding: 10px;
+    color: white;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    background: ${props => props.bg};
+    border-radius: 20px;
 `;

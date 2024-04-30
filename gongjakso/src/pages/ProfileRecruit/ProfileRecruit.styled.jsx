@@ -24,6 +24,11 @@ export const GlobalBox = styled.div`
     align-items: center;
 `;
 
+export const GlobalBox2 = styled.div`
+    display: flex;
+    width: 100%;
+`;
+
 export const BlueBox = styled.div`
     width: 100%;
     min-width: 1000px;
@@ -70,6 +75,10 @@ export const DetailGlobal = styled.div`
     width: 100%;
     padding: 15px;
     justify-content: center;
+`;
+
+export const DetailGlobal2 = styled(DetailGlobal)`
+    width: 73%;
 `;
 
 export const ButtonSet = styled.div`
@@ -215,4 +224,23 @@ export const StateBtn = styled.div`
     font-size: ${({ theme }) => theme.fontSize.md};
     background: ${props => props.bg};
     border-radius: 20px;
+`;
+
+export const Postcheck = styled.div`
+    width: 140px;
+    height: 45px;
+    margin-top: 5px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    border: 2px solid #c8c8c8;
+    font-family: 'PreBold';
+    background: none;
+    img {
+        width: 17px;
+        margin-top: 2px;
+        margin-left: 10px;
+    }
+    cursor: pointer;
 `;

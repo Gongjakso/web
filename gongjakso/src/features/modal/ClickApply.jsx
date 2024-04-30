@@ -11,11 +11,7 @@ const ClickApply = props => {
     const [applyData, setapplyData] = useState([]);
     const [part, setPart] = useState([]);
     const [stack, setStack] = useState([]);
-    // const [refresh, setRefresh] = useState(1);
-
-    // const handleRefresh = () => {
-    //     setRefresh(refresh * -1);
-    // };
+    const [decision, setDecision] = useState('');
 
     // 스크롤 방지
     useEffect(() => {
@@ -36,6 +32,7 @@ const ClickApply = props => {
             setapplyData(res?.data);
             setPart(res?.data.category);
             setStack(res?.data.postStack);
+            setDecision(res?.data.applyType);
             console.log(res?.data);
         });
     }, [props.id, props.idNum]);
@@ -60,6 +57,17 @@ const ClickApply = props => {
         <div>
             <S.Background>
                 <S.Modal w="55%" h="90%" bc={({ theme }) => theme.box1}>
+                    <S.Decisionbtn>
+                        {decision === 'PASS' ? (
+                            <S.StateBtn bg={({ theme }) => theme.box1}>
+                                합류 완료
+                            </S.StateBtn>
+                        ) : decision === 'NOT_PASS' ? (
+                            <S.StateBtn bg={({ theme }) => theme.LightGrey}>
+                                미선발
+                            </S.StateBtn>
+                        ) : null}
+                    </S.Decisionbtn>
                     <S.Backbtn
                         onClick={() => {
                             props.setShowApply(false);
@@ -129,33 +137,42 @@ const ClickApply = props => {
                         <S.SubTitle>지원 이유</S.SubTitle>
                         <S.TextBox>
                             {props.type ? (
-                                <S.ContentProject>
-                                    {applyData?.application}
-                                </S.ContentProject>
+                                decision === 'NONE' ||
+                                decision === 'OPEN_APPLY' ? (
+                                    <S.ContentProject>
+                                        {applyData?.application}
+                                    </S.ContentProject>
+                                ) : (
+                                    <S.Content>
+                                        {applyData?.application}
+                                    </S.Content>
+                                )
                             ) : (
                                 <S.Content>{applyData?.application}</S.Content>
                             )}
                         </S.TextBox>
                     </S.DetailBox2>
 
-                    <S.ProfileApplyBox>
-                        <S.ProfileApplyBtn
-                            bg={({ theme }) => theme.LightGrey}
-                            onClick={() => {
-                                ClickNotRecruitBtn();
-                            }}
-                        >
-                            미선발
-                        </S.ProfileApplyBtn>
-                        <S.ProfileApplyBtn
-                            bg={({ theme }) => theme.box1}
-                            onClick={() => {
-                                ClickRecruitBtn();
-                            }}
-                        >
-                            합류하기
-                        </S.ProfileApplyBtn>
-                    </S.ProfileApplyBox>
+                    {decision === 'NONE' || decision === 'OPEN_APPLY' ? (
+                        <S.ProfileApplyBox>
+                            <S.ProfileApplyBtn
+                                bg={({ theme }) => theme.LightGrey}
+                                onClick={() => {
+                                    ClickNotRecruitBtn();
+                                }}
+                            >
+                                미선발
+                            </S.ProfileApplyBtn>
+                            <S.ProfileApplyBtn
+                                bg={({ theme }) => theme.box1}
+                                onClick={() => {
+                                    ClickRecruitBtn();
+                                }}
+                            >
+                                합류하기
+                            </S.ProfileApplyBtn>
+                        </S.ProfileApplyBox>
+                    ) : null}
                 </S.Modal>
             </S.Background>
         </div>
