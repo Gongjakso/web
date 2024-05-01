@@ -38,6 +38,23 @@ const CountGuest = ({ isProject, onApply }) => {
             .map(([categoryType, size]) => ({ categoryType, size })),
     };
 
+    const getRoleText = role => {
+        switch (role) {
+            case 'PLAN':
+                return '기획/아이디어';
+            case 'DESIGN':
+                return '디자이너';
+            case 'ETC':
+                return '기타';
+            case 'FE':
+                return '프론트엔드';
+            case 'BE':
+                return '백엔드';
+            default:
+                return role;
+        }
+    };
+
     return (
         <S.Container>
             <S.SearchBox>
@@ -56,7 +73,7 @@ const CountGuest = ({ isProject, onApply }) => {
             <S.SelectQty $isDisplay={isToggleBox}>
                 {Object.entries(roles).map(([role, quantity]) => (
                     <S.SelectAdultNum key={role}>
-                        <S.Title>{role}</S.Title>
+                        <S.Title>{getRoleText(role)}</S.Title>
                         <S.CountBtn>
                             <S.Button
                                 onClick={() =>

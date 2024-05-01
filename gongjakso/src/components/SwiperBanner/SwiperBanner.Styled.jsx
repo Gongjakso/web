@@ -11,7 +11,7 @@ export const SwiperContainer = styled.div`
     width: 100%;
 
     .swiper {
-        height: 430px;
+        height: 370px;
     }
     .swiper-button-prev::after,
     .swiper-button-next::after {
