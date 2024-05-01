@@ -69,38 +69,39 @@ const PostMainPage = () => {
 
     const options = ['전체', '인기순', '최신순'];
     const stackOptions = [
-        'React',
-        'TypeScript',
-        'JavaScript',
-        'Nextjs',
-        'Nodejs',
-        'Java',
-        'Spring',
-        'Kotlin',
-        'Swift',
-        'Flutter',
-        '기타',
+        'REACT',
+        'TYPESCRIPT',
+        'JAVASCRIPT',
+        'NEXTJS',
+        'NODEJS',
+        'JAVA',
+        'SPRING',
+        'KOTLIN',
+        'SWIFT',
+        'FLUTTER',
+        'ETC',
     ];
     useEffect(() => {
         getProjectBanner().then(res => {
             const imageUrls = res?.data?.map(item => item.imageUrl);
             setBanners(imageUrls);
         });
-        loadContestPosts(
-            page,
-            sortBy,
-            selectedCityData,
-            selectedTownData,
-            searchKeyword,
-        );
-        loadProjectPosts(
-            page,
-            sortBy,
-            selectedCityData,
-            selectedTownData,
-            selectedStack,
-            searchKeyword,
-        );
+        isProject
+            ? loadProjectPosts(
+                  page,
+                  sortBy,
+                  selectedCityData,
+                  selectedTownData,
+                  selectedStack,
+                  searchKeyword,
+              )
+            : loadContestPosts(
+                  page,
+                  sortBy,
+                  selectedCityData,
+                  selectedTownData,
+                  searchKeyword,
+              );
     }, [
         page,
         sortBy,
@@ -108,6 +109,7 @@ const PostMainPage = () => {
         searchKeyword,
         selectedCityData,
         selectedTownData,
+        isProject,
     ]);
 
     const loadContestPosts = (
@@ -145,7 +147,6 @@ const PostMainPage = () => {
             selectedStack,
             searchKeyword,
         ).then(res => {
-            // console.log(res?.data);
             setProjectPosts(res?.data?.content);
             setProjectTotalPage(res?.data?.totalPages);
         });
