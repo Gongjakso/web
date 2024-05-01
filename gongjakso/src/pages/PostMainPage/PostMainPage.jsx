@@ -275,21 +275,6 @@ const PostMainPage = () => {
                                             />
                                         </button>
                                     )}
-                                    {isProject ? (
-                                        <Pagination
-                                            total={ProjectTotalPage}
-                                            page={page}
-                                            setPage={setPage}
-                                            loadPosts={loadContestPosts}
-                                        />
-                                    ) : (
-                                        <Pagination
-                                            total={contestTotalPage}
-                                            page={page}
-                                            setPage={setPage}
-                                            loadPosts={loadProjectPosts}
-                                        />
-                                    )}
                                 </React.Fragment>
                             ))
                         ) : (
@@ -333,21 +318,6 @@ const PostMainPage = () => {
                                             />
                                         </button>
                                     )}
-                                    {isProject ? (
-                                        <Pagination
-                                            total={ProjectTotalPage}
-                                            page={page}
-                                            setPage={setPage}
-                                            loadPosts={loadContestPosts}
-                                        />
-                                    ) : (
-                                        <Pagination
-                                            total={contestTotalPage}
-                                            page={page}
-                                            setPage={setPage}
-                                            loadPosts={loadProjectPosts}
-                                        />
-                                    )}
                                 </React.Fragment>
                             ))
                         ) : (
@@ -357,6 +327,21 @@ const PostMainPage = () => {
                             />
                         )}
                     </S.PostContent>
+                )}
+                {isProject ? (
+                    <Pagination
+                        total={ProjectTotalPage}
+                        page={page}
+                        setPage={setPage}
+                        loadPosts={loadContestPosts}
+                    />
+                ) : (
+                    <Pagination
+                        total={contestTotalPage}
+                        page={page}
+                        setPage={setPage}
+                        loadPosts={loadProjectPosts}
+                    />
                 )}
             </S.MainContent>
             {modal1Open && <Modal1 closeModal1={closeModal1} />}
