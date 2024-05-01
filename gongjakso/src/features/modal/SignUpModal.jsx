@@ -11,6 +11,31 @@ import { majorData } from '../../utils/majorData.jsx';
 import { jobData } from '../../utils/jobData.jsx';
 
 const SignUpModal = ({ closeSignUpModal, name }) => {
+    const [firstNum, setFirstNum] = useState('');
+    const [secondNum, setSecondNum] = useState('');
+    const [thirdNum, setThirdNum] = useState('');
+    const [phoneNum, setPhoneNum] = useState('');
+
+    useEffect(() => {
+        const formattedNum = `${firstNum}-${secondNum}-${thirdNum}`;
+        setPhoneNum(formattedNum);
+    }, [firstNum, secondNum, thirdNum]);
+
+    const handleFirstNumChange = event => {
+        const { value } = event.target;
+        setFirstNum(value);
+    };
+
+    const handleSecondNumChange = event => {
+        const { value } = event.target;
+        setSecondNum(value);
+    };
+
+    const handleThirdNumChange = event => {
+        const { value } = event.target;
+        setThirdNum(value);
+    };
+
     const navigate1 = useNavigate();
 
     const [selectedStatus, setSelectedStatus] = useState(
@@ -43,29 +68,8 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
         '기타',
     ];
 
-    // const groupMajorData = data => {
-    //     return data.reduce((groups, item) => {
-    //         const group = groups[item.id] || [];
-    //         group.push(item.key);
-    //         groups[item.id] = group;
-    //         return groups;
-    //     }, {});
-    // };
-
-    // const groupJobData = data => {
-    //     return data.reduce((groups, item) => {
-    //         const group = groups[item.id] || [];
-    //         group.push(item.key);
-    //         groups[item.id] = group;
-    //         return groups;
-    //     }, {});
-    // };
-
-    // const groupedMajorData = useMemo(() => groupMajorData(majorData), []);
-    // const groupedJobData = useMemo(() => groupJobData(jobData), []);
-
     const handleModalClick = path => {
-        putMyInfo(name, selectedMajor, selectedJob, selectedStatus);
+        putMyInfo(name, selectedMajor, selectedJob, selectedStatus, phoneNum);
         closeSignUpModal();
         navigate1(path);
     };
@@ -109,72 +113,50 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                 <S.BoxContainer>
                     <S.Box>
                         <S.SubTitle>현재 상태</S.SubTitle>
-
-                        {/* <S.SelectField
-                            value={selectedStatus}
-                            onChange={e => setSelectedStatus(e.target.value)}
-                        >
-                            <option value="" disabled>
-                                {' '}
-                                *현재 당신의 상태를 선택해주세요.
-                            </option>
-                            {status_options.map(status => (
-                                <option key={status} value={status}>
-                                    {status}
-                                </option>
-                            ))}
-                        </S.SelectField> */}
-
                         <InfoDrop items={status_items} title={selectedStatus} />
                     </S.Box>
                     <S.Box>
                         <S.SubTitle>전공</S.SubTitle>
-                        {/* <S.SelectField
-                            value={selectedMajor}
-                            onChange={e => setSelectedMajor(e.target.value)}
-                        >
-                            <option value="" disabled>
-                                {' '}
-                                *현재 전공하고 있는 분야를 선택해주세요.
-                            </option>
-                            {Object.entries(groupedMajorData).map(
-                                ([group, majors]) => (
-                                    <optgroup key={group} label={group}>
-                                        {majors.map(major => (
-                                            <option key={major} value={major}>
-                                                {major}
-                                            </option>
-                                        ))}
-                                    </optgroup>
-                                ),
-                            )}
-                        </S.SelectField> */}
+
                         <InfoDrop items={major_items()} title={selectedMajor} />
                     </S.Box>
                     <S.Box>
                         <S.SubTitle>희망 직무</S.SubTitle>
 
-                        {/* <S.SelectField
-                            value={selectedJob}
-                            onChange={e => setSelectedJob(e.target.value)}
-                        >
-                            <option value="" disabled>
-                                {' '}
-                                *희망하시는 직무를 선택해주세요.
-                            </option>
-                            {Object.entries(groupedJobData).map(
-                                ([group, jobs]) => (
-                                    <optgroup key={group} label={group}>
-                                        {jobs.map(job => (
-                                            <option key={job} value={job}>
-                                                {job}
-                                            </option>
-                                        ))}
-                                    </optgroup>
-                                ),
-                            )}
-                        </S.SelectField> */}
                         <InfoDrop items={job_items()} title={selectedJob} />
+                    </S.Box>
+                    <S.Box>
+                        <S.SubTitle>연락처</S.SubTitle>
+                        <S.Div1>
+                            <S.PhoneNum>
+                                <S.Num
+                                    className="Num-first"
+                                    type="text"
+                                    maxLength="3"
+                                    value={firstNum}
+                                    onChange={handleFirstNumChange}
+                                />
+                                <S.Hyphen>-</S.Hyphen>
+                                <S.Num
+                                    className="Num-second"
+                                    type="text"
+                                    maxLength="4"
+                                    value={secondNum}
+                                    onChange={handleSecondNumChange}
+                                />
+                                <S.Hyphen>-</S.Hyphen>
+                                <S.Num
+                                    className="Num-third"
+                                    type="text"
+                                    maxLength="4"
+                                    value={thirdNum}
+                                    onChange={handleThirdNumChange}
+                                />
+                            </S.PhoneNum>
+                            <S.notice>
+                                *추후 팀 합류 시 팀장에게 전송됩니다.
+                            </S.notice>
+                        </S.Div1>
                     </S.Box>
                 </S.BoxContainer>
 
