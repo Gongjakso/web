@@ -18,7 +18,7 @@ const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
             label: region,
             onSelect: () => {
                 const selectedCity = `${item.city}`;
-                const selectedTown = ` ${region}`;
+                const selectedTown = `${region}`;
                 setCity(selectedCity);
                 setTown(selectedTown);
                 onItemSelectedCity(selectedCity);
