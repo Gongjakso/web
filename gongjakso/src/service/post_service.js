@@ -69,7 +69,7 @@ export const getProjectPosts = async (
     selectedStack,
     searchKeyword,
 ) => {
-    const reqURL = `post/project?meetingArea=${selectedCityData}&stackName=${selectedStack}&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
+    const reqURL = `post/project?meetingCity=${selectedCityData}&meetingTown=${selectedTownData}&stackName=${selectedStack}&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort}`;
 
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
@@ -77,6 +77,7 @@ export const getProjectPosts = async (
                 'Content-Type': 'application/json',
             },
         });
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -89,7 +90,7 @@ export const getContestPosts = async (
     selectedTownData,
     searchKeyword,
 ) => {
-    const reqURL = `post/contest?meetingArea=${selectedCityData}&category=&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
+    const reqURL = `post/contest?meetingCity=${selectedCityData}&meetingTown=${selectedTownData}&category=&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort}`;
 
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
@@ -97,6 +98,7 @@ export const getContestPosts = async (
                 'Content-Type': 'application/json',
             },
         });
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);
