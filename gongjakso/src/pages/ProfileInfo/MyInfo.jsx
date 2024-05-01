@@ -33,8 +33,35 @@ const MyInfo = () => {
     const [status, setStatus] = useState('');
     const [major, setMajor] = useState('');
     const [job, setJob] = useState([]);
+    const [phone, setPhone] = useState('');
 
     const [isOpen, setIsOpen] = useState(false);
+
+    const [firstNum, setFirstNum] = useState('');
+    const [secondNum, setSecondNum] = useState('');
+    const [thirdNum, setThirdNum] = useState('');
+    const [phoneNum, setPhoneNum] = useState('');
+
+    useEffect(() => {
+        const formattedNum = `${firstNum}-${secondNum}-${thirdNum}`;
+        // console.log(formattedNum);
+        setPhoneNum(formattedNum);
+    }, [firstNum, secondNum, thirdNum]);
+
+    const handleFirstNumChange = event => {
+        const { value } = event.target;
+        setFirstNum(value);
+    };
+
+    const handleSecondNumChange = event => {
+        const { value } = event.target;
+        setSecondNum(value);
+    };
+
+    const handleThirdNumChange = event => {
+        const { value } = event.target;
+        setThirdNum(value);
+    };
 
     useEffect(() => {
         getMyInfo().then(res => {
@@ -48,13 +75,19 @@ const MyInfo = () => {
             setStatus(myData.status);
             setMajor(myData.major);
             setJob(myData.job);
+            const separatedNumbers = myData.phone.split('-');
+            const [firstNum, secondNum, thirdNum] = separatedNumbers;
+            setFirstNum(firstNum);
+            setSecondNum(secondNum);
+            setThirdNum(thirdNum);
+            // setPhone(myData.phone);
         }
     }, [myData]);
 
     const handleSaveClick = e => {
         e.preventDefault();
 
-        putMyInfo(name, major, job, status)
+        putMyInfo(name, major, job, status, phoneNum)
             .then(() => {
                 navigate('/profile');
             })
@@ -116,18 +149,6 @@ const MyInfo = () => {
                 </S.DetailBox>
                 <S.DetailBox>
                     <S.SubTitle>현재 상태</S.SubTitle>
-
-                    {/* <S.SelectField
-                        value={status}
-                        onChange={e => setStatus(e.target.value)}
-                    >
-                        {status_options.map(option => (
-                            <option key={option} value={option}>
-                                {option}
-                            </option>
-                        ))}
-                    </S.SelectField> */}
-
                     <S.Fillter1>
                         <SelectInput
                             id={'status'}
@@ -140,27 +161,6 @@ const MyInfo = () => {
                 </S.DetailBox>
                 <S.DetailBox>
                     <S.SubTitle>전공</S.SubTitle>
-
-                    {/* <S.SelectField
-                        value={major}
-                        onChange={e => setMajor(e.target.value)}
-                    >
-                        {Object.entries(groupedMajorData).map(
-                            ([group, majors]) => (
-                                <optgroup key={group} label={group}>
-                                    {majors.map(majorItem => (
-                                        <option
-                                            key={majorItem.key}
-                                            value={`${majorItem.id}/${majorItem.key}`}
-                                        >
-                                            {majorItem.key}
-                                        </option>
-                                    ))}
-                                </optgroup>
-                            ),
-                        )}
-                    </S.SelectField> */}
-
                     <T.Dropdown2>
                         <Dropdown items={items1} closeOnScroll={false}>
                             {({ isOpen, onClick }) => (
@@ -184,23 +184,6 @@ const MyInfo = () => {
                 </S.DetailBox>
                 <S.DetailBox>
                     <S.SubTitle>희망 직무</S.SubTitle>
-                    {/* <S.SelectField
-                        value={job}
-                        onChange={e => setJob(e.target.value)}
-                    >
-                        {Object.entries(groupedJobData).map(([group, jobs]) => (
-                            <optgroup key={group} label={group}>
-                                {jobs.map(jobItem => (
-                                    <option
-                                        key={jobItem.key}
-                                        value={`${jobItem.id}/${jobItem.key}`}
-                                    >
-                                        {jobItem.key}
-                                    </option>
-                                ))}
-                            </optgroup>
-                        ))}
-                    </S.SelectField> */}
                     <T.Dropdown2>
                         <Dropdown items={items2} closeOnScroll={false}>
                             {({ isOpen, onClick }) => (
@@ -221,6 +204,34 @@ const MyInfo = () => {
                             )}
                         </Dropdown>
                     </T.Dropdown2>
+                </S.DetailBox>
+                <S.DetailBox>
+                    <S.SubTitle>연락처</S.SubTitle>
+                    <S.PhoneNum>
+                        <S.Num
+                            className="Num-first"
+                            type="text"
+                            maxLength="3"
+                            value={firstNum}
+                            onChange={handleFirstNumChange}
+                        />
+                        <S.Hyphen>-</S.Hyphen>
+                        <S.Num
+                            className="Num-second"
+                            type="text"
+                            maxLength="4"
+                            value={secondNum}
+                            onChange={handleSecondNumChange}
+                        />
+                        <S.Hyphen>-</S.Hyphen>
+                        <S.Num
+                            className="Num-third"
+                            type="text"
+                            maxLength="4"
+                            value={thirdNum}
+                            onChange={handleThirdNumChange}
+                        />
+                    </S.PhoneNum>
                 </S.DetailBox>
             </S.Formset>
             <S.Wrapper>
