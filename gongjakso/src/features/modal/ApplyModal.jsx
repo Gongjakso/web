@@ -60,8 +60,6 @@ const ApplyModal = props => {
         }
     };
 
-    console.log(clickedSkill);
-
     // 지원 이유 작성란 기능 설정
     const textarea = useRef();
     const handleResizeHeight = () => {

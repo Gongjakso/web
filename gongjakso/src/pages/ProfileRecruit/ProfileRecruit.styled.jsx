@@ -24,6 +24,11 @@ export const GlobalBox = styled.div`
     align-items: center;
 `;
 
+export const GlobalBox2 = styled.div`
+    display: flex;
+    width: 100%;
+`;
+
 export const BlueBox = styled.div`
     width: 100%;
     min-width: 1000px;
@@ -70,6 +75,10 @@ export const DetailGlobal = styled.div`
     width: 100%;
     padding: 15px;
     justify-content: center;
+`;
+
+export const DetailGlobal2 = styled(DetailGlobal)`
+    width: 73%;
 `;
 
 export const ButtonSet = styled.div`
@@ -158,7 +167,7 @@ export const StyledTh = styled.th`
 `;
 
 export const StyledTd = styled.td`
-    min-height: 60px;
+    min-height: 80px;
     border-bottom: 1px solid #aaaaaa;
     border-left: 1px solid #aaaaaa;
     border-right: 1px solid #aaaaaa;
@@ -166,6 +175,15 @@ export const StyledTd = styled.td`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background: ${props => (props.state ? '#545454aa' : 'none')};
+`;
+
+export const CancelBox = styled.div`
+    width: 35%;
+    display: flex;
+    justify-content: center;
+    z-index: 5;
+    color: white;
 `;
 
 export const TableBox = styled.div`
@@ -184,6 +202,7 @@ export const User = styled(TableBox)`
     img {
         width: 15%;
         margin-right: 10px;
+        z-index: 1;
     }
 `;
 
@@ -205,4 +224,23 @@ export const StateBtn = styled.div`
     font-size: ${({ theme }) => theme.fontSize.md};
     background: ${props => props.bg};
     border-radius: 20px;
+`;
+
+export const Postcheck = styled.div`
+    width: 140px;
+    height: 45px;
+    margin-top: 5px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    border: 2px solid #c8c8c8;
+    font-family: 'PreBold';
+    background: none;
+    img {
+        width: 17px;
+        margin-top: 2px;
+        margin-left: 10px;
+    }
+    cursor: pointer;
 `;

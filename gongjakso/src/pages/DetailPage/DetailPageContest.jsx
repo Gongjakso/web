@@ -12,14 +12,17 @@ import arrow from '../../assets/images/Arrow.svg';
 import ApplyModal from '../../features/modal/ApplyModal';
 import Completed from '../../features/modal/Completed';
 import ClickApply from '../../features/modal/ClickApply';
-import { getPostDetail, getScrap, postScrap } from '../../service/post_service';
+import {
+    getPostDetail,
+    postScrap,
+    getScrap,
+    getCheckStatus,
+} from '../../service/post_service';
+import ClickmyApply from '../../features/modal/ClickmyApply';
 
 const DetailPageContest = () => {
     const navigate = useCustomNavigate();
     const { id } = useParams();
-
-    // 임시 구분용 - 처음보는 공고 & 지원한 공고
-    const [isApply] = useState(false);
 
     // 지원서 모달창 띄우는 경우
     const [showApply, setShowApply] = useState(false);
@@ -41,23 +44,33 @@ const DetailPageContest = () => {
     // 모달창 구분 목적
     const [title] = useState(['공모전', 'contest']);
 
+    // 지원자 지원서 열람
+    const [myAppOpen, setmyAppOpen] = useState(false);
+
     // API 관련 변수
     const [postData, setpostData] = useState([]);
     const [category, setCategory] = useState([]);
 
     const [scrapNum, setscrapNum] = useState(0);
-    const [scrapStatus, setscrapStatus] = useState([]);
+    const [scrapStatus, setscrapStatus] = useState('');
+    const [checkStatus, setcheckStatus] = useState('');
 
     const [postId] = useState(id);
 
     useEffect(() => {
-        getPostDetail(id).then(res => {
+        getCheckStatus(id).then(res => {
+            setcheckStatus(res?.data.role);
+            console.log(res?.data);
+        });
+
+        getPostDetail(id, 'GENERAL').then(res => {
             setpostData(res?.data);
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
+            console.log(res?.data);
         });
         getScrap(id).then(res => {
-            setscrapStatus(res?.data);
+            setscrapStatus(res?.data.ScrapStatus);
         });
     }, [id]);
 
@@ -73,11 +86,15 @@ const DetailPageContest = () => {
     // 스크랩 POST
     const ClickScrapBtn = () => {
         postScrap(id);
-        window.location.reload();
+        setscrapStatus(current => !current);
     };
 
     return (
         <>
+            {myAppOpen ? (
+                <ClickmyApply id={postId} setOpen={setmyAppOpen} type={false} />
+            ) : null}
+
             {apply === true ? (
                 <ApplyModal
                     apply={apply}
@@ -113,7 +130,7 @@ const DetailPageContest = () => {
                         />
                     </S.BgButton>
 
-                    {isApply ? (
+                    {checkStatus === 'APPLICANT' ? (
                         <div>
                             <S.Title>
                                 <img src={Logo} alt="title-logo" />
@@ -124,8 +141,7 @@ const DetailPageContest = () => {
                                 <S.Status>합류 대기중</S.Status>
                                 <S.ApplyBtn
                                     onClick={() => {
-                                        setShowApply(true);
-                                        // setidNum();
+                                        setmyAppOpen(true);
                                     }}
                                 >
                                     지원서 보기
@@ -146,7 +162,9 @@ const DetailPageContest = () => {
                             팀장 : {postData?.memberName}
                         </S.TitleBottom>
                         <S.TitleBottom>스크랩 수 : {scrapNum}회</S.TitleBottom>
-                        <S.TitleBottom>조회수 : {scrapNum}회</S.TitleBottom>
+                        <S.TitleBottom>
+                            조회수 : {postData?.postView}회
+                        </S.TitleBottom>
                     </S.TitleBox>
                 </S.Background>
 
@@ -233,45 +251,44 @@ const DetailPageContest = () => {
                             <S.TextTitle>설명글</S.TextTitle>
                         </S.TextBox>
                         <S.MainText h="34%">{postData?.contents}</S.MainText>
-                        <S.Globalstyle>
-                            <S.ScrapButton
-                                bc={({ theme }) => theme.Green}
-                                click={scrapStatus?.ScrapStatus}
-                                onClick={ClickScrapBtn}
-                            >
-                                <img
-                                    src={
-                                        scrapStatus?.ScrapStatus === false
-                                            ? ScrapNum
-                                            : DoScrap
-                                    }
-                                    alt="scrap-button"
-                                />
-                                <span>스크랩하기</span>
-                            </S.ScrapButton>
-                            {isApply ? (
-                                <S.ApplyButton
-                                    bc="none"
-                                    bg={({ theme }) => theme.LightGrey}
-                                    onClick={() => {
-                                        // 여기 수정해야 함!
-                                        setApply(true);
-                                    }}
+
+                        {/* 팀장일 경우 아직 디자인 미정.. */}
+                        {checkStatus === 'LEADER' ? (
+                            <div></div>
+                        ) : (
+                            <S.Globalstyle>
+                                <S.ScrapButton
+                                    bc={({ theme }) => theme.Green}
+                                    click={scrapStatus}
+                                    onClick={ClickScrapBtn}
                                 >
-                                    지원 취소
-                                </S.ApplyButton>
-                            ) : (
-                                <S.ApplyButton
-                                    bc="none"
-                                    bg={({ theme }) => theme.box1}
-                                    onClick={() => {
-                                        setApply(true);
-                                    }}
-                                >
-                                    지원하기
-                                </S.ApplyButton>
-                            )}
-                        </S.Globalstyle>
+                                    <img
+                                        src={scrapStatus ? DoScrap : ScrapNum}
+                                        alt="scrap-button"
+                                    />
+                                    <span>스크랩하기</span>
+                                </S.ScrapButton>
+                                {checkStatus === 'APPLICANT' ? (
+                                    <S.ApplyButton
+                                        bc="none"
+                                        bg={({ theme }) => theme.LightGrey}
+                                        onClick={() => {}}
+                                    >
+                                        지원 취소
+                                    </S.ApplyButton>
+                                ) : (
+                                    <S.ApplyButton
+                                        bc="none"
+                                        bg={({ theme }) => theme.box1}
+                                        onClick={() => {
+                                            setApply(true);
+                                        }}
+                                    >
+                                        지원하기
+                                    </S.ApplyButton>
+                                )}
+                            </S.Globalstyle>
+                        )}
                     </S.BlueBox>
                 </S.Background>
             </S.Layout>
