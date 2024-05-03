@@ -21,7 +21,7 @@ export const Container = styled.div`
     top: 50%;
     left: 50%;
     width: 50%;
-    height: 60%;
+    /* height: 80%; */
     transform: translate(-50%, -50%);
     align-items: center;
     justify-content: center;
