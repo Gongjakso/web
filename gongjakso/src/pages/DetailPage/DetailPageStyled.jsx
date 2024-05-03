@@ -72,7 +72,7 @@ export const Status = styled.div`
     padding: 10px;
     text-align: center;
     width: 130px;
-    background: ${({ theme }) => theme.Light1};
+    background: ${props => props.bg};
     border-radius: 20px;
     font-size: ${({ theme }) => theme.fontSize.md};
     color: white;

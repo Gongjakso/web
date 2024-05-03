@@ -9,6 +9,7 @@ import Place from '../../assets/images/Place.svg';
 import OpenKakao from '../../assets/images/OpenKakaoLink.svg';
 import DoScrap from '../../assets/images/Scrap.svg';
 import arrow from '../../assets/images/Arrow.svg';
+import googleform from '../../assets/images/GoogleFormLink.svg';
 import ApplyModal from '../../features/modal/ApplyModal';
 import Completed from '../../features/modal/Completed';
 import {
@@ -18,6 +19,7 @@ import {
     getCheckStatus,
 } from '../../service/post_service';
 import ClickmyApply from '../../features/modal/ClickmyApply';
+import { getMyApplication } from '../../service/apply_service';
 
 const DetailPageProject = () => {
     const navigate = useCustomNavigate();
@@ -45,6 +47,8 @@ const DetailPageProject = () => {
     const [scrapNum, setscrapNum] = useState(0);
     const [scrapStatus, setscrapStatus] = useState('');
     const [checkStatus, setcheckStatus] = useState('');
+    const [urlLink, seturlLink] = useState('');
+    const [applyType, setapplyType] = useState('');
 
     const { id } = useParams();
     const [postId] = useState(id);
@@ -55,6 +59,7 @@ const DetailPageProject = () => {
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
             setStackType(res?.data.stackNames);
+            seturlLink(`https://${res?.data.questionLink}`);
             console.log(res?.data);
         });
 
@@ -63,6 +68,9 @@ const DetailPageProject = () => {
         });
         getScrap(id).then(res => {
             setscrapStatus(res?.data.ScrapStatus);
+        });
+        getMyApplication(id).then(res => {
+            setapplyType(res?.data.applyType);
         });
     }, [id]);
 
@@ -120,7 +128,22 @@ const DetailPageProject = () => {
                                 <img src={Logo} alt="title-logo" />
                             </S.Title>
                             <S.BtnLayout>
-                                <S.Status>합류 대기중</S.Status>
+                                {applyType === 'PASS' ? (
+                                    <S.Status bg={({ theme }) => theme.box1}>
+                                        합류 완료
+                                    </S.Status>
+                                ) : applyType === 'NOT_PASS' ? (
+                                    <S.Status
+                                        bg={({ theme }) => theme.LightGrey}
+                                    >
+                                        미선발
+                                    </S.Status>
+                                ) : (
+                                    <S.Status bg={({ theme }) => theme.Light1}>
+                                        합류 대기중
+                                    </S.Status>
+                                )}
+
                                 <S.ApplyBtn
                                     onClick={() => {
                                         setmyAppOpen(true);
@@ -249,14 +272,23 @@ const DetailPageProject = () => {
                         <S.TextBox>
                             <S.TextTitle>기타 문의</S.TextTitle>
                             <S.OpenKakao>
-                                <img
-                                    src={OpenKakao}
-                                    alt="kakao-link"
-                                    onClick={() => {
-                                        window.location.href =
-                                            postData?.questionLink;
-                                    }}
-                                />
+                                {postData?.questionMethod ? (
+                                    <img
+                                        src={OpenKakao}
+                                        alt="kakao-link"
+                                        onClick={() => {
+                                            window.open(urlLink);
+                                        }}
+                                    />
+                                ) : (
+                                    <img
+                                        src={googleform}
+                                        alt="googleForm-link"
+                                        onClick={() => {
+                                            window.open(urlLink);
+                                        }}
+                                    />
+                                )}
                             </S.OpenKakao>
                         </S.TextBox>
                         <S.Line />
