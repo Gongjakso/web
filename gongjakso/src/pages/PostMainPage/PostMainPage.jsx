@@ -33,6 +33,8 @@ const PostMainPage = () => {
     const [sortBy, setSortBy] = useState('createdAt');
 
     const [selectedLocalData, setSelectedLocalData] = useState('');
+    const [selectedCityData, setSelectedCityData] = useState('');
+    const [selectedTownData, setSelectedTownData] = useState('');
     const [selectedStack, setSelectedStack] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
 
@@ -46,7 +48,8 @@ const PostMainPage = () => {
 
     useEffect(() => {
         setSortBy('createdAt');
-        setSelectedLocalData('');
+        setSelectedTownData('');
+        setSelectedCityData('');
     }, [isProject]);
 
     const {
@@ -66,57 +69,84 @@ const PostMainPage = () => {
 
     const options = ['전체', '인기순', '최신순'];
     const stackOptions = [
-        'React',
-        'TypeScript',
-        'JavaScript',
-        'Nextjs',
-        'Nodejs',
-        'Java',
-        'Spring',
-        'Kotlin',
-        'Swift',
-        'Flutter',
-        '기타',
+        'REACT',
+        'TYPESCRIPT',
+        'JAVASCRIPT',
+        'NEXTJS',
+        'NODEJS',
+        'JAVA',
+        'SPRING',
+        'KOTLIN',
+        'SWIFT',
+        'FLUTTER',
+        'ETC',
     ];
     useEffect(() => {
         getProjectBanner().then(res => {
             const imageUrls = res?.data?.map(item => item.imageUrl);
             setBanners(imageUrls);
         });
-        loadContestPosts(page, sortBy, selectedLocalData, searchKeyword);
-        loadProjectPosts(
-            page,
-            sortBy,
-            selectedLocalData,
-            selectedStack,
-            searchKeyword,
-        );
-    }, [page, selectedLocalData, sortBy, selectedStack, searchKeyword]);
+        isProject
+            ? loadProjectPosts(
+                  page,
+                  sortBy,
+                  selectedCityData,
+                  selectedTownData,
+                  selectedStack,
+                  searchKeyword,
+              )
+            : loadContestPosts(
+                  page,
+                  sortBy,
+                  selectedCityData,
+                  selectedTownData,
+                  searchKeyword,
+              );
+    }, [
+        page,
+        sortBy,
+        selectedStack,
+        searchKeyword,
+        selectedCityData,
+        selectedTownData,
+        isProject,
+    ]);
 
-    const loadContestPosts = (page, sort, selectedLocalData, searchKeyword) => {
-        getContestPosts(page, sort, selectedLocalData, searchKeyword).then(
-            res => {
-                // console.log(res?.data);
-                setContestPosts(res?.data?.content);
-                setContestTotalPage(res?.data?.totalPages);
-            },
-        );
+    const loadContestPosts = (
+        page,
+        sort,
+        selectedCityData,
+        selectedTownData,
+        searchKeyword,
+    ) => {
+        getContestPosts(
+            page,
+            sort,
+            selectedCityData,
+            selectedTownData,
+            searchKeyword,
+        ).then(res => {
+            // console.log(res?.data);
+            setContestPosts(res?.data?.content);
+            setContestTotalPage(res?.data?.totalPages);
+        });
     };
     const loadProjectPosts = (
         page,
         sort,
-        selectedLocalData,
+        selectedCityData,
+        selectedTownData,
         selectedStack,
         searchKeyword,
     ) => {
         getProjectPosts(
             page,
             sort,
-            selectedLocalData,
+            selectedCityData,
+            selectedTownData,
             selectedStack,
             searchKeyword,
         ).then(res => {
-            // console.log(res?.data);
             setProjectPosts(res?.data?.content);
             setProjectTotalPage(res?.data?.totalPages);
         });
@@ -138,9 +168,13 @@ const PostMainPage = () => {
         setSelectedStack(selectedStack);
     };
 
-    const handleSelectedData = data => {
+    const handleSelectedDataCity = data => {
         //선택한 지역 반환
-        setSelectedLocalData(data);
+        setSelectedCityData(data);
+    };
+    const handleSelectedDataTown = data => {
+        //선택한 지역 반환
+        setSelectedTownData(data);
     };
 
     const showModal1 = () => {
@@ -178,7 +212,8 @@ const PostMainPage = () => {
                 <S.Fillterbox>
                     <Multilevel
                         isPost={false}
-                        onItemSelected={handleSelectedData}
+                        onItemSelectedCity={handleSelectedDataCity}
+                        onItemSelectedTown={handleSelectedDataTown}
                     />
 
                     <S.Fillter1>
@@ -240,21 +275,6 @@ const PostMainPage = () => {
                                             />
                                         </button>
                                     )}
-                                    {isProject ? (
-                                        <Pagination
-                                            total={ProjectTotalPage}
-                                            page={page}
-                                            setPage={setPage}
-                                            loadPosts={loadContestPosts}
-                                        />
-                                    ) : (
-                                        <Pagination
-                                            total={contestTotalPage}
-                                            page={page}
-                                            setPage={setPage}
-                                            loadPosts={loadProjectPosts}
-                                        />
-                                    )}
                                 </React.Fragment>
                             ))
                         ) : (
@@ -298,21 +318,6 @@ const PostMainPage = () => {
                                             />
                                         </button>
                                     )}
-                                    {isProject ? (
-                                        <Pagination
-                                            total={ProjectTotalPage}
-                                            page={page}
-                                            setPage={setPage}
-                                            loadPosts={loadContestPosts}
-                                        />
-                                    ) : (
-                                        <Pagination
-                                            total={contestTotalPage}
-                                            page={page}
-                                            setPage={setPage}
-                                            loadPosts={loadProjectPosts}
-                                        />
-                                    )}
                                 </React.Fragment>
                             ))
                         ) : (
@@ -322,6 +327,21 @@ const PostMainPage = () => {
                             />
                         )}
                     </S.PostContent>
+                )}
+                {isProject ? (
+                    <Pagination
+                        total={ProjectTotalPage}
+                        page={page}
+                        setPage={setPage}
+                        loadPosts={loadContestPosts}
+                    />
+                ) : (
+                    <Pagination
+                        total={contestTotalPage}
+                        page={page}
+                        setPage={setPage}
+                        loadPosts={loadProjectPosts}
+                    />
                 )}
             </S.MainContent>
             {modal1Open && <Modal1 closeModal1={closeModal1} />}

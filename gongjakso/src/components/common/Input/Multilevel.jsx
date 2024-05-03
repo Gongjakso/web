@@ -7,8 +7,9 @@ import 'react-nested-dropdown/dist/styles.css';
 
 import { mapData } from '../../../assets/mapData/mapData.jsx';
 
-const Multilevel = ({ onItemSelected, ...props }) => {
-    const [title, setTitle] = useState('지역');
+const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
+    const [city, setCity] = useState('지역');
+    const [town, setTown] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
     const items = mapData.map(item => ({
@@ -16,9 +17,12 @@ const Multilevel = ({ onItemSelected, ...props }) => {
         items: item.region.map(region => ({
             label: region,
             onSelect: () => {
-                const selectedData = `${item.city} ${region}`;
-                setTitle(selectedData);
-                onItemSelected(selectedData);
+                const selectedCity = `${item.city}`;
+                const selectedTown = `${region}`;
+                setCity(selectedCity);
+                setTown(selectedTown);
+                onItemSelectedCity(selectedCity);
+                onItemSelectedTown(selectedTown);
             },
         })),
     }));
@@ -34,7 +38,8 @@ const Multilevel = ({ onItemSelected, ...props }) => {
                             setIsOpen(isOpen);
                         }}
                     >
-                        {title}
+                        {city}
+                        {town}
                         <S.UpdownComponent
                             isPost={props.isPost}
                             isOpen={isOpen}

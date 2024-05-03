@@ -16,7 +16,9 @@ export const FullCalendarContainer = styled.div`
         text-transform: uppercase;
         color: #aaaaaa;
     }
-
+    .fc-direction-ltr .fc-daygrid-event.fc-event-end {
+        cursor: pointer;
+    }
     .fc {
         width: 60%;
         height: 100%;

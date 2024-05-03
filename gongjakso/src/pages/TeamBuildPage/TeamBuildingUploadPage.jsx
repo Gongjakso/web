@@ -20,6 +20,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
         'JAVA',
         'SPRING',
         'KOTLIN',
+        'SWIFT',
         'FLUTTER',
         'ETC',
     ];
@@ -46,6 +47,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
     const [endDates, setEndDates] = useState([]);
 
     const [selectedLocalData, setSelectedLocalData] = useState('');
+    const [selectedTownData, setSelectedTownData] = useState('');
+    const [selectedCityData, setSelectedCityData] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState();
     //프로젝트/공모전 기간 설정
     const transformAndSetDates = (startDate, endDate) => {
@@ -137,9 +140,13 @@ const TeamBuildingUploadPage = ({ posts }) => {
         setBtn(true);
     };
 
-    const handleSelectedData = data => {
+    const handleSelectedDataCity = data => {
         //선택한 지역 반환
-        setSelectedLocalData(data);
+        setSelectedCityData(data);
+    };
+    const handleSelectedDataTown = data => {
+        //선택한 지역 반환
+        setSelectedTownData(data);
     };
 
     const handleLanguageClick = language => {
@@ -198,7 +205,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
             stackNames: [],
             categories: category.categories, //참여하는 팀의 역할
             meetingMethod: meeting,
-            meetingArea: selectedLocalData,
+            meetingCity: selectedCityData,
+            meetingTown: selectedTownData,
             questionMethod: complaint,
             questionLink: data.complainLink,
             postType: false,
@@ -222,7 +230,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
             stackNames: selectedLanguage,
             categories: category.categories,
             meetingMethod: meeting,
-            meetingArea: selectedLocalData,
+            meetingCity: selectedCityData,
+            meetingTown: selectedTownData,
             questionMethod: complaint,
             questionLink: data.complainLink,
             postType: true,
@@ -334,7 +343,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>회의 지역</S.TapP>
                         <Multilevel
                             isPost={true}
-                            onItemSelected={handleSelectedData}
+                            onItemSelectedCity={handleSelectedDataCity}
+                            onItemSelectedTown={handleSelectedDataTown}
                         />
                     </S.Label>
                     <S.Label>
@@ -481,7 +491,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>회의 지역</S.TapP>
                         <Multilevel
                             isPost={true}
-                            onItemSelected={handleSelectedData}
+                            onItemSelectedCity={handleSelectedDataCity}
+                            onItemSelectedTown={handleSelectedDataTown}
                         />
                     </S.Label>
                     <S.Label>

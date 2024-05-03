@@ -20,7 +20,6 @@ const ProfilePage = () => {
         });
         getMyRecruiting().then(response => {
             setPostContent1(response?.data);
-            console.log(response?.data);
         });
         getMyApplied().then(response => {
             setPostContent2(response?.data.slice(0, 2));
@@ -29,7 +28,7 @@ const ProfilePage = () => {
             setPostContent3(response?.data.participationLists.slice(0, 2));
         });
     }, []);
-    console.log(postContent2);
+    // console.log(postContent2);
     return (
         <div>
             <S.TopBox>

@@ -123,3 +123,41 @@ export const Fillter1 = styled.div`
     display: flex;
     align-items: center;
 `;
+
+export const PhoneNum = styled.div`
+    width: 430px;
+    height: 55px;
+    text-align: left;
+    display: flex;
+    padding: 15px;
+    border: 1.5px solid #a3a3a3;
+    border-radius: 7px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreMedium';
+`;
+
+export const Num = styled.input`
+    &.Num-first {
+        width: 40px;
+    }
+    &.Num-second {
+        width: 60px;
+    }
+    &.Num-third {
+        width: 60px;
+    }
+    &.Num-first,
+    &.Num-second,
+    &.Num-third {
+        text-align: center;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: ${({ theme }) => theme.fontSize.md};
+    }
+`;
+
+export const Hyphen = styled.div`
+    width: 20px;
+    text-align: center;
+    font-size: ${({ theme }) => theme.fontSize.lg};
+`;
