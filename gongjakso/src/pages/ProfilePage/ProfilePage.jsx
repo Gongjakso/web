@@ -22,18 +22,13 @@ const ProfilePage = () => {
             setPostContent1(response?.data);
         });
         getMyApplied().then(response => {
-            const latestTwo = response?.data.slice().reverse().slice(0, 2);
-            setPostContent2(latestTwo);
+            setPostContent2(response?.data.slice(0, 2));
         });
-
         getMyParticipatedMain().then(response => {
-            const latestTwo = response?.data.participationLists
-                .slice()
-                .reverse()
-                .slice(0, 2);
-            setPostContent3(latestTwo);
+            setPostContent3(response?.data.participationLists.slice(0, 2));
         });
     }, []);
+
     // console.log(postContent2);
     return (
         <div>
