@@ -22,7 +22,7 @@ const Scrap = () => {
 
     useEffect(() => {
         setPage(1);
-        loadScrapedposts(1);
+        loadScrapedposts(1, null);
     }, []);
 
     const loadScrapedposts = (page, option = selectedOption) => {
@@ -44,7 +44,6 @@ const Scrap = () => {
                 setPostContent5(response?.data.content);
             });
         }
-
         setPreviousOption(option);
     };
 
@@ -90,31 +89,32 @@ const Scrap = () => {
                 </S.Option>
             </S.OptionBox>
             <S.BoxDetail>
-                {selectedOption === 'contest'
-                    ? postContent4.map((postContent4, index) => (
-                          <TeamBox
-                              key={index}
-                              showMoreDetail={true}
-                              showWaitingJoin={false}
-                              showSubBox={true}
-                              borderColor={'rgba(0, 163, 255, 0.5)'}
-                              postContent={postContent4}
-                              isMyParticipation={false}
-                              postId={postContent4?.postId}
-                          />
-                      ))
-                    : postContent5.map((postContent5, index) => (
-                          <TeamBox
-                              key={index}
-                              showMoreDetail={true}
-                              showWaitingJoin={false}
-                              showSubBox={true}
-                              borderColor={'rgba(231, 137, 255, 0.5)'}
-                              postContent={postContent5}
-                              isMyParticipation={false}
-                              postId={postContent5?.postId}
-                          />
-                      ))}
+                {selectedOption === 'contest' &&
+                    postContent4.map((postContent4, index) => (
+                        <TeamBox
+                            key={index}
+                            showMoreDetail={false}
+                            showWaitingJoin={false}
+                            showSubBox={true}
+                            borderColor={'rgba(0, 163, 255, 0.5)'}
+                            postContent={postContent4}
+                            isMyParticipation={null}
+                            postId={postContent4?.postId}
+                        />
+                    ))}
+                {selectedOption === 'project' &&
+                    postContent5.map((postContent5, index) => (
+                        <TeamBox
+                            key={index}
+                            showMoreDetail={false}
+                            showWaitingJoin={false}
+                            showSubBox={true}
+                            borderColor={'rgba(231, 137, 255, 0.5)'}
+                            postContent={postContent5}
+                            isMyParticipation={null}
+                            postId={postContent5?.postId}
+                        />
+                    ))}
 
                 <Pagination
                     total={totalPage}
