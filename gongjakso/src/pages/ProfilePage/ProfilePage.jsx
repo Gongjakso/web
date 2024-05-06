@@ -28,6 +28,7 @@ const ProfilePage = () => {
             setPostContent3(response?.data.participationLists.slice(0, 2));
         });
     }, []);
+
     // console.log(postContent2);
     return (
         <div>
@@ -81,8 +82,8 @@ const ProfilePage = () => {
                             showSubBox={true}
                             borderColor={
                                 postContent2.postType === true
-                                    ? 'rgba(0, 163, 255, 0.5)'
-                                    : 'rgba(231, 137, 255, 0.5)'
+                                    ? 'rgba(231, 137, 255, 0.5)'
+                                    : 'rgba(0, 163, 255, 0.5)'
                             }
                             postContent={postContent2}
                             isMyParticipation={false}
@@ -100,9 +101,11 @@ const ProfilePage = () => {
                         <TeamBox
                             showMoreDetail={false}
                             borderColor={
-                                postContent3.postType === true
-                                    ? 'rgba(0, 163, 255, 0.5)'
-                                    : 'rgba(231, 137, 255, 0.5)'
+                                postContent3?.postStatus === 'EXTENSION'
+                                    ? 'rgba(111, 111, 111, 1)'
+                                    : postContent3.postType === true
+                                      ? 'rgba(231, 137, 255, 0.5)'
+                                      : 'rgba(0, 163, 255, 0.5)'
                             }
                             showWaitingJoin={false}
                             showSubBox={false}

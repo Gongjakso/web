@@ -138,7 +138,7 @@ export const WaitingJoin = styled.div`
     align-items: center;
     justify-content: center;
     background: ${({ theme, postStatus }) =>
-        postStatus === '합류대기중_수정필요' ? theme.Light1 : theme.LightGrey};
+        postStatus === 'OPEN_APPLY' ? theme.Light1 : theme.LightGrey};
     background: ${({ theme }) => theme.Light1};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};

@@ -14,8 +14,17 @@ const TeamSupport = () => {
     const [totalPage, setTotalPage] = useState();
 
     useEffect(() => {
-        setPage(1);
+        getMyApplied().then(response => {
+            console.log(response.data);
+            setPostContent2(response?.data);
+        });
     }, []);
+
+    const loadParticipatedPosts = page => {
+        getMyApplied(page).then(response => {
+            setPostContent2(response?.data);
+        });
+    };
 
     return (
         <div>
@@ -33,8 +42,8 @@ const TeamSupport = () => {
                         showSubBox={true}
                         borderColor={
                             postContent2.postType === true
-                                ? 'rgba(0, 163, 255, 0.5)'
-                                : 'rgba(231, 137, 255, 0.5)'
+                                ? 'rgba(231, 137, 255, 0.5)'
+                                : 'rgba(0, 163, 255, 0.5)'
                         }
                         postContent={postContent2}
                         isMyParticipation={false}
@@ -42,9 +51,9 @@ const TeamSupport = () => {
                 ))}
                 <Pagination
                     total={totalPage}
-                    limit={limit}
                     page={page}
                     setPage={setPage}
+                    loadPosts={loadParticipatedPosts}
                 />
             </S.BoxDetail>
         </div>

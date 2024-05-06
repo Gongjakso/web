@@ -39,9 +39,11 @@ const TeamPart = () => {
                             key={index}
                             showMoreDetail={false}
                             borderColor={
-                                postContent3.postType === true
-                                    ? 'rgba(231, 137, 255, 0.5)'
-                                    : 'rgba(0, 163, 255, 0.5)'
+                                postContent3?.postStatus === 'EXTENSION'
+                                    ? 'rgba(111, 111, 111, 1)'
+                                    : postContent3.postType === true
+                                      ? 'rgba(231, 137, 255, 0.5)'
+                                      : 'rgba(0, 163, 255, 0.5)'
                             }
                             showWaitingJoin={false}
                             showSubBox={false}
