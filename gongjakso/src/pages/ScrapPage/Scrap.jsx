@@ -13,45 +13,51 @@ const Scrap = () => {
     const [page, setPage] = useState(1);
     const offset = (page - 1) * limit;
     const [data, setData] = useState([]);
+    const [postContent, setPostContent] = useState([]);
     const [postContent4, setPostContent4] = useState([]); //스크랩 공모전
     const [postContent5, setPostContent5] = useState([]); //스크랩 프로젝트
     const [totalPage, setTotalPage] = useState();
     const [selectedOption, setSelectedOption] = useState(null);
+    const [previousOption, setPreviousOption] = useState(null);
 
     useEffect(() => {
         setPage(1);
-        getMyContestScrap().then(response => {
-            setPostContent4(response?.data);
-            console.log(response?.data);
-        });
-        getMyProjectScrap().then(response => {
-            setPostContent5(response?.data);
-            console.log(response?.data);
-        });
+        loadScrapedposts(1);
     }, []);
 
-    const showContest = page => {
-        getMyContestScrap(page).then(response => {
-            setPostContent4(response?.data);
-        });
+    const loadScrapedposts = (page, option = selectedOption) => {
+        if (previousOption === option) return;
+
+        if (option === 'contest') {
+            getMyContestScrap(page).then(response => {
+                setPostContent4(response?.data.content);
+            });
+        } else if (option === 'project') {
+            getMyProjectScrap(page).then(response => {
+                setPostContent5(response?.data.content);
+            });
+        } else {
+            getMyContestScrap(page).then(response => {
+                setPostContent4(response?.data.content);
+            });
+            getMyProjectScrap(page).then(response => {
+                setPostContent5(response?.data.content);
+            });
+        }
+
+        setPreviousOption(option);
+    };
+
+    const showContest = () => {
         setSelectedOption('contest');
+        loadScrapedposts(1, 'contest');
     };
 
-    const showProject = page => {
-        getMyProjectScrap(page).then(response => {
-            setPostContent5(response?.data);
-        });
+    const showProject = () => {
         setSelectedOption('project');
+        loadScrapedposts(1, 'project');
     };
 
-    const loadScrapedposts = page => {
-        getMyContestScrap(page).then(response => {
-            setPostContent4(response?.data);
-        });
-        getMyProjectScrap(page).then(response => {
-            setPostContent5(response?.data);
-        });
-    };
     return (
         <div>
             <TopButton />
@@ -84,27 +90,32 @@ const Scrap = () => {
                 </S.Option>
             </S.OptionBox>
             <S.BoxDetail>
-                {(Array.isArray(postContent4) && Array.isArray(postContent5)
-                    ? postContent4.concat(postContent5)
-                    : []
-                )
-                    .slice(offset, offset + limit)
-                    .map((postContent, index) => (
-                        <TeamBox
-                            key={index}
-                            showMoreDetail={true}
-                            showWaitingJoin={false}
-                            showSubBox={true}
-                            borderColor={
-                                postContent.postType === true
-                                    ? 'rgba(0, 163, 255, 0.5)'
-                                    : 'rgba(231, 137, 255, 0.5)'
-                            }
-                            postContent={postContent}
-                            isMyParticipation={false}
-                            postId={postContent?.postId}
-                        />
-                    ))}
+                {selectedOption === 'contest'
+                    ? postContent4.map((postContent4, index) => (
+                          <TeamBox
+                              key={index}
+                              showMoreDetail={true}
+                              showWaitingJoin={false}
+                              showSubBox={true}
+                              borderColor={'rgba(0, 163, 255, 0.5)'}
+                              postContent={postContent4}
+                              isMyParticipation={false}
+                              postId={postContent4?.postId}
+                          />
+                      ))
+                    : postContent5.map((postContent5, index) => (
+                          <TeamBox
+                              key={index}
+                              showMoreDetail={true}
+                              showWaitingJoin={false}
+                              showSubBox={true}
+                              borderColor={'rgba(231, 137, 255, 0.5)'}
+                              postContent={postContent5}
+                              isMyParticipation={false}
+                              postId={postContent5?.postId}
+                          />
+                      ))}
+
                 <Pagination
                     total={totalPage}
                     limit={limit}

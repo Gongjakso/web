@@ -91,7 +91,12 @@ export const getMyParticipated = async () => {
 export const getMyContestScrap = async () => {
     const reqURL = `post/contest/myScrap`;
     try {
-        const response = await axiosInstance.get(reqURL);
+        const response = await axiosInstance.get(`${reqURL}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log('내가 스크랩한 공모전 정보를 가져올 수 없습니다.');
@@ -102,6 +107,7 @@ export const getMyProjectScrap = async () => {
     const reqURL = `post/project/myScrap`;
     try {
         const response = await axiosInstance.get(reqURL);
+        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log('내가 스크랩한 프로젝트 정보를 가져올 수 없습니다.');

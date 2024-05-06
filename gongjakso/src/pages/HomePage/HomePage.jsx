@@ -8,7 +8,6 @@ import SignUpModal from '../../features/modal/SignUpModal';
 import TopButton from '../../pages/HomePage/TopButton';
 import Banner from './Banner';
 import { getMyInfo } from '../../service/auth_service';
-import ScrollHandler from './ScrollHandler';
 
 const HomePage = () => {
     const authenticated = localStorage.getItem('accessToken');
@@ -73,7 +72,7 @@ const HomePage = () => {
 
     return (
         <>
-            <ScrollHandler />
+            <TopButton />
             <S.HomeContent className="home-section">
                 <S.Title>
                     공모전/프로젝트, 어떻게 시작해야할지 막막하셨나요?
