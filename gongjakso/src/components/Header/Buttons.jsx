@@ -6,6 +6,7 @@ import Modal1 from '../../features/modal/LoginModal1';
 import Modal2 from '../../features/modal/LoginModal2';
 import Bubble from './Bubble';
 import { logout } from '../../service/auth_service';
+import { useLocation } from 'react-router-dom';
 
 const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
     const authenticated = localStorage.getItem('accessToken');
@@ -15,6 +16,10 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
     const [modal2Open, setModal2Open] = useState(false);
     const [bubbleOpen, setBubbleOpen] = useState(false);
     const [path, setPath] = useState();
+
+    const location = useLocation();
+
+    const currentPage = location.pathname.substring(1);
 
     const getIconName = () => {
         const iconNames = {
@@ -77,9 +82,9 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
         <>
             <S.IconButton
                 type="button"
-                name={type}
-                $active={active === type}
-                $type={active}
+                name={currentPage}
+                $active={currentPage === type}
+                $type={currentPage}
                 className={`icon-button ${type === 'profile' ? 'profile-button' : ''}`}
                 onMouseEnter={() =>
                     setHover(prev => ({ ...prev, [type]: true }))
@@ -105,7 +110,10 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
                     }
                 }}
             >
-                <S.IconNameSpan $hover={hover[type]} $active={active === type}>
+                <S.IconNameSpan
+                    $hover={hover[type]}
+                    $active={currentPage === type}
+                >
                     {type === 'profile' ? (
                         <>
                             <S.ProfileIcon src={myPageImage} />
