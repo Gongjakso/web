@@ -22,7 +22,9 @@ const Scrap = () => {
 
     useEffect(() => {
         setPage(1);
-        loadScrapedposts(1, null);
+        setSelectedOption(null);
+        loadScrapedposts(1, 'contest');
+        loadScrapedposts(1, 'project');
     }, []);
 
     const loadScrapedposts = (page, option = selectedOption) => {
@@ -37,11 +39,12 @@ const Scrap = () => {
                 setPostContent5(response?.data.content);
             });
         } else {
-            getMyContestScrap(page).then(response => {
-                setPostContent4(response?.data.content);
-            });
-            getMyProjectScrap(page).then(response => {
-                setPostContent5(response?.data.content);
+            Promise.all([
+                getMyContestScrap(page),
+                getMyProjectScrap(page),
+            ]).then(([contestResponse, projectResponse]) => {
+                setPostContent4(contestResponse?.data.content);
+                setPostContent5(projectResponse?.data.content);
             });
         }
         setPreviousOption(option);
@@ -89,7 +92,7 @@ const Scrap = () => {
                 </S.Option>
             </S.OptionBox>
             <S.BoxDetail>
-                {selectedOption === 'contest' &&
+                {(selectedOption === 'contest' || selectedOption === null) &&
                     postContent4.map((postContent4, index) => (
                         <TeamBox
                             key={index}
@@ -102,7 +105,7 @@ const Scrap = () => {
                             postId={postContent4?.postId}
                         />
                     ))}
-                {selectedOption === 'project' &&
+                {(selectedOption === 'project' || selectedOption === null) &&
                     postContent5.map((postContent5, index) => (
                         <TeamBox
                             key={index}
