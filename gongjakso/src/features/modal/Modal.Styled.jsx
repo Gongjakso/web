@@ -28,7 +28,7 @@ export const Container = styled.div`
     background: white;
     border-radius: 20px;
     flex-direction: column;
-    padding: 70px 0;
+    padding: 50px 0;
 `;
 
 export const ModalBg = styled.div`
@@ -74,13 +74,13 @@ export const ButtonBox = styled.div`
 export const GreyButton = styled.button`
     background: ${({ theme }) => theme.Grey};
     color: black;
-    width: 40%;
+    width: 45%;
     height: 90%;
     font-family: 'PreMedium';
     font-size: ${({ theme }) => theme.fontSize.base};
     border-radius: 10px;
     text-align: center;
-    padding: 10px;
+    padding: 18px;
     margin: 10px;
 `;
 
@@ -90,10 +90,10 @@ export const BlueButton = styled.button`
     border-radius: 10px;
     font-family: 'PreMedium';
     font-size: ${({ theme }) => theme.fontSize.base};
-    width: 40%;
+    width: 45%;
     height: 90%;
     text-align: center;
-    padding: 10px;
+    padding: 18px;
     margin: 10px;
 `;
 
@@ -119,7 +119,7 @@ export const Box = styled.div`
 `;
 
 export const SubTitle = styled.p`
-    font-size: 1.35rem;
+    font-size: ${({ theme }) => theme.fontSize.md};
     font-family: 'PreMedium';
     display: flex;
     align-items: center;
@@ -171,14 +171,14 @@ export const Num = styled.input`
         text-align: center;
         border: none;
         border-bottom: 1px solid black;
-        font-size: ${({ theme }) => theme.fontSize.md};
+        font-size: 1.1rem;
     }
 `;
 
 export const Hyphen = styled.div`
     width: 20px;
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
 `;
 
 export const Div1 = styled.div`

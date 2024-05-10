@@ -7,7 +7,7 @@ export const Dropdown1 = styled.div`
         text-align: left;
         padding: 10px 19px;
         width: 400px;
-        font-size: ${({ theme }) => theme.fontSize.md};
+        font-size: ${({ theme }) => theme.fontSize.base};
         color: ${props => (props.isOpen ? 'black' : '#a6a6a6')};
         border-radius: 7px;
 
@@ -23,7 +23,7 @@ export const Dropdown1 = styled.div`
     }
 
     .rnd .rnd__root-menu.rnd__menu .rnd__option .rnd__option-label {
-        font-size: ${({ theme }) => theme.fontSize.md};
+        font-size: 1.1rem;
         padding-left: 5px;
     }
 
