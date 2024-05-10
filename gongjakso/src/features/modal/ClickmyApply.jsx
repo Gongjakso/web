@@ -34,7 +34,7 @@ const ClickmyApply = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal w="55%" h="85%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="1000px" h="800px" bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
                             props.setOpen(false);
@@ -44,7 +44,7 @@ const ClickmyApply = props => {
                     </S.Backbtn>
 
                     <S.MainTitle>
-                        <p>{myApp?.member_name}</p>
+                        <p>{myApp?.memberName}</p>
                         <S.Major>{myApp?.major}</S.Major>
                     </S.MainTitle>
                     <S.DetailBox>
@@ -52,7 +52,7 @@ const ClickmyApply = props => {
                         <S.FormBox>
                             {category.map((item, i) => (
                                 <S.RoundForm
-                                    isSelected={item === myApp?.recruit_part}
+                                    isSelected={item === myApp?.recruitPart}
                                     style={{ cursor: 'default' }}
                                 >
                                     {item === 'PLAN' && '기획'}
@@ -73,9 +73,9 @@ const ClickmyApply = props => {
                             <S.FormBox>
                                 {stackCategory.map((item, i) => (
                                     <S.RoundForm
-                                        isSelected={
-                                            item === myApp?.applyStack[i]
-                                        }
+                                        isSelected={myApp?.applyStack.includes(
+                                            item,
+                                        )}
                                         style={{ cursor: 'default' }}
                                     >
                                         {item === 'REACT' && 'React'}
@@ -86,6 +86,7 @@ const ClickmyApply = props => {
                                         {item === 'JAVA' && 'Java'}
                                         {item === 'SPRING' && 'Spring'}
                                         {item === 'KOTLIN' && 'Kotlin'}
+                                        {item === 'SWIFT' && 'Swift'}
                                         {item === 'FLUTTER' && 'Flutter'}
                                         {item === 'ETC' && 'etc'}
                                     </S.RoundForm>
@@ -97,7 +98,9 @@ const ClickmyApply = props => {
                     <S.DetailBox2>
                         <S.SubTitle>지원 이유</S.SubTitle>
                         <S.TextBox>
-                            <S.Content>{myApp?.application}</S.Content>
+                            <S.Content h="270px">
+                                {myApp?.application}
+                            </S.Content>
                         </S.TextBox>
                     </S.DetailBox2>
                 </S.Modal>

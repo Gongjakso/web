@@ -51,7 +51,7 @@ const MyPageTeam = props => {
     return (
         <>
             <S.Background>
-                <S.Modal w="50%" h="450px" bc={({ theme }) => theme.box1}>
+                <S.Modal w="850px" h="450px" bc={({ theme }) => theme.box1}>
                     <S.Backbtn onClick={() => props.CloseModal(false)}>
                         <img src={Close} alt="close-btn" />
                     </S.Backbtn>
@@ -87,7 +87,7 @@ const MyPageTeam = props => {
 
                     <S.ApplyBox>
                         <S.ApplyBtn
-                            w="25%"
+                            w="300px"
                             onClick={() => {
                                 if (checkedCase === '1') {
                                     ClickFinishBtn();

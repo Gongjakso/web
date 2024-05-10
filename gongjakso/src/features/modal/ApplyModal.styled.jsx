@@ -36,7 +36,7 @@ export const Decisionbtn = styled.div`
     position: absolute;
     left: 7%;
     top: 7%;
-    width: 110px;
+    width: 130px;
     text-align: center;
 `;
 
@@ -67,13 +67,13 @@ export const SubTitle = styled.p`
 // RoundForm 감싸는 틀
 export const FormBox = styled.div`
     display: flex;
-    width: 100%;
+    flex-flow: wrap;
     top: 60px;
     left: 0;
 `;
 
 export const RoundForm = styled.button`
-    width: 120px;
+    min-width: 130px;
     height: auto;
     border: 1px solid #a3a3a3;
     border-radius: 30px;
@@ -108,7 +108,7 @@ export const WarningTitle = styled.p`
 export const InputArea = styled.textarea`
     width: 100%;
     height: 100%;
-    max-height: 170px;
+    max-height: 190px;
     display: block;
     border: none;
     border-bottom: 1.5px solid black;
@@ -118,6 +118,7 @@ export const InputArea = styled.textarea`
     color: #5c5c5c;
     font-size: 1.15rem;
     font-family: 'PreRegular';
+    line-height: 1.5;
     &:focus {
         outline: none;
     }
@@ -210,11 +211,8 @@ export const Content = styled.div`
     color: #5c5c5c;
     font-size: ${({ theme }) => theme.fontSize.md};
     line-height: 30px;
-`;
-
-export const ContentProject = styled(Content)`
+    max-height: ${props => props.h};
     overflow-y: scroll;
-    height: 180px;
 `;
 
 // 지원 완료 창 텍스트 틀

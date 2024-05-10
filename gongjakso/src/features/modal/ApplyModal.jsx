@@ -67,8 +67,8 @@ const ApplyModal = props => {
         textarea.current.style.height = textarea.current.scrollHeight + 'px';
     };
     const onInputHandler = e => {
-        if (e.target.value.length > 500) {
-            e.target.value = e.target.value.slice(0, 500);
+        if (e.target.value.length > 1000) {
+            e.target.value = e.target.value.slice(0, 1000);
         }
         setInputCount(e.target.value.length);
         setInputValue(e.target.value);
@@ -107,7 +107,11 @@ const ApplyModal = props => {
             ) : null}
             {form[0] === '공모전' && (
                 <S.Background>
-                    <S.Modal w="55%" h="75%" bc={({ theme }) => theme.Light1}>
+                    <S.Modal
+                        w="1000px"
+                        h="700px"
+                        bc={({ theme }) => theme.Light1}
+                    >
                         <S.Backbtn
                             onClick={() => {
                                 props.setApply(false);
@@ -158,15 +162,15 @@ const ApplyModal = props => {
                                     ref={textarea}
                                     onChange={onInputHandler}
                                     onInput={handleResizeHeight}
-                                    maxLength={'500'}
+                                    maxLength={'1000'}
                                     rows={1}
                                     placeholder={
-                                        '* 해당 공모전 팀에 합류하고 싶은 이유를 작성해주세요!(최대 500자)'
+                                        '* 해당 공모전 팀에 합류하고 싶은 이유를 작성해주세요!(최대 1000자)'
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
                                     <span>{inputCount}</span>
-                                    <span>/500</span>
+                                    <span>/1000</span>
                                 </S.InputNum>
                             </S.TextBox>
                         </S.DetailBox>
@@ -182,7 +186,11 @@ const ApplyModal = props => {
 
             {form[0] === '프로젝트' && (
                 <S.Background>
-                    <S.Modal w="55%" h="85%" bc={({ theme }) => theme.Pink}>
+                    <S.Modal
+                        w="1000px"
+                        h="800px"
+                        bc={({ theme }) => theme.Pink}
+                    >
                         <S.Backbtn
                             onClick={() => {
                                 props.setApply(false);
@@ -271,15 +279,15 @@ const ApplyModal = props => {
                                     ref={textarea}
                                     onChange={onInputHandler}
                                     onInput={handleResizeHeight}
-                                    maxLength={'500'}
+                                    maxLength={'1000'}
                                     rows={1}
                                     placeholder={
-                                        '* 해당 프로젝트 팀에 합류하고 싶은 이유를 작성해주세요!(최대 500자)'
+                                        '* 해당 프로젝트 팀에 합류하고 싶은 이유를 작성해주세요!(최대 1000자)'
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
                                     <span>{inputCount}</span>
-                                    <span>/500</span>
+                                    <span>/1000</span>
                                 </S.InputNum>
                             </S.TextBox>
                         </S.DetailBox>
