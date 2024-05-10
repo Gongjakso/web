@@ -28,6 +28,7 @@ const PostMainPage = () => {
     // const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(1);
     const [banners, setBanners] = useState([]);
+    const [links, setLinks] = useState([]);
     const [contestTotalPage, setContestTotalPage] = useState();
     const [ProjectTotalPage, setProjectTotalPage] = useState();
     const [sortBy, setSortBy] = useState('createdAt');
@@ -83,8 +84,11 @@ const PostMainPage = () => {
     ];
     useEffect(() => {
         getProjectBanner().then(res => {
-            const imageUrls = res?.data?.map(item => item.imageUrl);
+            const imageUrls = res?.data?.map(item => item?.imageUrl);
             setBanners(imageUrls);
+            const LinkUrls = res?.data?.map(item => item?.linkUrl);
+            // console.log(LinkUrls);
+            setLinks(LinkUrls);
         });
         isProject
             ? loadProjectPosts(
@@ -190,7 +194,7 @@ const PostMainPage = () => {
             <TopButton />
             <S.MainContent>
                 <S.Div>
-                    <SwiperBanner BannerImg={banners} />
+                    <SwiperBanner BannerImg={banners} BannerLink={links} />
                 </S.Div>
                 <S.Search>
                     <S.SearchBar>
