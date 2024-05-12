@@ -110,7 +110,7 @@ const Bubble = ({ closeBubble }) => {
                         </S.SubTitle>
                         <S.GreyLine />
                         <S.SubTitle onClick={() => handleButtonClick('/scrap')}>
-                            <span>내가 스크랩한 공고</span>
+                            <span>나의 스크랩</span>
                             <S.ArrowImage />
                         </S.SubTitle>
                         <S.GreyLine />

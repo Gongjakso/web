@@ -21,6 +21,12 @@ const RecruitedTeam = () => {
         });
     }, []);
 
+    const loadRecruitedPosts = page => {
+        getMyRecruiting(page).then(response => {
+            setPostContent1(response?.data);
+        });
+    };
+
     return (
         <div>
             <TopButton />
@@ -50,6 +56,7 @@ const RecruitedTeam = () => {
                     limit={limit}
                     page={page}
                     setPage={setPage}
+                    loadPosts={loadRecruitedPosts}
                 />
             </S.BoxDetail>
         </div>
