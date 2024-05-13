@@ -74,6 +74,7 @@ const PostMainPage = () => {
 
     const options = ['전체', '인기순', '최신순'];
     const stackOptions = [
+        '사용 언어',
         'REACT',
         'TYPESCRIPT',
         'JAVASCRIPT',
@@ -86,6 +87,7 @@ const PostMainPage = () => {
         'FLUTTER',
         'ETC',
     ];
+
     useEffect(() => {
         getProjectBanner().then(res => {
             const imageUrls = res?.data?.map(item => item?.imageUrl);
@@ -134,7 +136,7 @@ const PostMainPage = () => {
             selectedTownData,
             encodeSpaces(searchKeyword),
         ).then(res => {
-            // console.log(res?.data);
+            console.log(selectedCityData);
             setContestPosts(res?.data?.content);
             setContestTotalPage(res?.data?.totalPages);
         });
@@ -178,7 +180,11 @@ const PostMainPage = () => {
 
     const handleSelectedDataCity = data => {
         //선택한 지역 반환
-        setSelectedCityData(data);
+        if (data === '지역') {
+            setSelectedCityData('');
+        } else {
+            setSelectedCityData(data);
+        }
     };
     const handleSelectedDataTown = data => {
         //선택한 지역 반환

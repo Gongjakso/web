@@ -69,12 +69,23 @@ const SelectInput = props => {
         };
     }, [isOpen, selectRef]);
 
+    const getSelectedOption = selectedOption => {
+        // If '사용 언어' is selected, return empty string
+        if (selectedOption === '사용 언어') {
+            return '';
+        } else {
+            // Return the selected option
+            return selectedOption;
+        }
+    };
+
     const handleToggleOpen = () => {
         setIsOpen(!isOpen);
     };
 
     const handleSelectChange = event => {
-        const selectedValue = event.target.value;
+        const selectedValue = getSelectedOption(event?.target?.value);
+        console.log(selectedValue);
         setSelectedOption(selectedValue);
         onChange(selectedValue); // Call the onChange function with the selected value
     };
