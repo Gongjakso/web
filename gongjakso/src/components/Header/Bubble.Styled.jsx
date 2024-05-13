@@ -97,8 +97,13 @@ export const ProfileImage = styled(defaultProfile)`
     width: 60px;
     display: flex;
     justify-content: center;
+    padding: 5px;
 `;
 
+export const ProfileDetail = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
 export const InfoDetail = styled.div`
     display: flex;
     color: black;

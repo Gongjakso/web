@@ -15,6 +15,7 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
     const [secondNum, setSecondNum] = useState('');
     const [thirdNum, setThirdNum] = useState('');
     const [phoneNum, setPhoneNum] = useState('');
+    const [isComplete, setIsComplete] = useState(false);
 
     useEffect(() => {
         const formattedNum = `${firstNum}-${secondNum}-${thirdNum}`;
@@ -38,15 +39,9 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
 
     const navigate1 = useNavigate();
 
-    const [selectedStatus, setSelectedStatus] = useState(
-        '* 현재 당신의 상태를 선택해주세요.',
-    );
-    const [selectedMajor, setSelectedMajor] = useState(
-        '* 현재 전공하고 있는 분야를 선택해주세요.',
-    );
-    const [selectedJob, setSelectedJob] = useState(
-        '* 희망하시는 직무를 선택해주세요.',
-    );
+    const [selectedStatus, setSelectedStatus] = useState('');
+    const [selectedMajor, setSelectedMajor] = useState('');
+    const [selectedJob, setSelectedJob] = useState('');
 
     useEffect(() => {
         document.body.style.cssText = `
@@ -103,6 +98,23 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
         }));
     };
 
+    useEffect(() => {
+        setIsComplete(
+            selectedStatus !== '' &&
+                selectedMajor !== '' &&
+                selectedJob !== '' &&
+                firstNum !== '' &&
+                secondNum !== '' &&
+                thirdNum !== '',
+        );
+    }, [
+        selectedStatus,
+        selectedMajor,
+        selectedJob,
+        firstNum,
+        secondNum,
+        thirdNum,
+    ]);
     return (
         <S.ModalBg>
             <S.Container>
@@ -113,17 +125,35 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                 <S.BoxContainer>
                     <S.Box>
                         <S.SubTitle>현재 상태</S.SubTitle>
-                        <InfoDrop items={status_items} title={selectedStatus} />
+                        <InfoDrop
+                            items={status_items}
+                            title={
+                                selectedStatus ||
+                                '* 현재 당신의 상태를 선택해주세요.'
+                            }
+                        />
                     </S.Box>
                     <S.Box>
                         <S.SubTitle>전공</S.SubTitle>
 
-                        <InfoDrop items={major_items()} title={selectedMajor} />
+                        <InfoDrop
+                            items={major_items()}
+                            title={
+                                selectedMajor ||
+                                '* 현재 전공하고 있는 분야를 선택해주세요.'
+                            }
+                        />
                     </S.Box>
                     <S.Box>
                         <S.SubTitle>희망 직무</S.SubTitle>
 
-                        <InfoDrop items={job_items()} title={selectedJob} />
+                        <InfoDrop
+                            items={job_items()}
+                            title={
+                                selectedJob ||
+                                '* 희망하시는 직무를 선택해주세요.'
+                            }
+                        />
                     </S.Box>
                     <S.Box>
                         <S.SubTitle>연락처</S.SubTitle>
@@ -161,7 +191,13 @@ const SignUpModal = ({ closeSignUpModal, name }) => {
                 </S.BoxContainer>
 
                 <S.ButtonBox>
-                    <S.BlueButton onClick={() => handleModalClick('/')}>
+                    <S.BlueButton
+                        onClick={() => handleModalClick('/')}
+                        disabled={!isComplete}
+                        style={{
+                            backgroundColor: isComplete ? '#0150F1' : '#c3c3c3',
+                        }}
+                    >
                         완료
                     </S.BlueButton>
                 </S.ButtonBox>
