@@ -102,7 +102,7 @@ export const getContestPosts = async (
     searchKeyword,
 ) => {
     const reqURL = `post/contest?meetingCity=${selectedCityData}&meetingTown=${selectedTownData}&category=&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort}`;
-
+    console.log(searchKeyword);
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
             headers: {
