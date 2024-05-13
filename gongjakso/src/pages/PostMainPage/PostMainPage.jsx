@@ -41,7 +41,11 @@ const PostMainPage = () => {
 
     const [modal1Open, setModal1Open] = useState(false);
 
-    // const offset = (page - 1) * limit;
+    const encodeSpaces = searchKeyword => {
+        // console.log(searchKeyword.replace(/ /g, '%20'));
+        return searchKeyword.replace(/ /g, '%20');
+    };
+    // 띄어쓰기 인코딩 하는 부분
 
     useEffect(() => {
         setPage(1);
@@ -128,7 +132,7 @@ const PostMainPage = () => {
             sort,
             selectedCityData,
             selectedTownData,
-            searchKeyword,
+            encodeSpaces(searchKeyword),
         ).then(res => {
             // console.log(res?.data);
             setContestPosts(res?.data?.content);
@@ -149,7 +153,7 @@ const PostMainPage = () => {
             selectedCityData,
             selectedTownData,
             selectedStack,
-            searchKeyword,
+            encodeSpaces(searchKeyword),
         ).then(res => {
             setProjectPosts(res?.data?.content);
             setProjectTotalPage(res?.data?.totalPages);
