@@ -12,7 +12,18 @@ const TeamPortfolio = () => {
         setEmail(e.target.value);
     };
     const baseURL = process.env.REACT_APP_BASE_URL;
+
+    const isValidEmail = email => {
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        return regex.test(email);
+    };
+
     const handleEmailSubmit = async () => {
+        if (!isValidEmail(email)) {
+            alert('유효한 이메일 주소를 입력해주세요.');
+            return;
+        }
+
         try {
             const response = await axios.post(`${baseURL}email`, {
                 address: email,
