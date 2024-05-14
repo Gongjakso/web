@@ -137,9 +137,12 @@ export const WaitingJoin = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${({ theme, postStatus }) =>
-        postStatus === 'OPEN_APPLY' ? theme.Light1 : theme.LightGrey};
-    background: ${({ theme }) => theme.Light1};
+    background: ${({ theme, applyType }) =>
+        applyType === 'PASS'
+            ? theme.box1
+            : applyType === 'NOT_PASS'
+              ? theme.LightGrey
+              : theme.Light1};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: 600;

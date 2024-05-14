@@ -129,10 +129,12 @@ const TeamBox = ({
                     )}
                 </S.MainBox>
                 {showWaitingJoin && (
-                    <S.WaitingJoin>
-                        {postContent?.status === 'OPEN_APPLY'
-                            ? '합류 대기중'
-                            : '미선발'}
+                    <S.WaitingJoin applyType={postContent?.applyType}>
+                        {postContent?.applyType === 'PASS'
+                            ? '합류 완료'
+                            : postContent?.applyType === 'NOT_PASS'
+                              ? '미선발'
+                              : '합류 대기중'}
                     </S.WaitingJoin>
                 )}
             </S.BoxBottomDetail>
