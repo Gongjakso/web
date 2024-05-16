@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import * as S from './CountGuest.Styled';
 
-const CountGuest = ({ isProject, onApply }) => {
+const CountGuest = ({ isProject, maxGuests, onApply }) => {
     const [isToggleBox, setIsToggleBox] = useState(false);
     const [roles, setRoles] = useState({
         PLAN: 0,
@@ -9,6 +9,18 @@ const CountGuest = ({ isProject, onApply }) => {
         ...(isProject && { FE: 0, BE: 0 }),
         ETC: 0,
     });
+
+    const [totalSelectedGuests, setTotalSelectedGuests] = useState(0);
+
+    useEffect(() => {
+        // roles 객체가 변경될 때마다 totalSelectedGuests를 업데이트
+        const total = Object.values(roles).reduce(
+            (acc, count) => acc + count,
+            0,
+        );
+        setTotalSelectedGuests(total);
+    }, [roles]);
+
     const handleToggleBoxOpen = () => {
         setIsToggleBox(!isToggleBox);
     };
@@ -19,11 +31,15 @@ const CountGuest = ({ isProject, onApply }) => {
     const handleApply = () => {
         onApply({
             category,
+            totalSelectedGuests,
         });
         handleToggleBoxClose(true);
     };
 
     const handleQuantityChange = (role, increment) => {
+        if (!increment && roles[role] <= 0) return; // 음수가 되지 않도록 처리
+        if (increment && totalSelectedGuests >= maxGuests) return; // 최대치 초과 시 처리
+
         setRoles(prevRoles => ({
             ...prevRoles,
             [role]: increment
