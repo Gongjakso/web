@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+    position: relative;
+
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -18,8 +20,9 @@ export const DateContent = styled.div`
     font-size: ${({ theme }) => theme.fontSize.base};
     color: ${({ theme }) => theme.subFont};
     padding-left: 15px;
-    font-family: 'PreMedium';
-    font-weight: 100;
+    font-weight: 500;
+    line-height: 140%;
+    text-align: start;
 `;
 
 export const DateSelect = styled.div`
