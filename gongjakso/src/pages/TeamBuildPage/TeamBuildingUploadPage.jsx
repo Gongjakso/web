@@ -7,6 +7,8 @@ import SelectCalendar from '../../components/common/Calendar/SelectCalendar';
 import { postPosting } from '../../service/post_service';
 import Multilevel from '../../components/common/Input/Multilevel';
 import useCustomNavigate from '../../hooks/useNavigate';
+import SelectDate from '../../components/common/Calendar/SelectDate';
+import moment from 'moment';
 
 const TeamBuildingUploadPage = ({ posts }) => {
     const goToPage = useCustomNavigate();
@@ -40,13 +42,9 @@ const TeamBuildingUploadPage = ({ posts }) => {
 
     const [btn, setBtn] = useState(false);
 
-    const MAX_ADULT_NUM = 4;
-    const MAX_ROOM_NUM = 9;
-
     const [dates, setDates] = useState([]);
-    const [endDates, setEndDates] = useState([]);
+    const [endDates, setEndDates] = useState('');
 
-    const [selectedLocalData, setSelectedLocalData] = useState('');
     const [selectedTownData, setSelectedTownData] = useState('');
     const [selectedCityData, setSelectedCityData] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState();
@@ -54,29 +52,26 @@ const TeamBuildingUploadPage = ({ posts }) => {
     const transformAndSetDates = (startDate, endDate) => {
         const parsedStartDate = new Date(startDate);
         const parsedEndDate = new Date(endDate);
-
         const formattedStartDate = `${parsedStartDate.toISOString().split('T')[0]}T02:32:22.376895959`;
         const formattedEndDate = `${parsedEndDate.toISOString().split('T')[0]}T02:32:22.376895959`;
-
         setDates({ startDate: formattedStartDate, endDate: formattedEndDate });
     };
 
-    //마감 기한 설정
-    const transformAndSetEndDates = (startDate, endDate) => {
-        const parsedStartDate = new Date(startDate);
-        const parsedEndDate = new Date(endDate);
-
-        const formattedStartDate = `${parsedStartDate.toISOString().split('T')[0]}T02:32:22.376895959`;
-        const formattedEndDate = `${parsedEndDate.toISOString().split('T')[0]}T02:32:22.376895959`;
-
+    //마감 일 기간 포맷팅
+    const transformAndSetEndDates = selectDate => {
+        const parsedSelectDate = moment(selectDate);
+        const formattedSelectDate = parsedSelectDate.format(
+            'YYYY-MM-DDTHH:mm:ss.SSSSSSSSS',
+        );
         setEndDates({
-            endDate: formattedEndDate,
+            endDate: formattedSelectDate,
         });
     };
 
     const {
         register,
         handleSubmit,
+        watch,
         // setFocus,
         // setValue,
         // setError,
@@ -92,21 +87,6 @@ const TeamBuildingUploadPage = ({ posts }) => {
             people: null,
         },
     });
-
-    // const handleQuantityChange = (role, increment) => {
-    //     setRoles(prevRoles => ({
-    //         ...prevRoles,
-    //         [role]: increment
-    //             ? prevRoles[role] + 1
-    //             : Math.max(0, prevRoles[role] - 1),
-    //     }));
-    // };
-
-    // const category = {
-    //     categories: Object.entries(roles)
-    //         .filter(([_, size]) => size !== 0) // Filter out categories with size 0
-    //         .map(([categoryType, size]) => ({ categoryType, size })),
-    // };
 
     const handleOptionChange = option => {
         if (option === 'ONLINE') {
@@ -170,14 +150,18 @@ const TeamBuildingUploadPage = ({ posts }) => {
 
     //프로젝트/공모전 기한 설정
     const handleApply = selectedDates => {
+        // console.log(selectedDates);
         transformAndSetDates(selectedDates.startDate, selectedDates.endDate);
     };
     //마감 기한 연장 설정
-    const handleEndApply = selectedDates => {
-        transformAndSetEndDates(selectedDates.startDate, selectedDates.endDate);
+
+    const handleDateChange = date => {
+        transformAndSetEndDates(date);
     };
 
     const handleCategory = selectCategory => {
+        // console.log(selectCategory.totalSelectedGuests);
+        //선택한 인원의 숫자 가져오기
         setCategory(selectCategory.category);
     };
 
@@ -194,6 +178,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
     };
 
     const submitContestBuild = data => {
+        // console.log(endDates);
         const newData = {
             title: data.title,
             contents: description,
@@ -211,11 +196,13 @@ const TeamBuildingUploadPage = ({ posts }) => {
             questionLink: data.complainLink,
             postType: false,
         };
-        console.log(newData);
         postPosting(newData).then(res => {
-            console.log(res);
+            if (res === 5000) {
+                alert('공고를 더이상 생성할 수 없습니다!');
+            } else {
+                alert('공고가 생성 되었습니다!');
+            }
         });
-        alert('공모전 게시글이 업로드 되었습니다!');
         goToPage('/contest');
     };
     const submitProjectBuild = data => {
@@ -236,10 +223,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
             questionLink: data.complainLink,
             postType: true,
         };
+        console.log(newData);
         postPosting(newData).then(res => {
-            console.log(res);
+            if (res === 5000) {
+                alert('공고를 더이상 생성할 수 없습니다!');
+            } else {
+                alert('공고가 생성 되었습니다!');
+            }
         });
-        alert('프로젝트 게시글이 업로드 되었습니다!');
         goToPage('/project');
     };
 
@@ -302,13 +293,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             type={'number'}
                             id={'people'}
                             placeholder={
-                                '모집 총 인원을 입력해주세요. *최대 8명 입니다.'
+                                '모집 총 인원을 입력해주세요. *최대 10명 입니다.'
                             }
                             error={errors?.people}
                             register={register}
                             registerOptions={{
                                 required: '인원을 입력하세요 ',
                                 min: 1,
+                                max: 10,
                             }}
                             step={1}
                         />
@@ -317,6 +309,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>모집 분야</S.TapP>
                         <CountGuest
                             isProject={false}
+                            maxGuests={parseInt(watch('people'), 10)} // 입력한 숫자를 최대치로 설정
                             onApply={handleCategory}
                         />
                     </S.Label>
@@ -352,8 +345,11 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <SelectCalendar onApply={handleApply} />
                     </S.Label>
                     <S.Label>
-                        <S.TapP>공고 마감 기간</S.TapP>
-                        <SelectCalendar onApply={handleEndApply} />
+                        <S.TapP>공고 마감일</S.TapP>
+                        <SelectDate
+                            value={handleDateChange}
+                            onChange={handleDateChange}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>문의사항</S.TapP>
@@ -439,20 +435,25 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             type={'number'}
                             id={'people'}
                             placeholder={
-                                '모집 총 인원을 입력해주세요. *최대 8명 입니다.'
+                                '모집 총 인원을 입력해주세요. *최대 10명 입니다.'
                             }
                             error={errors?.people}
                             register={register}
                             registerOptions={{
                                 required: '인원을 입력하세요 ',
                                 min: 1,
+                                max: 10,
                             }}
                             step={1}
                         />
                     </S.Label>
                     <S.Label>
                         <S.TapP>모집 분야</S.TapP>
-                        <CountGuest isProject={true} onApply={handleCategory} />
+                        <CountGuest
+                            isProject={true}
+                            maxGuests={parseInt(watch('people'), 10)} // 입력한 숫자를 최대치로 설정
+                            onApply={handleCategory}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 방식</S.TapP>
@@ -500,8 +501,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <SelectCalendar onApply={handleApply} />
                     </S.Label>
                     <S.Label>
-                        <S.TapP>공고 마감 기간</S.TapP>
-                        <SelectCalendar onApply={handleEndApply} />
+                        <S.TapP>공고 마감일</S.TapP>
+                        {/* <SelectCalendar onApply={handleEndApply} /> */}
+                        <SelectDate
+                            value={handleDateChange}
+                            onChange={handleDateChange}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>문의사항</S.TapP>
