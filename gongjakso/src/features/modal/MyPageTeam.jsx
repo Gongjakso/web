@@ -20,17 +20,14 @@ const MyPageTeam = props => {
     };
 
     const ClickFinishBtn = () => {
-        // 아래 부분 2 로 넣은 부분 수정해야함
         patchFinish(props.id);
     };
 
     const ClickExtensionDate = () => {
-        // 아래 부분 2 로 넣은 부분 수정해야함
         patchExtension(props.id, dates.endDate);
     };
 
     const ClickCancelBtn = () => {
-        // 아래 부분 2 로 넣은 부분 수정해야함
         patchCancel(props.id);
     };
 
@@ -92,12 +89,14 @@ const MyPageTeam = props => {
                                 if (checkedCase === '1') {
                                     ClickFinishBtn();
                                     navigate('/profile');
+                                    window.location.reload();
                                 } else if (checkedCase === '2') {
                                     ClickExtensionDate();
                                     props.CloseModal(false);
                                 } else if (checkedCase === '3') {
                                     ClickCancelBtn();
                                     navigate('/profile');
+                                    window.location.reload();
                                 }
                             }}
                         >

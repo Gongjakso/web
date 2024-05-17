@@ -27,7 +27,7 @@ const ClickmyApply = props => {
             setmyApp(res?.data);
             setCategory(res?.data.category);
             setstackCategory(res?.data.postStack);
-            console.log(res?.data);
+            // console.log(res?.data);
         });
     }, [props.id]);
 

@@ -30,7 +30,7 @@ const Completed = props => {
             type: 'CONTEST',
         };
         postApply(props.id, newData).then(res => {
-            console.log(res);
+            // console.log(res);
         });
     };
     const submitProjectApply = data => {
@@ -42,7 +42,7 @@ const Completed = props => {
             type: 'PROJECT',
         };
         postApply(props.id, newData).then(res => {
-            console.log(res);
+            // console.log(res);
         });
     };
 
