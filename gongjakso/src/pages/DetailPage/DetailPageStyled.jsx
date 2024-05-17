@@ -146,7 +146,7 @@ export const Meeting = styled(TextDetail)`
 export const OpenKakao = styled(TextDetail)`
     align-items: center;
     img {
-        width: 140px;
+        width: ${props => props.w};
         cursor: pointer;
     }
 `;

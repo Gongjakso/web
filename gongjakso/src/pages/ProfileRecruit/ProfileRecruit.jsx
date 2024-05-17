@@ -27,9 +27,6 @@ const ProfileRecruit = () => {
     const [part, setPart] = useState([]);
     const [role, setRole] = useState([]);
 
-    // 임시저장용
-    const [cancelState, setCancelState] = useState(false);
-
     const [teamCase] = useState([
         { case: '마감하기', id: '1' },
         { case: '연장하기', id: '2' },
@@ -51,11 +48,11 @@ const ProfileRecruit = () => {
         if (id !== undefined) {
             // number가 undefined가 아닌 경우에만 실행
             getApplyList(id).then(res => {
-                console.log('getApplyList response:', res); // 응답을 콘솔에 출력
                 setPosts(res?.data.applyLists);
+                // console.log('getApplyList response:', posts);
             });
             getRecruitTeam(id).then(res => {
-                console.log('getRecruitTeam response:', res); // 응답을 콘솔에 출력
+                // console.log('getRecruitTeam response:', res);
                 setRecruitTeam(res?.data);
                 setPart(res?.data.category);
                 setRole(res?.data.stackName);
@@ -122,8 +119,6 @@ const ProfileRecruit = () => {
                     type={recruitTeam.postType}
                     idNum={idNum}
                     idName={idName}
-                    // recruitPart={part}
-                    // recruitRole={role}
                     id={postId}
                 />
             ) : null}
@@ -213,7 +208,7 @@ const ProfileRecruit = () => {
                             .map((item, i, array) => (
                                 <tr key={item.id}>
                                     <S.StyledTd
-                                        state={cancelState}
+                                        state={posts[i].is_canceled}
                                         style={{
                                             borderRadius:
                                                 i !== array.length - 1
@@ -225,7 +220,7 @@ const ProfileRecruit = () => {
                                             <img src={User} alt="UserImage" />
                                             {item.name}
                                         </S.User>
-                                        {cancelState ? (
+                                        {posts[i].is_canceled ? (
                                             <S.CancelBox>
                                                 지원이 취소되었습니다.
                                             </S.CancelBox>

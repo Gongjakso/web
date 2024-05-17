@@ -40,14 +40,6 @@ const ApplyModal = props => {
         setClickedFields(type);
     };
 
-    // const DoubleClick = type => {
-    //     if (clickedSkill.includes(type)) {
-    //         setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
-    //     } else {
-    //         setClickedSkill([...clickedSkill, type]);
-    //     }
-    // };
-
     const DoubleClick = type => {
         const isSelected = clickedSkill.includes(type);
 

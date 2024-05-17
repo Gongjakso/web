@@ -64,19 +64,18 @@ const DetailPageProject = () => {
     const [postId] = useState(id);
 
     useEffect(() => {
-        getPostDetail(id, 'GENERAL').then(res => {
+        getPostDetail(id).then(res => {
             setpostData(res?.data);
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
             setStackType(res?.data.stackNames);
-            seturlLink(`https://${res?.data.questionLink}`);
             setapplyTitle(res?.data.title);
             console.log(res?.data);
         });
 
         getCheckStatus(id).then(res => {
             setcheckStatus(res?.data.role);
-            console.log(res?.data);
+            // console.log(res?.data);
         });
         getScrap(id).then(res => {
             setscrapStatus(res?.data.ScrapStatus);
@@ -106,6 +105,13 @@ const DetailPageProject = () => {
     const ClickScrapBtn = () => {
         postScrap(id);
         setscrapStatus(current => !current);
+    };
+
+    const openNewWindow = linkurl => {
+        if (!/^https?:\/\//i.test(linkurl)) {
+            linkurl = 'https://' + linkurl;
+        }
+        window.open(linkurl, '_blank');
     };
 
     return (
@@ -205,6 +211,12 @@ const DetailPageProject = () => {
                 <S.Background s="1100px">
                     <S.BlueBox bg={({ theme }) => theme.Pink}>
                         <S.TextBox>
+                            <S.TextTitle>공고 마감일</S.TextTitle>
+                            <S.TextDetail>
+                                {formatDate(postData?.finishDate)}
+                            </S.TextDetail>
+                        </S.TextBox>
+                        <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>
                             <S.TextDetail>
                                 {formatDate(postData?.startDate)} ~{' '}
@@ -301,13 +313,15 @@ const DetailPageProject = () => {
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>기타 문의</S.TextTitle>
-                            <S.OpenKakao>
+                            <S.OpenKakao w="140px">
                                 {postData?.questionMethod ? (
                                     <img
                                         src={OpenKakao}
                                         alt="kakao-link"
                                         onClick={() => {
-                                            window.open(urlLink);
+                                            openNewWindow(
+                                                postData?.questionLink,
+                                            );
                                         }}
                                     />
                                 ) : (
@@ -315,7 +329,9 @@ const DetailPageProject = () => {
                                         src={googleform}
                                         alt="googleForm-link"
                                         onClick={() => {
-                                            window.open(urlLink);
+                                            openNewWindow(
+                                                postData?.questionLink,
+                                            );
                                         }}
                                     />
                                 )}
