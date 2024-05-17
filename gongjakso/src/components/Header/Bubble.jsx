@@ -75,11 +75,13 @@ const Bubble = ({ closeBubble }) => {
             <S.BubbleContainer>
                 <S.BoxContainer>
                     <S.InfoBox>
-                        <S.ProfileImage />
-                        <S.InfoDetail>
-                            <S.NameTitle>{data?.name} 님</S.NameTitle>
-                            <S.MajorTitle>{truncatedMajor}</S.MajorTitle>
-                        </S.InfoDetail>
+                        <S.ProfileDetail>
+                            <S.ProfileImage />
+                            <S.InfoDetail>
+                                <S.NameTitle>{data?.name} 님</S.NameTitle>
+                                <S.MajorTitle>{truncatedMajor}</S.MajorTitle>
+                            </S.InfoDetail>
+                        </S.ProfileDetail>
                         <S.MypageImg
                             onClick={() => handleButtonClick('/profile')}
                         />
