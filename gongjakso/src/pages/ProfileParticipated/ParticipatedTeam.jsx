@@ -15,7 +15,7 @@ const TeamPart = () => {
 
     useEffect(() => {
         getMyParticipated().then(response => {
-            console.log(response.data);
+            console.log(response?.data);
             setPostContent3(response?.data);
         });
     }, []);
