@@ -39,7 +39,7 @@ const TeamPart = () => {
                             key={index}
                             showMoreDetail={false}
                             borderColor={
-                                postContent3?.postStatus === 'EXTENSION'
+                                postContent3?.postStatus === 'COMPLETE' //활동 완료인 경우 테두리 검정색
                                     ? 'rgba(111, 111, 111, 1)'
                                     : postContent3.postType === true
                                       ? 'rgba(231, 137, 255, 0.5)'
