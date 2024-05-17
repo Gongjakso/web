@@ -39,7 +39,7 @@ const ClickApply = props => {
 
     const ClickRecruitBtn = () => {
         patchRecruit(props.idNum).then(res => {
-            // handleRefresh();
+            console.log(res?.data);
         });
         alert('지원자가 합류되었습니다.');
         // props.setShowApply(false);
@@ -49,6 +49,7 @@ const ClickApply = props => {
     const ClickNotRecruitBtn = () => {
         patchNotRecruit(props.idNum).then(res => {
             // handleRefresh();
+            console.log(res?.data);
         });
         alert('지원자를 미선발하였습니다.');
         // props.setShowApply(false);
@@ -58,7 +59,7 @@ const ClickApply = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal w="55%" h="90%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="1000px" h="850px" bc={({ theme }) => theme.box1}>
                     <S.Decisionbtn>
                         {decision === 'PASS' ? (
                             <S.StateBtn bg={({ theme }) => theme.box1}>
@@ -80,20 +81,19 @@ const ClickApply = props => {
                     </S.Backbtn>
 
                     <S.MainTitle>
-                        <p>{applyData?.member_name}</p>
+                        <p>{applyData?.memberName}</p>
 
                         {/* 여기 전공, 전화번호 api 들어가야 함!! */}
                         <S.Major>{applyData?.major}</S.Major>
                         <S.Major>010-0000-0000</S.Major>
+                        {/* <S.Major>{applyData?.phone}</S.Major> */}
                     </S.MainTitle>
                     <S.DetailBox>
                         <S.SubTitle>지원 분야</S.SubTitle>
                         <S.FormBox>
                             {part.map((item, i) => (
                                 <S.RoundForm
-                                    isSelected={
-                                        item === applyData?.recruit_part
-                                    }
+                                    isSelected={item === applyData?.recruitPart}
                                     style={{ cursor: 'default' }}
                                 >
                                     {item === 'PLAN' && '기획'}
@@ -114,9 +114,9 @@ const ClickApply = props => {
                             <S.FormBox>
                                 {stack.map((item, i) => (
                                     <S.RoundForm
-                                        isSelected={
-                                            item === applyData?.applyStack[i]
-                                        }
+                                        isSelected={applyData?.applyStack.includes(
+                                            item,
+                                        )}
                                         style={{ cursor: 'default' }}
                                     >
                                         {item === 'REACT' && 'React'}
@@ -127,6 +127,7 @@ const ClickApply = props => {
                                         {item === 'JAVA' && 'Java'}
                                         {item === 'SPRING' && 'Spring'}
                                         {item === 'KOTLIN' && 'Kotlin'}
+                                        {item === 'SWIFT' && 'Swift'}
                                         {item === 'FLUTTER' && 'Flutter'}
                                         {item === 'ETC' && 'etc'}
                                     </S.RoundForm>
@@ -141,16 +142,18 @@ const ClickApply = props => {
                             {props.type ? (
                                 decision === 'NONE' ||
                                 decision === 'OPEN_APPLY' ? (
-                                    <S.ContentProject>
+                                    <S.Content h="180px">
                                         {applyData?.application}
-                                    </S.ContentProject>
+                                    </S.Content>
                                 ) : (
-                                    <S.Content>
+                                    <S.Content h="230px">
                                         {applyData?.application}
                                     </S.Content>
                                 )
                             ) : (
-                                <S.Content>{applyData?.application}</S.Content>
+                                <S.Content h="340px">
+                                    {applyData?.application}
+                                </S.Content>
                             )}
                         </S.TextBox>
                     </S.DetailBox2>

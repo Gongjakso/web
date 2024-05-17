@@ -25,8 +25,9 @@ export const BgButton = styled.div`
     justify-content: flex-end;
     margin-top: 10px;
     margin-bottom: 50px;
+    margin-right: 20px;
     img {
-        width: 2.5%;
+        width: 27px;
         cursor: pointer;
     }
 `;
@@ -104,9 +105,7 @@ export const TitleBottom = styled.div`
 `;
 
 export const BlueBox = styled.div`
-    width: 100%;
-    min-width: 650px;
-    height: auto;
+    height: 1400px;
     border: 2px solid ${props => props.bg};
     border-radius: 40px;
     margin-top: 15px;
@@ -115,7 +114,6 @@ export const BlueBox = styled.div`
 
 // 박스 안 텍스트 박스 전체 틀
 export const TextBox = styled.div`
-    width: 100%;
     align-items: center;
     padding: 20px 1px 20px 20px;
     display: flex;
@@ -123,14 +121,15 @@ export const TextBox = styled.div`
 
 // 텍스트 박스 안 굵은 제목
 export const TextTitle = styled.p`
-    width: 23%;
+    width: 190px;
     font-size: 1.6rem;
     font-family: 'PreBold';
 `;
 
 // 텍스트 박스 안 세부 내용
 export const TextDetail = styled.div`
-    width: 75%;
+    width: 800px;
+    flex-flow: wrap;
     font-family: 'PreMedium';
     font-size: 1.45rem;
     display: flex;
@@ -139,7 +138,7 @@ export const TextDetail = styled.div`
 export const Meeting = styled(TextDetail)`
     align-items: center;
     img {
-        width: 4%;
+        width: 30px;
         margin-right: 10px;
     }
 `;
@@ -147,14 +146,14 @@ export const Meeting = styled(TextDetail)`
 export const OpenKakao = styled(TextDetail)`
     align-items: center;
     img {
-        width: 18%;
+        width: 140px;
         cursor: pointer;
     }
 `;
 
 // 검은색 둥근 틀
 export const RoundForm = styled(Globalstyle)`
-    width: 150px;
+    min-width: 140px;
     padding: 12px 6px;
     background: black;
     display: flex;
@@ -164,7 +163,7 @@ export const RoundForm = styled(Globalstyle)`
     font-size: 1.13rem;
     color: white;
     text-align: center;
-    margin-right: 10px;
+    margin: 8px 8px 8px 0px;
 `;
 
 export const Line = styled.div`

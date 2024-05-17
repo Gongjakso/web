@@ -21,6 +21,7 @@ import {
 } from '../../service/post_service';
 import ClickmyApply from '../../features/modal/ClickmyApply';
 import { getMyApplication } from '../../service/apply_service';
+import ApplyCancel from '../../features/modal/ApplyCancel';
 
 const DetailPageContest = () => {
     const navigate = useCustomNavigate();
@@ -49,6 +50,15 @@ const DetailPageContest = () => {
     // 지원자 지원서 열람
     const [myAppOpen, setmyAppOpen] = useState(false);
 
+    // 지원자 지원취소 모달
+    const [showCancel, setshowCancel] = useState(false);
+
+    // 공고 제목
+    const [applyTitle, setapplyTitle] = useState('');
+
+    // 지원자 applyId
+    const [userId, setuserId] = useState('');
+
     // API 관련 변수
     const [postData, setpostData] = useState([]);
     const [category, setCategory] = useState([]);
@@ -72,15 +82,23 @@ const DetailPageContest = () => {
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
             seturlLink(`https://${res?.data.questionLink}`);
+            setapplyTitle(res?.data.title);
             console.log(res?.data);
         });
         getScrap(id).then(res => {
             setscrapStatus(res?.data.ScrapStatus);
         });
-        getMyApplication(id).then(res => {
-            setapplyType(res?.data.applyType);
-        });
     }, [id]);
+
+    useEffect(() => {
+        // checkStatus가 'APPLICANT'이고, id가 변경될 때마다 실행
+        if (checkStatus === 'APPLICANT') {
+            getMyApplication(id).then(res => {
+                setapplyType(res?.data.applyType);
+                setuserId(res?.data.applyId);
+            });
+        }
+    }, [checkStatus, id]);
 
     // 활동기간 수정 함수
     const formatDate = dateString => {
@@ -127,9 +145,18 @@ const DetailPageContest = () => {
                     id={postId}
                 />
             )}
+            {showCancel ? (
+                <ApplyCancel
+                    CloseModal={setshowCancel}
+                    type={postData?.postType}
+                    id={postId}
+                    applyId={userId}
+                    title={applyTitle}
+                />
+            ) : null}
 
             <S.Layout>
-                <S.Background s="60%" mgt="50px">
+                <S.Background s="1150px" mgt="50px">
                     <S.BgButton>
                         <img
                             src={Close}
@@ -191,7 +218,7 @@ const DetailPageContest = () => {
                     </S.TitleBox>
                 </S.Background>
 
-                <S.Background s="60%">
+                <S.Background s="1100px">
                     <S.BlueBox bg={({ theme }) => theme.Light1}>
                         <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>
@@ -249,7 +276,10 @@ const DetailPageContest = () => {
                             <S.TextTitle>회의 지역</S.TextTitle>
                             <S.Meeting>
                                 <img src={Place} alt="place-icon" />
-                                <span>{postData?.meetingArea}</span>
+                                <span>
+                                    {postData?.meetingCity}{' '}
+                                    {postData?.meetingTown}
+                                </span>
                             </S.Meeting>
                         </S.TextBox>
                         <S.TextBox>
@@ -282,7 +312,7 @@ const DetailPageContest = () => {
                         <S.TextBox>
                             <S.TextTitle>설명글</S.TextTitle>
                         </S.TextBox>
-                        <S.MainText h="34%">{postData?.contents}</S.MainText>
+                        <S.MainText h="420px">{postData?.contents}</S.MainText>
 
                         {/* 팀장일 경우 아직 디자인 미정.. */}
                         {checkStatus === 'LEADER' ? (
@@ -304,7 +334,9 @@ const DetailPageContest = () => {
                                     <S.ApplyButton
                                         bc="none"
                                         bg={({ theme }) => theme.LightGrey}
-                                        onClick={() => {}}
+                                        onClick={() => {
+                                            setshowCancel(true);
+                                        }}
                                     >
                                         지원 취소
                                     </S.ApplyButton>

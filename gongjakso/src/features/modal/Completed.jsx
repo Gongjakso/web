@@ -50,7 +50,7 @@ const Completed = props => {
         <div>
             {props.case === 1 && (
                 <S.Background2>
-                    <S.Modal w="50%" h="450px" bc={({ theme }) => theme.box1}>
+                    <S.Modal w="850px" h="450px" bc={({ theme }) => theme.box1}>
                         <S.Backbtn
                             onClick={() => {
                                 props.setApplyCheck(false);
@@ -94,7 +94,7 @@ const Completed = props => {
             )}
             {props.case === 2 && (
                 <S.Background>
-                    <S.Modal w="50%" h="400px" bc={({ theme }) => theme.box1}>
+                    <S.Modal w="850px" h="400px" bc={({ theme }) => theme.box1}>
                         <S.Backbtn
                             onClick={() => {
                                 navigate('/' + props.title[1]);

@@ -116,3 +116,15 @@ export const getMyApplication = async postid => {
         console.log(error);
     }
 };
+
+export const applyCancel = async apply_id => {
+    const reqURL = `apply/cancel/${apply_id}`;
+
+    try {
+        const response = await axiosInstance.patch(reqURL);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
