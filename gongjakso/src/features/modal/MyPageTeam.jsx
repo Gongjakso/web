@@ -2,21 +2,27 @@ import React, { useEffect, useState } from 'react';
 import useCustomNavigate from '../../hooks/useNavigate';
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
-import SelectCalendar from '../../components/common/Calendar/SelectCalendar';
 import {
     patchCancel,
     patchExtension,
     patchFinish,
 } from '../../service/apply_service';
+import SelectDate from '../../components/common/Calendar/SelectDate';
 
 const MyPageTeam = props => {
     const navigate = useCustomNavigate();
     const [checkedCase] = useState(props.teamCase.id);
 
-    const [dates, setDates] = useState([]);
+    const [dates, setDates] = useState();
 
-    const handleApply = selectedDates => {
-        setDates(selectedDates);
+    const handleApply = date => {
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
+        const day = date.getDate();
+
+        setDates(
+            `${year}-${month < 10 ? '0' + month : month}-${day < 10 ? '0' + day : day}`,
+        );
     };
 
     const ClickFinishBtn = () => {
@@ -24,7 +30,8 @@ const MyPageTeam = props => {
     };
 
     const ClickExtensionDate = () => {
-        patchExtension(props.id, dates.endDate);
+        // 아래 부분 2 로 넣은 부분 수정해야함
+        patchExtension(props.id, dates);
     };
 
     const ClickCancelBtn = () => {
@@ -67,7 +74,10 @@ const MyPageTeam = props => {
                         {checkedCase === '2' && (
                             <S.CompletedBox>
                                 <p>희망하는 마감일을 선택해주세요!</p>
-                                <SelectCalendar onApply={handleApply} />
+                                <SelectDate
+                                    value={handleApply}
+                                    onChange={handleApply}
+                                />
                             </S.CompletedBox>
                         )}
 
