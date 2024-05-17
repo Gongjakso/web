@@ -28,6 +28,7 @@ const PostMainPage = () => {
     // const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(1);
     const [banners, setBanners] = useState([]);
+    const [links, setLinks] = useState([]);
     const [contestTotalPage, setContestTotalPage] = useState();
     const [ProjectTotalPage, setProjectTotalPage] = useState();
     const [sortBy, setSortBy] = useState('createdAt');
@@ -40,7 +41,11 @@ const PostMainPage = () => {
 
     const [modal1Open, setModal1Open] = useState(false);
 
-    // const offset = (page - 1) * limit;
+    const encodeSpaces = searchKeyword => {
+        // console.log(searchKeyword.replace(/ /g, '%20'));
+        return searchKeyword.replace(/ /g, '%20');
+    };
+    // 띄어쓰기 인코딩 하는 부분
 
     useEffect(() => {
         setPage(1);
@@ -69,6 +74,7 @@ const PostMainPage = () => {
 
     const options = ['전체', '인기순', '최신순'];
     const stackOptions = [
+        '사용 언어',
         'REACT',
         'TYPESCRIPT',
         'JAVASCRIPT',
@@ -81,10 +87,14 @@ const PostMainPage = () => {
         'FLUTTER',
         'ETC',
     ];
+
     useEffect(() => {
         getProjectBanner().then(res => {
-            const imageUrls = res?.data?.map(item => item.imageUrl);
+            const imageUrls = res?.data?.map(item => item?.imageUrl);
             setBanners(imageUrls);
+            const LinkUrls = res?.data?.map(item => item?.linkUrl);
+            // console.log(LinkUrls);
+            setLinks(LinkUrls);
         });
         isProject
             ? loadProjectPosts(
@@ -124,9 +134,9 @@ const PostMainPage = () => {
             sort,
             selectedCityData,
             selectedTownData,
-            searchKeyword,
+            encodeSpaces(searchKeyword),
         ).then(res => {
-            // console.log(res?.data);
+            console.log(selectedCityData);
             setContestPosts(res?.data?.content);
             setContestTotalPage(res?.data?.totalPages);
         });
@@ -145,7 +155,7 @@ const PostMainPage = () => {
             selectedCityData,
             selectedTownData,
             selectedStack,
-            searchKeyword,
+            encodeSpaces(searchKeyword),
         ).then(res => {
             setProjectPosts(res?.data?.content);
             setProjectTotalPage(res?.data?.totalPages);
@@ -170,7 +180,11 @@ const PostMainPage = () => {
 
     const handleSelectedDataCity = data => {
         //선택한 지역 반환
-        setSelectedCityData(data);
+        if (data === '지역') {
+            setSelectedCityData('');
+        } else {
+            setSelectedCityData(data);
+        }
     };
     const handleSelectedDataTown = data => {
         //선택한 지역 반환
@@ -190,7 +204,7 @@ const PostMainPage = () => {
             <TopButton />
             <S.MainContent>
                 <S.Div>
-                    <SwiperBanner BannerImg={banners} />
+                    <SwiperBanner BannerImg={banners} BannerLink={links} />
                 </S.Div>
                 <S.Search>
                     <S.SearchBar>

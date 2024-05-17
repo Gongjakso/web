@@ -1,5 +1,8 @@
 export const mapData = [
     {
+        city: '지역',
+    },
+    {
         city: '서울',
         region: [
             '전체',

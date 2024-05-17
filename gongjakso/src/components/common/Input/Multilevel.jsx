@@ -12,20 +12,37 @@ const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
     const [town, setTown] = useState('');
     const [isOpen, setIsOpen] = useState(false);
 
-    const items = mapData.map(item => ({
-        label: item.city,
-        items: item.region.map(region => ({
-            label: region,
-            onSelect: () => {
-                const selectedCity = `${item.city}`;
-                const selectedTown = `${region}`;
-                setCity(selectedCity);
-                setTown(selectedTown);
-                onItemSelectedCity(selectedCity);
-                onItemSelectedTown(selectedTown);
-            },
-        })),
-    }));
+    const items = mapData.map(item => {
+        // Check if 'region' exists in the item
+        if (item.region && item.region.length > 0) {
+            return {
+                label: item?.city,
+                items: item?.region?.map(region => ({
+                    label: region,
+                    onSelect: () => {
+                        const selectedCity = `${item.city}`;
+                        const selectedTown = `${region}`;
+                        setCity(selectedCity);
+                        setTown(selectedTown);
+                        onItemSelectedCity(selectedCity);
+                        onItemSelectedTown(selectedTown);
+                    },
+                })),
+            };
+        } else {
+            // If 'region' does not exist, return only the city
+            return {
+                label: item.city,
+                onSelect: () => {
+                    const selectedCity = `${item.city}`;
+                    setCity(selectedCity);
+                    setTown('');
+                    onItemSelectedCity(selectedCity);
+                    onItemSelectedTown('');
+                },
+            };
+        }
+    });
 
     return (
         <S.Dropdown isPost={props.isPost} isOpen={isOpen}>
@@ -38,8 +55,7 @@ const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
                             setIsOpen(isOpen);
                         }}
                     >
-                        {city}
-                        {town}
+                        {city} {town}
                         <S.UpdownComponent
                             isPost={props.isPost}
                             isOpen={isOpen}
