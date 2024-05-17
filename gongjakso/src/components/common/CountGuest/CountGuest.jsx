@@ -40,12 +40,22 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
         if (!increment && roles[role] <= 0) return; // 음수가 되지 않도록 처리
         if (increment && totalSelectedGuests >= maxGuests) return; // 최대치 초과 시 처리
 
-        setRoles(prevRoles => ({
-            ...prevRoles,
-            [role]: increment
-                ? prevRoles[role] + 1
-                : Math.max(0, prevRoles[role] - 1),
-        }));
+        setRoles(prevRoles => {
+            const updatedRoles = {
+                ...prevRoles,
+                [role]: increment
+                    ? prevRoles[role] + 1
+                    : Math.max(0, prevRoles[role] - 1),
+            };
+
+            // 총 입력한 숫자가 입력한 인원수를 초과하는 경우 비활성화
+            const total = Object.values(updatedRoles).reduce(
+                (acc, count) => acc + count,
+                0,
+            );
+            const isExceedMaxGuests = total > maxGuests;
+            return isExceedMaxGuests ? prevRoles : updatedRoles;
+        });
     };
 
     const category = {
@@ -95,12 +105,14 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
                                 onClick={() =>
                                     handleQuantityChange(role, false)
                                 }
+                                disabled={roles[role] <= 0}
                             >
                                 -
                             </S.Button>
                             {quantity}
                             <S.Button
                                 onClick={() => handleQuantityChange(role, true)}
+                                disabled={totalSelectedGuests >= maxGuests} // 최대치를 초과하는 경우 버튼 비활성화
                             >
                                 +
                             </S.Button>

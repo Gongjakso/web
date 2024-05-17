@@ -9,6 +9,7 @@ export const postPosting = async postContent => {
         const response = await axiosInstance.post(reqURL, {
             ...postContent,
         });
+        console.log(response);
         return response;
     } catch (error) {
         console.log(error);

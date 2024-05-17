@@ -6,12 +6,14 @@ import CountGuest from '../../components/common/CountGuest/CountGuest';
 import SelectCalendar from '../../components/common/Calendar/SelectCalendar';
 import { postPosting } from '../../service/post_service';
 import Multilevel from '../../components/common/Input/Multilevel';
-import useCustomNavigate from '../../hooks/useNavigate';
 import SelectDate from '../../components/common/Calendar/SelectDate';
 import moment from 'moment';
+import { openAlertModal } from '../../features/modal/modalSlice/alertModalSlice';
+import { useDispatch } from 'react-redux';
+import AlertModal from '../../components/common/AlertModal/AlertModal';
 
 const TeamBuildingUploadPage = ({ posts }) => {
-    const goToPage = useCustomNavigate();
+    const dispatch = useDispatch();
 
     const language = [
         'REACT',
@@ -29,10 +31,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
 
     const [meeting, setMeeting] = useState('OFFLINE');
     const [complaint, setComplaint] = useState('true');
-
     const [description, setDescription] = useState('');
+    const [inputCount, setInputCount] = useState(0); // 글자 수
 
     const handleDescriptionChange = event => {
+        if (event.target.value.length > 500) {
+            event.target.value = event.target.value.slice(0, 500);
+        }
+        setInputCount(event.target.value.length);
         setDescription(event.target.value);
     };
 
@@ -48,6 +54,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
     const [selectedTownData, setSelectedTownData] = useState('');
     const [selectedCityData, setSelectedCityData] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState();
+
     //프로젝트/공모전 기간 설정
     const transformAndSetDates = (startDate, endDate) => {
         const parsedStartDate = new Date(startDate);
@@ -87,6 +94,9 @@ const TeamBuildingUploadPage = ({ posts }) => {
             people: null,
         },
     });
+
+    const titleValue = watch('title')?.length; // 'title' 필드의 값을 감시
+    // setTitleValue(watch('title'));
 
     const handleOptionChange = option => {
         if (option === 'ONLINE') {
@@ -188,7 +198,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
             finishDate: endDates.endDate, // 공고 마감일
             maxPerson: data.people,
             stackNames: [],
-            categories: category.categories, //참여하는 팀의 역할
+            categories: category?.categories, //참여하는 팀의 역할
             meetingMethod: meeting,
             meetingCity: selectedCityData,
             meetingTown: selectedTownData,
@@ -198,12 +208,30 @@ const TeamBuildingUploadPage = ({ posts }) => {
         };
         postPosting(newData).then(res => {
             if (res === 5000) {
-                alert('공고를 더이상 생성할 수 없습니다!');
+                dispatch(
+                    openAlertModal({
+                        titleContent: '공모전 팀빌딩',
+                        modalContent: '공고를 더이상 생성할 수 없습니다!',
+                    }),
+                );
+            } else if (res === 2000) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '공모전 팀빌딩',
+                        modalContent:
+                            '공고의 세부 항목 중 빠진것이 없는지 확인해주세요',
+                    }),
+                );
             } else {
-                alert('공고가 생성 되었습니다!');
+                dispatch(
+                    openAlertModal({
+                        titleContent: '공모전 팀빌딩',
+                        modalContent: '공고가 생성 되었습니다!',
+                        redirectUrl: '/contest',
+                    }),
+                );
             }
         });
-        goToPage('/contest');
     };
     const submitProjectBuild = data => {
         const newData = {
@@ -215,7 +243,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
             finishDate: endDates.endDate,
             maxPerson: data.people,
             stackNames: selectedLanguage,
-            categories: category.categories,
+            categories: category?.categories,
             meetingMethod: meeting,
             meetingCity: selectedCityData,
             meetingTown: selectedTownData,
@@ -226,12 +254,30 @@ const TeamBuildingUploadPage = ({ posts }) => {
         console.log(newData);
         postPosting(newData).then(res => {
             if (res === 5000) {
-                alert('공고를 더이상 생성할 수 없습니다!');
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent: '공고를 더이상 생성할 수 없습니다!',
+                    }),
+                );
+            } else if (res === 2000) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent:
+                            '공고의 세부 항목 중 빠진것이 없는지 확인해주세요!',
+                    }),
+                );
             } else {
-                alert('공고가 생성 되었습니다!');
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent: '공고가 생성 되었습니다!',
+                        redirectUrl: '/project',
+                    }),
+                );
             }
         });
-        goToPage('/project');
     };
 
     return (
@@ -259,6 +305,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             register={register}
                             registerOptions={{ required: '제목을 입력하세요' }}
                         />
+                        <S.InputNum>
+                            <span>
+                                {titleValue === undefined ? 0 : titleValue}
+                            </span>
+                            <span>/20</span>
+                        </S.InputNum>
                     </S.Label>
 
                     <S.Label>
@@ -267,11 +319,15 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             name=""
                             id="description"
                             cols="20"
-                            rows="5"
+                            rows="8"
                             value={description}
                             onChange={handleDescriptionChange}
                             placeholder="사용자들이 공모전/프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
                         ></S.TextArea>
+                        <S.InputNum>
+                            <span>{inputCount}</span>
+                            <span>/500</span>
+                        </S.InputNum>
                     </S.Label>
 
                     <S.Label>
@@ -415,6 +471,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             register={register}
                             registerOptions={{ required: '제목을 입력하세요' }}
                         />
+                        <S.InputNum>
+                            <span>
+                                {titleValue === undefined ? 0 : titleValue}
+                            </span>
+                            <span>/20</span>
+                        </S.InputNum>
                     </S.Label>
 
                     <S.Label>
@@ -422,12 +484,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TextArea
                             name=""
                             id="description"
-                            cols="30"
-                            rows="5"
+                            cols="20"
+                            rows="8"
                             value={description}
                             onChange={handleDescriptionChange}
                             placeholder="사용자들이 공모전/프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
                         ></S.TextArea>
+                        <S.InputNum>
+                            <span>{inputCount}</span>
+                            <span>/500</span>
+                        </S.InputNum>
                     </S.Label>
                     <S.Label>
                         <Input
@@ -547,6 +613,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.ButtonContent>
                 </>
             )}
+            <AlertModal />;
         </S.Container>
     );
 };
