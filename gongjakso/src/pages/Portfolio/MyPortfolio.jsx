@@ -1,16 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // useEffect 추가
 import * as S from './MyPortfolioStyled';
 import axios from 'axios';
 import useCustomNavigate from '../../hooks/useNavigate';
+
+import { getMyInfo } from '../../service/auth_service';
 
 const TeamPortfolio = () => {
     const [email, setEmail] = useState('');
 
     const goToPage = useCustomNavigate();
 
+    useEffect(() => {
+        const fetchMyInfo = async () => {
+            try {
+                const { data } = await getMyInfo();
+                setEmail(data.email);
+            } catch (error) {
+                console.error(
+                    '내 정보를 불러오는 중 오류가 발생했습니다: ',
+                    error,
+                );
+            }
+        };
+
+        fetchMyInfo();
+    }, []);
+
     const handleEmailChange = e => {
         setEmail(e.target.value);
     };
+
     const baseURL = process.env.REACT_APP_BASE_URL;
 
     const isValidEmail = email => {
@@ -31,7 +50,6 @@ const TeamPortfolio = () => {
 
             if (response.status === 200) {
                 alert('출시 후, 메일 전송 해드리겠습니다!');
-                goToPage('/');
             } else {
                 console.log('서버로부터의 응답이 예상과 다릅니다.', response);
             }
