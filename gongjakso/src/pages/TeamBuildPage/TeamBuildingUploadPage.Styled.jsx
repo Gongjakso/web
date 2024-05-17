@@ -31,9 +31,11 @@ export const Label = styled.label`
     margin: 20px 0;
 `;
 
+export const Input = styled.input``;
+
 export const TapT = styled.p`
     display: flex;
-    width: 190px;
+    width: 20%;
     font-weight: 700;
     font-size: ${({ theme }) => theme.fontSize.lg};
     font-family: 'PreMedium';
@@ -46,15 +48,29 @@ export const TextArea = styled.textarea.attrs(props => ({
     width: 70%;
     height: 100%;
     max-height: 200px;
-    font-family: 'PreMedium';
-    color: ${({ theme }) => theme.greyFont};
+    /* font-family: 'PreMedium'; */
     overflow: auto;
     resize: vertical;
-    margin-left: 5px;
     padding: 10px 0;
     border-style: none;
+    resize: none;
     border-bottom: 1px solid ${({ theme }) => theme.border};
     margin-bottom: 10px;
+
+    font-style: normal;
+    font-variant-ligatures: normal;
+    font-variant-caps: normal;
+    font-variant-numeric: normal;
+    font-variant-east-asian: normal;
+    font-variant-alternates: normal;
+    font-variant-position: normal;
+    font-weight: normal;
+    font-stretch: normal;
+    font-family: 'Helvetica Neue', sans-serif; /* 원하는 폰트 패밀리로 설정 */
+    font-optical-sizing: auto;
+    font-kerning: auto;
+    font-feature-settings: normal;
+    font-variation-settings: normal;
 
     &:focus {
         outline: none;
@@ -64,6 +80,15 @@ export const TextArea = styled.textarea.attrs(props => ({
     &.warning {
         border-bottom: 1px solid ${({ theme }) => theme.repo.open};
     }
+`;
+
+export const InputNum = styled.p`
+    color: ${({ theme }) => theme.greyFont};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    font-family: 'PreRegular';
+    letter-spacing: 1px;
+    margin-top: 10px;
+    text-align: right;
 `;
 
 export const Container = styled.div`

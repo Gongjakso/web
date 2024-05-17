@@ -1,12 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import confirmModalReducer from './features/modal/confirmModalSlice';
-// import alertModalReducer from './features/modal/alertModalSlice';
-// import pageTitleReducer from './features/pageTitle/pageTitleSlice';
+import confirmModalReducer from './features/modal/modalSlice/confirmModalSlice';
+import alertModalReducer from './features/modal/modalSlice/alertModalSlice';
 
 export default configureStore({
     reducer: {
-//         confirmModal: confirmModalReducer,
-//         alertModal: alertModalReducer,
-//         pageTitle: pageTitleReducer,
+        confirmModal: confirmModalReducer,
+        alertModal: alertModalReducer,
     },
 });
