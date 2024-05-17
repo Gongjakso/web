@@ -33,26 +33,23 @@ const ClickApply = props => {
             setPart(res?.data.category);
             setStack(res?.data.postStack);
             setDecision(res?.data.applyType);
-            console.log(res?.data);
+            // console.log(res?.data);
         });
     }, [props.id, props.idNum]);
 
     const ClickRecruitBtn = () => {
         patchRecruit(props.idNum).then(res => {
-            console.log(res?.data);
+            // console.log(res?.data);
         });
         alert('지원자가 합류되었습니다.');
-        // props.setShowApply(false);
         window.location.reload();
     };
 
     const ClickNotRecruitBtn = () => {
         patchNotRecruit(props.idNum).then(res => {
-            // handleRefresh();
-            console.log(res?.data);
+            // console.log(res?.data);
         });
         alert('지원자를 미선발하였습니다.');
-        // props.setShowApply(false);
         window.location.reload();
     };
 
@@ -82,11 +79,8 @@ const ClickApply = props => {
 
                     <S.MainTitle>
                         <p>{applyData?.memberName}</p>
-
-                        {/* 여기 전공, 전화번호 api 들어가야 함!! */}
                         <S.Major>{applyData?.major}</S.Major>
-                        <S.Major>010-0000-0000</S.Major>
-                        {/* <S.Major>{applyData?.phone}</S.Major> */}
+                        <S.Major>{applyData?.phone}</S.Major>
                     </S.MainTitle>
                     <S.DetailBox>
                         <S.SubTitle>지원 분야</S.SubTitle>

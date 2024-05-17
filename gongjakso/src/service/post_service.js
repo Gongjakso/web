@@ -18,7 +18,7 @@ export const postPosting = async postContent => {
 };
 
 export const getPostDetail = async (id, role) => {
-    const reqURL = `post/read?id=${id}&role=${role}`;
+    const reqURL = `post/${id}`;
 
     try {
         const response = await axiosInstance.get(reqURL);

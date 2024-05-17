@@ -10,6 +10,7 @@ import OpenKakao from '../../assets/images/OpenKakaoLink.svg';
 import DoScrap from '../../assets/images/Scrap.svg';
 import arrow from '../../assets/images/Arrow.svg';
 import googleform from '../../assets/images/GoogleFormLink.svg';
+import postLink from '../../assets/images/postLink.svg';
 import ApplyModal from '../../features/modal/ApplyModal';
 import Completed from '../../features/modal/Completed';
 import ClickApply from '../../features/modal/ClickApply';
@@ -29,11 +30,8 @@ const DetailPageContest = () => {
 
     // 지원서 모달창 띄우는 경우
     const [showApply, setShowApply] = useState(false);
-    const [idNum, setidNum] = useState(''); // post_id..?
-    const [idName, setidName] = useState(''); // member API에서 따로 받아와야 하나..
-    const [part, setPart] = useState([]);
-    const [role, setRole] = useState([]);
-    const [posts, setPosts] = useState([]);
+    const [idNum, setidNum] = useState('');
+    const [idName, setidName] = useState('');
 
     // 지원하기 버튼
     const [apply, setApply] = useState(false);
@@ -65,7 +63,6 @@ const DetailPageContest = () => {
 
     const [scrapNum, setscrapNum] = useState(0);
     const [scrapStatus, setscrapStatus] = useState('');
-    const [urlLink, seturlLink] = useState('');
     const [checkStatus, setcheckStatus] = useState('');
     const [applyType, setapplyType] = useState('');
 
@@ -74,14 +71,13 @@ const DetailPageContest = () => {
     useEffect(() => {
         getCheckStatus(id).then(res => {
             setcheckStatus(res?.data.role);
-            console.log(res?.data);
+            // console.log(res?.data);
         });
 
-        getPostDetail(id, 'GENERAL').then(res => {
+        getPostDetail(id).then(res => {
             setpostData(res?.data);
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
-            seturlLink(`https://${res?.data.questionLink}`);
             setapplyTitle(res?.data.title);
             console.log(res?.data);
         });
@@ -113,6 +109,13 @@ const DetailPageContest = () => {
     const ClickScrapBtn = () => {
         postScrap(id);
         setscrapStatus(current => !current);
+    };
+
+    const openNewWindow = linkurl => {
+        if (!/^https?:\/\//i.test(linkurl)) {
+            linkurl = 'https://' + linkurl;
+        }
+        window.open(linkurl, '_blank');
     };
 
     return (
@@ -221,6 +224,12 @@ const DetailPageContest = () => {
                 <S.Background s="1100px">
                     <S.BlueBox bg={({ theme }) => theme.Light1}>
                         <S.TextBox>
+                            <S.TextTitle>공고 마감일</S.TextTitle>
+                            <S.TextDetail>
+                                {formatDate(postData?.finishDate)}
+                            </S.TextDetail>
+                        </S.TextBox>
+                        <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>
                             <S.TextDetail>
                                 {formatDate(postData?.startDate)} ~{' '}
@@ -284,17 +293,27 @@ const DetailPageContest = () => {
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>공모전 홈페이지</S.TextTitle>
-                            <S.TextDetail>{postData?.urlLink}</S.TextDetail>
+                            <S.OpenKakao w="185px">
+                                <img
+                                    src={postLink}
+                                    alt="homepage-link"
+                                    onClick={() => {
+                                        openNewWindow(postData?.urlLink);
+                                    }}
+                                />
+                            </S.OpenKakao>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>기타 문의</S.TextTitle>
-                            <S.OpenKakao>
+                            <S.OpenKakao w="140px">
                                 {postData?.questionMethod ? (
                                     <img
                                         src={OpenKakao}
                                         alt="kakao-link"
                                         onClick={() => {
-                                            window.open(urlLink);
+                                            openNewWindow(
+                                                postData?.questionLink,
+                                            );
                                         }}
                                     />
                                 ) : (
@@ -302,7 +321,9 @@ const DetailPageContest = () => {
                                         src={googleform}
                                         alt="googleForm-link"
                                         onClick={() => {
-                                            window.open(urlLink);
+                                            openNewWindow(
+                                                postData?.questionLink,
+                                            );
                                         }}
                                     />
                                 )}
