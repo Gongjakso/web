@@ -10,7 +10,6 @@ const TeamBuildPage = () => {
         setCurrentContent(content);
     };
 
-    console.log(buttonClicked);
     return (
         <>
             <S.Container>

@@ -38,8 +38,7 @@ const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
                             setIsOpen(isOpen);
                         }}
                     >
-                        {city}
-                        {town}
+                        {city} {town}
                         <S.UpdownComponent
                             isPost={props.isPost}
                             isOpen={isOpen}

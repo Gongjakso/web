@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import theme from '../../../styles/theme';
 
 export const Container = styled.div``;
 export const SearchBox = styled.div`
@@ -95,9 +96,11 @@ export const Button = styled.div`
     text-align: center;
     border: 1px solid ${({ theme }) => theme.border};
     color: ${({ theme }) => theme.mainFont};
-    font-size: 20px;
+    font-size: 23px;
     margin: 0px 10px;
-    cursor: pointer;
+    cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+    color: ${({ disabled }) => (disabled ? 'gray' : theme.Main1)};
+    border-color: ${({ disabled }) => (disabled ? 'gray' : theme.Main1)};
 `;
 
 export const ApplyBtn = styled.div`
