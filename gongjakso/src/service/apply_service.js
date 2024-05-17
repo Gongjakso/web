@@ -20,7 +20,7 @@ export const patchExtension = async (post_id, newdate) => {
 
     try {
         const response = await axiosInstance.patch(reqURL, {
-            endDate: newdate,
+            finishDate: newdate,
         });
         return response.data;
     } catch (error) {
