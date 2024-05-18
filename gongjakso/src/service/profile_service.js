@@ -61,11 +61,7 @@ export const getMyParticipatedMain = async () => {
     const reqURL = `apply/my-participation-post?page=0&size=2`;
 
     try {
-        const response = await axios.get(`${BaseUrl}${reqURL}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -77,11 +73,7 @@ export const getMyParticipated = async () => {
     const reqURL = `apply/my-participation-post?page=0&size=6`;
 
     try {
-        const response = await axios.get(`${BaseUrl}${reqURL}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -91,11 +83,7 @@ export const getMyParticipated = async () => {
 export const getMyContestScrap = async () => {
     const reqURL = `post/contest/myScrap`;
     try {
-        const response = await axiosInstance.get(`${reqURL}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        const response = await axiosInstance.get(reqURL);
         console.log(response.data);
         return response.data;
     } catch (error) {

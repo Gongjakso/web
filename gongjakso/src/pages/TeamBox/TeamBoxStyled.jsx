@@ -202,7 +202,7 @@ export const DeadlineOverlay = styled.div`
     border-radius: 13.5px;
     font-size: ${({ theme }) => theme.fontSize.ll};
     background: ${({ status }) =>
-        status === 'RECRUITING'
+        status === 'EXTENSION'
             ? `rgba(0, 84, 255, 0.5)`
             : `rgba(0, 0, 0, 0.5)`};
     display: flex;

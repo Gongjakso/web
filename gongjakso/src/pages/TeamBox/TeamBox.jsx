@@ -139,7 +139,7 @@ const TeamBox = ({
                             : postContent?.applyType === 'NOT_PASS'
                               ? '미선발'
                               : '합류 대기중'}
-                        {postContent?.status === 'RECRUITING' && ( //RECRUITING -> EXTENSION으로 변경해야함
+                        {postContent?.status === 'EXTENSION' && (
                             <S.DeadlineOverlay status={postContent.status}>
                                 모집이 연장되었습니다.
                             </S.DeadlineOverlay>

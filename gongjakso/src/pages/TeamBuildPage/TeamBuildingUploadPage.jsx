@@ -613,7 +613,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.ButtonContent>
                 </>
             )}
-            <AlertModal />;
+            <AlertModal />
         </S.Container>
     );
 };

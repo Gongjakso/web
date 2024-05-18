@@ -97,7 +97,7 @@ const TeamPortfolio = () => {
                 />
                 <S.CheckBox onClick={handleEmailSubmit}>확인</S.CheckBox>
             </S.BottomBox>
-            <AlertModal />;
+            <AlertModal />
         </S.Container>
     );
 };
