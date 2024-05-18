@@ -222,6 +222,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             '공고의 세부 항목 중 빠진것이 없는지 확인해주세요',
                     }),
                 );
+            } else if (res === 5004) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent:
+                            '파트별 인원수가 전체 인원수와 일치하지 않습니다.',
+                    }),
+                );
             } else {
                 dispatch(
                     openAlertModal({
@@ -268,6 +276,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             '공고의 세부 항목 중 빠진것이 없는지 확인해주세요!',
                     }),
                 );
+            } else if (res === 5004) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent:
+                            '파트별 인원수가 전체 인원수와 일치하지 않습니다.',
+                    }),
+                );
             } else {
                 dispatch(
                     openAlertModal({
@@ -303,7 +319,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             }
                             error={errors?.title}
                             register={register}
-                            registerOptions={{ required: '제목을 입력하세요' }}
+                            registerOptions={{
+                                required: '제목을 입력하세요',
+                                maxLength: {
+                                    value: 20,
+                                    message:
+                                        '제목은 20자를 초과할 수 없습니다.',
+                                },
+                            }}
                         />
                         <S.InputNum>
                             <span>
@@ -429,9 +452,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                                 id={'complainLink'}
                                 placeholder={'*링크를 입력해주세요.'}
                                 register={register}
-                                registerOptions={{
-                                    required: '*문의사항 링크를 입력하세요',
-                                }}
+                                registerOptions={{}}
                             />
                         </S.Complain>
                     </S.Label>
@@ -469,7 +490,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             }
                             error={errors?.title}
                             register={register}
-                            registerOptions={{ required: '제목을 입력하세요' }}
+                            registerOptions={{
+                                required: '제목을 입력하세요',
+                                maxLength: {
+                                    value: 20,
+                                    message:
+                                        '제목은 20자를 초과할 수 없습니다.',
+                                },
+                            }}
                         />
                         <S.InputNum>
                             <span>
@@ -510,6 +538,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
                                 min: 1,
                                 max: 10,
                             }}
+                            min={1}
+                            max={10}
                             step={1}
                         />
                     </S.Label>

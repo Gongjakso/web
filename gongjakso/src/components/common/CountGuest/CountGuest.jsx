@@ -92,7 +92,7 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
                               .filter(([_, quantity]) => quantity > 0)
                               .map(([role, quantity]) => `${role}: ${quantity}`)
                               .join(', ')
-                        : '공모전에 필요한 역할을 선택해주세요!'}
+                        : '해당 공고에 필요한 역할을 선택해주세요!'}
                 </S.Span>
             </S.SearchBox>
 
