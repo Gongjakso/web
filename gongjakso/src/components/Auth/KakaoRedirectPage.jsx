@@ -4,13 +4,12 @@ import * as S from './KakaoRedirectPage.Styled';
 
 const KakaoRedirectPage = () => {
     const code = new URL(window.location.href).searchParams.get('code');
-
     useEffect(() => {
         getToken(code)
             .then(result => {
                 console.log(result);
                 localStorage.setItem('accessToken', result?.accessToken);
-                window.history.back();
+                window.location.replace('/');
             })
             .catch(error => {
                 console.error('Error occurred while getting token:', error);
