@@ -44,7 +44,7 @@ export const BottomBox = styled.div`
     justify-content: center;
     align-items: center;
     border-bottom: 1px solid #b7b7b7;
-    width: 600px;
+    width: 50%;
     margin: auto;
 `;
 

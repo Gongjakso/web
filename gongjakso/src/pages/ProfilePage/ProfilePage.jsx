@@ -19,7 +19,7 @@ const ProfilePage = () => {
             setProfileData(response?.data); // 'response'를 바로 전달
         });
         getMyRecruiting().then(response => {
-            setPostContent1(response?.data);
+            setPostContent1(response?.data.slice(0, 2));
         });
         getMyApplied().then(response => {
             setPostContent2(response?.data.slice(0, 2));

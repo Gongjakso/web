@@ -10,9 +10,12 @@ const TeamBox = ({
     postContent,
     isMyParticipation,
     postId,
+    overlayType,
 }) => {
     const [isOverlayVisible, setIsOverlayVisible] = useState(true);
-
+    const hideOverlay = () => {
+        setIsOverlayVisible(false); // 오버레이를 숨기는 함수
+    };
     //활동기간 형식 바꾸기
     const startDate = new Date(postContent?.startDate)
         .toLocaleDateString('ko-KR', {
@@ -128,15 +131,32 @@ const TeamBox = ({
                         )
                     )}
                 </S.MainBox>
+                {isOverlayVisible && <S.CloseImage onClick={hideOverlay} />}
                 {showWaitingJoin && (
-                    <S.WaitingJoin>
-                        {postContent?.status === 'OPEN_APPLY'
-                            ? '합류 대기중'
-                            : '미선발'}
+                    <S.WaitingJoin applyType={postContent?.applyType}>
+                        {postContent?.applyType === 'PASS'
+                            ? '합류 완료'
+                            : postContent?.applyType === 'NOT_PASS'
+                              ? '미선발'
+                              : '합류 대기중'}
+                        {postContent?.status === 'EXTENSION' && (
+                            <S.DeadlineOverlay status={postContent.status}>
+                                모집이 연장되었습니다.
+                            </S.DeadlineOverlay>
+                        )}
+                        {postContent?.status === 'CLOSE' && (
+                            <S.DeadlineOverlay status={postContent.status}>
+                                모집이 마감되었습니다.
+                            </S.DeadlineOverlay>
+                        )}
+                        {postContent?.status === 'CANCEL' && (
+                            <S.DeadlineOverlay status={postContent.status}>
+                                모집이 취소되었습니다.
+                            </S.DeadlineOverlay>
+                        )}
                     </S.WaitingJoin>
                 )}
             </S.BoxBottomDetail>
-
             {showMoreDetail && (
                 <Link to={`/teamdetail/${postId}`}>
                     <S.MoreDetail />

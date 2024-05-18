@@ -96,6 +96,7 @@ export const CloseImage = styled(CloseWhite)`
     top: 25px;
     right: 25px;
     cursor: pointer;
+    z-index: 9999;
 `;
 
 //마감일수
@@ -137,9 +138,12 @@ export const WaitingJoin = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${({ theme, postStatus }) =>
-        postStatus === 'OPEN_APPLY' ? theme.Light1 : theme.LightGrey};
-    background: ${({ theme }) => theme.Light1};
+    background: ${({ theme, applyType }) =>
+        applyType === 'PASS'
+            ? theme.box1
+            : applyType === 'NOT_PASS'
+              ? theme.LightGrey
+              : theme.Light1};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: 600;
@@ -195,10 +199,12 @@ export const DeadlineOverlay = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 13px;
+    border-radius: 13.5px;
     font-size: ${({ theme }) => theme.fontSize.ll};
-    //background-color: rgba(0, 0, 0, 0.5);
-    background-color: rgba(0, 84, 255, 0.5);
+    background: ${({ status }) =>
+        status === 'EXTENSION'
+            ? `rgba(0, 84, 255, 0.5)`
+            : `rgba(0, 0, 0, 0.5)`};
     display: flex;
     justify-content: center;
     align-items: center;
