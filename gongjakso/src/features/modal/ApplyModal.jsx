@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import * as S from './ApplyModal.styled';
 import Close from '../../assets/images/Close.svg';
 import { postApply } from '../../service/post_service';
+import Completed from './Completed';
 
 const ApplyModal = props => {
-    const [clickedFields, setClickedFields] = useState(null); // 지원 분야 배열
-    const [clickedSkill, setClickedSkill] = useState(null); // 기술 스택 배열
-
     const [form] = useState(props.title); // 공모전과 프로젝트 구분 목적
+
+    const [clickedFields, setClickedFields] = useState(null); // 지원 분야 배열
+    const [clickedSkill, setClickedSkill] = useState([]); // 기술 스택 배열
 
     const [inputCount, setInputCount] = useState(0); // 글자 수
     const [inputValue, setInputValue] = useState(''); // 지원 이유
@@ -17,6 +18,8 @@ const ApplyModal = props => {
     // API 관련 변수
     const [applyType] = useState(props.category); // 지원 분야
     const [stackType] = useState(props.stackType); // 기술 스택
+
+    const [applyCheck, setApplyCheck] = useState(false);
 
     // 스크롤 방지
     useEffect(() => {
@@ -36,11 +39,16 @@ const ApplyModal = props => {
     const handleClick = type => {
         setClickedFields(type);
     };
+
     const DoubleClick = type => {
-        if (clickedSkill.includes(type)) {
-            setClickedSkill(clickedSkill.filter(btnIndex => btnIndex !== type));
+        const isSelected = clickedSkill.includes(type);
+
+        if (isSelected) {
+            setClickedSkill(prevSelected =>
+                prevSelected.filter(btnIndex => btnIndex !== type),
+            );
         } else {
-            setClickedSkill([...clickedSkill, type]);
+            setClickedSkill(prevSelected => [...prevSelected, type]);
         }
     };
 
@@ -51,39 +59,11 @@ const ApplyModal = props => {
         textarea.current.style.height = textarea.current.scrollHeight + 'px';
     };
     const onInputHandler = e => {
-        if (e.target.value.length > 500) {
-            e.target.value = e.target.value.slice(0, 500);
+        if (e.target.value.length > 1000) {
+            e.target.value = e.target.value.slice(0, 1000);
         }
         setInputCount(e.target.value.length);
         setInputValue(e.target.value);
-    };
-
-    // 지원하기 POST
-    const submitContestApply = data => {
-        const newData = {
-            application: inputValue,
-            recruit_part: clickedFields,
-            recruit_role: '',
-            type: 'CONTEST',
-            isPass: 'true',
-            is_open: 'true',
-            isDecision: 'true',
-        };
-        postApply(props.id, newData).then(res => {
-            console.log(res);
-        });
-    };
-    const submitProjectApply = data => {
-        const newData = {
-            application: inputValue,
-            recruit_part: clickedFields,
-            recruit_role: '',
-            type: 'PROJECT',
-            isPass: 'true',
-            is_open: 'true',
-            isDecision: 'true',
-        };
-        postApply(props.id, newData);
     };
 
     // 필수 항목 검사
@@ -93,22 +73,37 @@ const ApplyModal = props => {
         } else {
             // 필수항목이 선택되었을 때만 post 처리
             if (form[0] === '공모전') {
-                props.setApply(false);
-                props.setCompleted(true);
-                submitContestApply();
+                props.setApply(true);
+                setApplyCheck(true);
             } else if (form[0] === '프로젝트') {
-                props.setApply(false);
-                props.setCompleted(true);
-                submitProjectApply();
+                props.setApply(true);
+                setApplyCheck(true);
             }
         }
     };
 
     return (
         <>
+            {applyCheck === true ? (
+                <Completed
+                    title={form[0]}
+                    case={1}
+                    id={props.id}
+                    setApplyCheck={setApplyCheck}
+                    clickedFields={clickedFields}
+                    clickedSkill={clickedSkill}
+                    inputValue={inputValue}
+                    setApply={props.setApply}
+                    setCompleted={props.setCompleted}
+                />
+            ) : null}
             {form[0] === '공모전' && (
                 <S.Background>
-                    <S.Modal w="55%" h="75%" bc={({ theme }) => theme.Light1}>
+                    <S.Modal
+                        w="1000px"
+                        h="700px"
+                        bc={({ theme }) => theme.Light1}
+                    >
                         <S.Backbtn
                             onClick={() => {
                                 props.setApply(false);
@@ -159,15 +154,15 @@ const ApplyModal = props => {
                                     ref={textarea}
                                     onChange={onInputHandler}
                                     onInput={handleResizeHeight}
-                                    maxLength={'500'}
+                                    maxLength={'1000'}
                                     rows={1}
                                     placeholder={
-                                        '* 해당 공모전 팀에 합류하고 싶은 이유를 작성해주세요!(최대 500자)'
+                                        '* 해당 공모전 팀에 합류하고 싶은 이유를 작성해주세요!(최대 1000자)'
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
                                     <span>{inputCount}</span>
-                                    <span>/500</span>
+                                    <span>/1000</span>
                                 </S.InputNum>
                             </S.TextBox>
                         </S.DetailBox>
@@ -183,7 +178,11 @@ const ApplyModal = props => {
 
             {form[0] === '프로젝트' && (
                 <S.Background>
-                    <S.Modal w="55%" h="85%" bc={({ theme }) => theme.Pink}>
+                    <S.Modal
+                        w="1000px"
+                        h="800px"
+                        bc={({ theme }) => theme.Pink}
+                    >
                         <S.Backbtn
                             onClick={() => {
                                 props.setApply(false);
@@ -232,11 +231,11 @@ const ApplyModal = props => {
                                 {stackType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={
-                                            clickedSkill === item.stackNameType
-                                        }
+                                        isSelected={clickedSkill.includes(
+                                            item.stackNameType,
+                                        )}
                                         onClick={() =>
-                                            handleClick(item.stackNameType)
+                                            DoubleClick(item.stackNameType)
                                         }
                                     >
                                         {item.stackNameType === 'REACT' &&
@@ -257,6 +256,8 @@ const ApplyModal = props => {
                                             'Kotlin'}
                                         {item.stackNameType === 'FLUTTER' &&
                                             'Flutter'}
+                                        {item.stackNameType === 'SWIFT' &&
+                                            'Swift'}
                                         {item.stackNameType === 'ETC' && 'etc'}
                                     </S.RoundForm>
                                 ))}
@@ -270,21 +271,21 @@ const ApplyModal = props => {
                                     ref={textarea}
                                     onChange={onInputHandler}
                                     onInput={handleResizeHeight}
-                                    maxLength={'500'}
+                                    maxLength={'1000'}
                                     rows={1}
                                     placeholder={
-                                        '* 해당 프로젝트 팀에 합류하고 싶은 이유를 작성해주세요!(최대 500자)'
+                                        '* 해당 프로젝트 팀에 합류하고 싶은 이유를 작성해주세요!(최대 1000자)'
                                     }
                                 ></S.InputArea>
                                 <S.InputNum>
                                     <span>{inputCount}</span>
-                                    <span>/500</span>
+                                    <span>/1000</span>
                                 </S.InputNum>
                             </S.TextBox>
                         </S.DetailBox>
 
                         <S.ApplyBox>
-                            <S.ApplyBtn w="15%" onClick={WarningApply}>
+                            <S.ApplyBtn w="230px" onClick={WarningApply}>
                                 지원하기
                             </S.ApplyBtn>
                         </S.ApplyBox>

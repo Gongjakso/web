@@ -15,10 +15,16 @@ const TeamPart = () => {
 
     useEffect(() => {
         getMyParticipated().then(response => {
-            console.log(response.data);
+            console.log(response?.data);
             setPostContent3(response?.data);
         });
     }, []);
+
+    const loadParticipatedPosts = page => {
+        getMyParticipated(page).then(response => {
+            setPostContent3(response?.data);
+        });
+    };
 
     return (
         <div>
@@ -33,9 +39,11 @@ const TeamPart = () => {
                             key={index}
                             showMoreDetail={false}
                             borderColor={
-                                postContent3.postType === true
-                                    ? 'rgba(0, 163, 255, 0.5)'
-                                    : 'rgba(231, 137, 255, 0.5)'
+                                postContent3?.postStatus === 'EXTENSION'
+                                    ? 'rgba(111, 111, 111, 1)'
+                                    : postContent3.postType === true
+                                      ? 'rgba(231, 137, 255, 0.5)'
+                                      : 'rgba(0, 163, 255, 0.5)'
                             }
                             showWaitingJoin={false}
                             showSubBox={false}
@@ -47,9 +55,9 @@ const TeamPart = () => {
 
                 <Pagination
                     total={totalPage}
-                    limit={limit}
                     page={page}
                     setPage={setPage}
+                    loadPosts={loadParticipatedPosts}
                 />
             </S.BoxDetail>
         </div>

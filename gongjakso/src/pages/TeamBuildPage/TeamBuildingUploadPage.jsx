@@ -6,10 +6,14 @@ import CountGuest from '../../components/common/CountGuest/CountGuest';
 import SelectCalendar from '../../components/common/Calendar/SelectCalendar';
 import { postPosting } from '../../service/post_service';
 import Multilevel from '../../components/common/Input/Multilevel';
-import useCustomNavigate from '../../hooks/useNavigate';
+import SelectDate from '../../components/common/Calendar/SelectDate';
+import moment from 'moment';
+import { openAlertModal } from '../../features/modal/modalSlice/alertModalSlice';
+import { useDispatch } from 'react-redux';
+import AlertModal from '../../components/common/AlertModal/AlertModal';
 
 const TeamBuildingUploadPage = ({ posts }) => {
-    const goToPage = useCustomNavigate();
+    const dispatch = useDispatch();
 
     const language = [
         'REACT',
@@ -20,16 +24,21 @@ const TeamBuildingUploadPage = ({ posts }) => {
         'JAVA',
         'SPRING',
         'KOTLIN',
+        'SWIFT',
         'FLUTTER',
         'ETC',
     ];
 
     const [meeting, setMeeting] = useState('OFFLINE');
     const [complaint, setComplaint] = useState('true');
-
     const [description, setDescription] = useState('');
+    const [inputCount, setInputCount] = useState(0); // 글자 수
 
     const handleDescriptionChange = event => {
+        if (event.target.value.length > 500) {
+            event.target.value = event.target.value.slice(0, 500);
+        }
+        setInputCount(event.target.value.length);
         setDescription(event.target.value);
     };
 
@@ -39,41 +48,37 @@ const TeamBuildingUploadPage = ({ posts }) => {
 
     const [btn, setBtn] = useState(false);
 
-    const MAX_ADULT_NUM = 4;
-    const MAX_ROOM_NUM = 9;
-
     const [dates, setDates] = useState([]);
-    const [endDates, setEndDates] = useState([]);
+    const [endDates, setEndDates] = useState('');
 
-    const [selectedLocalData, setSelectedLocalData] = useState('');
+    const [selectedTownData, setSelectedTownData] = useState('');
+    const [selectedCityData, setSelectedCityData] = useState('');
     const [selectedLanguage, setSelectedLanguage] = useState();
+
     //프로젝트/공모전 기간 설정
     const transformAndSetDates = (startDate, endDate) => {
         const parsedStartDate = new Date(startDate);
         const parsedEndDate = new Date(endDate);
-
         const formattedStartDate = `${parsedStartDate.toISOString().split('T')[0]}T02:32:22.376895959`;
         const formattedEndDate = `${parsedEndDate.toISOString().split('T')[0]}T02:32:22.376895959`;
-
         setDates({ startDate: formattedStartDate, endDate: formattedEndDate });
     };
 
-    //마감 기한 설정
-    const transformAndSetEndDates = (startDate, endDate) => {
-        const parsedStartDate = new Date(startDate);
-        const parsedEndDate = new Date(endDate);
-
-        const formattedStartDate = `${parsedStartDate.toISOString().split('T')[0]}T02:32:22.376895959`;
-        const formattedEndDate = `${parsedEndDate.toISOString().split('T')[0]}T02:32:22.376895959`;
-
+    //마감 일 기간 포맷팅
+    const transformAndSetEndDates = selectDate => {
+        const parsedSelectDate = moment(selectDate);
+        const formattedSelectDate = parsedSelectDate.format(
+            'YYYY-MM-DDTHH:mm:ss.SSSSSSSSS',
+        );
         setEndDates({
-            endDate: formattedEndDate,
+            endDate: formattedSelectDate,
         });
     };
 
     const {
         register,
         handleSubmit,
+        watch,
         // setFocus,
         // setValue,
         // setError,
@@ -90,20 +95,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
         },
     });
 
-    // const handleQuantityChange = (role, increment) => {
-    //     setRoles(prevRoles => ({
-    //         ...prevRoles,
-    //         [role]: increment
-    //             ? prevRoles[role] + 1
-    //             : Math.max(0, prevRoles[role] - 1),
-    //     }));
-    // };
-
-    // const category = {
-    //     categories: Object.entries(roles)
-    //         .filter(([_, size]) => size !== 0) // Filter out categories with size 0
-    //         .map(([categoryType, size]) => ({ categoryType, size })),
-    // };
+    const titleValue = watch('title')?.length; // 'title' 필드의 값을 감시
+    // setTitleValue(watch('title'));
 
     const handleOptionChange = option => {
         if (option === 'ONLINE') {
@@ -137,9 +130,13 @@ const TeamBuildingUploadPage = ({ posts }) => {
         setBtn(true);
     };
 
-    const handleSelectedData = data => {
+    const handleSelectedDataCity = data => {
         //선택한 지역 반환
-        setSelectedLocalData(data);
+        setSelectedCityData(data);
+    };
+    const handleSelectedDataTown = data => {
+        //선택한 지역 반환
+        setSelectedTownData(data);
     };
 
     const handleLanguageClick = language => {
@@ -163,18 +160,35 @@ const TeamBuildingUploadPage = ({ posts }) => {
 
     //프로젝트/공모전 기한 설정
     const handleApply = selectedDates => {
+        // console.log(selectedDates);
         transformAndSetDates(selectedDates.startDate, selectedDates.endDate);
     };
     //마감 기한 연장 설정
-    const handleEndApply = selectedDates => {
-        transformAndSetEndDates(selectedDates.startDate, selectedDates.endDate);
+
+    const handleDateChange = date => {
+        transformAndSetEndDates(date);
     };
 
     const handleCategory = selectCategory => {
+        // console.log(selectCategory.totalSelectedGuests);
+        //선택한 인원의 숫자 가져오기
         setCategory(selectCategory.category);
     };
 
+    const handleCancel = () => {
+        const scrollStep = -window.scrollY / 20;
+        const scrollInterval = setInterval(() => {
+            if (window.scrollY !== 0) {
+                window.scrollBy(0, scrollStep);
+            } else {
+                clearInterval(scrollInterval);
+                window.location.reload(); // Reload the page after scrolling to the top
+            }
+        }, 15);
+    };
+
     const submitContestBuild = data => {
+        // console.log(endDates);
         const newData = {
             title: data.title,
             contents: description,
@@ -184,43 +198,86 @@ const TeamBuildingUploadPage = ({ posts }) => {
             finishDate: endDates.endDate, // 공고 마감일
             maxPerson: data.people,
             stackNames: [],
-            categories: category.categories, //참여하는 팀의 역할
+            categories: category?.categories, //참여하는 팀의 역할
             meetingMethod: meeting,
-            meetingArea: selectedLocalData,
+            meetingCity: selectedCityData,
+            meetingTown: selectedTownData,
             questionMethod: complaint,
             questionLink: data.complainLink,
             postType: false,
         };
-        console.log(newData);
         postPosting(newData).then(res => {
-            console.log(res);
+            if (res === 5000) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '공모전 팀빌딩',
+                        modalContent: '공고를 더이상 생성할 수 없습니다!',
+                    }),
+                );
+            } else if (res === 2000) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '공모전 팀빌딩',
+                        modalContent:
+                            '공고의 세부 항목 중 빠진것이 없는지 확인해주세요',
+                    }),
+                );
+            } else {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '공모전 팀빌딩',
+                        modalContent: '공고가 생성 되었습니다!',
+                        redirectUrl: '/contest',
+                    }),
+                );
+            }
         });
-        alert('공모전 게시글이 업로드 되었습니다!');
-        goToPage('/contest');
     };
     const submitProjectBuild = data => {
         const newData = {
             title: data.title,
-            contents:
-                '프로젝트 팀에 합류하세요: 열정적이고 재능 있는 구성원 모집!',
+            contents: description,
             contestLink: '',
             startDate: dates.startDate,
             endDate: dates.endDate,
             finishDate: endDates.endDate,
-            maxPerson: 10,
+            maxPerson: data.people,
             stackNames: selectedLanguage,
-            categories: category.categories,
+            categories: category?.categories,
             meetingMethod: meeting,
-            meetingArea: selectedLocalData,
+            meetingCity: selectedCityData,
+            meetingTown: selectedTownData,
             questionMethod: complaint,
             questionLink: data.complainLink,
             postType: true,
         };
+        console.log(newData);
         postPosting(newData).then(res => {
-            console.log(res);
+            if (res === 5000) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent: '공고를 더이상 생성할 수 없습니다!',
+                    }),
+                );
+            } else if (res === 2000) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent:
+                            '공고의 세부 항목 중 빠진것이 없는지 확인해주세요!',
+                    }),
+                );
+            } else {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent: '공고가 생성 되었습니다!',
+                        redirectUrl: '/project',
+                    }),
+                );
+            }
         });
-        alert('프로젝트 게시글이 업로드 되었습니다!');
-        goToPage('/project');
     };
 
     return (
@@ -248,6 +305,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             register={register}
                             registerOptions={{ required: '제목을 입력하세요' }}
                         />
+                        <S.InputNum>
+                            <span>
+                                {titleValue === undefined ? 0 : titleValue}
+                            </span>
+                            <span>/20</span>
+                        </S.InputNum>
                     </S.Label>
 
                     <S.Label>
@@ -256,11 +319,15 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             name=""
                             id="description"
                             cols="20"
-                            rows="5"
+                            rows="8"
                             value={description}
                             onChange={handleDescriptionChange}
                             placeholder="사용자들이 공모전/프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
                         ></S.TextArea>
+                        <S.InputNum>
+                            <span>{inputCount}</span>
+                            <span>/500</span>
+                        </S.InputNum>
                     </S.Label>
 
                     <S.Label>
@@ -282,13 +349,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             type={'number'}
                             id={'people'}
                             placeholder={
-                                '모집 총 인원을 입력해주세요. *최대 8명 입니다.'
+                                '모집 총 인원을 입력해주세요. *최대 10명 입니다.'
                             }
                             error={errors?.people}
                             register={register}
                             registerOptions={{
                                 required: '인원을 입력하세요 ',
                                 min: 1,
+                                max: 10,
                             }}
                             step={1}
                         />
@@ -297,6 +365,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>모집 분야</S.TapP>
                         <CountGuest
                             isProject={false}
+                            maxGuests={parseInt(watch('people'), 10)} // 입력한 숫자를 최대치로 설정
                             onApply={handleCategory}
                         />
                     </S.Label>
@@ -323,7 +392,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>회의 지역</S.TapP>
                         <Multilevel
                             isPost={true}
-                            onItemSelected={handleSelectedData}
+                            onItemSelectedCity={handleSelectedDataCity}
+                            onItemSelectedTown={handleSelectedDataTown}
                         />
                     </S.Label>
                     <S.Label>
@@ -331,8 +401,11 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <SelectCalendar onApply={handleApply} />
                     </S.Label>
                     <S.Label>
-                        <S.TapP>공고 마감 기간</S.TapP>
-                        <SelectCalendar onApply={handleEndApply} />
+                        <S.TapP>공고 마감일</S.TapP>
+                        <SelectDate
+                            value={handleDateChange}
+                            onChange={handleDateChange}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>문의사항</S.TapP>
@@ -363,7 +436,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         </S.Complain>
                     </S.Label>
                     <S.ButtonContent>
-                        <S.Button $isDelete={true}>취소하기</S.Button>
+                        <S.Button
+                            $isDelete={true}
+                            onClick={() => handleCancel()}
+                        >
+                            취소하기
+                        </S.Button>
                         <S.Button onClick={handleSubmit(submitContestBuild)}>
                             모집 시작하기
                         </S.Button>
@@ -393,6 +471,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             register={register}
                             registerOptions={{ required: '제목을 입력하세요' }}
                         />
+                        <S.InputNum>
+                            <span>
+                                {titleValue === undefined ? 0 : titleValue}
+                            </span>
+                            <span>/20</span>
+                        </S.InputNum>
                     </S.Label>
 
                     <S.Label>
@@ -400,12 +484,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TextArea
                             name=""
                             id="description"
-                            cols="30"
-                            rows="5"
+                            cols="20"
+                            rows="8"
                             value={description}
                             onChange={handleDescriptionChange}
                             placeholder="사용자들이 공모전/프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
                         ></S.TextArea>
+                        <S.InputNum>
+                            <span>{inputCount}</span>
+                            <span>/500</span>
+                        </S.InputNum>
                     </S.Label>
                     <S.Label>
                         <Input
@@ -413,20 +501,25 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             type={'number'}
                             id={'people'}
                             placeholder={
-                                '모집 총 인원을 입력해주세요. *최대 8명 입니다.'
+                                '모집 총 인원을 입력해주세요. *최대 10명 입니다.'
                             }
                             error={errors?.people}
                             register={register}
                             registerOptions={{
                                 required: '인원을 입력하세요 ',
                                 min: 1,
+                                max: 10,
                             }}
                             step={1}
                         />
                     </S.Label>
                     <S.Label>
                         <S.TapP>모집 분야</S.TapP>
-                        <CountGuest isProject={true} onApply={handleCategory} />
+                        <CountGuest
+                            isProject={true}
+                            maxGuests={parseInt(watch('people'), 10)} // 입력한 숫자를 최대치로 설정
+                            onApply={handleCategory}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>회의 방식</S.TapP>
@@ -465,7 +558,8 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>회의 지역</S.TapP>
                         <Multilevel
                             isPost={true}
-                            onItemSelected={handleSelectedData}
+                            onItemSelectedCity={handleSelectedDataCity}
+                            onItemSelectedTown={handleSelectedDataTown}
                         />
                     </S.Label>
                     <S.Label>
@@ -473,8 +567,12 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <SelectCalendar onApply={handleApply} />
                     </S.Label>
                     <S.Label>
-                        <S.TapP>공고 마감 기간</S.TapP>
-                        <SelectCalendar onApply={handleEndApply} />
+                        <S.TapP>공고 마감일</S.TapP>
+                        {/* <SelectCalendar onApply={handleEndApply} /> */}
+                        <SelectDate
+                            value={handleDateChange}
+                            onChange={handleDateChange}
+                        />
                     </S.Label>
                     <S.Label>
                         <S.TapP>문의사항</S.TapP>
@@ -503,13 +601,19 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         </S.Complain>
                     </S.Label>
                     <S.ButtonContent>
-                        <S.Button $isDelete={true}>취소하기</S.Button>
+                        <S.Button
+                            $isDelete={true}
+                            onClick={() => handleCancel()}
+                        >
+                            취소하기
+                        </S.Button>
                         <S.Button onClick={handleSubmit(submitProjectBuild)}>
                             모집 시작하기
                         </S.Button>
                     </S.ButtonContent>
                 </>
             )}
+            <AlertModal />;
         </S.Container>
     );
 };

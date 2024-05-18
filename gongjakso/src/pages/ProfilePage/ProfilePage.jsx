@@ -20,7 +20,6 @@ const ProfilePage = () => {
         });
         getMyRecruiting().then(response => {
             setPostContent1(response?.data);
-            console.log(response?.data);
         });
         getMyApplied().then(response => {
             setPostContent2(response?.data.slice(0, 2));
@@ -29,7 +28,8 @@ const ProfilePage = () => {
             setPostContent3(response?.data.participationLists.slice(0, 2));
         });
     }, []);
-    console.log(postContent2);
+
+    // console.log(postContent2);
     return (
         <div>
             <S.TopBox>
@@ -58,8 +58,8 @@ const ProfilePage = () => {
                             showSubBox={true}
                             borderColor={
                                 postContent1.postType === true
-                                    ? 'rgba(0, 163, 255, 0.5)'
-                                    : 'rgba(231, 137, 255, 0.5)'
+                                    ? 'rgba(231, 137, 255, 0.5)'
+                                    : 'rgba(0, 163, 255, 0.5)'
                             }
                             postContent={postContent1}
                             isMyParticipation={false}
@@ -82,8 +82,8 @@ const ProfilePage = () => {
                             showSubBox={true}
                             borderColor={
                                 postContent2.postType === true
-                                    ? 'rgba(0, 163, 255, 0.5)'
-                                    : 'rgba(231, 137, 255, 0.5)'
+                                    ? 'rgba(231, 137, 255, 0.5)'
+                                    : 'rgba(0, 163, 255, 0.5)'
                             }
                             postContent={postContent2}
                             isMyParticipation={false}
@@ -101,9 +101,11 @@ const ProfilePage = () => {
                         <TeamBox
                             showMoreDetail={false}
                             borderColor={
-                                postContent3.postType === true
-                                    ? 'rgba(0, 163, 255, 0.5)'
-                                    : 'rgba(231, 137, 255, 0.5)'
+                                postContent3?.postStatus === 'EXTENSION'
+                                    ? 'rgba(111, 111, 111, 1)'
+                                    : postContent3.postType === true
+                                      ? 'rgba(231, 137, 255, 0.5)'
+                                      : 'rgba(0, 163, 255, 0.5)'
                             }
                             showWaitingJoin={false}
                             showSubBox={false}

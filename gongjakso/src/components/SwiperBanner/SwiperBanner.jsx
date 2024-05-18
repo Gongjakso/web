@@ -7,25 +7,34 @@ import 'swiper/css/pagination';
 import * as S from './SwiperBanner.Styled';
 
 const SwiperBanner = banners => {
-    const bannerData = banners.BannerImg;
+    const bannerData = banners?.BannerImg;
+    const bannerLinks = banners?.BannerLink;
     return (
-        <Swiper
-            modules={[Navigation, Pagination, A11y]}
-            spaceBetween={50}
-            loop={true}
-            slidesPerView={1}
-            navigation
-            pagination={{
-                type: 'fraction',
-            }}
-            scrollbar={{ draggable: true }}
-        >
-            {bannerData?.map((img, i) => (
-                <SwiperSlide key={i}>
-                    <S.Banners src={img} />
-                </SwiperSlide>
-            ))}
-        </Swiper>
+        <S.SwiperContainer>
+            <Swiper
+                modules={[Navigation, Pagination, A11y]}
+                spaceBetween={50}
+                loop={true}
+                slidesPerView={1}
+                navigation
+                pagination={{
+                    type: 'fraction',
+                }}
+                scrollbar={{ draggable: true }}
+            >
+                {bannerData?.map((img, i) => (
+                    <SwiperSlide key={i}>
+                        <a
+                            href={bannerLinks[i]}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <S.Banners src={img} />
+                        </a>{' '}
+                    </SwiperSlide>
+                ))}
+            </Swiper>
+        </S.SwiperContainer>
     );
 };
 

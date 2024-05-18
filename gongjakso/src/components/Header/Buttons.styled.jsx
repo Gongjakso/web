@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled, css } from 'styled-components';
 
 export const IconButton = styled.button`
     display: flex;
@@ -27,7 +27,7 @@ export const IconNameSpan = styled.span`
         $active ? theme.main : $hover ? theme.main : theme.mainFont};
 `;
 export const ProfileIcon = styled.img`
-    width: 25px;
-    height: 25x;
+    width: 30px;
+    height: auto;
     margin: 0 10px;
 `;

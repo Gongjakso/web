@@ -2,15 +2,15 @@ import styled from 'styled-components';
 
 export const Div = styled.div`
     width: 100%;
-    height: 90vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 130px;
 `;
 
 export const TopBox = styled.div`
-    height: 250px;
+    height: 300px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -28,12 +28,13 @@ export const DetailBox = styled.div`
 `;
 
 export const InputField = styled.input`
-    width: 480px;
+    width: 430px;
     height: 55px;
-    padding: 5px;
-    border: 1px solid #a3a3a3;
-    border-radius: 5px;
+    padding: 15px;
+    border: 1.5px solid #a3a3a3;
+    border-radius: 7px;
     font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreMedium';
 `;
 
 export const Formset = styled.div`
@@ -42,7 +43,7 @@ export const Formset = styled.div`
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    gap: 20px;
+    gap: 50px;
 `;
 
 export const Spacer = styled.div`
@@ -59,8 +60,7 @@ export const Title = styled.p`
 export const SubTitle = styled.p`
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: bold;
-    width: 10%;
-    margin-right: 10px;
+    width: 8%;
 `;
 
 export const Wrapper = styled.div`
@@ -71,8 +71,8 @@ export const Wrapper = styled.div`
 `;
 
 export const SetBox = styled.button`
-    width: 200px;
-    height: 45px;
+    width: 240px;
+    padding: 15px;
     font-size: ${({ theme }) => theme.fontSize.md};
     background-color: #0054ff;
     display: flex;
@@ -91,14 +91,15 @@ const SelectField = styled.select`
 `;
 */
 export const SelectField = styled.select`
-    width: 480px;
+    width: 430px;
     height: 55px;
     max-height: 50px;
     overflow-y: auto;
-    padding: 5px;
-    border: 1px solid #a3a3a3;
-    border-radius: 5px;
+    padding: 10px;
+    border: 1.5px solid #a3a3a3;
+    border-radius: 7px;
     font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreMedium';
 
     background-color: white;
     color: black;
@@ -112,4 +113,51 @@ export const SelectField = styled.select`
         background-color: black;
         color: white;
     }
+`;
+
+export const Fillter1 = styled.div`
+    width: 430px;
+    padding: 1px;
+    border-radius: 7px;
+    border: 1.5px solid #a3a3a3;
+    display: flex;
+    align-items: center;
+`;
+
+export const PhoneNum = styled.div`
+    width: 430px;
+    height: 55px;
+    text-align: left;
+    display: flex;
+    padding: 15px;
+    border: 1.5px solid #a3a3a3;
+    border-radius: 7px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    font-family: 'PreMedium';
+`;
+
+export const Num = styled.input`
+    &.Num-first {
+        width: 40px;
+    }
+    &.Num-second {
+        width: 60px;
+    }
+    &.Num-third {
+        width: 60px;
+    }
+    &.Num-first,
+    &.Num-second,
+    &.Num-third {
+        text-align: center;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: ${({ theme }) => theme.fontSize.md};
+    }
+`;
+
+export const Hyphen = styled.div`
+    width: 20px;
+    text-align: center;
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `;

@@ -4,7 +4,9 @@ import useCustomNavigate from '../../hooks/useNavigate';
 import myPageImage from '../../assets/images/My_page.svg';
 import Modal1 from '../../features/modal/LoginModal1';
 import Modal2 from '../../features/modal/LoginModal2';
+import Bubble from './Bubble';
 import { logout } from '../../service/auth_service';
+import { useLocation } from 'react-router-dom';
 
 const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
     const authenticated = localStorage.getItem('accessToken');
@@ -12,7 +14,12 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(!!authenticated);
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
+    const [bubbleOpen, setBubbleOpen] = useState(false);
     const [path, setPath] = useState();
+
+    const location = useLocation();
+
+    const currentPage = location.pathname.substring(1);
 
     const getIconName = () => {
         const iconNames = {
@@ -35,7 +42,9 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
     const handleProfileClick = () => {
         const accessToken = localStorage.getItem('accessToken');
         if (accessToken) {
-            handleNavigate(`/${type}`);
+            if (type === 'profile') {
+                setBubbleOpen(true);
+            } else handleNavigate(`/${type}`);
         } else {
             setModal1Open(true);
         }
@@ -48,7 +57,6 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
             setModal2Open(true);
         }
     };
-
     const handleLogout = async () => {
         const accessToken = localStorage.getItem('accessToken');
         if (accessToken) {
@@ -67,13 +75,17 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
         setModal2Open(false);
     };
 
+    const closeBubble = () => {
+        setBubbleOpen(false);
+    };
     return (
         <>
             <S.IconButton
                 type="button"
-                name={type}
-                $active={active === type}
-                $type={active}
+                name={currentPage}
+                $active={currentPage === type}
+                $type={currentPage}
+                className={`icon-button ${type === 'profile' ? 'profile-button' : ''}`}
                 onMouseEnter={() =>
                     setHover(prev => ({ ...prev, [type]: true }))
                 }
@@ -98,17 +110,20 @@ const GenericIconButton = ({ type, hover, setHover, active, setActive }) => {
                     }
                 }}
             >
-                <S.IconNameSpan $hover={hover[type]} $active={active === type}>
+                <S.IconNameSpan
+                    $hover={hover[type]}
+                    $active={currentPage === type}
+                >
                     {type === 'profile' ? (
                         <>
                             <S.ProfileIcon src={myPageImage} />
-                            {iconName}
                         </>
                     ) : (
                         iconName
                     )}
                 </S.IconNameSpan>
             </S.IconButton>
+            {bubbleOpen && <Bubble closeBubble={closeBubble} />}
             {modal1Open && <Modal1 closeModal1={closeModal1} />}
             {modal2Open && <Modal2 goPath={path} closeModal2={closeModal2} />}
         </>

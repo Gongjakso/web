@@ -10,6 +10,10 @@ export const Background = styled.div`
     z-index: 5;
 `;
 
+export const Background2 = styled(Background)`
+    z-index: 10;
+`;
+
 export const Modal = styled.div`
     border: 2px solid ${props => props.bc};
     position: relative;
@@ -25,12 +29,20 @@ export const Modal = styled.div`
 
 export const Backbtn = styled.button`
     position: absolute;
-    right: 10%;
+    right: 6%;
+`;
+
+export const Decisionbtn = styled.div`
+    position: absolute;
+    left: 7%;
+    top: 7%;
+    width: 130px;
+    text-align: center;
 `;
 
 export const MainTitle = styled.p`
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSize.l};
+    font-size: ${({ theme }) => theme.fontSize.ll};
     font-family: 'PreBold';
     letter-spacing: 0.5px;
     margin-bottom: 30px;
@@ -43,7 +55,7 @@ export const DetailBox = styled.div`
 `;
 
 export const DetailBox2 = styled.div`
-    padding: 5px;
+    padding: 15px;
 `;
 
 export const SubTitle = styled.p`
@@ -55,13 +67,13 @@ export const SubTitle = styled.p`
 // RoundForm 감싸는 틀
 export const FormBox = styled.div`
     display: flex;
-    width: 100%;
+    flex-flow: wrap;
     top: 60px;
     left: 0;
 `;
 
 export const RoundForm = styled.button`
-    width: 120px;
+    min-width: 130px;
     height: auto;
     border: 1px solid #a3a3a3;
     border-radius: 30px;
@@ -96,16 +108,17 @@ export const WarningTitle = styled.p`
 export const InputArea = styled.textarea`
     width: 100%;
     height: 100%;
-    max-height: 170px;
+    max-height: 190px;
     display: block;
     border: none;
     border-bottom: 1.5px solid black;
     padding: 5px;
     resize: vertical;
-    overflow: auto;
-    color: ${({ theme }) => theme.greyFont};
-    font-size: ${({ theme }) => theme.fontSize.base};
+    overflow: hidden;
+    color: #5c5c5c;
+    font-size: 1.15rem;
     font-family: 'PreRegular';
+    line-height: 1.5;
     &:focus {
         outline: none;
     }
@@ -117,7 +130,7 @@ export const InputArea = styled.textarea`
 // 글자 수 체크
 export const InputNum = styled.p`
     color: ${({ theme }) => theme.greyFont};
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
     font-family: 'PreRegular';
     letter-spacing: 1px;
     margin-top: 10px;
@@ -130,7 +143,27 @@ export const ApplyBox = styled.div`
     justify-content: center;
     width: 100%;
 `;
+export const ApplyBox2 = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
 
+export const newBtn = styled.button`
+    width: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 60px;
+    border-radius: 15px;
+    margin: 15px;
+    padding: 18px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    background: ${props => props.bg};
+    font-family: 'PreBold';
+    color: ${props => props.c};
+`;
 export const ApplyBtn = styled.button`
     position: absolute;
     bottom: 40px;
@@ -141,10 +174,10 @@ export const ApplyBtn = styled.button`
     height: 50px;
     border-radius: 10px;
     margin: 15px;
-    padding: 20px;
+    padding: 27px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    font-weight: bold;
     background: ${({ theme }) => theme.box1};
+    font-family: 'PreBold';
     color: white;
 `;
 
@@ -160,12 +193,12 @@ export const ProfileApplyBox = styled.div`
 `;
 
 export const ProfileApplyBtn = styled.button`
-    width: 30%;
+    width: 25%;
     margin: 15px;
     border-radius: 12px;
     padding: 20px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    font-weight: bold;
+    font-family: 'PreBold';
     background: ${props => props.bg};
     color: white;
 `;
@@ -173,23 +206,42 @@ export const ProfileApplyBtn = styled.button`
 // 지원 이유
 export const Content = styled.div`
     border: none;
-    padding-bottom: 10px;
-    border-bottom: 2px solid black;
-    color: ${({ theme }) => theme.greyFont};
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    padding-bottom: 5px;
+    border-bottom: 1.5px solid black;
+    color: #5c5c5c;
+    font-size: ${({ theme }) => theme.fontSize.md};
     line-height: 30px;
+    max-height: ${props => props.h};
+    overflow-y: scroll;
 `;
 
 // 지원 완료 창 텍스트 틀
 export const CompletedBox = styled.div`
     width: 100%;
-    height: 50%;
+    height: 55%;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: 1.3rem;
     font-family: 'PreMedium';
-    gap: 20px;
+    gap: 8px;
+`;
+
+export const Major = styled.p`
+    margin: 5px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    color: #5c5c5c;
+    font-family: 'PreMedium';
+`;
+
+export const StateBtn = styled.div`
+    width: 100%;
+    padding: 10px;
+    color: white;
+    font-size: ${({ theme }) => theme.fontSize.base};
+    background: ${props => props.bg};
+    border-radius: 20px;
 `;

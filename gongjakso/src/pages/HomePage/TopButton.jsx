@@ -6,7 +6,7 @@ const TopButton = ({ onClick }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const handleScroll = () => {
-        if (window.scrollY > 1200) {
+        if (window.scrollY > 600) {
             setIsVisible(true);
         } else {
             setIsVisible(false);
@@ -14,6 +14,7 @@ const TopButton = ({ onClick }) => {
     };
 
     const scrollToTop = () => {
+        // 맨 위로 스크롤
         window.scroll({
             top: 0,
             behavior: 'smooth',

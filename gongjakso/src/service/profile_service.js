@@ -3,12 +3,13 @@ import axios from 'axios';
 const BaseUrl = process.env.REACT_APP_BASE_URL;
 
 //나의 정보
-export const putMyInfo = async (name, major, job, status) => {
+export const putMyInfo = async (name, major, job, status, phone) => {
     const reqURL = `member`;
 
     try {
         const response = await axiosInstance.put(reqURL, {
             name: name,
+            phone: phone,
             status: status,
             major: major,
             job: job,
@@ -36,9 +37,10 @@ export const getMyRecruiting = async () => {
 
     try {
         const response = await axiosInstance.get(reqURL);
+        console.log(response);
         return response.data;
     } catch (error) {
-        console.log('내가 모집 중인 게시글을 가져올 수 없습니다.');
+        console.log('내가 모집 중인 게시글을 가져올 수 없습니다.', error);
     }
 };
 
@@ -83,5 +85,31 @@ export const getMyParticipated = async () => {
         return response.data;
     } catch (error) {
         console.log(error);
+    }
+};
+
+export const getMyContestScrap = async () => {
+    const reqURL = `post/contest/myScrap`;
+    try {
+        const response = await axiosInstance.get(`${reqURL}`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log('내가 스크랩한 공모전 정보를 가져올 수 없습니다.');
+    }
+};
+
+export const getMyProjectScrap = async () => {
+    const reqURL = `post/project/myScrap`;
+    try {
+        const response = await axiosInstance.get(reqURL);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.log('내가 스크랩한 프로젝트 정보를 가져올 수 없습니다.');
     }
 };

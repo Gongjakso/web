@@ -7,8 +7,11 @@ import {
     patchRecruit,
 } from '../../service/apply_service';
 
-const ClickApply = ({ Reload, ...props }) => {
+const ClickApply = props => {
     const [applyData, setapplyData] = useState([]);
+    const [part, setPart] = useState([]);
+    const [stack, setStack] = useState([]);
+    const [decision, setDecision] = useState('');
 
     // 스크롤 방지
     useEffect(() => {
@@ -27,41 +30,64 @@ const ClickApply = ({ Reload, ...props }) => {
     useEffect(() => {
         getApplication(props.id, props.idNum).then(res => {
             setapplyData(res?.data);
+            setPart(res?.data.category);
+            setStack(res?.data.postStack);
+            setDecision(res?.data.applyType);
+            // console.log(res?.data);
         });
-    }, [Reload]);
+    }, [props.id, props.idNum]);
 
     const ClickRecruitBtn = () => {
         patchRecruit(props.idNum).then(res => {
-            Reload();
+            // console.log(res?.data);
         });
+        alert('지원자가 합류되었습니다.');
+        window.location.reload();
     };
 
     const ClickNotRecruitBtn = () => {
         patchNotRecruit(props.idNum).then(res => {
-            Reload();
+            // console.log(res?.data);
         });
+        alert('지원자를 미선발하였습니다.');
+        window.location.reload();
     };
 
     return (
         <div>
             <S.Background>
-                <S.Modal w="53%" h="80%" bc={({ theme }) => theme.box1}>
+                <S.Modal w="1000px" h="850px" bc={({ theme }) => theme.box1}>
+                    <S.Decisionbtn>
+                        {decision === 'PASS' ? (
+                            <S.StateBtn bg={({ theme }) => theme.box1}>
+                                합류 완료
+                            </S.StateBtn>
+                        ) : decision === 'NOT_PASS' ? (
+                            <S.StateBtn bg={({ theme }) => theme.LightGrey}>
+                                미선발
+                            </S.StateBtn>
+                        ) : null}
+                    </S.Decisionbtn>
                     <S.Backbtn
                         onClick={() => {
                             props.setShowApply(false);
-                            Reload();
+                            // handleRefresh();
                         }}
                     >
                         <img src={Close} alt="close-btn" />
                     </S.Backbtn>
 
-                    <S.MainTitle>{props.idName}</S.MainTitle>
+                    <S.MainTitle>
+                        <p>{applyData?.memberName}</p>
+                        <S.Major>{applyData?.major}</S.Major>
+                        <S.Major>{applyData?.phone}</S.Major>
+                    </S.MainTitle>
                     <S.DetailBox>
                         <S.SubTitle>지원 분야</S.SubTitle>
                         <S.FormBox>
-                            {props.recruitPart.map((item, i) => (
+                            {part.map((item, i) => (
                                 <S.RoundForm
-                                    isSelected={item === applyData.recruit_part}
+                                    isSelected={item === applyData?.recruitPart}
                                     style={{ cursor: 'default' }}
                                 >
                                     {item === 'PLAN' && '기획'}
@@ -80,11 +106,11 @@ const ClickApply = ({ Reload, ...props }) => {
                         <S.DetailBox>
                             <S.SubTitle>기술 스택</S.SubTitle>
                             <S.FormBox>
-                                {props.recruitRole.map((item, i) => (
+                                {stack.map((item, i) => (
                                     <S.RoundForm
-                                        isSelected={
-                                            item === applyData.recruit_role
-                                        }
+                                        isSelected={applyData?.applyStack.includes(
+                                            item,
+                                        )}
                                         style={{ cursor: 'default' }}
                                     >
                                         {item === 'REACT' && 'React'}
@@ -95,6 +121,7 @@ const ClickApply = ({ Reload, ...props }) => {
                                         {item === 'JAVA' && 'Java'}
                                         {item === 'SPRING' && 'Spring'}
                                         {item === 'KOTLIN' && 'Kotlin'}
+                                        {item === 'SWIFT' && 'Swift'}
                                         {item === 'FLUTTER' && 'Flutter'}
                                         {item === 'ETC' && 'etc'}
                                     </S.RoundForm>
@@ -106,30 +133,45 @@ const ClickApply = ({ Reload, ...props }) => {
                     <S.DetailBox2>
                         <S.SubTitle>지원 이유</S.SubTitle>
                         <S.TextBox>
-                            <S.Content>{applyData?.application}</S.Content>
+                            {props.type ? (
+                                decision === 'NONE' ||
+                                decision === 'OPEN_APPLY' ? (
+                                    <S.Content h="180px">
+                                        {applyData?.application}
+                                    </S.Content>
+                                ) : (
+                                    <S.Content h="230px">
+                                        {applyData?.application}
+                                    </S.Content>
+                                )
+                            ) : (
+                                <S.Content h="340px">
+                                    {applyData?.application}
+                                </S.Content>
+                            )}
                         </S.TextBox>
                     </S.DetailBox2>
 
-                    <S.ProfileApplyBox>
-                        <S.ProfileApplyBtn
-                            bg={({ theme }) => theme.LightGrey}
-                            onClick={() => {
-                                props.setShowApply(false);
-                                ClickNotRecruitBtn();
-                            }}
-                        >
-                            미선발
-                        </S.ProfileApplyBtn>
-                        <S.ProfileApplyBtn
-                            bg={({ theme }) => theme.box1}
-                            onClick={() => {
-                                props.setShowApply(false);
-                                ClickRecruitBtn();
-                            }}
-                        >
-                            합류하기
-                        </S.ProfileApplyBtn>
-                    </S.ProfileApplyBox>
+                    {decision === 'NONE' || decision === 'OPEN_APPLY' ? (
+                        <S.ProfileApplyBox>
+                            <S.ProfileApplyBtn
+                                bg={({ theme }) => theme.LightGrey}
+                                onClick={() => {
+                                    ClickNotRecruitBtn();
+                                }}
+                            >
+                                미선발
+                            </S.ProfileApplyBtn>
+                            <S.ProfileApplyBtn
+                                bg={({ theme }) => theme.box1}
+                                onClick={() => {
+                                    ClickRecruitBtn();
+                                }}
+                            >
+                                합류하기
+                            </S.ProfileApplyBtn>
+                        </S.ProfileApplyBox>
+                    ) : null}
                 </S.Modal>
             </S.Background>
         </div>

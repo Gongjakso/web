@@ -14,6 +14,7 @@ import { getContestPosts, getProjectPosts } from '../../service/post_service';
 import TeamBox from '../TeamBox/TeamBox';
 import Modal2 from '../../features/modal/LoginModal2';
 import Modal1 from '../../features/modal/LoginModal1';
+import NoContents from '../../features/NoContents/NoContents';
 
 const PostMainPage = () => {
     const authenticated = localStorage.getItem('accessToken');
@@ -27,17 +28,24 @@ const PostMainPage = () => {
     // const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(1);
     const [banners, setBanners] = useState([]);
+    const [links, setLinks] = useState([]);
     const [contestTotalPage, setContestTotalPage] = useState();
     const [ProjectTotalPage, setProjectTotalPage] = useState();
     const [sortBy, setSortBy] = useState('createdAt');
 
     const [selectedLocalData, setSelectedLocalData] = useState('');
+    const [selectedCityData, setSelectedCityData] = useState('');
+    const [selectedTownData, setSelectedTownData] = useState('');
     const [selectedStack, setSelectedStack] = useState('');
     const [searchKeyword, setSearchKeyword] = useState('');
 
     const [modal1Open, setModal1Open] = useState(false);
 
-    // const offset = (page - 1) * limit;
+    const encodeSpaces = searchKeyword => {
+        // console.log(searchKeyword.replace(/ /g, '%20'));
+        return searchKeyword.replace(/ /g, '%20');
+    };
+    // 띄어쓰기 인코딩 하는 부분
 
     useEffect(() => {
         setPage(1);
@@ -45,7 +53,8 @@ const PostMainPage = () => {
 
     useEffect(() => {
         setSortBy('createdAt');
-        setSelectedLocalData('');
+        setSelectedTownData('');
+        setSelectedCityData('');
     }, [isProject]);
 
     const {
@@ -65,6 +74,7 @@ const PostMainPage = () => {
 
     const options = ['전체', '인기순', '최신순'];
     const stackOptions = [
+        '사용 언어',
         'REACT',
         'TYPESCRIPT',
         'JAVASCRIPT',
@@ -75,45 +85,77 @@ const PostMainPage = () => {
         'KOTLIN',
         'SWIFT',
         'FLUTTER',
-        'FIGMA',
         'ETC',
     ];
+
     useEffect(() => {
         getProjectBanner().then(res => {
-            const imageUrls = res?.data?.map(item => item.imageUrl);
+            const imageUrls = res?.data?.map(item => item?.imageUrl);
             setBanners(imageUrls);
+            const LinkUrls = res?.data?.map(item => item?.linkUrl);
+            // console.log(LinkUrls);
+            setLinks(LinkUrls);
         });
-        loadContestPosts(page, sortBy, selectedLocalData, searchKeyword);
-        loadProjectPosts(
-            page,
-            sortBy,
-            selectedLocalData,
-            selectedStack,
-            searchKeyword,
-        );
-    }, [page, selectedLocalData, sortBy, selectedStack, searchKeyword]);
+        isProject
+            ? loadProjectPosts(
+                  page,
+                  sortBy,
+                  selectedCityData,
+                  selectedTownData,
+                  selectedStack,
+                  searchKeyword,
+              )
+            : loadContestPosts(
+                  page,
+                  sortBy,
+                  selectedCityData,
+                  selectedTownData,
+                  searchKeyword,
+              );
+    }, [
+        page,
+        sortBy,
+        selectedStack,
+        searchKeyword,
+        selectedCityData,
+        selectedTownData,
+        isProject,
+    ]);
 
-    const loadContestPosts = (page, sort, selectedLocalData, searchKeyword) => {
-        getContestPosts(page, sort, selectedLocalData, searchKeyword).then(
-            res => {
-                setContestPosts(res?.data?.content);
-                setContestTotalPage(res?.data?.totalPages);
-            },
-        );
+    const loadContestPosts = (
+        page,
+        sort,
+        selectedCityData,
+        selectedTownData,
+        searchKeyword,
+    ) => {
+        getContestPosts(
+            page,
+            sort,
+            selectedCityData,
+            selectedTownData,
+            encodeSpaces(searchKeyword),
+        ).then(res => {
+            console.log(selectedCityData);
+            setContestPosts(res?.data?.content);
+            setContestTotalPage(res?.data?.totalPages);
+        });
     };
     const loadProjectPosts = (
         page,
         sort,
-        selectedLocalData,
+        selectedCityData,
+        selectedTownData,
         selectedStack,
         searchKeyword,
     ) => {
         getProjectPosts(
             page,
             sort,
-            selectedLocalData,
+            selectedCityData,
+            selectedTownData,
             selectedStack,
-            searchKeyword,
+            encodeSpaces(searchKeyword),
         ).then(res => {
             setProjectPosts(res?.data?.content);
             setProjectTotalPage(res?.data?.totalPages);
@@ -136,9 +178,17 @@ const PostMainPage = () => {
         setSelectedStack(selectedStack);
     };
 
-    const handleSelectedData = data => {
+    const handleSelectedDataCity = data => {
         //선택한 지역 반환
-        setSelectedLocalData(data);
+        if (data === '지역') {
+            setSelectedCityData('');
+        } else {
+            setSelectedCityData(data);
+        }
+    };
+    const handleSelectedDataTown = data => {
+        //선택한 지역 반환
+        setSelectedTownData(data);
     };
 
     const showModal1 = () => {
@@ -154,7 +204,7 @@ const PostMainPage = () => {
             <TopButton />
             <S.MainContent>
                 <S.Div>
-                    <SwiperBanner BannerImg={banners} />
+                    <SwiperBanner BannerImg={banners} BannerLink={links} />
                 </S.Div>
                 <S.Search>
                     <S.SearchBar>
@@ -174,7 +224,11 @@ const PostMainPage = () => {
                     </S.SearchBar>
                 </S.Search>
                 <S.Fillterbox>
-                    <Multilevel onItemSelected={handleSelectedData} />
+                    <Multilevel
+                        isPost={false}
+                        onItemSelectedCity={handleSelectedDataCity}
+                        onItemSelectedTown={handleSelectedDataTown}
+                    />
 
                     <S.Fillter1>
                         <SelectInput
@@ -184,6 +238,8 @@ const PostMainPage = () => {
                             placeholder={'정렬'}
                             register={register}
                             onChange={handleSelectChange}
+                            scroll={false}
+                            case={true}
                         />
                     </S.Fillter1>
                     {isProject && (
@@ -194,6 +250,8 @@ const PostMainPage = () => {
                                 selectOptions={stackOptions}
                                 placeholder={'사용 언어'}
                                 register={register}
+                                case={true}
+                                scroll={true}
                                 onChange={handleSelectStack}
                             />
                         </S.Fillter1>
@@ -201,74 +259,89 @@ const PostMainPage = () => {
                 </S.Fillterbox>
                 {isProject ? ( //여기는 프로젝트
                     <S.PostContent>
-                        {projectPosts?.map(project => (
-                            <React.Fragment key={project?.postId}>
-                                {isLoggedIn ? (
-                                    <Link to={`/project/${project?.postId}`}>
-                                        <TeamBox
-                                            showWaitingJoin={false}
-                                            showSubBox={true}
-                                            borderColor={
-                                                'rgba(231, 137, 255, 0.5)'
-                                            }
-                                            postContent={project}
-                                            isMyParticipation={null}
-                                        />
-                                    </Link>
-                                ) : (
-                                    <button onClick={() => showModal1()}>
-                                        <TeamBox
-                                            showWaitingJoin={false}
-                                            showSubBox={true}
-                                            borderColor={
-                                                'rgba(231, 137, 255, 0.5)'
-                                            }
-                                            postContent={project}
-                                            isMyParticipation={null}
-                                        />
-                                    </button>
-                                )}
-                            </React.Fragment>
-                        ))}
+                        {projectPosts && projectPosts.length > 0 ? (
+                            projectPosts.map(project => (
+                                <React.Fragment key={project?.postId}>
+                                    {isLoggedIn ? (
+                                        <Link
+                                            to={`/project/${project?.postId}`}
+                                        >
+                                            <TeamBox
+                                                showWaitingJoin={false}
+                                                showSubBox={true}
+                                                borderColor={
+                                                    'rgba(231, 137, 255, 0.5)'
+                                                }
+                                                postContent={project}
+                                                isMyParticipation={null}
+                                            />
+                                        </Link>
+                                    ) : (
+                                        <button onClick={() => showModal1()}>
+                                            <TeamBox
+                                                showWaitingJoin={false}
+                                                showSubBox={true}
+                                                borderColor={
+                                                    'rgba(231, 137, 255, 0.5)'
+                                                }
+                                                postContent={project}
+                                                isMyParticipation={null}
+                                            />
+                                        </button>
+                                    )}
+                                </React.Fragment>
+                            ))
+                        ) : (
+                            <NoContents
+                                mainTxt={'찾으시는 내용을 발견하지 못했어요!'}
+                                subTxt={'다른 내용을 검색해보세요'}
+                            />
+                        )}
                     </S.PostContent>
                 ) : (
                     //아래는 공모전
                     <S.PostContent>
-                        {contestPosts?.map(contest => (
-                            <React.Fragment key={contest?.postId}>
-                                {isLoggedIn ? (
-                                    <Link
-                                        key={contest?.postId}
-                                        to={`/contest/${contest?.postId}`}
-                                    >
-                                        <TeamBox
-                                            showWaitingJoin={false}
-                                            showSubBox={true}
-                                            borderColor={
-                                                'rgba(0, 163, 255, 0.5)'
-                                            }
-                                            postContent={contest}
-                                            isMyParticipation={null}
-                                        />
-                                    </Link>
-                                ) : (
-                                    <button onClick={() => showModal1()}>
-                                        <TeamBox
-                                            showWaitingJoin={false}
-                                            showSubBox={true}
-                                            borderColor={
-                                                'rgba(0, 163, 255, 0.5)'
-                                            }
-                                            postContent={contest}
-                                            isMyParticipation={null}
-                                        />
-                                    </button>
-                                )}
-                            </React.Fragment>
-                        ))}
+                        {contestPosts && contestPosts.length > 0 ? (
+                            contestPosts.map(contest => (
+                                <React.Fragment key={contest?.postId}>
+                                    {isLoggedIn ? (
+                                        <Link
+                                            key={contest?.postId}
+                                            to={`/contest/${contest?.postId}`}
+                                        >
+                                            <TeamBox
+                                                showWaitingJoin={false}
+                                                showSubBox={true}
+                                                borderColor={
+                                                    'rgba(0, 163, 255, 0.5)'
+                                                }
+                                                postContent={contest}
+                                                isMyParticipation={null}
+                                            />
+                                        </Link>
+                                    ) : (
+                                        <button onClick={() => showModal1()}>
+                                            <TeamBox
+                                                showWaitingJoin={false}
+                                                showSubBox={true}
+                                                borderColor={
+                                                    'rgba(0, 163, 255, 0.5)'
+                                                }
+                                                postContent={contest}
+                                                isMyParticipation={null}
+                                            />
+                                        </button>
+                                    )}
+                                </React.Fragment>
+                            ))
+                        ) : (
+                            <NoContents
+                                mainTxt={'찾으시는 내용을 발견하지 못했어요!'}
+                                subTxt={'다른 내용을 검색해보세요'}
+                            />
+                        )}
                     </S.PostContent>
                 )}
-
                 {isProject ? (
                     <Pagination
                         total={ProjectTotalPage}

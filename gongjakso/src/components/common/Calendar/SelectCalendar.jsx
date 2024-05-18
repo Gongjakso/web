@@ -16,6 +16,7 @@ const SelectCalendar = ({ onApply }) => {
         endDate: addDays(new Date(), 7),
         key: 'selection',
     });
+    const today = new Date();
 
     const formattedDate = date => {
         const year = date.getFullYear();
@@ -61,6 +62,7 @@ const SelectCalendar = ({ onApply }) => {
                         ranges={[dateRange]}
                         onChange={handleDateRangeChange}
                         moveRangeOnFirstSelection={false}
+                        minDate={today}
                     />
                     <S.ButtonContent>
                         <S.Button

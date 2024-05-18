@@ -11,7 +11,6 @@ import { getMyInfo } from '../../service/auth_service';
 
 const HomePage = () => {
     const authenticated = localStorage.getItem('accessToken');
-
     const [isLoggedIn, setIsLoggedIn] = useState(!!authenticated);
     const [modal1Open, setModal1Open] = useState(false);
     const [modal2Open, setModal2Open] = useState(false);
@@ -74,7 +73,7 @@ const HomePage = () => {
     return (
         <>
             <TopButton />
-            <S.HomeContent>
+            <S.HomeContent className="home-section">
                 <S.Title>
                     공모전/프로젝트, 어떻게 시작해야할지 막막하셨나요?
                 </S.Title>
@@ -104,7 +103,7 @@ const HomePage = () => {
                         공모전 공고 바로가기
                     </S.Button1>
                     <S.Button2
-                        style={{ marginLeft: '30px' }}
+                        style={{ marginLeft: '15px' }}
                         onClick={() => handleButtonClick('/project')}
                     >
                         프로젝트 공고 바로가기
@@ -112,9 +111,8 @@ const HomePage = () => {
                 </S.Button>
             </S.HomeContent>
 
-            <S.HomeContent1>
+            <S.HomeContent1 className="home-section">
                 <S.Title1>📍다양한 유형의 팀빌딩 서비스 지원</S.Title1>
-
                 <S.Wrapper>
                     <S.Detail1>
                         로그인 후 '팀 빌딩' 탭을 들어가면 팀장으로 팀을 꾸릴 수
@@ -145,7 +143,7 @@ const HomePage = () => {
                 </S.Button1>
             </S.HomeContent1>
 
-            <S.HomeContent2>
+            <S.HomeContent2 className="home-section">
                 <S.Subtitle2>
                     팀빌딩 서비스만 가능한가요? 아닙니다!🙅🏻
                 </S.Subtitle2>
@@ -181,8 +179,7 @@ const HomePage = () => {
                     </div>
                 </S.Container>
             </S.HomeContent2>
-
-            <S.HomeContent3>
+            <S.HomeContent3 className="home-section">
                 <S.Subtitle3>Coming Soon</S.Subtitle3>
                 <S.Detail3>
                     공모전/프로젝트의 사후 관리도 공작소에서 만나보세요!😉

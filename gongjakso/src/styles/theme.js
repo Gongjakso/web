@@ -8,6 +8,8 @@ const fontSize = {
     lg: '1.5rem',
 
     // 추가한 사이즈
+    m: '1.125rem',
+    mdd: '1.35rem',
     l: '1.75rem',
     ll: '2rem',
     xl: '2.25rem',
@@ -30,6 +32,7 @@ const colorSystem = {
     border: '#dbdbdb',
     borderline: '#969696',
     box1: '#0054FF',
+    box2: '#EB5959'
 };
 
 const defaultfont = {

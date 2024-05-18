@@ -9,14 +9,27 @@ export const postPosting = async postContent => {
         const response = await axiosInstance.post(reqURL, {
             ...postContent,
         });
-        return response?.data;
+        console.log(response);
+        return response;
+    } catch (error) {
+        console.log(error);
+        return error.response.data.code;
+    }
+};
+
+export const getPostDetail = async (id, role) => {
+    const reqURL = `post/${id}`;
+
+    try {
+        const response = await axiosInstance.get(reqURL);
+        return response.data;
     } catch (error) {
         console.log(error);
     }
 };
 
-export const getPostDetail = async id => {
-    const reqURL = `post/${id}`;
+export const getCheckStatus = async id => {
+    const reqURL = `post/check/${id}`;
 
     try {
         const response = await axiosInstance.get(reqURL);
@@ -64,11 +77,12 @@ export const postApply = async (apply_id, postContent) => {
 export const getProjectPosts = async (
     pageNum,
     sort,
-    selectLocalData,
+    selectedCityData,
+    selectedTownData,
     selectedStack,
     searchKeyword,
 ) => {
-    const reqURL = `post/project?meetingArea=${selectLocalData}&stackName=${selectedStack}&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
+    const reqURL = `post/project?meetingCity=${selectedCityData}&meetingTown=${selectedTownData}&stackName=${selectedStack}&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort}`;
 
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
@@ -84,11 +98,11 @@ export const getProjectPosts = async (
 export const getContestPosts = async (
     pageNum,
     sort,
-    selectLocalData,
+    selectedCityData,
+    selectedTownData,
     searchKeyword,
 ) => {
-    const reqURL = `post/contest?meetingArea=${selectLocalData}&category=&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort},desc`;
-
+    const reqURL = `post/contest?meetingCity=${selectedCityData}&meetingTown=${selectedTownData}&category=&searchWord=${searchKeyword}&page=${pageNum}&sort=${sort}`;
     try {
         const response = await axios.get(`${BaseUrl}${reqURL}`, {
             headers: {

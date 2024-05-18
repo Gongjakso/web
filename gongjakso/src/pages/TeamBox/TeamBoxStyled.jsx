@@ -6,7 +6,7 @@ import { ReactComponent as CloseWhite } from '../../assets/images/CloseWhite.svg
 
 export const Box = styled.div`
     position: relative;
-    width: 1150px;
+    width: 1200px;
     height: 160px;
     background-color: transparent;
     border: 1.5px solid ${props => props.borderColor || '#0054FF'};
@@ -22,11 +22,15 @@ export const Box = styled.div`
 export const Title = styled.p`
     font-size: ${({ theme }) => theme.fontSize.l};
     color: ${({ theme }) => theme.mainFont};
-    display: flex;
+    //display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex;
     font-family: 'TheJamsilRegular';
     margin-right: 30px;
+    width: 330px;
+    white-space: nowrap; // 내용이 줄바꿈되지 않고 한 줄에 표시되도록 설정
+    overflow: hidden; // 내용이 너비를 초과할 경우 숨김 처리
+    text-overflow: ellipsis; // 내용이 너비를 초과할 경우 ...으로 표시
 `;
 
 export const subTitle = styled.p`
@@ -52,8 +56,14 @@ export const MainBox = styled.div`
     justify-content: space-between;
 `;
 
+export const BottomBox = styled.div`
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+`;
+
 export const SubBox = styled.div`
-    width: 32%;
+    width: 28%;
     display: flex;
     justify-content: space-between;
 `;
@@ -71,13 +81,13 @@ export const BoxBottomDetail = styled.div`
 //프로필 이미지
 export const UnScrapImage = styled(UnScrap)`
     width: 25px;
-    margin-right: 13px;
+    margin-right: 8px;
 `;
 
 //마감 일수 이미지
 export const FireImage = styled(Fire)`
     width: 20px;
-    margin-right: 10px;
+    margin-right: 8px;
 `;
 
 export const CloseImage = styled(CloseWhite)`
@@ -90,7 +100,7 @@ export const CloseImage = styled(CloseWhite)`
 
 //마감일수
 export const DeadLine = styled.div`
-    width: 145px;
+    width: 140px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -106,7 +116,7 @@ export const DeadLine = styled.div`
 
 //스크랩 횟수
 export const ScrapNum = styled.div`
-    width: 165px;
+    width: 140px;
     height: 40px;
     display: flex;
     align-items: center;
@@ -127,6 +137,8 @@ export const WaitingJoin = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    background: ${({ theme, postStatus }) =>
+        postStatus === 'OPEN_APPLY' ? theme.Light1 : theme.LightGrey};
     background: ${({ theme }) => theme.Light1};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -142,7 +154,8 @@ export const ActivityStatus = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #0054ff;
+    background: ${({ theme, postStatus }) =>
+        postStatus === 'ACTIVE' ? theme.box1 : theme.box2};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: 600;
@@ -175,7 +188,6 @@ export const MoreDetail = styled(ArrowDetail)`
     z-index: 1;
 `;
 
-/*
 //프로필페이지 -> 모집 마감, 연장, 취소 오버레이
 export const DeadlineOverlay = styled.div`
     position: absolute;
@@ -192,4 +204,3 @@ export const DeadlineOverlay = styled.div`
     align-items: center;
     color: white;
 `;
-*/

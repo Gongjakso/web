@@ -32,7 +32,7 @@ export const InputEmail = styled.input`
     outline: none;
     background-color: transparent;
     width: 100%;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.m};
     padding-bottom: 10px;
     &::placeholder {
         white-space: nowrap; // 텍스트가 줄바꿈 되지 않도록 설정
