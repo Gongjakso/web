@@ -82,7 +82,7 @@ const DetailPageContest = () => {
             console.log(res?.data);
         });
         getScrap(id).then(res => {
-            setscrapStatus(res?.data.ScrapStatus);
+            setscrapStatus(res?.data.scrapStatus);
         });
     }, [id]);
 
