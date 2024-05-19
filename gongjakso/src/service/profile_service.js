@@ -69,8 +69,8 @@ export const getMyParticipatedMain = async () => {
 };
 
 //내가 참여 상세페이지
-export const getMyParticipated = async () => {
-    const reqURL = `apply/my-participation-post?page=0&size=6`;
+export const getMyParticipated = async page => {
+    const reqURL = `apply/my-participation-post?page=${page - 1}&size=6`;
 
     try {
         const response = await axiosInstance.get(reqURL);

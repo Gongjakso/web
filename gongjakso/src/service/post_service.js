@@ -114,3 +114,14 @@ export const getContestPosts = async (
         console.log(error);
     }
 };
+
+export const patchCompletedPost = async post_id => {
+    const reqURL = `post/complete/${post_id}`;
+
+    try {
+        const response = await axiosInstance.patch(reqURL);
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -3,28 +3,41 @@ import * as S from './ParticipatedTeamStyled';
 import TeamBox from '../TeamBox/TeamBox';
 import Pagination from '../../components/Pagination/Pagination';
 import { getMyParticipated } from '../../service/profile_service';
+import { getCheckStatus } from '../../service/post_service';
 
 const TeamPart = () => {
-    const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(1);
-    const offset = (page - 1) * limit;
-    const [data, setData] = useState([]);
-
-    const [postContent3, setPostContent3] = useState([]);
+    const [postContent3, setPostContent3] = useState();
     const [totalPage, setTotalPage] = useState();
+    const [postId, setPostId] = useState(99);
+    const [isLeader, setLeader] = useState();
 
     useEffect(() => {
-        getMyParticipated().then(response => {
-            console.log(response?.data);
+        getMyParticipated(page).then(response => {
+            setTotalPage(response?.data?.totalPages);
             setPostContent3(response?.data);
+            // setPostId(100); //예시로 포스트 아이디 넣는 과정
+            getCheckStatus(postId).then(response => {
+                console.log(response);
+                const imLeader = response?.data?.role === 'LEADER';
+                setLeader(imLeader);
+            });
         });
-    }, []);
+    }, [page, postId]);
 
     const loadParticipatedPosts = page => {
         getMyParticipated(page).then(response => {
             setPostContent3(response?.data);
+            setTotalPage(response?.data?.totalPages);
+            // setPostId('100'); //예시로 포스트 아이디 넣는 과정
+            getCheckStatus(postId).then(response => {
+                const imLeader = response?.data?.role === 'LEADER';
+                setLeader(imLeader);
+            });
         });
     };
+
+    // console.log(isLeader);
 
     return (
         <div>
@@ -39,7 +52,7 @@ const TeamPart = () => {
                             key={index}
                             showMoreDetail={false}
                             borderColor={
-                                postContent3?.postStatus === 'COMPLETE' //활동 완료인 경우 테두리 검정색
+                                postContent3?.postStatus !== 'ACTIVE' //활동 완료인 경우 테두리 검정색
                                     ? 'rgba(111, 111, 111, 1)'
                                     : postContent3.postType === true
                                       ? 'rgba(231, 137, 255, 0.5)'
@@ -49,6 +62,8 @@ const TeamPart = () => {
                             showSubBox={false}
                             postContent={postContent3}
                             isMyParticipation={true}
+                            isLeader={isLeader} // 예시로 post_id를 넣음
+                            completedStatus={postId}
                         />
                     ),
                 )}

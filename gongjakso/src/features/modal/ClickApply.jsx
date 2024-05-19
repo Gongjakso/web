@@ -42,7 +42,6 @@ const ClickApply = props => {
             // console.log(res?.data);
         });
         alert('지원자가 합류되었습니다.');
-        window.location.reload();
     };
 
     const ClickNotRecruitBtn = () => {
@@ -50,7 +49,6 @@ const ClickApply = props => {
             // console.log(res?.data);
         });
         alert('지원자를 미선발하였습니다.');
-        window.location.reload();
     };
 
     return (

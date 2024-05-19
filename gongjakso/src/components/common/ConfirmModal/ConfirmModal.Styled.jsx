@@ -3,16 +3,15 @@ import { styled } from 'styled-components';
 // import { ReactComponent as Close } from '../../assets/images/Close.svg';
 
 export const Dialog = styled.dialog`
-    position: absolute;
-    top: 0;
-    left: 0;
-
     width: 100%;
     height: 100%;
-
+    border: none;
+    position: fixed;
+    top: 50%; /* 화면 상단에서 절반 위치에 설정 */
+    left: 50%; /* 화면 왼쪽에서 절반 위치에 설정 */
+    transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(5px);
-
     z-index: 999;
 `;
 
@@ -29,6 +28,7 @@ export const ConfirmModalInnerContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 2px solid ${props => props.theme.Main1};
 
     background: #fff;
     text-align: center;
@@ -36,15 +36,16 @@ export const ConfirmModalInnerContainer = styled.div`
     padding: 15px;
     position: relative;
 
-    width: 300px;
-    height: 350px;
+    width: 40%;
+    height: 40%;
 `;
 
 export const ConfirmModalQustion = styled.h3`
-    font-size: 24px;
+    text-align: center;
+    font-size: ${({ theme }) => theme.fontSize.ll};
     font-family: 'PreBold';
-
-    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+    margin-bottom: 30px;
 `;
 
 export const ConfirmModalExplain = styled.div`

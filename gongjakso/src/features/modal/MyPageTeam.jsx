@@ -99,14 +99,12 @@ const MyPageTeam = props => {
                                 if (checkedCase === '1') {
                                     ClickFinishBtn();
                                     navigate('/profile');
-                                    window.location.reload();
                                 } else if (checkedCase === '2') {
                                     ClickExtensionDate();
                                     props.CloseModal(false);
                                 } else if (checkedCase === '3') {
                                     ClickCancelBtn();
                                     navigate('/profile');
-                                    window.location.reload();
                                 }
                             }}
                         >

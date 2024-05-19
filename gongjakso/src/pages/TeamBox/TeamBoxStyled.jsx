@@ -96,7 +96,7 @@ export const CloseImage = styled(CloseWhite)`
     top: 25px;
     right: 25px;
     cursor: pointer;
-    z-index: 9999;
+    z-index: 2;
 `;
 
 //마감일수
@@ -158,13 +158,19 @@ export const ActivityStatus = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${({ theme, postStatus }) =>
-        postStatus === 'ACTIVE' ? theme.box1 : theme.box2};
+    background: ${({ theme, poststatus }) =>
+        poststatus === 'ACTIVE' ? theme.box1 : theme.box2};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: 600;
     text-align: center;
     color: ${({ theme }) => theme.mainFont2};
+    cursor: ${({ isleader, poststatus }) =>
+        isleader
+            ? poststatus === 'ACTIVE'
+                ? 'pointer'
+                : 'not-allowed'
+            : 'not-allowed'};
 `;
 
 //검은색 둥근 틀
