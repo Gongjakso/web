@@ -15,14 +15,14 @@ const TeamSupport = () => {
 
     useEffect(() => {
         getMyApplied().then(response => {
-            console.log(response?.data);
-            setPostContent2(response?.data);
+            // console.log(response?.data);
+            setPostContent2(response?.data.content);
         });
     }, []);
 
     const loadParticipatedPosts = page => {
         getMyApplied(page).then(response => {
-            setPostContent2(response?.data);
+            setPostContent2(response?.data.content);
         });
     };
 

@@ -54,14 +54,14 @@ const ClickApply = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal w="1000px" h="850px" bc={({ theme }) => theme.box1}>
+                <S.Modal $w="1000px" $h="850px" $bc={({ theme }) => theme.box1}>
                     <S.Decisionbtn>
                         {decision === 'PASS' ? (
-                            <S.StateBtn bg={({ theme }) => theme.box1}>
+                            <S.StateBtn $bg={({ theme }) => theme.box1}>
                                 합류 완료
                             </S.StateBtn>
                         ) : decision === 'NOT_PASS' ? (
-                            <S.StateBtn bg={({ theme }) => theme.LightGrey}>
+                            <S.StateBtn $bg={({ theme }) => theme.LightGrey}>
                                 미선발
                             </S.StateBtn>
                         ) : null}
@@ -76,7 +76,7 @@ const ClickApply = props => {
                     </S.Backbtn>
 
                     <S.MainTitle>
-                        <p>{applyData?.memberName}</p>
+                        <S.NameP>{applyData?.memberName}</S.NameP>
                         <S.Major>{applyData?.major}</S.Major>
                         <S.Major>{applyData?.phone}</S.Major>
                     </S.MainTitle>
@@ -85,7 +85,10 @@ const ClickApply = props => {
                         <S.FormBox>
                             {part.map((item, i) => (
                                 <S.RoundForm
-                                    isSelected={item === applyData?.recruitPart}
+                                    key={i}
+                                    $isselected={
+                                        item === applyData?.recruitPart
+                                    }
                                     style={{ cursor: 'default' }}
                                 >
                                     {item === 'PLAN' && '기획'}
@@ -106,7 +109,7 @@ const ClickApply = props => {
                             <S.FormBox>
                                 {stack.map((item, i) => (
                                     <S.RoundForm
-                                        isSelected={applyData?.applyStack.includes(
+                                        $isselected={applyData?.applyStack.includes(
                                             item,
                                         )}
                                         style={{ cursor: 'default' }}
@@ -134,16 +137,16 @@ const ClickApply = props => {
                             {props.type ? (
                                 decision === 'NONE' ||
                                 decision === 'OPEN_APPLY' ? (
-                                    <S.Content h="180px">
+                                    <S.Content $h="180px">
                                         {applyData?.application}
                                     </S.Content>
                                 ) : (
-                                    <S.Content h="230px">
+                                    <S.Content $h="230px">
                                         {applyData?.application}
                                     </S.Content>
                                 )
                             ) : (
-                                <S.Content h="340px">
+                                <S.Content $h="340px">
                                     {applyData?.application}
                                 </S.Content>
                             )}
@@ -153,7 +156,7 @@ const ClickApply = props => {
                     {decision === 'NONE' || decision === 'OPEN_APPLY' ? (
                         <S.ProfileApplyBox>
                             <S.ProfileApplyBtn
-                                bg={({ theme }) => theme.LightGrey}
+                                $bg={({ theme }) => theme.LightGrey}
                                 onClick={() => {
                                     ClickNotRecruitBtn();
                                 }}
@@ -161,7 +164,7 @@ const ClickApply = props => {
                                 미선발
                             </S.ProfileApplyBtn>
                             <S.ProfileApplyBtn
-                                bg={({ theme }) => theme.box1}
+                                $bg={({ theme }) => theme.box1}
                                 onClick={() => {
                                     ClickRecruitBtn();
                                 }}

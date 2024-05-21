@@ -9,12 +9,14 @@ export const Box = styled.div`
     width: 1200px;
     height: 160px;
     background-color: transparent;
-    border: 1.5px solid ${props => props.borderColor || '#0054FF'};
+    border: 1.5px solid ${props => props.$bordercolor || '#0054FF'};
     display: flex;
     flex-direction: column;
     color: ${({ theme }) => theme.mainFont};
     border-radius: 15px;
-    padding: 20px ${props => (props.showMoreDetail ? '90px' : '50px')} 20px 50px;
+    padding: 20px
+        ${props => (props.$showmoredetail === 'true' ? '90px' : '50px')} 20px
+        50px;
     margin: 10px 0px;
     //마감일수가 0일 때 상태 변환
 `;
@@ -138,10 +140,10 @@ export const WaitingJoin = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${({ theme, applyType }) =>
-        applyType === 'PASS'
+    background: ${({ theme, $applytype }) =>
+        $applytype === 'PASS'
             ? theme.box1
-            : applyType === 'NOT_PASS'
+            : $applytype === 'NOT_PASS'
               ? theme.LightGrey
               : theme.Light1};
     border-radius: 50px;
@@ -158,16 +160,16 @@ export const ActivityStatus = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${({ theme, poststatus }) =>
-        poststatus === 'ACTIVE' ? theme.box1 : theme.box2};
+    background: ${({ theme, $poststatus }) =>
+        $poststatus === 'ACTIVE' ? theme.box1 : theme.box2};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: 600;
     text-align: center;
     color: ${({ theme }) => theme.mainFont2};
-    cursor: ${({ isleader, poststatus }) =>
+    cursor: ${({ isleader, $poststatus }) =>
         isleader
-            ? poststatus === 'ACTIVE'
+            ? $poststatus === 'ACTIVE'
                 ? 'pointer'
                 : 'not-allowed'
             : 'not-allowed'};
@@ -207,8 +209,8 @@ export const DeadlineOverlay = styled.div`
     height: 100%;
     border-radius: 13.5px;
     font-size: ${({ theme }) => theme.fontSize.ll};
-    background: ${({ status }) =>
-        status === 'EXTENSION'
+    background: ${({ $status }) =>
+        $status === 'EXTENSION'
             ? `rgba(0, 84, 255, 0.5)`
             : `rgba(0, 0, 0, 0.5)`};
     display: flex;

@@ -8,7 +8,6 @@ export const getRecruitTeam = async post_id => {
 
     try {
         const response = await axiosInstance.get(reqURL);
-        console.log(response);
         return response.data;
     } catch (error) {
         console.log(error);

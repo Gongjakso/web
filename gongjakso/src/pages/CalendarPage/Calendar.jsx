@@ -17,7 +17,6 @@ const Calendar = () => {
             const res = await getCalendar(year, month);
             const scrapPosts = res?.data.scrapPosts || [];
 
-            console.log(scrapPosts);
             const eventTitles = scrapPosts.map(post => ({
                 postId: post.postId,
                 title: post.title,
@@ -26,7 +25,6 @@ const Calendar = () => {
                 textColor: post.postType ? '#e789ff' : '#00a3ff',
                 date: post.finishDate.split('T')[0],
             }));
-            // console.log(eventTitles);
             setEvent(eventTitles);
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -47,7 +45,6 @@ const Calendar = () => {
         const currentDate = new Date();
         const year = currentDate.getFullYear();
         const month = currentDate.getMonth() + 1;
-        console.log(year, month);
         setCurrentYear(year);
         setCurrentMonth(month);
         fetchData(year.toString(), month.toString()); // fetchData 호출
@@ -56,7 +53,7 @@ const Calendar = () => {
     return (
         <S.FullCalendarContainer>
             <FullCalendar
-                defaultView="dayGridMonth"
+                initialView="dayGridMonth"
                 plugins={[dayGridPlugin]}
                 titleFormat={function (date) {
                     const year = date.date.year;

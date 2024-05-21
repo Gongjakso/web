@@ -13,7 +13,7 @@ const InfoDrop = props => {
     const [isPost, setIsPost] = useState(true);
 
     return (
-        <S.Dropdown1 isOpen={isOpen}>
+        <S.Dropdown1 $isopen={isOpen}>
             <Dropdown items={props.items} closeOnScroll={false}>
                 {({ isOpen, onClick }) => (
                     <S.Button

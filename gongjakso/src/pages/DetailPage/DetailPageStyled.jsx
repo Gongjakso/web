@@ -14,8 +14,8 @@ export const Layout = styled(Globalstyle)`
 
 // 틀 세분화
 export const Background = styled.div`
-    margin-top: ${props => props.mgt};
-    width: ${props => props.s};
+    margin-top: ${props => props.$mgt};
+    width: ${props => props.$s};
     position: relative;
 `;
 
@@ -73,7 +73,7 @@ export const Status = styled.div`
     padding: 10px;
     text-align: center;
     width: 130px;
-    background: ${props => props.bg};
+    background: ${props => props.$bg};
     border-radius: 20px;
     font-size: ${({ theme }) => theme.fontSize.md};
     color: white;
@@ -106,7 +106,7 @@ export const TitleBottom = styled.div`
 
 export const BlueBox = styled.div`
     height: 1400px;
-    border: 2px solid ${props => props.bg};
+    border: 2px solid ${props => props.$bg};
     border-radius: 40px;
     margin-top: 15px;
     padding: 55px;
@@ -146,7 +146,7 @@ export const Meeting = styled(TextDetail)`
 export const OpenKakao = styled(TextDetail)`
     align-items: center;
     img {
-        width: ${props => props.w};
+        width: ${props => props.$w};
         cursor: pointer;
     }
 `;
@@ -177,7 +177,7 @@ export const MainText = styled.p`
     font-size: 1.45rem;
     padding-left: 20px;
     line-height: 2;
-    height: ${props => props.h};
+    height: ${props => props.$h};
     padding-bottom: 180px;
 `;
 
@@ -196,9 +196,9 @@ export const ScrapButton = styled.button`
     font-weight: bold;
 
     background: ${props =>
-        props.click === false ? 'none' : ({ theme }) => theme.Green};
-    color: ${props => (props.click === false ? 'black' : 'white')};
-    border: 2px solid ${props => props.bc};
+        props.$click === 'false' ? 'none' : ({ theme }) => theme.Green};
+    color: ${props => (props.$click === 'false' ? 'black' : 'white')};
+    border: 2px solid ${props => props.$bc};
 
     img {
         margin-right: 18px;
@@ -207,6 +207,6 @@ export const ScrapButton = styled.button`
 `;
 
 export const ApplyButton = styled(ScrapButton)`
-    background: ${props => props.bg};
+    background: ${props => props.$bg};
     color: white;
 `;

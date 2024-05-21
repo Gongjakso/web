@@ -71,7 +71,6 @@ const DetailPageContest = () => {
     useEffect(() => {
         getCheckStatus(id).then(res => {
             setcheckStatus(res?.data.role);
-            // console.log(res?.data);
         });
 
         getPostDetail(id).then(res => {
@@ -79,7 +78,6 @@ const DetailPageContest = () => {
             setCategory(res?.data.categories);
             setscrapNum(res?.data.scrapCount);
             setapplyTitle(res?.data.title);
-            console.log(res?.data);
         });
         getScrap(id).then(res => {
             setscrapStatus(res?.data.scrapStatus);
@@ -159,7 +157,7 @@ const DetailPageContest = () => {
             ) : null}
 
             <S.Layout>
-                <S.Background s="1150px" mgt="50px">
+                <S.Background $s="1150px" $mgt="50px">
                     <S.BgButton>
                         <img
                             src={Close}
@@ -177,17 +175,17 @@ const DetailPageContest = () => {
                             </S.Title>
                             <S.BtnLayout>
                                 {applyType === 'PASS' ? (
-                                    <S.Status bg={({ theme }) => theme.box1}>
+                                    <S.Status $bg={({ theme }) => theme.box1}>
                                         합류 완료
                                     </S.Status>
                                 ) : applyType === 'NOT_PASS' ? (
                                     <S.Status
-                                        bg={({ theme }) => theme.LightGrey}
+                                        $bg={({ theme }) => theme.LightGrey}
                                     >
                                         미선발
                                     </S.Status>
                                 ) : (
-                                    <S.Status bg={({ theme }) => theme.Light1}>
+                                    <S.Status $bg={({ theme }) => theme.Light1}>
                                         합류 대기중
                                     </S.Status>
                                 )}
@@ -221,8 +219,8 @@ const DetailPageContest = () => {
                     </S.TitleBox>
                 </S.Background>
 
-                <S.Background s="1100px">
-                    <S.BlueBox bg={({ theme }) => theme.Light1}>
+                <S.Background $s="1100px">
+                    <S.BlueBox $bg={({ theme }) => theme.Light1}>
                         <S.TextBox>
                             <S.TextTitle>공고 마감일</S.TextTitle>
                             <S.TextDetail>
@@ -293,7 +291,7 @@ const DetailPageContest = () => {
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>공모전 홈페이지</S.TextTitle>
-                            <S.OpenKakao w="185px">
+                            <S.OpenKakao $w="185px">
                                 <img
                                     src={postLink}
                                     alt="homepage-link"
@@ -305,7 +303,7 @@ const DetailPageContest = () => {
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>기타 문의</S.TextTitle>
-                            <S.OpenKakao w="140px">
+                            <S.OpenKakao $w="140px">
                                 {postData?.questionMethod ? (
                                     <img
                                         src={OpenKakao}
@@ -333,7 +331,7 @@ const DetailPageContest = () => {
                         <S.TextBox>
                             <S.TextTitle>설명글</S.TextTitle>
                         </S.TextBox>
-                        <S.MainText h="420px">{postData?.contents}</S.MainText>
+                        <S.MainText $h="420px">{postData?.contents}</S.MainText>
 
                         {/* 팀장일 경우 아직 디자인 미정.. */}
                         {checkStatus === 'LEADER' ? (
@@ -341,8 +339,8 @@ const DetailPageContest = () => {
                         ) : (
                             <S.Globalstyle>
                                 <S.ScrapButton
-                                    bc={({ theme }) => theme.Green}
-                                    click={scrapStatus}
+                                    $bc={({ theme }) => theme.Green}
+                                    $click={scrapStatus.toString()}
                                     onClick={ClickScrapBtn}
                                 >
                                     <img
@@ -353,8 +351,8 @@ const DetailPageContest = () => {
                                 </S.ScrapButton>
                                 {checkStatus === 'APPLICANT' ? (
                                     <S.ApplyButton
-                                        bc="none"
-                                        bg={({ theme }) => theme.LightGrey}
+                                        $bc="none"
+                                        $bg={({ theme }) => theme.LightGrey}
                                         onClick={() => {
                                             setshowCancel(true);
                                         }}
@@ -363,8 +361,8 @@ const DetailPageContest = () => {
                                     </S.ApplyButton>
                                 ) : (
                                     <S.ApplyButton
-                                        bc="none"
-                                        bg={({ theme }) => theme.box1}
+                                        $bc="none"
+                                        $bg={({ theme }) => theme.box1}
                                         onClick={() => {
                                             setApply(true);
                                         }}

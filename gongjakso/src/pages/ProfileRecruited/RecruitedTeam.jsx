@@ -17,7 +17,6 @@ const RecruitedTeam = () => {
         setPage(1);
         getMyRecruiting().then(response => {
             setPostContent1(response?.data);
-            console.log(response?.data);
         });
     }, []);
 
@@ -35,9 +34,9 @@ const RecruitedTeam = () => {
                 <S.Title>내가 모집 중인 팀</S.Title>
             </S.TopBox>
             <S.BoxDetail>
-                {postContent1?.map((postContent1, index) => (
+                {postContent1?.map(postContent1 => (
                     <TeamBox
-                        key={index}
+                        key={postContent1?.postId}
                         showMoreDetail={true}
                         showWaitingJoin={false}
                         showSubBox={true}

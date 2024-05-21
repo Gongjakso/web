@@ -164,7 +164,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
         transformAndSetDates(selectedDates.startDate, selectedDates.endDate);
     };
     //마감 기한 연장 설정
-
+    // console.log(dates);
     const handleDateChange = date => {
         transformAndSetEndDates(date);
     };
@@ -398,7 +398,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>공모전 예상 기간</S.TapP>
-                        <SelectCalendar onApply={handleApply} />
+                        <SelectCalendar onApply={handleApply} dates={dates} />
                     </S.Label>
                     <S.Label>
                         <S.TapP>공고 마감일</S.TapP>
@@ -564,7 +564,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                     </S.Label>
                     <S.Label>
                         <S.TapP>예상 기간</S.TapP>
-                        <SelectCalendar onApply={handleApply} />
+                        <SelectCalendar onApply={handleApply} dates={dates} />
                     </S.Label>
                     <S.Label>
                         <S.TapP>공고 마감일</S.TapP>

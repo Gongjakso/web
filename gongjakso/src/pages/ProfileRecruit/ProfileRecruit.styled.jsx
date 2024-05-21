@@ -92,9 +92,10 @@ export const ButtonSet = styled.div`
 export const InsideTitle = styled.div`
     display: flex;
     flex-direction: row;
-    font-size: ${({ title, theme }) =>
-        title ? theme.fontSize.l : theme.fontSize.lg};
-    font-family: ${({ title, theme }) => (title ? 'TheJamsilRegular' : '')};
+    font-size: ${({ $title, theme }) =>
+        $title === 'true' ? theme.fontSize.l : theme.fontSize.lg};
+    font-family: ${({ $title, theme }) =>
+        $title === 'true' ? 'TheJamsilRegular' : ''};
 `;
 
 export const InsideTitleFront = styled(InsideTitle)`
@@ -143,7 +144,7 @@ export const MainTable = styled.table`
     text-align: center;
 `;
 
-export const TagP = styled.p`
+export const Tagth = styled.th`
     width: 30%;
     height: 60px;
     padding: 10px 0;
@@ -151,12 +152,13 @@ export const TagP = styled.p`
     align-items: center;
     justify-content: center;
     ${props =>
-        props.isleft
+        props.$isleft === 'true'
             ? 'border-right: 0.5px solid #aaaaaa'
             : 'border-left: 0.5px solid #aaaaaa'}
 `;
 
-export const StyledTh = styled.th`
+export const StyledThead = styled.thead``;
+export const StyledTr = styled.tr`
     min-height: 60px;
     border: 1px solid #aaaaaa;
     display: flex;
@@ -175,7 +177,7 @@ export const StyledTd = styled.td`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: ${props => (props.state ? '#545454aa' : 'none')};
+    background: ${props => (props.$state ? '#545454aa' : 'none')};
 `;
 
 export const CancelBox = styled.div`
@@ -222,7 +224,7 @@ export const StateBtn = styled.div`
     padding: 10px;
     color: white;
     font-size: ${({ theme }) => theme.fontSize.md};
-    background: ${props => props.bg};
+    background: ${props => props.$bg};
     border-radius: 20px;
 `;
 

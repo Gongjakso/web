@@ -70,12 +70,10 @@ const DetailPageProject = () => {
             setscrapNum(res?.data.scrapCount);
             setStackType(res?.data.stackNames);
             setapplyTitle(res?.data.title);
-            console.log(res?.data);
         });
 
         getCheckStatus(id).then(res => {
             setcheckStatus(res?.data.role);
-            // console.log(res?.data);
         });
         getScrap(id).then(res => {
             setscrapStatus(res?.data.scrapStatus);
@@ -146,7 +144,7 @@ const DetailPageProject = () => {
             ) : null}
 
             <S.Layout>
-                <S.Background s="1150px" mgt="50px">
+                <S.Background $s="1150px" $mgt="50px">
                     <S.BgButton>
                         <img
                             src={Close}
@@ -164,17 +162,17 @@ const DetailPageProject = () => {
                             </S.Title>
                             <S.BtnLayout>
                                 {applyType === 'PASS' ? (
-                                    <S.Status bg={({ theme }) => theme.box1}>
+                                    <S.Status $bg={({ theme }) => theme.box1}>
                                         합류 완료
                                     </S.Status>
                                 ) : applyType === 'NOT_PASS' ? (
                                     <S.Status
-                                        bg={({ theme }) => theme.LightGrey}
+                                        $bg={({ theme }) => theme.LightGrey}
                                     >
                                         미선발
                                     </S.Status>
                                 ) : (
-                                    <S.Status bg={({ theme }) => theme.Light1}>
+                                    <S.Status $bg={({ theme }) => theme.Light1}>
                                         합류 대기중
                                     </S.Status>
                                 )}
@@ -208,8 +206,8 @@ const DetailPageProject = () => {
                     </S.TitleBox>
                 </S.Background>
 
-                <S.Background s="1100px">
-                    <S.BlueBox bg={({ theme }) => theme.Pink}>
+                <S.Background $s="1100px">
+                    <S.BlueBox $bg={({ theme }) => theme.Pink}>
                         <S.TextBox>
                             <S.TextTitle>공고 마감일</S.TextTitle>
                             <S.TextDetail>
@@ -219,14 +217,14 @@ const DetailPageProject = () => {
                         <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>
                             <S.TextDetail>
-                                {formatDate(postData?.startDate)} ~{' '}
+                                {formatDate(postData?.startDate)} ~
                                 {formatDate(postData?.endDate)}
                             </S.TextDetail>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>모집 현황</S.TextTitle>
                             <S.TextDetail>
-                                {postData?.currentPerson}/{postData?.maxPerson}{' '}
+                                {postData?.currentPerson}/{postData?.maxPerson}
                                 명
                             </S.TextDetail>
                         </S.TextBox>
@@ -306,14 +304,14 @@ const DetailPageProject = () => {
                             <S.Meeting>
                                 <img src={Place} alt="place-icon" />
                                 <span>
-                                    {postData?.meetingCity}{' '}
+                                    {postData?.meetingCity}
                                     {postData?.meetingTown}
                                 </span>
                             </S.Meeting>
                         </S.TextBox>
                         <S.TextBox>
                             <S.TextTitle>기타 문의</S.TextTitle>
-                            <S.OpenKakao w="140px">
+                            <S.OpenKakao $w="140px">
                                 {postData?.questionMethod ? (
                                     <img
                                         src={OpenKakao}
@@ -341,15 +339,15 @@ const DetailPageProject = () => {
                         <S.TextBox>
                             <S.TextTitle>설명글</S.TextTitle>
                         </S.TextBox>
-                        <S.MainText h="420px">{postData?.contents}</S.MainText>
+                        <S.MainText $h="420px">{postData?.contents}</S.MainText>
 
                         {checkStatus === 'LEADER' ? (
                             <div></div>
                         ) : (
                             <S.Globalstyle>
                                 <S.ScrapButton
-                                    bc={({ theme }) => theme.Green}
-                                    click={scrapStatus}
+                                    $bc={({ theme }) => theme.Green}
+                                    $click={scrapStatus.toString()}
                                     onClick={ClickScrapBtn}
                                 >
                                     <img
@@ -360,8 +358,8 @@ const DetailPageProject = () => {
                                 </S.ScrapButton>
                                 {checkStatus === 'APPLICANT' ? (
                                     <S.ApplyButton
-                                        bc="none"
-                                        bg={({ theme }) => theme.LightGrey}
+                                        $bc="none"
+                                        $bg={({ theme }) => theme.LightGrey}
                                         onClick={() => {
                                             setshowCancel(true);
                                         }}
@@ -370,8 +368,8 @@ const DetailPageProject = () => {
                                     </S.ApplyButton>
                                 ) : (
                                     <S.ApplyButton
-                                        bc="none"
-                                        bg={({ theme }) => theme.box1}
+                                        $bc="none"
+                                        $bg={({ theme }) => theme.box1}
                                         onClick={() => {
                                             setApply(true);
                                         }}

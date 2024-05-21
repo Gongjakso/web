@@ -14,7 +14,7 @@ const SwiperBanner = banners => {
             <Swiper
                 modules={[Navigation, Pagination, A11y]}
                 spaceBetween={50}
-                loop={true}
+                loop={false}
                 slidesPerView={1}
                 navigation
                 pagination={{

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from '../TeamBox/TeamBoxStyled';
 import { Link } from 'react-router-dom';
 import { patchCompletedPost } from '../../service/post_service';
@@ -22,6 +22,15 @@ const TeamBox = ({
 }) => {
     const [isOverlayVisible, setIsOverlayVisible] = useState(true);
     const dispatch = useDispatch();
+    useEffect(() => {
+        // Check localStorage for overlay visibility state
+        const overlayVisibility = localStorage.getItem(
+            `overlayVisible-${postId}`,
+        );
+        if (overlayVisibility === 'false') {
+            setIsOverlayVisible(false);
+        }
+    }, [postId]);
 
     const hideOverlay = () => {
         setIsOverlayVisible(false); // 오버레이를 숨기는 함수
@@ -104,7 +113,10 @@ const TeamBox = ({
 
     return (
         <>
-            <S.Box borderColor={borderColor} showMoreDetail={showMoreDetail}>
+            <S.Box
+                $bordercolor={borderColor}
+                $showmoredetail={showMoreDetail.toString()}
+            >
                 <S.BoxTopDetail>
                     <S.MainBox>
                         <S.Title>{postContent?.title}</S.Title>
@@ -132,7 +144,7 @@ const TeamBox = ({
                         </S.SubBox>
                     ) : (
                         <S.ActivityStatus
-                            poststatus={postContent?.postStatus}
+                            $poststatus={postContent?.postStatus}
                             isleader={isLeader}
                             onClick={isLeader ? handleOpenModal : null}
                         >
@@ -171,26 +183,34 @@ const TeamBox = ({
                             )
                         )}
                     </S.MainBox>
-                    {isOverlayVisible && <S.CloseImage onClick={hideOverlay} />}
+                    {postContent?.status === 'EXTENSION' &&
+                        isOverlayVisible && (
+                            <>
+                                <S.DeadlineOverlay $status={postContent.status}>
+                                    모집이 연장되었습니다.
+                                </S.DeadlineOverlay>
+                                <S.CloseImage onClick={hideOverlay} />
+                            </>
+                        )}
                     {showWaitingJoin && (
-                        <S.WaitingJoin applyType={postContent?.applyType}>
+                        <S.WaitingJoin $applytype={postContent?.applyType}>
                             {postContent?.applyType === 'PASS'
                                 ? '합류 완료'
                                 : postContent?.applyType === 'NOT_PASS'
                                   ? '미선발'
                                   : '합류 대기중'}
-                            {postContent?.status === 'EXTENSION' && (
+                            {/* {postContent?.status === 'EXTENSION' && (
                                 <S.DeadlineOverlay status={postContent.status}>
                                     모집이 연장되었습니다.
                                 </S.DeadlineOverlay>
-                            )}
+                            )} */}
                             {postContent?.status === 'CLOSE' && (
-                                <S.DeadlineOverlay status={postContent.status}>
+                                <S.DeadlineOverlay $status={postContent.status}>
                                     모집이 마감되었습니다.
                                 </S.DeadlineOverlay>
                             )}
                             {postContent?.status === 'CANCEL' && (
-                                <S.DeadlineOverlay status={postContent.status}>
+                                <S.DeadlineOverlay $status={postContent.status}>
                                     모집이 취소되었습니다.
                                 </S.DeadlineOverlay>
                             )}

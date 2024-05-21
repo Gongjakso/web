@@ -18,7 +18,6 @@ const TeamPart = () => {
             setPostContent3(response?.data);
             // setPostId(100); //예시로 포스트 아이디 넣는 과정
             getCheckStatus(postId).then(response => {
-                console.log(response);
                 const imLeader = response?.data?.role === 'LEADER';
                 setLeader(imLeader);
             });
@@ -62,7 +61,7 @@ const TeamPart = () => {
                             showSubBox={false}
                             postContent={postContent3}
                             isMyParticipation={true}
-                            isLeader={isLeader} // 예시로 post_id를 넣음
+                            $isleader={isLeader} // 예시로 post_id를 넣음
                             completedStatus={postId}
                         />
                     ),

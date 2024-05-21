@@ -50,7 +50,11 @@ const Completed = props => {
         <div>
             {props.case === 1 && (
                 <S.Background2>
-                    <S.Modal w="850px" h="450px" bc={({ theme }) => theme.box1}>
+                    <S.Modal
+                        $w="850px"
+                        $h="450px"
+                        $bc={({ theme }) => theme.box1}
+                    >
                         <S.Backbtn
                             onClick={() => {
                                 props.setApplyCheck(false);
@@ -66,8 +70,8 @@ const Completed = props => {
 
                         <S.ApplyBox2>
                             <S.newBtn
-                                bg={({ theme }) => theme.Grey}
-                                c="black"
+                                $bg={({ theme }) => theme.Grey}
+                                $c="black"
                                 onClick={() => {
                                     props.setApplyCheck(false);
                                     props.setApply(true);
@@ -76,8 +80,8 @@ const Completed = props => {
                                 돌아가기
                             </S.newBtn>
                             <S.newBtn
-                                bg={({ theme }) => theme.box1}
-                                c="white"
+                                $bg={({ theme }) => theme.box1}
+                                $c="white"
                                 onClick={() => {
                                     props.setApplyCheck(false);
                                     props.setCompleted(true);
@@ -94,7 +98,11 @@ const Completed = props => {
             )}
             {props.case === 2 && (
                 <S.Background>
-                    <S.Modal w="850px" h="400px" bc={({ theme }) => theme.box1}>
+                    <S.Modal
+                        $w="850px"
+                        $h="400px"
+                        $bc={({ theme }) => theme.box1}
+                    >
                         <S.Backbtn
                             onClick={() => {
                                 navigate('/' + props.title[1]);
@@ -112,7 +120,7 @@ const Completed = props => {
 
                         <S.ApplyBox>
                             <S.ApplyBtn
-                                w="350px"
+                                $w="350px"
                                 onClick={() => {
                                     navigate('/profile');
                                 }}

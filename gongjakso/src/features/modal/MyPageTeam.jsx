@@ -8,12 +8,15 @@ import {
     patchFinish,
 } from '../../service/apply_service';
 import SelectDate from '../../components/common/Calendar/SelectDate';
+import { useDispatch } from 'react-redux';
+import AlertModal from '../../components/common/AlertModal/AlertModal';
+import { openAlertModal } from './modalSlice/alertModalSlice';
 
 const MyPageTeam = props => {
     const navigate = useCustomNavigate();
     const [checkedCase] = useState(props.teamCase.id);
-
     const [dates, setDates] = useState();
+    const dispatch = useDispatch();
 
     const handleApply = date => {
         const year = date.getFullYear();
@@ -31,7 +34,15 @@ const MyPageTeam = props => {
 
     const ClickExtensionDate = () => {
         // 아래 부분 2 로 넣은 부분 수정해야함
-        patchExtension(props.id, dates);
+        props.CloseModal(false);
+        patchExtension(props.id, dates).then(response => {
+            if (response.code === 1000) {
+                alert('모집이 연장 되었습니다!');
+                window.location.reload();
+            } else {
+                alert('모집 연장에 실패 하였습니다.');
+            }
+        });
     };
 
     const ClickCancelBtn = () => {
@@ -55,7 +66,7 @@ const MyPageTeam = props => {
     return (
         <>
             <S.Background>
-                <S.Modal w="850px" h="450px" bc={({ theme }) => theme.box1}>
+                <S.Modal $w="850px" $h="450px" $bc={({ theme }) => theme.box1}>
                     <S.Backbtn onClick={() => props.CloseModal(false)}>
                         <img src={Close} alt="close-btn" />
                     </S.Backbtn>
@@ -94,14 +105,13 @@ const MyPageTeam = props => {
 
                     <S.ApplyBox>
                         <S.ApplyBtn
-                            w="300px"
+                            $w="300px"
                             onClick={() => {
                                 if (checkedCase === '1') {
                                     ClickFinishBtn();
                                     navigate('/profile');
                                 } else if (checkedCase === '2') {
                                     ClickExtensionDate();
-                                    props.CloseModal(false);
                                 } else if (checkedCase === '3') {
                                     ClickCancelBtn();
                                     navigate('/profile');
@@ -113,6 +123,7 @@ const MyPageTeam = props => {
                     </S.ApplyBox>
                 </S.Modal>
             </S.Background>
+            {/* <AlertModal /> */}
         </>
     );
 };

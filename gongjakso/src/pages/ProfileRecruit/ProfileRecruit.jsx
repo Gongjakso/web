@@ -49,7 +49,6 @@ const ProfileRecruit = () => {
             // number가 undefined가 아닌 경우에만 실행
             getApplyList(id).then(res => {
                 setPosts(res?.data.applyLists);
-                // console.log('getApplyList response:', posts);
             });
             getRecruitTeam(id).then(res => {
                 // console.log('getRecruitTeam response:', res);
@@ -130,7 +129,7 @@ const ProfileRecruit = () => {
                 <S.BlueBox>
                     <S.Border>
                         <S.DetailGlobal>
-                            <S.InsideTitleFront title={true}>
+                            <S.InsideTitleFront $title={'true'}>
                                 {recruitTeam?.title}
                             </S.InsideTitleFront>
                         </S.DetailGlobal>
@@ -147,7 +146,7 @@ const ProfileRecruit = () => {
                     <S.InsideBox>
                         <S.GlobalBox2>
                             <S.DetailGlobal2>
-                                <S.InsideTitle title={false}>
+                                <S.InsideTitle $title={'false'}>
                                     현재 모집 현황
                                     <S.TagNUM>
                                         {recruitTeam?.current_person}/
@@ -199,16 +198,17 @@ const ProfileRecruit = () => {
                 <S.Content>
                     <S.SubTitle>지원자 현황</S.SubTitle>
                     <S.MainTable>
-                        <S.StyledTh>
-                            <S.TagP isleft={true}>지원자명</S.TagP>
-                            <S.TagP isleft={false}>현재상태</S.TagP>
-                        </S.StyledTh>
-                        {posts
-                            ?.slice(offset, offset + limit)
-                            .map((item, i, array) => (
-                                <tr key={item.id}>
+                        <S.StyledThead>
+                            <S.StyledTr>
+                                <S.Tagth $isleft={'true'}>지원자명</S.Tagth>
+                                <S.Tagth $isleft={'false'}>현재상태</S.Tagth>
+                            </S.StyledTr>
+                        </S.StyledThead>
+                        <tbody>
+                            {posts.map((item, i, array) => (
+                                <tr key={item.apply_id}>
                                     <S.StyledTd
-                                        state={posts[i].is_canceled}
+                                        $state={posts[i].is_canceled}
                                         style={{
                                             borderRadius:
                                                 i !== array.length - 1
@@ -244,7 +244,7 @@ const ProfileRecruit = () => {
                                         <S.TableBox>
                                             {item?.state === '열람 완료' && (
                                                 <S.StateBtn
-                                                    bg={({ theme }) =>
+                                                    $bg={({ theme }) =>
                                                         theme.LimeGreen
                                                     }
                                                 >
@@ -273,6 +273,7 @@ const ProfileRecruit = () => {
                                     </S.StyledTd>
                                 </tr>
                             ))}
+                        </tbody>
                     </S.MainTable>
                 </S.Content>
                 <Pagination

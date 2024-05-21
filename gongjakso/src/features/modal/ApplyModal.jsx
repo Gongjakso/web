@@ -100,9 +100,9 @@ const ApplyModal = props => {
             {form[0] === '공모전' && (
                 <S.Background>
                     <S.Modal
-                        w="1000px"
-                        h="700px"
-                        bc={({ theme }) => theme.Light1}
+                        $w="1000px"
+                        $h="700px"
+                        $bc={({ theme }) => theme.Light1}
                     >
                         <S.Backbtn
                             onClick={() => {
@@ -126,7 +126,7 @@ const ApplyModal = props => {
                                 {applyType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={
+                                        $isselected={
                                             clickedFields === item.categoryType
                                         }
                                         onClick={() =>
@@ -179,9 +179,9 @@ const ApplyModal = props => {
             {form[0] === '프로젝트' && (
                 <S.Background>
                     <S.Modal
-                        w="1000px"
-                        h="800px"
-                        bc={({ theme }) => theme.Pink}
+                        $w="1000px"
+                        $h="800px"
+                        $bc={({ theme }) => theme.Pink}
                     >
                         <S.Backbtn
                             onClick={() => {
@@ -205,7 +205,7 @@ const ApplyModal = props => {
                                 {applyType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={
+                                        $isselected={
                                             clickedFields === item.categoryType
                                         }
                                         onClick={() =>
@@ -231,7 +231,7 @@ const ApplyModal = props => {
                                 {stackType.map((item, i) => (
                                     <S.RoundForm
                                         key={i}
-                                        isSelected={clickedSkill.includes(
+                                        $isselected={clickedSkill.includes(
                                             item.stackNameType,
                                         )}
                                         onClick={() =>
