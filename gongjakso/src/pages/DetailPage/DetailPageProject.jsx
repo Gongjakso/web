@@ -54,8 +54,9 @@ const DetailPageProject = () => {
     const [category, setCategory] = useState([]);
     const [stackType, setStackType] = useState([]);
 
-    const [scrapNum, setscrapNum] = useState(0);
+    const [scrapNum, setscrapNum] = useState();
     const [scrapStatus, setscrapStatus] = useState('');
+
     const [checkStatus, setcheckStatus] = useState('');
     const [urlLink, seturlLink] = useState('');
     const [applyType, setapplyType] = useState('');
@@ -101,7 +102,9 @@ const DetailPageProject = () => {
 
     // 스크랩 POST
     const ClickScrapBtn = () => {
-        postScrap(id);
+        postScrap(id).then(res => {
+            setscrapNum(res?.data.scrapCount);
+        });
         setscrapStatus(current => !current);
     };
 

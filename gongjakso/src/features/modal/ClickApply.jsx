@@ -6,12 +6,17 @@ import {
     patchNotRecruit,
     patchRecruit,
 } from '../../service/apply_service';
+import { useDispatch } from 'react-redux';
+import { openAlertModal } from './modalSlice/alertModalSlice';
+import AlertModal from '../../components/common/AlertModal/AlertModal';
 
 const ClickApply = props => {
     const [applyData, setapplyData] = useState([]);
     const [part, setPart] = useState([]);
     const [stack, setStack] = useState([]);
     const [decision, setDecision] = useState('');
+
+    const dispatch = useDispatch();
 
     // 스크롤 방지
     useEffect(() => {
@@ -33,22 +38,37 @@ const ClickApply = props => {
             setPart(res?.data.category);
             setStack(res?.data.postStack);
             setDecision(res?.data.applyType);
-            // console.log(res?.data);
         });
     }, [props.id, props.idNum]);
 
     const ClickRecruitBtn = () => {
         patchRecruit(props.idNum).then(res => {
-            // console.log(res?.data);
+            if (res?.response.data.code === 4007) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: `${applyData?.memberName}님 합류 실패`,
+                        modalContent: `${res?.response.data.message}`,
+                    }),
+                );
+            } else {
+                dispatch(
+                    openAlertModal({
+                        titleContent: `${applyData?.memberName}님 합류 성공`,
+                        modalContent: `${res?.response.data.message}`,
+                    }),
+                );
+            }
         });
-        alert('지원자가 합류되었습니다.');
     };
 
     const ClickNotRecruitBtn = () => {
-        patchNotRecruit(props.idNum).then(res => {
-            // console.log(res?.data);
-        });
-        alert('지원자를 미선발하였습니다.');
+        patchNotRecruit(props.idNum);
+        dispatch(
+            openAlertModal({
+                titleContent: `${applyData?.memberName}님을 미선발`,
+                modalContent: `미선발 하였습니다.`,
+            }),
+        );
     };
 
     return (
@@ -109,6 +129,7 @@ const ClickApply = props => {
                             <S.FormBox>
                                 {stack.map((item, i) => (
                                     <S.RoundForm
+                                        key={i}
                                         $isselected={applyData?.applyStack.includes(
                                             item,
                                         )}
@@ -175,6 +196,7 @@ const ClickApply = props => {
                     ) : null}
                 </S.Modal>
             </S.Background>
+            <AlertModal />
         </div>
     );
 };

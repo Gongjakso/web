@@ -25,6 +25,8 @@ export const Modal = styled.div`
     background: white;
     border-radius: 40px;
     padding: 50px;
+    /* width: 60%; //추가 해봤어요
+    height: 90%; //추가 해봤어요 */
 `;
 
 export const Backbtn = styled.button`
@@ -160,7 +162,7 @@ export const newBtn = styled.button`
     margin: 15px;
     padding: 18px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    background: ${props => props.bg};
+    background: ${props => props.$bg};
     font-family: 'PreBold';
     color: ${props => props.$c};
 `;

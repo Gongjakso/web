@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     isOpen: false,
+    confirmClick: null,
+    cancelClick: null,
 };
 
 const confirmModalSlice = createSlice({
@@ -10,9 +12,13 @@ const confirmModalSlice = createSlice({
     reducers: {
         openConfirmModal: (state, action) => {
             state.isOpen = true;
+            state.confirmClick = action.payload.confirmClick;
+            state.cancelClick = action.payload.cancelClick;
         },
-        closeConfirmModal: (state, action) => {
+        closeConfirmModal: state => {
             state.isOpen = false;
+            state.confirmClick = null;
+            state.cancelClick = null;
         },
     },
 });

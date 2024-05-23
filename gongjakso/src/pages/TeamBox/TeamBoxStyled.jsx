@@ -167,8 +167,8 @@ export const ActivityStatus = styled.div`
     font-weight: 600;
     text-align: center;
     color: ${({ theme }) => theme.mainFont2};
-    cursor: ${({ isleader, $poststatus }) =>
-        isleader
+    cursor: ${({ $isleader, $poststatus }) =>
+        $isleader
             ? $poststatus === 'ACTIVE'
                 ? 'pointer'
                 : 'not-allowed'

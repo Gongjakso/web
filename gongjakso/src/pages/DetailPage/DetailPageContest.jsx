@@ -61,7 +61,7 @@ const DetailPageContest = () => {
     const [postData, setpostData] = useState([]);
     const [category, setCategory] = useState([]);
 
-    const [scrapNum, setscrapNum] = useState(0);
+    const [scrapNum, setscrapNum] = useState();
     const [scrapStatus, setscrapStatus] = useState('');
     const [checkStatus, setcheckStatus] = useState('');
     const [applyType, setapplyType] = useState('');
@@ -105,7 +105,9 @@ const DetailPageContest = () => {
 
     // 스크랩 POST
     const ClickScrapBtn = () => {
-        postScrap(id);
+        postScrap(id).then(res => {
+            setscrapNum(res?.data.scrapCount);
+        });
         setscrapStatus(current => !current);
     };
 

@@ -1,6 +1,4 @@
 import axiosInstance from './axiosInstance';
-import axios from 'axios';
-const BaseUrl = process.env.REACT_APP_BASE_URL;
 
 //나의 정보
 export const putMyInfo = async (name, major, job, status, phone) => {
@@ -44,8 +42,8 @@ export const getMyRecruiting = async () => {
 };
 
 //팀박스->내가 지원
-export const getMyApplied = async () => {
-    const reqURL = `apply/my?page=0&size=6&sort=createdAt`;
+export const getMyApplied = async page => {
+    const reqURL = `apply/my?page=${page}&size=6&sort=`;
 
     try {
         const response = await axiosInstance.get(reqURL);
@@ -83,7 +81,6 @@ export const getMyContestScrap = async () => {
     const reqURL = `post/contest/myScrap`;
     try {
         const response = await axiosInstance.get(reqURL);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log('내가 스크랩한 공모전 정보를 가져올 수 없습니다.');
@@ -94,7 +91,6 @@ export const getMyProjectScrap = async () => {
     const reqURL = `post/project/myScrap`;
     try {
         const response = await axiosInstance.get(reqURL);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log('내가 스크랩한 프로젝트 정보를 가져올 수 없습니다.');

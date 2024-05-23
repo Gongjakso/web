@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import * as S from '../TeamBox/TeamBoxStyled';
-import { Link } from 'react-router-dom';
-import { patchCompletedPost } from '../../service/post_service';
-import { useDispatch } from 'react-redux';
-import { openConfirmModal } from '../../features/modal/modalSlice/confirmModalSlice';
+import { Link, useLocation } from 'react-router-dom';
+import { getCheckStatus, patchCompletedPost } from '../../service/post_service';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    openConfirmModal,
+    closeConfirmModal,
+} from '../../features/modal/modalSlice/confirmModalSlice';
 import { openAlertModal } from '../../features/modal/modalSlice/alertModalSlice';
 import ConfirmModal from '../../components/common/ConfirmModal/ConfirmModal';
 import AlertModal from '../../components/common/AlertModal/AlertModal';
@@ -17,13 +20,16 @@ const TeamBox = ({
     isMyParticipation,
     postId,
     overlayType,
-    isLeader,
-    completedStatus,
 }) => {
     const [isOverlayVisible, setIsOverlayVisible] = useState(true);
+    const [isLeader, setIsLeader] = useState();
+    const location = useLocation();
     const dispatch = useDispatch();
+    const { isOpen, confirmClick, cancelClick } = useSelector(
+        state => state.confirmModal,
+    );
+
     useEffect(() => {
-        // Check localStorage for overlay visibility state
         const overlayVisibility = localStorage.getItem(
             `overlayVisible-${postId}`,
         );
@@ -32,32 +38,69 @@ const TeamBox = ({
         }
     }, [postId]);
 
+    useEffect(() => {
+        // 특정 경로에서만 getCheckStatus 함수 호출
+        if (location.pathname === '/participatedTeam') {
+            getCheckStatus(postContent?.postId).then(response => {
+                const imLeader = response?.data?.role === 'LEADER';
+                setIsLeader(imLeader);
+            });
+        }
+    }, [location.pathname, postContent?.postId]);
+
     const hideOverlay = () => {
-        setIsOverlayVisible(false); // 오버레이를 숨기는 함수
+        setIsOverlayVisible(false);
     };
 
-    const handleOpenModal = () => {
-        dispatch(openConfirmModal());
-    };
-
-    const handleClick = () => {
-        patchCompletedPost(completedStatus).then(response => {
+    const handleAPIRequest = postId => {
+        // 활동 종료 api
+        patchCompletedPost(postId).then(response => {
             if (response?.code === 1000) {
-                dispatch(openConfirmModal());
+                dispatch(
+                    openAlertModal({
+                        titleContent: '활동을 종료하였습니다',
+                        modalContent: '활동 기간 동안 고생하셨습니다!',
+                    }),
+                );
             } else {
                 dispatch(
                     openAlertModal({
-                        titleContent: '활동 종료 권한이 없습니다.',
+                        titleContent: '활동을 종료할 권한이 없습니다.',
                         modalContent: '활동 종료는 팀장만 할 수 있습니다!',
                     }),
                 );
             }
-            console.log(response);
         });
-        console.log('클릭되었습니다!'); //리더일때만 클릭되게 만드는 버튼
     };
 
-    //활동기간 형식 바꾸기
+    const handleOpenModal = id => {
+        dispatch(
+            openConfirmModal({
+                confirmClick: () => handleAPIRequest(id),
+                cancelClick: handleCancel,
+            }),
+        );
+    };
+
+    const handleClick = () => {
+        if (confirmClick) {
+            confirmClick();
+        }
+    };
+
+    const handleCancel = () => {
+        dispatch(
+            openAlertModal({
+                titleContent: '활동 종료를 취소하였습니다.',
+                modalContent: '남은 기간 화이팅입니다!!',
+            }),
+        );
+        if (cancelClick) {
+            cancelClick();
+        }
+        dispatch(closeConfirmModal());
+    };
+
     const startDate = new Date(postContent?.startDate)
         .toLocaleDateString('ko-KR', {
             year: 'numeric',
@@ -145,8 +188,17 @@ const TeamBox = ({
                     ) : (
                         <S.ActivityStatus
                             $poststatus={postContent?.postStatus}
-                            isleader={isLeader}
-                            onClick={isLeader ? handleOpenModal : null}
+                            $isleader={isLeader}
+                            onClick={
+                                isLeader
+                                    ? postContent?.postStatus === 'ACTIVE'
+                                        ? () =>
+                                              handleOpenModal(
+                                                  postContent?.postId,
+                                              )
+                                        : null
+                                    : null
+                            }
                         >
                             {postContent?.postStatus === 'ACTIVE'
                                 ? '활동 중'
@@ -158,10 +210,7 @@ const TeamBox = ({
                     <S.MainBox>
                         {isMyParticipation ? (
                             <div></div>
-                        ) : // <S.RoundForm>
-                        //     {getDisplayCategory(postContent?.recruit_part)}
-                        // </S.RoundForm>
-                        isMyParticipation === null ? (
+                        ) : isMyParticipation === null ? (
                             postContent?.categories?.map((category, index) => {
                                 return (
                                     <S.RoundForm key={index}>
@@ -199,11 +248,6 @@ const TeamBox = ({
                                 : postContent?.applyType === 'NOT_PASS'
                                   ? '미선발'
                                   : '합류 대기중'}
-                            {/* {postContent?.status === 'EXTENSION' && (
-                                <S.DeadlineOverlay status={postContent.status}>
-                                    모집이 연장되었습니다.
-                                </S.DeadlineOverlay>
-                            )} */}
                             {postContent?.status === 'CLOSE' && (
                                 <S.DeadlineOverlay $status={postContent.status}>
                                     모집이 마감되었습니다.
@@ -224,10 +268,13 @@ const TeamBox = ({
                 )}
             </S.Box>
             <AlertModal />
-            <ConfirmModal
-                question="정말 활동을 종료 하시겠습니까?"
-                confirmClick={handleClick}
-            />
+            {isOpen && (
+                <ConfirmModal
+                    question="정말 활동을 종료 하시겠습니까?"
+                    confirmClick={handleClick}
+                    cancelClick={handleCancel}
+                />
+            )}
         </>
     );
 };

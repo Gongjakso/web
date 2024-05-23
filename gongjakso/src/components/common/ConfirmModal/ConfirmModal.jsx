@@ -4,9 +4,19 @@ import { closeConfirmModal } from '../../../features/modal/modalSlice/confirmMod
 
 import * as S from './ConfirmModal.Styled';
 
-const ConfirmModal = ({ question, explain, confirmClick }) => {
+const ConfirmModal = ({ question, explain, confirmClick, cancelClick }) => {
     const dispatch = useDispatch();
     const { isOpen } = useSelector(store => store.confirmModal);
+
+    const handleOk = () => {
+        if (confirmClick) confirmClick(); // 사용자가 정의한 confirmClick 함수 실행
+        dispatch(closeConfirmModal());
+    };
+
+    const handleCancel = () => {
+        if (cancelClick) cancelClick(); // 사용자가 정의한 cancelClick 함수 실행
+        dispatch(closeConfirmModal());
+    };
     return (
         <>
             <S.Dialog open={isOpen}>
@@ -25,21 +35,18 @@ const ConfirmModal = ({ question, explain, confirmClick }) => {
                                 gra="true"
                                 width="40%"
                                 padding="5px"
-                                onClick={confirmClick}
+                                onClick={handleOk}
                             >
-                                yes
+                                네
                             </button>
-                            <button
-                                width="40%"
-                                onClick={() => dispatch(closeConfirmModal())}
-                            >
-                                no
+                            <button width="40%" onClick={handleCancel}>
+                                아니요
                             </button>
                         </S.ConfirmModalButtonBox>
 
                         <S.CloseConfirmModalButton
                             type="button"
-                            onClick={() => dispatch(closeConfirmModal())}
+                            onClick={handleCancel}
                         ></S.CloseConfirmModalButton>
                     </S.ConfirmModalInnerContainer>
                 </S.ConfirmModalContainer>
