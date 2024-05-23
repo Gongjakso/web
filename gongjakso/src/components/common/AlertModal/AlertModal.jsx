@@ -8,14 +8,16 @@ const AlertModal = ({ gobackButton }) => {
     const dispatch = useDispatch();
     const goToPage = useCustomNavigate();
 
-    const { isOpen, titleContent, modalContent, redirectUrl } = useSelector(
-        store => store.alertModal,
-    );
+    const { isOpen, titleContent, modalContent, redirectUrl, modal } =
+        useSelector(store => store.alertModal);
 
     const confirmButton = () => {
         dispatch(closeAlertModal());
         if (redirectUrl) {
             goToPage(redirectUrl);
+        }
+        if (modal?.onConfirm) {
+            modal?.onConfirm();
         }
     };
 

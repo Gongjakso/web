@@ -15,6 +15,7 @@ const ClickApply = props => {
     const [part, setPart] = useState([]);
     const [stack, setStack] = useState([]);
     const [decision, setDecision] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달이 열려있는지 여부를 추적
 
     const dispatch = useDispatch();
 
@@ -48,6 +49,9 @@ const ClickApply = props => {
                     openAlertModal({
                         titleContent: `${applyData?.memberName}님 합류 실패`,
                         modalContent: `${res?.response.data.message}`,
+                        onConfirm: () => {
+                            props.setShowApply(false); // 확인 버튼을 클릭하면 setShowApply 함수 호출하여 모달을 닫음
+                        },
                     }),
                 );
             } else {
@@ -55,6 +59,9 @@ const ClickApply = props => {
                     openAlertModal({
                         titleContent: `${applyData?.memberName}님 합류 성공`,
                         modalContent: `${res?.response.data.message}`,
+                        onConfirm: () => {
+                            props.setShowApply(false); // 확인 버튼을 클릭하면 setShowApply 함수 호출하여 모달을 닫음
+                        },
                     }),
                 );
             }
@@ -67,8 +74,12 @@ const ClickApply = props => {
             openAlertModal({
                 titleContent: `${applyData?.memberName}님을 미선발`,
                 modalContent: `미선발 하였습니다.`,
+                onConfirm: () => {
+                    props.setShowApply(false); // 확인 버튼을 클릭하면 setShowApply 함수 호출하여 모달을 닫음
+                },
             }),
         );
+        // props.setShowApply(false); // 모달을 닫도록 상태를 변경
     };
 
     return (

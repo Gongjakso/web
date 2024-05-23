@@ -4,9 +4,14 @@ import { ReactComponent as Fire } from '../../assets/images/Fire.svg';
 import { ReactComponent as ArrowDetail } from '../../assets/images/ArrowDetail.svg';
 import { ReactComponent as CloseWhite } from '../../assets/images/CloseWhite.svg';
 
+export const Container = styled.div`
+    height: 100%;
+    margin: 0 auto;
+`;
+
 export const Box = styled.div`
     position: relative;
-    width: 1200px;
+    width: 1000px;
     height: 160px;
     background-color: transparent;
     border: 1.5px solid ${props => props.$bordercolor || '#0054FF'};
@@ -14,9 +19,7 @@ export const Box = styled.div`
     flex-direction: column;
     color: ${({ theme }) => theme.mainFont};
     border-radius: 15px;
-    padding: 20px
-        ${props => (props.$showmoredetail === 'true' ? '90px' : '50px')} 20px
-        50px;
+    padding: 20px 50px 20px 50px;
     margin: 10px 0px;
     //마감일수가 0일 때 상태 변환
 `;
@@ -25,11 +28,12 @@ export const Title = styled.p`
     font-size: ${({ theme }) => theme.fontSize.l};
     color: ${({ theme }) => theme.mainFont};
     //display: flex;
+    width: 250px;
+
     align-items: center;
     justify-content: flex;
     font-family: 'TheJamsilRegular';
     margin-right: 30px;
-    width: 330px;
     white-space: nowrap; // 내용이 줄바꿈되지 않고 한 줄에 표시되도록 설정
     overflow: hidden; // 내용이 너비를 초과할 경우 숨김 처리
     text-overflow: ellipsis; // 내용이 너비를 초과할 경우 ...으로 표시
@@ -68,6 +72,7 @@ export const SubBox = styled.div`
     width: 28%;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 `;
 
 //프로필페이지-파트명
@@ -194,10 +199,10 @@ export const RoundForm = styled.div`
 export const MoreDetail = styled(ArrowDetail)`
     position: absolute;
     top: 50%;
-    right: 30px;
+    right: 15px;
     transform: translateY(-50%);
     height: 100%;
-    z-index: 1;
+    z-index: 3;
 `;
 
 //프로필페이지 -> 모집 마감, 연장, 취소 오버레이

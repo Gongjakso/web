@@ -155,7 +155,7 @@ const TeamBox = ({
     }
 
     return (
-        <>
+        <S.Container>
             <S.Box
                 $bordercolor={borderColor}
                 $showmoredetail={showMoreDetail.toString()}
@@ -260,12 +260,12 @@ const TeamBox = ({
                             )}
                         </S.WaitingJoin>
                     )}
+                    {showMoreDetail && (
+                        <Link to={`/teamdetail/${postId}`}>
+                            <S.MoreDetail />
+                        </Link>
+                    )}
                 </S.BoxBottomDetail>
-                {showMoreDetail && (
-                    <Link to={`/teamdetail/${postId}`}>
-                        <S.MoreDetail />
-                    </Link>
-                )}
             </S.Box>
             <AlertModal />
             {isOpen && (
@@ -275,7 +275,7 @@ const TeamBox = ({
                     cancelClick={handleCancel}
                 />
             )}
-        </>
+        </S.Container>
     );
 };
 
