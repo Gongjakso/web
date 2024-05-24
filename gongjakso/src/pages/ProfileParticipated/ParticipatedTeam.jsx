@@ -12,16 +12,16 @@ const TeamPart = () => {
     const [isLeader, setLeader] = useState();
 
     useEffect(() => {
-        getMyParticipated(page).then(response => {
-            setTotalPage(response?.data?.totalPages);
+        getMyParticipated(page, 6).then(response => {
+            setTotalPage(response?.data?.totalPages - 1);
             setPostContent3(response?.data);
         });
     }, [page]);
 
     const loadParticipatedPosts = page => {
-        getMyParticipated(page).then(response => {
+        getMyParticipated(page, 6).then(response => {
             setPostContent3(response?.data);
-            setTotalPage(response?.data?.totalPages);
+            setTotalPage(response?.data?.totalPages - 1);
         });
     };
 

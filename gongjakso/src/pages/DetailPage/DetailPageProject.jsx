@@ -220,7 +220,7 @@ const DetailPageProject = () => {
                         <S.TextBox>
                             <S.TextTitle>진행 기간</S.TextTitle>
                             <S.TextDetail>
-                                {formatDate(postData?.startDate)} ~
+                                {formatDate(postData?.startDate)} ~{' '}
                                 {formatDate(postData?.endDate)}
                             </S.TextDetail>
                         </S.TextBox>
@@ -307,7 +307,7 @@ const DetailPageProject = () => {
                             <S.Meeting>
                                 <img src={Place} alt="place-icon" />
                                 <span>
-                                    {postData?.meetingCity}
+                                    {postData?.meetingCity}{' '}
                                     {postData?.meetingTown}
                                 </span>
                             </S.Meeting>

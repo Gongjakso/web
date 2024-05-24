@@ -42,8 +42,8 @@ export const getMyRecruiting = async () => {
 };
 
 //팀박스->내가 지원
-export const getMyApplied = async page => {
-    const reqURL = `apply/my?page=${page}&size=6&sort=`;
+export const getMyApplied = async (page, size) => {
+    const reqURL = `apply/my?page=${page}&size=${size}&sort=`;
 
     try {
         const response = await axiosInstance.get(reqURL);
@@ -54,20 +54,10 @@ export const getMyApplied = async page => {
 };
 
 //팀박스->내가 참여
-export const getMyParticipatedMain = async () => {
-    const reqURL = `apply/my-participation-post?page=0&size=2`;
-
-    try {
-        const response = await axiosInstance.get(reqURL);
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
 
 //내가 참여 상세페이지
-export const getMyParticipated = async page => {
-    const reqURL = `apply/my-participation-post?page=${page - 1}&size=6`;
+export const getMyParticipated = async (page, size) => {
+    const reqURL = `apply/my-participation-post?page=${page}&size=${size}`;
 
     try {
         const response = await axiosInstance.get(reqURL);

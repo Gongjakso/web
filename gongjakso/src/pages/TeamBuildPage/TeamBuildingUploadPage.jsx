@@ -299,7 +299,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             label={'제목'}
                             id={'title'}
                             placeholder={
-                                '공모전 이름 또는 프로젝트 이름을 입력해주세요. *게시 후 수정할 수 없습니다.'
+                                '공모전 이름을 입력해주세요. *게시 후 수정할 수 없습니다.'
                             }
                             error={errors?.title}
                             register={register}
@@ -322,7 +322,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             rows="8"
                             value={description}
                             onChange={handleDescriptionChange}
-                            placeholder="사용자들이 공모전/프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
+                            placeholder="사용자들이 공모전을 더 잘 이해할 수 있는 설명글을 적어주세요."
                         ></S.TextArea>
                         <S.InputNum>
                             <span>{inputCount}</span>
@@ -355,9 +355,17 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             register={register}
                             registerOptions={{
                                 required: '인원을 입력하세요 ',
-                                min: 1,
-                                max: 10,
+                                min: {
+                                    value: 1,
+                                    message: '최소 인원은 1명입니다.',
+                                },
+                                max: {
+                                    value: 10,
+                                    message: '최대 인원은 10명입니다.',
+                                },
                             }}
+                            min={1}
+                            max={10}
                             step={1}
                         />
                     </S.Label>
@@ -365,7 +373,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>모집 분야</S.TapP>
                         <CountGuest
                             isProject={false}
-                            maxGuests={parseInt(watch('people'), 10)} // 입력한 숫자를 최대치로 설정
+                            maxGuests={parseInt(10)} // 입력한 숫자를 최대치로 설정
                             onApply={handleCategory}
                         />
                     </S.Label>
@@ -465,7 +473,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             label={'제목'}
                             id={'title'}
                             placeholder={
-                                '공모전 이름 또는 프로젝트 이름을 입력해주세요. *게시 후 수정할 수 없습니다.'
+                                '프로젝트 이름을 입력해주세요. *게시 후 수정할 수 없습니다.'
                             }
                             error={errors?.title}
                             register={register}
@@ -488,7 +496,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             rows="8"
                             value={description}
                             onChange={handleDescriptionChange}
-                            placeholder="사용자들이 공모전/프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
+                            placeholder="사용자들이 프로젝트를 더 잘 이해할 수 있는 설명글을 적어주세요."
                         ></S.TextArea>
                         <S.InputNum>
                             <span>{inputCount}</span>
@@ -507,9 +515,17 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             register={register}
                             registerOptions={{
                                 required: '인원을 입력하세요 ',
-                                min: 1,
-                                max: 10,
+                                min: {
+                                    value: 1,
+                                    message: '최소 인원은 1명입니다.',
+                                },
+                                max: {
+                                    value: 10,
+                                    message: '최대 인원은 10명입니다.',
+                                },
                             }}
+                            min={1}
+                            max={10}
                             step={1}
                         />
                     </S.Label>
@@ -517,7 +533,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>모집 분야</S.TapP>
                         <CountGuest
                             isProject={true}
-                            maxGuests={parseInt(watch('people'), 10)} // 입력한 숫자를 최대치로 설정
+                            maxGuests={parseInt(10)} // 입력한 숫자를 최대치로 설정
                             onApply={handleCategory}
                         />
                     </S.Label>

@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
-import { getMyInfo } from '../../service/profile_service';
+import { getMyInfo, getMyParticipated } from '../../service/profile_service';
 import { getMyRecruiting } from '../../service/profile_service';
 import { getMyApplied } from '../../service/profile_service';
-import { getMyParticipatedMain } from '../../service/profile_service';
 
 const ProfilePage = () => {
     const [data, setProfileData] = useState(); //프로필 내용
@@ -21,11 +20,11 @@ const ProfilePage = () => {
         getMyRecruiting().then(response => {
             setPostContent1(response?.data.slice(0, 2));
         });
-        getMyApplied().then(response => {
-            setPostContent2(response?.data.content.slice(0, 2));
+        getMyApplied(1, 2).then(response => {
+            setPostContent2(response?.data.content);
         });
-        getMyParticipatedMain().then(response => {
-            setPostContent3(response?.data.participationLists.slice(0, 2));
+        getMyParticipated(1, 2).then(response => {
+            setPostContent3(response?.data.participationLists);
         });
     }, []);
 

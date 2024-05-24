@@ -11,14 +11,14 @@ const TeamSupport = () => {
     const [totalPage, setTotalPage] = useState();
 
     useEffect(() => {
-        getMyApplied(page).then(response => {
+        getMyApplied(page, 6).then(response => {
             setTotalPage(response?.data.totalPages);
             setPostContent2(response?.data.content);
         });
     }, [page]);
 
     const loadParticipatedPosts = page => {
-        getMyApplied(page).then(response => {
+        getMyApplied(page, 6).then(response => {
             setPostContent2(response?.data.content);
             setTotalPage(response?.data.totalPages);
         });

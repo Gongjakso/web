@@ -24,6 +24,7 @@ export const SelectValue = styled.div`
 
 export const OptionList = styled.div`
     position: absolute;
+    font-family: 'PreMedium';
     left: 0;
     width: ${props => (props.$case === 'true' ? '220px' : '430px')};
     font-size: ${({ theme }) => theme.fontSize.md};
@@ -35,6 +36,7 @@ export const OptionList = styled.div`
     border: 1px solid hsl(0, 0%, 90%);
     max-height: 300px;
     overflow-y: ${props => (props.$scroll === 'true' ? 'scroll' : 'hidden')};
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.05);
     .option {
         padding: 15px;
         cursor: pointer;

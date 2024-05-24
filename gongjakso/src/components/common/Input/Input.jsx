@@ -18,7 +18,7 @@ const Input = props => {
     const isLabel = !!label;
     return (
         <>
-            <S.InputLabel $islabel={isLabel.toString()} htmlFor={id}>
+            <S.InputLabel $islabel={isLabel?.toString()} htmlFor={id}>
                 {label}
             </S.InputLabel>
             <S.InputText
@@ -85,7 +85,6 @@ const SelectInput = props => {
 
     const handleSelectChange = event => {
         const selectedValue = getSelectedOption(event?.target?.value);
-        console.log(selectedValue);
         setSelectedOption(selectedValue);
         onChange(selectedValue); // Call the onChange function with the selected value
     };
@@ -104,8 +103,8 @@ const SelectInput = props => {
                 </S.SelectValue>
                 {isOpen && (
                     <S.OptionList
-                        $case={props.case.toString()}
-                        $scroll={props.scroll.toString()}
+                        $case={props.case?.toString()}
+                        $scroll={props.scroll?.toString()}
                     >
                         {selectOptions.map((option, index) => (
                             <li

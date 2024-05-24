@@ -114,7 +114,10 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
                             {quantity}
                             <S.Button
                                 onClick={() => handleQuantityChange(role, true)}
-                                disabled={totalSelectedGuests >= maxGuests} // 최대치를 초과하는 경우 버튼 비활성화
+                                disabled={
+                                    totalSelectedGuests >= maxGuests ||
+                                    quantity >= 10
+                                } // 최대치를 초과하는 경우 버튼 비활성화
                             >
                                 +
                             </S.Button>
