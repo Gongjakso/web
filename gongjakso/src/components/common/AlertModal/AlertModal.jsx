@@ -30,7 +30,9 @@ const AlertModal = ({ gobackButton }) => {
                     <S.MainTitle>{titleContent}</S.MainTitle>
                     <S.AlertText>{modalContent}</S.AlertText>
                     <S.AlertmModalButtonBox>
-                        <S.AlertBtn onClick={confirmButton}>확인</S.AlertBtn>
+                        <S.AlertBtn $w="25%" onClick={confirmButton}>
+                            확인
+                        </S.AlertBtn>
                     </S.AlertmModalButtonBox>
                 </S.AlertModalInnerContainer>
             </S.AlertModalContainer>

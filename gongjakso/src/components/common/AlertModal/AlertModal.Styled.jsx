@@ -30,11 +30,11 @@ export const AlertModalInnerContainer = styled.div`
 
     background: #fff;
     text-align: center;
-    border-radius: 14px;
+    border-radius: 40px;
     padding: 15px;
     position: relative;
 
-    width: 50%;
+    width: 45%;
     height: 50%;
 `;
 export const MainTitle = styled.p`
@@ -71,7 +71,7 @@ export const AlertBtn = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ${props => props.w};
+    width: ${props => props.$w};
     height: 50px;
     border-radius: 10px;
     padding: 27px;

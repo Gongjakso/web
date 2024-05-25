@@ -38,7 +38,6 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
 
     const handleQuantityChange = (role, increment) => {
         if (!increment && roles[role] <= 0) return; // 음수가 되지 않도록 처리
-        if (increment && totalSelectedGuests >= maxGuests) return; // 최대치 초과 시 처리
 
         setRoles(prevRoles => {
             const updatedRoles = {
@@ -53,8 +52,13 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
                 (acc, count) => acc + count,
                 0,
             );
-            const isExceedMaxGuests = total > maxGuests;
-            return isExceedMaxGuests ? prevRoles : updatedRoles;
+
+            // 최대치를 초과하는 경우 증가하지 않도록 처리
+            if (increment && total > maxGuests) {
+                return prevRoles;
+            }
+
+            return updatedRoles;
         });
     };
 
@@ -117,7 +121,7 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
                                 disabled={
                                     totalSelectedGuests >= maxGuests ||
                                     quantity >= 10
-                                } // 최대치를 초과하는 경우 버튼 비활성화
+                                } // 최대치를 초과하거나 개별 역할이 10 이상인 경우 버튼 비활성화
                             >
                                 +
                             </S.Button>

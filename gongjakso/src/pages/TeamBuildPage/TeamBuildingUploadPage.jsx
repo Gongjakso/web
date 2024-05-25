@@ -211,7 +211,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                 dispatch(
                     openAlertModal({
                         titleContent: '공모전 팀빌딩',
-                        modalContent: '공고를 더이상 생성할 수 없습니다!',
+                        modalContent: '공고를 더 이상 생성할 수 없습니다!',
                     }),
                 );
             } else if (res === 2000) {
@@ -226,7 +226,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                 dispatch(
                     openAlertModal({
                         titleContent: '공모전 팀빌딩',
-                        modalContent: '공고가 생성 되었습니다!',
+                        modalContent: '공고가 생성되었습니다!',
                         redirectUrl: '/contest',
                     }),
                 );
@@ -257,7 +257,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                 dispatch(
                     openAlertModal({
                         titleContent: '프로젝트 팀빌딩',
-                        modalContent: '공고를 더이상 생성할 수 없습니다!',
+                        modalContent: '공고를 더 이상 생성할 수 없습니다!',
                     }),
                 );
             } else if (res === 2000) {
@@ -272,7 +272,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                 dispatch(
                     openAlertModal({
                         titleContent: '프로젝트 팀빌딩',
-                        modalContent: '공고가 생성 되었습니다!',
+                        modalContent: '공고가 생성되었습니다!',
                         redirectUrl: '/project',
                     }),
                 );
@@ -373,7 +373,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>모집 분야</S.TapP>
                         <CountGuest
                             isProject={false}
-                            maxGuests={parseInt(10)} // 입력한 숫자를 최대치로 설정
+                            maxGuests={watch('people')} // 입력한 숫자를 최대치로 설정
                             onApply={handleCategory}
                         />
                     </S.Label>
@@ -533,7 +533,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         <S.TapP>모집 분야</S.TapP>
                         <CountGuest
                             isProject={true}
-                            maxGuests={parseInt(10)} // 입력한 숫자를 최대치로 설정
+                            maxGuests={watch('people')} // 입력한 숫자를 최대치로 설정
                             onApply={handleCategory}
                         />
                     </S.Label>

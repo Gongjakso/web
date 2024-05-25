@@ -22,7 +22,9 @@ const ApplyCancel = props => {
     }, []);
 
     const ClickCancelBtn = applyId => {
-        applyCancel(applyId);
+        applyCancel(applyId).then(res => {
+            console.log(res);
+        });
     };
 
     return (

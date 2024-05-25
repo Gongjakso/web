@@ -22,7 +22,7 @@ const Completed = props => {
     }, []);
 
     // 지원하기 POST
-    const submitContestApply = data => {
+    const submitContestApply = () => {
         const newData = {
             application: props.inputValue,
             recruit_part: props.clickedFields,
@@ -30,10 +30,10 @@ const Completed = props => {
             type: 'CONTEST',
         };
         postApply(props.id, newData).then(res => {
-            // console.log(res);
+            console.log(res);
         });
     };
-    const submitProjectApply = data => {
+    const submitProjectApply = () => {
         const newData = {
             application: props.inputValue,
             recruit_part: props.clickedFields,
@@ -42,7 +42,7 @@ const Completed = props => {
             type: 'PROJECT',
         };
         postApply(props.id, newData).then(res => {
-            // console.log(res);
+            console.log(res);
         });
     };
 

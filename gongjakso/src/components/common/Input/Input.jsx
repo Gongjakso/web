@@ -21,15 +21,17 @@ const Input = props => {
             <S.InputLabel $islabel={isLabel?.toString()} htmlFor={id}>
                 {label}
             </S.InputLabel>
-            <S.InputText
-                id={id}
-                type={type || 'text'}
-                className={error ? 'warning' : null}
-                placeholder={placeholder}
-                step={step}
-                {...register(id, registerOptions)}
-            />
-            {error && <WarningMsg msg={error.message} />}
+            <S.Div>
+                <S.InputText
+                    id={id}
+                    type={type || 'text'}
+                    className={error ? 'warning' : null}
+                    placeholder={placeholder}
+                    step={step}
+                    {...register(id, registerOptions)}
+                />
+                {error && <WarningMsg msg={error.message} />}
+            </S.Div>
         </>
     );
 };

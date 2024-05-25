@@ -65,7 +65,6 @@ export const InputText = styled.input.attrs(props => ({
 }))`
     font-size: ${({ theme }) => theme.fontSize.base};
 
-    width: 70%;
     padding: 10px 0;
     border-style: none;
     border-bottom: 1px solid ${({ theme }) => theme.border};
@@ -76,6 +75,7 @@ export const InputText = styled.input.attrs(props => ({
     }
 
     &.warning {
+        gap: 10px;
         border-bottom: 1px solid ${({ theme }) => theme.repo.open};
     }
 `;
@@ -85,4 +85,11 @@ export const Arrow = styled.img`
     align-items: center;
     padding-right: 5px;
     justify-content: center;
+`;
+
+export const Div = styled.div`
+    width: 70%;
+
+    display: flex;
+    flex-direction: column;
 `;
