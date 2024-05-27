@@ -111,6 +111,7 @@ export const getMyApplication = async postid => {
 
     try {
         const response = await axiosInstance.get(reqURL);
+        console.log(response);
         return response.data;
     } catch (error) {
         console.log(error);

@@ -11,7 +11,6 @@ export const Dialog = styled.dialog`
     left: 50%; /* 화면 왼쪽에서 절반 위치에 설정 */
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(5px);
     z-index: 999;
 `;
 
@@ -32,12 +31,12 @@ export const ConfirmModalInnerContainer = styled.div`
 
     background: #fff;
     text-align: center;
-    border-radius: 14px;
+    border-radius: 40px;
     padding: 15px;
     position: relative;
 
-    width: 40%;
-    height: 40%;
+    width: 45%;
+    height: 50%;
 `;
 
 export const ConfirmModalQustion = styled.h3`
@@ -55,7 +54,8 @@ export const ConfirmModalExplain = styled.div`
 export const ConfirmModalButtonBox = styled.div`
     margin-top: 20px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 20%;
     width: 100%;
 `;
 
@@ -64,6 +64,35 @@ export const CloseConfirmModalButton = styled.button`
     top: 10px;
     right: 15px;
     padding: 5px;
+`;
+
+export const ConfirmBtn = styled.button`
+    bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: ${props => props.$width};
+    height: 50px;
+    border-radius: 10px;
+    padding: 27px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    background: ${({ theme }) => theme.Main1};
+    font-family: 'PreBold';
+    color: white;
+`;
+export const NotComfirmBtn = styled.button`
+    bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: ${props => props.$width};
+    height: 50px;
+    border-radius: 10px;
+    padding: 27px;
+    font-size: ${({ theme }) => theme.fontSize.md};
+    background: ${({ theme }) => theme.borderline};
+    font-family: 'PreBold';
+    color: white;
 `;
 
 // export const CloseModalIcon = styled(Close)`

@@ -9,7 +9,6 @@ export const Dialog = styled.dialog`
     left: 50%; /* 화면 왼쪽에서 절반 위치에 설정 */
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(5px);
     z-index: 999;
 `;
 

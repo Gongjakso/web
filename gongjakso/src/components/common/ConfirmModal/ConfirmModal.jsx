@@ -31,23 +31,21 @@ const ConfirmModal = ({ question, explain, confirmClick, cancelClick }) => {
                             ))}
                         </S.ConfirmModalExplain>
                         <S.ConfirmModalButtonBox>
-                            <button
-                                gra="true"
-                                width="40%"
-                                padding="5px"
-                                onClick={handleOk}
-                            >
+                            <S.ConfirmBtn $width="25%" onClick={handleOk}>
                                 네
-                            </button>
-                            <button width="40%" onClick={handleCancel}>
+                            </S.ConfirmBtn>
+                            <S.NotComfirmBtn
+                                $width="25%"
+                                onClick={handleCancel}
+                            >
                                 아니요
-                            </button>
+                            </S.NotComfirmBtn>
                         </S.ConfirmModalButtonBox>
 
-                        <S.CloseConfirmModalButton
+                        {/* <S.CloseConfirmModalButton
                             type="button"
                             onClick={handleCancel}
-                        ></S.CloseConfirmModalButton>
+                        ></S.CloseConfirmModalButton> */}
                     </S.ConfirmModalInnerContainer>
                 </S.ConfirmModalContainer>
             </S.Dialog>

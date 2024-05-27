@@ -6,25 +6,13 @@ import Pagination from '../../components/Pagination/Pagination';
 import { getMyRecruiting } from '../../service/profile_service';
 
 const RecruitedTeam = () => {
-    const [limit, setLimit] = useState(6);
-    const [page, setPage] = useState(1);
-    const offset = (page - 1) * limit;
-    const [data, setData] = useState([]);
     const [postContent1, setPostContent1] = useState([]);
-    const [totalPage, setTotalPage] = useState();
 
     useEffect(() => {
-        setPage(1);
         getMyRecruiting().then(response => {
             setPostContent1(response?.data);
         });
     }, []);
-
-    const loadRecruitedPosts = page => {
-        getMyRecruiting(page).then(response => {
-            setPostContent1(response?.data);
-        });
-    };
 
     return (
         <div>
@@ -50,13 +38,6 @@ const RecruitedTeam = () => {
                         postId={postContent1?.postId}
                     />
                 ))}
-                <Pagination
-                    total={totalPage}
-                    limit={limit}
-                    page={page}
-                    setPage={setPage}
-                    loadPosts={loadRecruitedPosts}
-                />
             </S.BoxDetail>
         </div>
     );

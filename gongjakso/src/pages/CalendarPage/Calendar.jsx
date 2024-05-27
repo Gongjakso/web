@@ -34,7 +34,6 @@ const Calendar = () => {
         const postType = info.event._def.extendedProps.postType
             ? 'project'
             : 'contest';
-        console.log('Clicked event:', postId, postType);
         navigate(`/${postType}/${postId}`);
         // 여기에 클릭된 이벤트에 대한 추가적인 처리 로직을 추가할 수 있습니다.
     };
