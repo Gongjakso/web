@@ -34,10 +34,7 @@ const ProfileRecruit = () => {
     ]);
 
     const [posts, setPosts] = useState([]);
-    const [limit, setLimit] = useState(11);
     const [page, setPage] = useState(1);
-    const offset = (page - 1) * limit;
-
     const [totalPage, setTotalPage] = useState();
 
     const { id } = useParams();
@@ -47,18 +44,24 @@ const ProfileRecruit = () => {
     useEffect(() => {
         if (id !== undefined) {
             // number가 undefined가 아닌 경우에만 실행
-            getApplyList(id).then(res => {
+            getApplyList(id, page).then(res => {
+                setTotalPage(res?.data.totalPages);
                 setPosts(res?.data.applyLists);
-                // console.log('getApplyList response:', posts);
             });
             getRecruitTeam(id).then(res => {
-                // console.log('getRecruitTeam response:', res);
                 setRecruitTeam(res?.data);
                 setPart(res?.data.category);
                 setRole(res?.data.stackName);
             });
         }
-    }, [id]); // number가 변경될 때마다 실행
+    }, [id, page]); // number가 변경될 때마다 실행
+
+    const loadApplyList = page => {
+        getApplyList(page).then(response => {
+            setTotalPage(response?.totalPages);
+            setPosts(response?.data.applyLists);
+        });
+    };
 
     const ClickOpen = (id, state) => {
         if (state === '미열람') {
@@ -130,7 +133,7 @@ const ProfileRecruit = () => {
                 <S.BlueBox>
                     <S.Border>
                         <S.DetailGlobal>
-                            <S.InsideTitleFront title={true}>
+                            <S.InsideTitleFront $title={'true'}>
                                 {recruitTeam?.title}
                             </S.InsideTitleFront>
                         </S.DetailGlobal>
@@ -147,7 +150,7 @@ const ProfileRecruit = () => {
                     <S.InsideBox>
                         <S.GlobalBox2>
                             <S.DetailGlobal2>
-                                <S.InsideTitle title={false}>
+                                <S.InsideTitle $title={'false'}>
                                     현재 모집 현황
                                     <S.TagNUM>
                                         {recruitTeam?.current_person}/
@@ -199,16 +202,17 @@ const ProfileRecruit = () => {
                 <S.Content>
                     <S.SubTitle>지원자 현황</S.SubTitle>
                     <S.MainTable>
-                        <S.StyledTh>
-                            <S.TagP isleft={true}>지원자명</S.TagP>
-                            <S.TagP isleft={false}>현재상태</S.TagP>
-                        </S.StyledTh>
-                        {posts
-                            ?.slice(offset, offset + limit)
-                            .map((item, i, array) => (
-                                <tr key={item.id}>
+                        <S.StyledThead>
+                            <S.StyledTr>
+                                <S.Tagth $isleft={'true'}>지원자명</S.Tagth>
+                                <S.Tagth $isleft={'false'}>현재상태</S.Tagth>
+                            </S.StyledTr>
+                        </S.StyledThead>
+                        <tbody>
+                            {posts?.map((item, i, array) => (
+                                <tr key={item.apply_id}>
                                     <S.StyledTd
-                                        state={posts[i].is_canceled}
+                                        $state={posts[i].is_canceled}
                                         style={{
                                             borderRadius:
                                                 i !== array.length - 1
@@ -244,7 +248,7 @@ const ProfileRecruit = () => {
                                         <S.TableBox>
                                             {item?.state === '열람 완료' && (
                                                 <S.StateBtn
-                                                    bg={({ theme }) =>
+                                                    $bg={({ theme }) =>
                                                         theme.LimeGreen
                                                     }
                                                 >
@@ -253,7 +257,7 @@ const ProfileRecruit = () => {
                                             )}
                                             {item?.state === '미선발' && (
                                                 <S.StateBtn
-                                                    bg={({ theme }) =>
+                                                    $bg={({ theme }) =>
                                                         theme.LightGrey
                                                     }
                                                 >
@@ -262,7 +266,7 @@ const ProfileRecruit = () => {
                                             )}
                                             {item?.state === '합류 완료' && (
                                                 <S.StateBtn
-                                                    bg={({ theme }) =>
+                                                    $bg={({ theme }) =>
                                                         theme.box1
                                                     }
                                                 >
@@ -273,13 +277,14 @@ const ProfileRecruit = () => {
                                     </S.StyledTd>
                                 </tr>
                             ))}
+                        </tbody>
                     </S.MainTable>
                 </S.Content>
                 <Pagination
                     total={totalPage}
-                    limit={limit}
                     page={page}
                     setPage={setPage}
+                    loadPosts={loadApplyList}
                 />
             </S.GlobalBox>
         </div>

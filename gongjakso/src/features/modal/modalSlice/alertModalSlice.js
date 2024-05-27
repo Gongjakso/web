@@ -4,7 +4,10 @@ const initialState = {
     isOpen: false,
     titleContent: '',
     modalContent: '',
-    redirectUrl: '', // 주소 이동 추가된 부분
+    redirectUrl: '',
+    modal: {
+        onConfirm: null, // 콜백 함수 초기값 설정
+    },
 };
 
 const alertModalSlice = createSlice({
@@ -16,12 +19,14 @@ const alertModalSlice = createSlice({
             state.titleContent = action.payload.titleContent;
             state.modalContent = action.payload.modalContent;
             state.redirectUrl = action.payload.redirectUrl;
+            state.modal.onConfirm = action.payload.onConfirm; // 콜백 함수 설정
         },
         closeAlertModal: state => {
             state.isOpen = false;
             state.titleContent = '';
             state.modalContent = '';
-            state.redirectUrl = ''; // 추가된 부분
+            state.redirectUrl = '';
+            state.modal.onConfirm = null; // 콜백 함수 초기화
         },
     },
 });

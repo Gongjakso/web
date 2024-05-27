@@ -1,6 +1,4 @@
 import axiosInstance from './axiosInstance';
-import axios from 'axios';
-const BaseUrl = process.env.REACT_APP_BASE_URL;
 
 //나의 정보
 export const putMyInfo = async (name, major, job, status, phone) => {
@@ -37,7 +35,6 @@ export const getMyRecruiting = async () => {
 
     try {
         const response = await axiosInstance.get(reqURL);
-        console.log(response);
         return response.data;
     } catch (error) {
         console.log('내가 모집 중인 게시글을 가져올 수 없습니다.', error);
@@ -45,8 +42,8 @@ export const getMyRecruiting = async () => {
 };
 
 //팀박스->내가 지원
-export const getMyApplied = async () => {
-    const reqURL = `apply/my`;
+export const getMyApplied = async (page, size) => {
+    const reqURL = `apply/my?page=${page}&size=${size}&sort=`;
 
     try {
         const response = await axiosInstance.get(reqURL);
@@ -57,20 +54,10 @@ export const getMyApplied = async () => {
 };
 
 //팀박스->내가 참여
-export const getMyParticipatedMain = async () => {
-    const reqURL = `apply/my-participation-post?page=0&size=2`;
-
-    try {
-        const response = await axiosInstance.get(reqURL);
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
 
 //내가 참여 상세페이지
-export const getMyParticipated = async () => {
-    const reqURL = `apply/my-participation-post?page=0&size=6`;
+export const getMyParticipated = async (page, size) => {
+    const reqURL = `apply/my-participation-post?page=${page}&size=${size}`;
 
     try {
         const response = await axiosInstance.get(reqURL);
@@ -84,7 +71,6 @@ export const getMyContestScrap = async () => {
     const reqURL = `post/contest/myScrap`;
     try {
         const response = await axiosInstance.get(reqURL);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log('내가 스크랩한 공모전 정보를 가져올 수 없습니다.');
@@ -95,7 +81,6 @@ export const getMyProjectScrap = async () => {
     const reqURL = `post/project/myScrap`;
     try {
         const response = await axiosInstance.get(reqURL);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log('내가 스크랩한 프로젝트 정보를 가져올 수 없습니다.');

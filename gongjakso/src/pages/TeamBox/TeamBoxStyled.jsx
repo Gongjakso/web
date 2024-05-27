@@ -4,17 +4,22 @@ import { ReactComponent as Fire } from '../../assets/images/Fire.svg';
 import { ReactComponent as ArrowDetail } from '../../assets/images/ArrowDetail.svg';
 import { ReactComponent as CloseWhite } from '../../assets/images/CloseWhite.svg';
 
+export const Container = styled.div`
+    height: 100%;
+    margin: 0 auto;
+`;
+
 export const Box = styled.div`
     position: relative;
-    width: 1200px;
+    width: 1000px;
     height: 160px;
     background-color: transparent;
-    border: 1.5px solid ${props => props.borderColor || '#0054FF'};
+    border: 1.5px solid ${props => props.$bordercolor || '#0054FF'};
     display: flex;
     flex-direction: column;
     color: ${({ theme }) => theme.mainFont};
     border-radius: 15px;
-    padding: 20px ${props => (props.showMoreDetail ? '90px' : '50px')} 20px 50px;
+    padding: 20px 50px 20px 50px;
     margin: 10px 0px;
     //마감일수가 0일 때 상태 변환
 `;
@@ -23,11 +28,12 @@ export const Title = styled.p`
     font-size: ${({ theme }) => theme.fontSize.l};
     color: ${({ theme }) => theme.mainFont};
     //display: flex;
+    width: 250px;
+
     align-items: center;
     justify-content: flex;
     font-family: 'TheJamsilRegular';
     margin-right: 30px;
-    width: 330px;
     white-space: nowrap; // 내용이 줄바꿈되지 않고 한 줄에 표시되도록 설정
     overflow: hidden; // 내용이 너비를 초과할 경우 숨김 처리
     text-overflow: ellipsis; // 내용이 너비를 초과할 경우 ...으로 표시
@@ -66,6 +72,7 @@ export const SubBox = styled.div`
     width: 28%;
     display: flex;
     justify-content: space-between;
+    gap: 10px;
 `;
 
 //프로필페이지-파트명
@@ -96,7 +103,7 @@ export const CloseImage = styled(CloseWhite)`
     top: 25px;
     right: 25px;
     cursor: pointer;
-    z-index: 9999;
+    z-index: 2;
 `;
 
 //마감일수
@@ -138,10 +145,10 @@ export const WaitingJoin = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${({ theme, applyType }) =>
-        applyType === 'PASS'
+    background: ${({ theme, $applytype }) =>
+        $applytype === 'PASS'
             ? theme.box1
-            : applyType === 'NOT_PASS'
+            : $applytype === 'NOT_PASS'
               ? theme.LightGrey
               : theme.Light1};
     border-radius: 50px;
@@ -158,13 +165,19 @@ export const ActivityStatus = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background: ${({ theme, postStatus }) =>
-        postStatus === 'ACTIVE' ? theme.box1 : theme.box2};
+    background: ${({ theme, $poststatus }) =>
+        $poststatus === 'ACTIVE' ? theme.box1 : theme.box2};
     border-radius: 50px;
     font-size: ${({ theme }) => theme.fontSize.md};
     font-weight: 600;
     text-align: center;
     color: ${({ theme }) => theme.mainFont2};
+    cursor: ${({ $isleader, $poststatus }) =>
+        $isleader
+            ? $poststatus === 'ACTIVE'
+                ? 'pointer'
+                : 'not-allowed'
+            : 'not-allowed'};
 `;
 
 //검은색 둥근 틀
@@ -186,10 +199,10 @@ export const RoundForm = styled.div`
 export const MoreDetail = styled(ArrowDetail)`
     position: absolute;
     top: 50%;
-    right: 30px;
+    right: 15px;
     transform: translateY(-50%);
     height: 100%;
-    z-index: 1;
+    z-index: 3;
 `;
 
 //프로필페이지 -> 모집 마감, 연장, 취소 오버레이
@@ -201,8 +214,8 @@ export const DeadlineOverlay = styled.div`
     height: 100%;
     border-radius: 13.5px;
     font-size: ${({ theme }) => theme.fontSize.ll};
-    background: ${({ status }) =>
-        status === 'EXTENSION'
+    background: ${({ $status }) =>
+        $status === 'EXTENSION'
             ? `rgba(0, 84, 255, 0.5)`
             : `rgba(0, 0, 0, 0.5)`};
     display: flex;

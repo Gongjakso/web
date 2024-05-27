@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import * as S from './ProfilePageStyled';
 import TeamBox from '../TeamBox/TeamBox';
-import { getMyInfo } from '../../service/profile_service';
+import { getMyInfo, getMyParticipated } from '../../service/profile_service';
 import { getMyRecruiting } from '../../service/profile_service';
 import { getMyApplied } from '../../service/profile_service';
-import { getMyParticipatedMain } from '../../service/profile_service';
 
 const ProfilePage = () => {
     const [data, setProfileData] = useState(); //프로필 내용
@@ -21,15 +20,14 @@ const ProfilePage = () => {
         getMyRecruiting().then(response => {
             setPostContent1(response?.data.slice(0, 2));
         });
-        getMyApplied().then(response => {
-            setPostContent2(response?.data.slice(0, 2));
+        getMyApplied(1, 2).then(response => {
+            setPostContent2(response?.data.content);
         });
-        getMyParticipatedMain().then(response => {
-            setPostContent3(response?.data.participationLists.slice(0, 2));
+        getMyParticipated(1, 2).then(response => {
+            setPostContent3(response?.data.participationLists);
         });
     }, []);
 
-    // console.log(postContent2);
     return (
         <div>
             <S.TopBox>
@@ -50,9 +48,9 @@ const ProfilePage = () => {
             <S.GlobalBox>
                 <S.BoxDetail>
                     <S.SubTitle>내가 모집 중인 팀</S.SubTitle>
-                    {postContent1?.map((postContent1, index) => (
+                    {postContent1?.map(postContent1 => (
                         <TeamBox
-                            key={index}
+                            key={postContent1?.postId}
                             showMoreDetail={true}
                             showWaitingJoin={false}
                             showSubBox={true}
@@ -74,9 +72,9 @@ const ProfilePage = () => {
                             <S.ArrowImage />
                         </Link>
                     </S.SubTitle>
-                    {postContent2?.map((postContent2, index) => (
+                    {postContent2?.map(postContent2 => (
                         <TeamBox
-                            key={index}
+                            key={postContent2?.postId}
                             showMoreDetail={false}
                             showWaitingJoin={true}
                             showSubBox={true}
@@ -99,6 +97,7 @@ const ProfilePage = () => {
                     </S.SubTitle>
                     {postContent3?.map((postContent3, index) => (
                         <TeamBox
+                            key={postContent3?.postId}
                             showMoreDetail={false}
                             borderColor={
                                 postContent3?.postStatus === 'EXTENSION'

@@ -29,5 +29,5 @@ export const CalendarWrapper = styled.div`
     position: absolute;
     top: 100%;
     left: 0;
-    display: ${props => (props.isOpen ? 'block' : 'none')};
+    display: ${props => (props.$isopen === 'true' ? 'block' : 'none')};
 `;

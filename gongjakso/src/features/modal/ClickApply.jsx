@@ -6,12 +6,18 @@ import {
     patchNotRecruit,
     patchRecruit,
 } from '../../service/apply_service';
+import { useDispatch } from 'react-redux';
+import { openAlertModal } from './modalSlice/alertModalSlice';
+import AlertModal from '../../components/common/AlertModal/AlertModal';
 
 const ClickApply = props => {
     const [applyData, setapplyData] = useState([]);
     const [part, setPart] = useState([]);
     const [stack, setStack] = useState([]);
     const [decision, setDecision] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false); // 모달이 열려있는지 여부를 추적
+
+    const dispatch = useDispatch();
 
     // 스크롤 방지
     useEffect(() => {
@@ -33,37 +39,60 @@ const ClickApply = props => {
             setPart(res?.data.category);
             setStack(res?.data.postStack);
             setDecision(res?.data.applyType);
-            // console.log(res?.data);
         });
     }, [props.id, props.idNum]);
 
     const ClickRecruitBtn = () => {
         patchRecruit(props.idNum).then(res => {
-            // console.log(res?.data);
+            if (res?.response.data.code === 4007) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: `${applyData?.memberName}님 합류 실패`,
+                        modalContent: `${res?.response.data.message}`,
+                        onConfirm: () => {
+                            props.setShowApply(false); // 확인 버튼을 클릭하면 setShowApply 함수 호출하여 모달을 닫음
+                        },
+                    }),
+                );
+            } else {
+                dispatch(
+                    openAlertModal({
+                        titleContent: `${applyData?.memberName}님 합류 성공`,
+                        modalContent: `${res?.response.data.message}`,
+                        onConfirm: () => {
+                            props.setShowApply(false); // 확인 버튼을 클릭하면 setShowApply 함수 호출하여 모달을 닫음
+                        },
+                    }),
+                );
+            }
         });
-        alert('지원자가 합류되었습니다.');
-        window.location.reload();
     };
 
     const ClickNotRecruitBtn = () => {
-        patchNotRecruit(props.idNum).then(res => {
-            // console.log(res?.data);
-        });
-        alert('지원자를 미선발하였습니다.');
-        window.location.reload();
+        patchNotRecruit(props.idNum);
+        dispatch(
+            openAlertModal({
+                titleContent: `${applyData?.memberName}님을 미선발`,
+                modalContent: `미선발 하였습니다.`,
+                onConfirm: () => {
+                    props.setShowApply(false); // 확인 버튼을 클릭하면 setShowApply 함수 호출하여 모달을 닫음
+                },
+            }),
+        );
+        // props.setShowApply(false); // 모달을 닫도록 상태를 변경
     };
 
     return (
         <div>
             <S.Background>
-                <S.Modal w="1000px" h="850px" bc={({ theme }) => theme.box1}>
+                <S.Modal $w="1000px" $h="850px" $bc={({ theme }) => theme.box1}>
                     <S.Decisionbtn>
                         {decision === 'PASS' ? (
-                            <S.StateBtn bg={({ theme }) => theme.box1}>
+                            <S.StateBtn $bg={({ theme }) => theme.box1}>
                                 합류 완료
                             </S.StateBtn>
                         ) : decision === 'NOT_PASS' ? (
-                            <S.StateBtn bg={({ theme }) => theme.LightGrey}>
+                            <S.StateBtn $bg={({ theme }) => theme.LightGrey}>
                                 미선발
                             </S.StateBtn>
                         ) : null}
@@ -78,7 +107,7 @@ const ClickApply = props => {
                     </S.Backbtn>
 
                     <S.MainTitle>
-                        <p>{applyData?.memberName}</p>
+                        <S.NameP>{applyData?.memberName}</S.NameP>
                         <S.Major>{applyData?.major}</S.Major>
                         <S.Major>{applyData?.phone}</S.Major>
                     </S.MainTitle>
@@ -87,7 +116,10 @@ const ClickApply = props => {
                         <S.FormBox>
                             {part.map((item, i) => (
                                 <S.RoundForm
-                                    isSelected={item === applyData?.recruitPart}
+                                    key={i}
+                                    $isselected={
+                                        item === applyData?.recruitPart
+                                    }
                                     style={{ cursor: 'default' }}
                                 >
                                     {item === 'PLAN' && '기획'}
@@ -108,7 +140,8 @@ const ClickApply = props => {
                             <S.FormBox>
                                 {stack.map((item, i) => (
                                     <S.RoundForm
-                                        isSelected={applyData?.applyStack.includes(
+                                        key={i}
+                                        $isselected={applyData?.applyStack.includes(
                                             item,
                                         )}
                                         style={{ cursor: 'default' }}
@@ -136,16 +169,16 @@ const ClickApply = props => {
                             {props.type ? (
                                 decision === 'NONE' ||
                                 decision === 'OPEN_APPLY' ? (
-                                    <S.Content h="180px">
+                                    <S.Content $h="180px">
                                         {applyData?.application}
                                     </S.Content>
                                 ) : (
-                                    <S.Content h="230px">
+                                    <S.Content $h="230px">
                                         {applyData?.application}
                                     </S.Content>
                                 )
                             ) : (
-                                <S.Content h="340px">
+                                <S.Content $h="340px">
                                     {applyData?.application}
                                 </S.Content>
                             )}
@@ -155,7 +188,7 @@ const ClickApply = props => {
                     {decision === 'NONE' || decision === 'OPEN_APPLY' ? (
                         <S.ProfileApplyBox>
                             <S.ProfileApplyBtn
-                                bg={({ theme }) => theme.LightGrey}
+                                $bg={({ theme }) => theme.LightGrey}
                                 onClick={() => {
                                     ClickNotRecruitBtn();
                                 }}
@@ -163,7 +196,7 @@ const ClickApply = props => {
                                 미선발
                             </S.ProfileApplyBtn>
                             <S.ProfileApplyBtn
-                                bg={({ theme }) => theme.box1}
+                                $bg={({ theme }) => theme.box1}
                                 onClick={() => {
                                     ClickRecruitBtn();
                                 }}
@@ -174,6 +207,7 @@ const ClickApply = props => {
                     ) : null}
                 </S.Modal>
             </S.Background>
+            <AlertModal />
         </div>
     );
 };

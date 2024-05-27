@@ -136,7 +136,6 @@ const PostMainPage = () => {
             selectedTownData,
             encodeSpaces(searchKeyword),
         ).then(res => {
-            console.log(selectedCityData);
             setContestPosts(res?.data?.content);
             setContestTotalPage(res?.data?.totalPages);
         });
@@ -272,6 +271,7 @@ const PostMainPage = () => {
                                                 borderColor={
                                                     'rgba(231, 137, 255, 0.5)'
                                                 }
+                                                showMoreDetail={false}
                                                 postContent={project}
                                                 isMyParticipation={null}
                                             />
@@ -284,6 +284,7 @@ const PostMainPage = () => {
                                                 borderColor={
                                                     'rgba(231, 137, 255, 0.5)'
                                                 }
+                                                showMoreDetail={false}
                                                 postContent={project}
                                                 isMyParticipation={null}
                                             />
@@ -315,6 +316,7 @@ const PostMainPage = () => {
                                                 borderColor={
                                                     'rgba(0, 163, 255, 0.5)'
                                                 }
+                                                showMoreDetail={false}
                                                 postContent={contest}
                                                 isMyParticipation={null}
                                             />
@@ -327,6 +329,7 @@ const PostMainPage = () => {
                                                 borderColor={
                                                     'rgba(0, 163, 255, 0.5)'
                                                 }
+                                                showMoreDetail={false}
                                                 postContent={contest}
                                                 isMyParticipation={null}
                                             />

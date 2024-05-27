@@ -45,7 +45,10 @@ const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
     });
 
     return (
-        <S.Dropdown isPost={props.isPost} isOpen={isOpen}>
+        <S.Dropdown
+            $ispost={props.isPost.toString()}
+            $isopen={isOpen.toString()}
+        >
             <Dropdown items={items} closeOnScroll={false}>
                 {({ isOpen, onClick }) => (
                     <S.Button
@@ -57,8 +60,8 @@ const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
                     >
                         {city} {town}
                         <S.UpdownComponent
-                            isPost={props.isPost}
-                            isOpen={isOpen}
+                            $ispost={props.isPost.toString()}
+                            $isopen={isOpen}
                         />
                     </S.Button>
                 )}

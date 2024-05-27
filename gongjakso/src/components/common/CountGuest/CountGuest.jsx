@@ -38,7 +38,6 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
 
     const handleQuantityChange = (role, increment) => {
         if (!increment && roles[role] <= 0) return; // 음수가 되지 않도록 처리
-        if (increment && totalSelectedGuests >= maxGuests) return; // 최대치 초과 시 처리
 
         setRoles(prevRoles => {
             const updatedRoles = {
@@ -53,8 +52,13 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
                 (acc, count) => acc + count,
                 0,
             );
-            const isExceedMaxGuests = total > maxGuests;
-            return isExceedMaxGuests ? prevRoles : updatedRoles;
+
+            // 최대치를 초과하는 경우 증가하지 않도록 처리
+            if (increment && total > maxGuests) {
+                return prevRoles;
+            }
+
+            return updatedRoles;
         });
     };
 
@@ -92,7 +96,9 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
                               .filter(([_, quantity]) => quantity > 0)
                               .map(([role, quantity]) => `${role}: ${quantity}`)
                               .join(', ')
-                        : '공모전에 필요한 역할을 선택해주세요!'}
+                        : isProject
+                          ? '프로젝트에 필요한 역할을 선택해주세요!'
+                          : '공모전에 필요한 역할을 선택해주세요!'}
                 </S.Span>
             </S.SearchBox>
 
@@ -112,7 +118,10 @@ const CountGuest = ({ isProject, maxGuests, onApply }) => {
                             {quantity}
                             <S.Button
                                 onClick={() => handleQuantityChange(role, true)}
-                                disabled={totalSelectedGuests >= maxGuests} // 최대치를 초과하는 경우 버튼 비활성화
+                                disabled={
+                                    totalSelectedGuests >= maxGuests ||
+                                    quantity >= 10
+                                } // 최대치를 초과하거나 개별 역할이 10 이상인 경우 버튼 비활성화
                             >
                                 +
                             </S.Button>

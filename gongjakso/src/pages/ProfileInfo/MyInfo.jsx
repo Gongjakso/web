@@ -75,7 +75,7 @@ const MyInfo = () => {
             setStatus(myData.status);
             setMajor(myData.major);
             setJob(myData.job);
-            const separatedNumbers = myData.phone.split('-');
+            const separatedNumbers = myData?.phone?.split('-');
             const [firstNum, secondNum, thirdNum] = separatedNumbers;
             setFirstNum(firstNum);
             setSecondNum(secondNum);

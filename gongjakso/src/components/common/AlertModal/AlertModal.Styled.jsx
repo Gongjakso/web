@@ -9,7 +9,6 @@ export const Dialog = styled.dialog`
     left: 50%; /* 화면 왼쪽에서 절반 위치에 설정 */
     transform: translate(-50%, -50%);
     background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(5px);
     z-index: 999;
 `;
 
@@ -30,11 +29,11 @@ export const AlertModalInnerContainer = styled.div`
 
     background: #fff;
     text-align: center;
-    border-radius: 14px;
+    border-radius: 40px;
     padding: 15px;
     position: relative;
 
-    width: 50%;
+    width: 45%;
     height: 50%;
 `;
 export const MainTitle = styled.p`
@@ -71,7 +70,7 @@ export const AlertBtn = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ${props => props.w};
+    width: ${props => props.$w};
     height: 50px;
     border-radius: 10px;
     padding: 27px;

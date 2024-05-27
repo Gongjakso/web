@@ -1,6 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as S from '../TeamBox/TeamBoxStyled';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { getCheckStatus, patchCompletedPost } from '../../service/post_service';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    openConfirmModal,
+    closeConfirmModal,
+} from '../../features/modal/modalSlice/confirmModalSlice';
+import { openAlertModal } from '../../features/modal/modalSlice/alertModalSlice';
+import ConfirmModal from '../../components/common/ConfirmModal/ConfirmModal';
+import AlertModal from '../../components/common/AlertModal/AlertModal';
 
 const TeamBox = ({
     showMoreDetail,
@@ -13,10 +22,85 @@ const TeamBox = ({
     overlayType,
 }) => {
     const [isOverlayVisible, setIsOverlayVisible] = useState(true);
+    const [isLeader, setIsLeader] = useState();
+    const location = useLocation();
+    const dispatch = useDispatch();
+    const { isOpen, confirmClick, cancelClick } = useSelector(
+        state => state.confirmModal,
+    );
+
+    useEffect(() => {
+        const overlayVisibility = localStorage.getItem(
+            `overlayVisible-${postId}`,
+        );
+        if (overlayVisibility === 'false') {
+            setIsOverlayVisible(false);
+        }
+    }, [postId]);
+
+    useEffect(() => {
+        // 특정 경로에서만 getCheckStatus 함수 호출
+        if (location.pathname === '/participatedTeam') {
+            getCheckStatus(postContent?.postId).then(response => {
+                const imLeader = response?.data?.role === 'LEADER';
+                setIsLeader(imLeader);
+            });
+        }
+    }, [location.pathname, postContent?.postId]);
+
     const hideOverlay = () => {
-        setIsOverlayVisible(false); // 오버레이를 숨기는 함수
+        setIsOverlayVisible(false);
     };
-    //활동기간 형식 바꾸기
+
+    const handleAPIRequest = postId => {
+        // 활동 종료 api
+        patchCompletedPost(postId).then(response => {
+            if (response?.code === 1000) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '활동을 종료하였습니다',
+                        modalContent: '활동 기간 동안 고생하셨습니다!',
+                    }),
+                );
+            } else {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '활동을 종료할 권한이 없습니다.',
+                        modalContent: '활동 종료는 팀장만 할 수 있습니다!',
+                    }),
+                );
+            }
+        });
+    };
+
+    const handleOpenModal = id => {
+        dispatch(
+            openConfirmModal({
+                confirmClick: () => handleAPIRequest(id),
+                cancelClick: handleCancel,
+            }),
+        );
+    };
+
+    const handleClick = () => {
+        if (confirmClick) {
+            confirmClick();
+        }
+    };
+
+    const handleCancel = () => {
+        dispatch(
+            openAlertModal({
+                titleContent: '활동 종료를 취소하였습니다.',
+                modalContent: '남은 기간 화이팅입니다!!',
+            }),
+        );
+        if (cancelClick) {
+            cancelClick();
+        }
+        dispatch(closeConfirmModal());
+    };
+
     const startDate = new Date(postContent?.startDate)
         .toLocaleDateString('ko-KR', {
             year: 'numeric',
@@ -71,98 +155,127 @@ const TeamBox = ({
     }
 
     return (
-        <S.Box borderColor={borderColor} showMoreDetail={showMoreDetail}>
-            <S.BoxTopDetail>
-                <S.MainBox>
-                    <S.Title>{postContent?.title}</S.Title>
-                    <S.subTitle>
-                        {isMyParticipation === false &&
-                            `| ${postContent?.memberName} | ${startDate}~${endDate} |`}
-                        {isMyParticipation === true &&
-                            `| ${postContent?.leaderName} | ${startDate}~${finishDate} |`}
-                        {isMyParticipation === null &&
-                            `| ${postContent?.name} | ${startDate}~${endDate} |`}
-                    </S.subTitle>
-                </S.MainBox>
-                {showSubBox ? (
-                    <S.SubBox>
-                        <S.DeadLine>
-                            <S.FireImage />
-                            {postContent?.daysRemaining < 0
-                                ? '마감된 공고'
-                                : `마감 D-${postContent?.daysRemaining}`}
-                        </S.DeadLine>
-                        <S.ScrapNum>
-                            <S.UnScrapImage />
-                            {postContent?.scrapCount}회
-                        </S.ScrapNum>
-                    </S.SubBox>
-                ) : (
-                    <S.ActivityStatus>
-                        {postContent?.postStatus === 'ACTIVE'
-                            ? '활동 중'
-                            : '활동 종료'}
-                    </S.ActivityStatus>
-                )}
-            </S.BoxTopDetail>
-            <S.BoxBottomDetail>
-                <S.MainBox>
-                    {isMyParticipation ? (
-                        <S.RoundForm>
-                            {getDisplayCategory(postContent?.recruit_part)}
-                        </S.RoundForm>
-                    ) : isMyParticipation === null ? (
-                        postContent?.categories?.map((category, index) => {
-                            return (
-                                <S.RoundForm key={index}>
-                                    {getDisplayCategory(category.categoryType)}
-                                </S.RoundForm>
-                            );
-                        })
+        <S.Container>
+            <S.Box
+                $bordercolor={borderColor}
+                $showmoredetail={showMoreDetail.toString()}
+            >
+                <S.BoxTopDetail>
+                    <S.MainBox>
+                        <S.Title>{postContent?.title}</S.Title>
+                        <S.subTitle>
+                            {isMyParticipation === false &&
+                                `| ${postContent?.memberName} | ${startDate}~${endDate} |`}
+                            {isMyParticipation === true &&
+                                `| ${postContent?.leaderName} | ${startDate}~${finishDate} |`}
+                            {isMyParticipation === null &&
+                                `| ${postContent?.name} | ${startDate}~${endDate} |`}
+                        </S.subTitle>
+                    </S.MainBox>
+                    {showSubBox ? (
+                        <S.SubBox>
+                            <S.DeadLine>
+                                <S.FireImage />
+                                {postContent?.daysRemaining < 0
+                                    ? '마감된 공고'
+                                    : `마감 D-${postContent?.daysRemaining}`}
+                            </S.DeadLine>
+                            <S.ScrapNum>
+                                <S.UnScrapImage />
+                                {postContent?.scrapCount}회
+                            </S.ScrapNum>
+                        </S.SubBox>
                     ) : (
-                        postContent?.categoryList?.map(
-                            (categoryList, index) => {
+                        <S.ActivityStatus
+                            $poststatus={postContent?.postStatus}
+                            $isleader={isLeader}
+                            onClick={
+                                isLeader
+                                    ? postContent?.postStatus === 'ACTIVE'
+                                        ? () =>
+                                              handleOpenModal(
+                                                  postContent?.postId,
+                                              )
+                                        : null
+                                    : null
+                            }
+                        >
+                            {postContent?.postStatus === 'ACTIVE'
+                                ? '활동 중'
+                                : '활동 종료'}
+                        </S.ActivityStatus>
+                    )}
+                </S.BoxTopDetail>
+                <S.BoxBottomDetail>
+                    <S.MainBox>
+                        {isMyParticipation ? (
+                            <div></div>
+                        ) : isMyParticipation === null ? (
+                            postContent?.categories?.map((category, index) => {
                                 return (
                                     <S.RoundForm key={index}>
-                                        {getDisplayCategory(categoryList)}
+                                        {getDisplayCategory(
+                                            category.categoryType,
+                                        )}
                                     </S.RoundForm>
                                 );
-                            },
-                        )
+                            })
+                        ) : (
+                            postContent?.categoryList?.map(
+                                (categoryList, index) => {
+                                    return (
+                                        <S.RoundForm key={index}>
+                                            {getDisplayCategory(categoryList)}
+                                        </S.RoundForm>
+                                    );
+                                },
+                            )
+                        )}
+                    </S.MainBox>
+                    {postContent?.status === 'EXTENSION' &&
+                        isOverlayVisible && (
+                            <>
+                                <S.DeadlineOverlay $status={postContent.status}>
+                                    모집이 연장되었습니다.
+                                </S.DeadlineOverlay>
+                                <S.CloseImage onClick={hideOverlay} />
+                            </>
+                        )}
+                    {showWaitingJoin && (
+                        <S.WaitingJoin $applytype={postContent?.applyType}>
+                            {postContent?.applyType === 'PASS'
+                                ? '합류 완료'
+                                : postContent?.applyType === 'NOT_PASS'
+                                  ? '미선발'
+                                  : '합류 대기중'}
+                            {postContent?.status === 'CLOSE' && (
+                                <S.DeadlineOverlay $status={postContent.status}>
+                                    모집이 마감되었습니다.
+                                </S.DeadlineOverlay>
+                            )}
+                            {postContent?.status === 'CANCEL' && (
+                                <S.DeadlineOverlay $status={postContent.status}>
+                                    모집이 취소되었습니다.
+                                </S.DeadlineOverlay>
+                            )}
+                        </S.WaitingJoin>
                     )}
-                </S.MainBox>
-                {isOverlayVisible && <S.CloseImage onClick={hideOverlay} />}
-                {showWaitingJoin && (
-                    <S.WaitingJoin applyType={postContent?.applyType}>
-                        {postContent?.applyType === 'PASS'
-                            ? '합류 완료'
-                            : postContent?.applyType === 'NOT_PASS'
-                              ? '미선발'
-                              : '합류 대기중'}
-                        {postContent?.status === 'EXTENSION' && (
-                            <S.DeadlineOverlay status={postContent.status}>
-                                모집이 연장되었습니다.
-                            </S.DeadlineOverlay>
-                        )}
-                        {postContent?.status === 'CLOSE' && (
-                            <S.DeadlineOverlay status={postContent.status}>
-                                모집이 마감되었습니다.
-                            </S.DeadlineOverlay>
-                        )}
-                        {postContent?.status === 'CANCEL' && (
-                            <S.DeadlineOverlay status={postContent.status}>
-                                모집이 취소되었습니다.
-                            </S.DeadlineOverlay>
-                        )}
-                    </S.WaitingJoin>
-                )}
-            </S.BoxBottomDetail>
-            {showMoreDetail && (
-                <Link to={`/teamdetail/${postId}`}>
-                    <S.MoreDetail />
-                </Link>
+                    {showMoreDetail && (
+                        <Link to={`/teamdetail/${postId}`}>
+                            <S.MoreDetail />
+                        </Link>
+                    )}
+                </S.BoxBottomDetail>
+            </S.Box>
+            <AlertModal />
+            {isOpen && (
+                <ConfirmModal
+                    question="정말 활동을 종료 하시겠습니까?"
+                    confirmClick={handleClick}
+                    cancelClick={handleCancel}
+                />
             )}
-        </S.Box>
+        </S.Container>
     );
 };
 

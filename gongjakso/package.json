@@ -30,6 +30,7 @@
         "react-multilevel-dropdown": "^4.0.0",
         "react-nested-dropdown": "^0.0.12",
         "react-redux": "^9.1.2",
+        "react-responsive": "^10.0.0",
         "react-router-dom": "^6.21.2",
         "react-scripts": "5.0.1",
         "sass-loader": "^14.1.1",

@@ -8,7 +8,7 @@ export const Dropdown1 = styled.div`
         padding: 10px 19px;
         width: 400px;
         font-size: ${({ theme }) => theme.fontSize.base};
-        color: ${props => (props.isOpen ? 'black' : '#a6a6a6')};
+        color: ${props => (props.$isopen ? 'black' : '#a6a6a6')};
         border-radius: 7px;
 
         &:hover,

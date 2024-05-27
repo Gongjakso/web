@@ -30,7 +30,7 @@ const SelectDate = ({ onChange, value }) => {
             <S.DropdownButton onClick={handleToggleCalendar}>
                 마감일: {nowDate}
             </S.DropdownButton>
-            <S.CalendarWrapper isOpen={isOpen}>
+            <S.CalendarWrapper $isopen={isOpen.toString()}>
                 <Calendar
                     locale={ko}
                     onChange={handleDateChange}
