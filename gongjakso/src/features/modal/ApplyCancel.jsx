@@ -6,7 +6,6 @@ import { applyCancel, getMyApplication } from '../../service/apply_service';
 
 const ApplyCancel = props => {
     const navigate = useCustomNavigate();
-
     // 스크롤 방지
     useEffect(() => {
         document.body.style.cssText = `
@@ -22,9 +21,7 @@ const ApplyCancel = props => {
     }, []);
 
     const ClickCancelBtn = applyId => {
-        applyCancel(applyId).then(res => {
-            console.log(res);
-        });
+        applyCancel(applyId);
     };
 
     return (

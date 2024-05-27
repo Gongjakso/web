@@ -29,9 +29,7 @@ const Completed = props => {
             recruit_role: '',
             type: 'CONTEST',
         };
-        postApply(props.id, newData).then(res => {
-            console.log(res);
-        });
+        postApply(props.id, newData).then(res => {});
     };
     const submitProjectApply = () => {
         const newData = {

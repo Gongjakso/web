@@ -1,7 +1,4 @@
 import axiosInstance from './axiosInstance';
-import axios from 'axios';
-
-const BaseUrl = process.env.REACT_APP_BASE_URL;
 
 export const getRecruitTeam = async post_id => {
     const reqURL = `apply/${post_id}`;
@@ -99,7 +96,6 @@ export const patchOpen = async apply_id => {
 
     try {
         const response = await axiosInstance.patch(reqURL);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -111,7 +107,6 @@ export const getMyApplication = async postid => {
 
     try {
         const response = await axiosInstance.get(reqURL);
-        console.log(response);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -123,7 +118,6 @@ export const applyCancel = async apply_id => {
 
     try {
         const response = await axiosInstance.patch(reqURL);
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.log(error);
