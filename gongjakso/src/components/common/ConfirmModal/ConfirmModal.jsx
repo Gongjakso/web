@@ -4,9 +4,19 @@ import { closeConfirmModal } from '../../../features/modal/modalSlice/confirmMod
 
 import * as S from './ConfirmModal.Styled';
 
-const ConfirmModal = ({ question, explain, confirmClick }) => {
+const ConfirmModal = ({ question, explain, confirmClick, cancelClick }) => {
     const dispatch = useDispatch();
     const { isOpen } = useSelector(store => store.confirmModal);
+
+    const handleOk = () => {
+        if (confirmClick) confirmClick(); // 사용자가 정의한 confirmClick 함수 실행
+        dispatch(closeConfirmModal());
+    };
+
+    const handleCancel = () => {
+        if (cancelClick) cancelClick(); // 사용자가 정의한 cancelClick 함수 실행
+        dispatch(closeConfirmModal());
+    };
     return (
         <>
             <S.Dialog open={isOpen}>
@@ -21,26 +31,21 @@ const ConfirmModal = ({ question, explain, confirmClick }) => {
                             ))}
                         </S.ConfirmModalExplain>
                         <S.ConfirmModalButtonBox>
-                            <button
-                                gra="true"
-                                width="40%"
-                                padding="5px"
-                                onClick={confirmClick}
+                            <S.ConfirmBtn $width="25%" onClick={handleOk}>
+                                네
+                            </S.ConfirmBtn>
+                            <S.NotComfirmBtn
+                                $width="25%"
+                                onClick={handleCancel}
                             >
-                                yes
-                            </button>
-                            <button
-                                width="40%"
-                                onClick={() => dispatch(closeConfirmModal())}
-                            >
-                                no
-                            </button>
+                                아니요
+                            </S.NotComfirmBtn>
                         </S.ConfirmModalButtonBox>
 
-                        <S.CloseConfirmModalButton
+                        {/* <S.CloseConfirmModalButton
                             type="button"
-                            onClick={() => dispatch(closeConfirmModal())}
-                        ></S.CloseConfirmModalButton>
+                            onClick={handleCancel}
+                        ></S.CloseConfirmModalButton> */}
                     </S.ConfirmModalInnerContainer>
                 </S.ConfirmModalContainer>
             </S.Dialog>

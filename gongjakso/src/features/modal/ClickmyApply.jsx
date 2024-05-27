@@ -34,7 +34,7 @@ const ClickmyApply = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal w="1000px" h="800px" bc={({ theme }) => theme.box1}>
+                <S.Modal $w="1000px" $h="800px" $bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
                             props.setOpen(false);
@@ -52,7 +52,8 @@ const ClickmyApply = props => {
                         <S.FormBox>
                             {category.map((item, i) => (
                                 <S.RoundForm
-                                    isSelected={item === myApp?.recruitPart}
+                                    key={i}
+                                    $isselected={item === myApp?.recruitPart}
                                     style={{ cursor: 'default' }}
                                 >
                                     {item === 'PLAN' && '기획'}
@@ -73,7 +74,8 @@ const ClickmyApply = props => {
                             <S.FormBox>
                                 {stackCategory.map((item, i) => (
                                     <S.RoundForm
-                                        isSelected={myApp?.applyStack.includes(
+                                        key={i}
+                                        $isselected={myApp?.applyStack.includes(
                                             item,
                                         )}
                                         style={{ cursor: 'default' }}
@@ -98,7 +100,7 @@ const ClickmyApply = props => {
                     <S.DetailBox2>
                         <S.SubTitle>지원 이유</S.SubTitle>
                         <S.TextBox>
-                            <S.Content h="270px">
+                            <S.Content $h="270px">
                                 {myApp?.application}
                             </S.Content>
                         </S.TextBox>

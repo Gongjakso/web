@@ -8,7 +8,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 
 import { ko } from 'date-fns/locale';
 
-const SelectCalendar = ({ onApply }) => {
+const SelectCalendar = ({ onApply, dates }) => {
     const [showDateRangePicker, setShowDateRangePicker] = useState(false);
 
     const [dateRange, setDateRange] = useState({
@@ -51,7 +51,9 @@ const SelectCalendar = ({ onApply }) => {
         <S.Container>
             <S.DateContent>
                 <div onClick={handleOpenDateRangePicker}>
-                    시작일: {formattedStartDate} ~ 종료일: {formattedEndDate}
+                    시작일: {dates?.length === 0 ? '선택' : formattedStartDate}~
+                    종료일:
+                    {dates?.length === 0 ? '선택' : formattedEndDate}
                 </div>
             </S.DateContent>
 

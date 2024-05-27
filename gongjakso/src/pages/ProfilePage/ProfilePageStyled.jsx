@@ -52,11 +52,13 @@ export const MajorTitle = styled.p`
 
 //소제목
 export const SubTitle = styled.p`
+    width: 1000px;
     font-size: ${({ theme }) => theme.fontSize.l};
     font-weight: 900;
     margin-bottom: 25px;
     display: flex;
     align-items: center;
+    margin: 0 auto;
 `;
 
 //프로필 이미지
@@ -95,11 +97,13 @@ export const PortfolioBox = styled.button`
 
 export const GlobalBox = styled.div`
     width: 1200px; // 원하는 너비로 설정
-    margin: 180px auto 150px auto; // 가운데 정렬
+    margin: 180px auto 0 auto; // 가운데 정렬
 `;
 
 export const BoxDetail = styled.div`
-    height: 25%;
-    flex-direction: row;
-    margin-top: 90px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 90px;
 `;

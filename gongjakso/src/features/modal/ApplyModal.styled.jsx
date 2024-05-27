@@ -15,16 +15,18 @@ export const Background2 = styled(Background)`
 `;
 
 export const Modal = styled.div`
-    border: 2px solid ${props => props.bc};
+    border: 2px solid ${props => props.$bc};
     position: relative;
     top: 50%;
     left: 50%;
-    width: ${props => props.w};
-    height: ${props => props.h};
+    width: ${props => props.$w};
+    height: ${props => props.$h};
     transform: translate(-50%, -50%);
     background: white;
     border-radius: 40px;
     padding: 50px;
+    /* width: 60%; //추가 해봤어요
+    height: 90%; //추가 해봤어요 */
 `;
 
 export const Backbtn = styled.button`
@@ -40,7 +42,7 @@ export const Decisionbtn = styled.div`
     text-align: center;
 `;
 
-export const MainTitle = styled.p`
+export const MainTitle = styled.div`
     text-align: center;
     font-size: ${({ theme }) => theme.fontSize.ll};
     font-family: 'PreBold';
@@ -82,8 +84,8 @@ export const RoundForm = styled.button`
     padding: 10px;
     margin-right: 10px;
     margin-top: 20px;
-    background-color: ${props => (props.isSelected ? 'black' : 'white')};
-    color: ${props => (props.isSelected ? 'white' : props.theme.subFont)};
+    background-color: ${props => (props.$isselected ? 'black' : 'white')};
+    color: ${props => (props.$isselected ? 'white' : props.theme.subFont)};
 `;
 
 // textarea 감싸는 틀
@@ -160,9 +162,9 @@ export const newBtn = styled.button`
     margin: 15px;
     padding: 18px;
     font-size: ${({ theme }) => theme.fontSize.md};
-    background: ${props => props.bg};
+    background: ${props => props.$bg};
     font-family: 'PreBold';
-    color: ${props => props.c};
+    color: ${props => props.$c};
 `;
 export const ApplyBtn = styled.button`
     position: absolute;
@@ -170,7 +172,7 @@ export const ApplyBtn = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: ${props => props.w};
+    width: ${props => props.$w};
     height: 50px;
     border-radius: 10px;
     margin: 15px;
@@ -199,7 +201,7 @@ export const ProfileApplyBtn = styled.button`
     padding: 20px;
     font-size: ${({ theme }) => theme.fontSize.md};
     font-family: 'PreBold';
-    background: ${props => props.bg};
+    background: ${props => props.$bg};
     color: white;
 `;
 
@@ -229,6 +231,11 @@ export const CompletedBox = styled.div`
     font-family: 'PreMedium';
     gap: 8px;
 `;
+export const NameP = styled.p`
+    margin: 5px;
+    font-size: ${({ theme }) => theme.fontSize.xl};
+    font-family: 'PreMedium';
+`;
 
 export const Major = styled.p`
     margin: 5px;
@@ -242,6 +249,6 @@ export const StateBtn = styled.div`
     padding: 10px;
     color: white;
     font-size: ${({ theme }) => theme.fontSize.base};
-    background: ${props => props.bg};
+    background: ${props => props.$bg};
     border-radius: 20px;
 `;

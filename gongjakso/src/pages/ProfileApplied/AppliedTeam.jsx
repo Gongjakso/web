@@ -6,23 +6,21 @@ import Pagination from '../../components/Pagination/Pagination';
 import { getMyApplied } from '../../service/profile_service';
 
 const TeamSupport = () => {
-    const [limit, setLimit] = useState(6);
     const [page, setPage] = useState(1);
-    const offset = (page - 1) * limit;
-    const [data, setData] = useState([]);
     const [postContent2, setPostContent2] = useState([]);
     const [totalPage, setTotalPage] = useState();
 
     useEffect(() => {
-        getMyApplied().then(response => {
-            console.log(response.data);
-            setPostContent2(response?.data);
+        getMyApplied(page, 6).then(response => {
+            setTotalPage(response?.data.totalPages);
+            setPostContent2(response?.data.content);
         });
-    }, []);
+    }, [page]);
 
     const loadParticipatedPosts = page => {
-        getMyApplied(page).then(response => {
-            setPostContent2(response?.data);
+        getMyApplied(page, 6).then(response => {
+            setPostContent2(response?.data.content);
+            setTotalPage(response?.data.totalPages);
         });
     };
 
