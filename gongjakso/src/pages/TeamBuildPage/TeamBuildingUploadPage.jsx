@@ -222,6 +222,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             '공고의 세부 항목 중 빠진것이 없는지 확인해주세요',
                     }),
                 );
+            } else if (res === 5004) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '공모전 팀빌딩',
+                        modalContent:
+                            '파트별 인원수가 전체 인원수와 일치하지 않습니다.',
+                    }),
+                );
             } else {
                 dispatch(
                     openAlertModal({
@@ -251,7 +259,6 @@ const TeamBuildingUploadPage = ({ posts }) => {
             questionLink: data.complainLink,
             postType: true,
         };
-        console.log(newData);
         postPosting(newData).then(res => {
             if (res === 5000) {
                 dispatch(
@@ -266,6 +273,14 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         titleContent: '프로젝트 팀빌딩',
                         modalContent:
                             '공고의 세부 항목 중 빠진것이 없는지 확인해주세요!',
+                    }),
+                );
+            } else if (res === 5004) {
+                dispatch(
+                    openAlertModal({
+                        titleContent: '프로젝트 팀빌딩',
+                        modalContent:
+                            '파트별 인원수가 전체 인원수와 일치하지 않습니다.',
                     }),
                 );
             } else {
