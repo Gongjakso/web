@@ -44,7 +44,7 @@ export const Decisionbtn = styled.div`
 
 export const MainTitle = styled.div`
     text-align: center;
-    font-size: ${({ theme }) => theme.fontSize.ll};
+    font-size: ${({ theme }) => theme.fontSize.l};
     font-family: 'PreBold';
     letter-spacing: 0.5px;
     margin-bottom: 30px;
@@ -61,7 +61,7 @@ export const DetailBox2 = styled.div`
 `;
 
 export const SubTitle = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.lg};
+    font-size: ${({ theme }) => theme.fontSize.md};
     letter-spacing: 0.5px;
     font-family: 'PreBold';
 `;
@@ -75,13 +75,13 @@ export const FormBox = styled.div`
 `;
 
 export const RoundForm = styled.button`
-    min-width: 130px;
+    min-width: 120px;
     height: auto;
     border: 1px solid #a3a3a3;
     border-radius: 30px;
     font-size: ${({ theme }) => theme.fontSize.base};
     text-align: center;
-    padding: 10px;
+    padding: 8px;
     margin-right: 10px;
     margin-top: 20px;
     background-color: ${props => (props.$isselected ? 'black' : 'white')};
@@ -110,7 +110,7 @@ export const WarningTitle = styled.p`
 export const InputArea = styled.textarea`
     width: 100%;
     height: 100%;
-    max-height: 190px;
+    max-height: ${props => props.$maxHeight};
     display: block;
     border: none;
     border-bottom: 1.5px solid black;
@@ -118,7 +118,7 @@ export const InputArea = styled.textarea`
     resize: vertical;
     overflow: hidden;
     color: #5c5c5c;
-    font-size: 1.15rem;
+    font-size: ${({ theme }) => theme.fontSize.base};
     font-family: 'PreRegular';
     line-height: 1.5;
     &:focus {
@@ -189,17 +189,17 @@ export const ProfileApplyBox = styled.div`
     justify-content: center;
     align-items: center;
     position: absolute;
-    bottom: 40px;
+    bottom: 20px;
     right: 0;
     width: 100%;
 `;
 
 export const ProfileApplyBtn = styled.button`
-    width: 25%;
+    width: 220px;
     margin: 15px;
     border-radius: 12px;
-    padding: 20px;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    padding: 16px;
+    font-size: ${({ theme }) => theme.fontSize.base};
     font-family: 'PreBold';
     background: ${props => props.$bg};
     color: white;
@@ -211,9 +211,9 @@ export const Content = styled.div`
     padding-bottom: 5px;
     border-bottom: 1.5px solid black;
     color: #5c5c5c;
-    font-size: ${({ theme }) => theme.fontSize.md};
-    line-height: 30px;
-    max-height: ${props => props.h};
+    font-size: ${({ theme }) => theme.fontSize.base};
+    line-height: 25px;
+    max-height: ${props => props.$h};
     overflow-y: scroll;
 `;
 
@@ -233,13 +233,13 @@ export const CompletedBox = styled.div`
 `;
 export const NameP = styled.p`
     margin: 5px;
-    font-size: ${({ theme }) => theme.fontSize.xl};
-    font-family: 'PreMedium';
+    font-size: ${({ theme }) => theme.fontSize.l};
+    font-family: 'PreBold';
 `;
 
 export const Major = styled.p`
     margin: 5px;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
     color: #5c5c5c;
     font-family: 'PreMedium';
 `;

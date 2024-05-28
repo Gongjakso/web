@@ -101,7 +101,7 @@ const ApplyModal = props => {
                 <S.Background>
                     <S.Modal
                         $w="1000px"
-                        $h="700px"
+                        $h="650px"
                         $bc={({ theme }) => theme.Light1}
                     >
                         <S.Backbtn
@@ -151,6 +151,7 @@ const ApplyModal = props => {
                             <S.SubTitle>지원 이유</S.SubTitle>
                             <S.TextBox>
                                 <S.InputArea
+                                    $maxHeight="190px"
                                     ref={textarea}
                                     onChange={onInputHandler}
                                     onInput={handleResizeHeight}
@@ -168,7 +169,7 @@ const ApplyModal = props => {
                         </S.DetailBox>
 
                         <S.ApplyBox>
-                            <S.ApplyBtn $w="30%" onClick={WarningApply}>
+                            <S.ApplyBtn $w="220px" onClick={WarningApply}>
                                 지원하기
                             </S.ApplyBtn>
                         </S.ApplyBox>
@@ -180,7 +181,7 @@ const ApplyModal = props => {
                 <S.Background>
                     <S.Modal
                         $w="1000px"
-                        $h="800px"
+                        $h="700px"
                         $bc={({ theme }) => theme.Pink}
                     >
                         <S.Backbtn
@@ -268,6 +269,7 @@ const ApplyModal = props => {
                             <S.SubTitle>지원 이유</S.SubTitle>
                             <S.TextBox>
                                 <S.InputArea
+                                    $maxHeight="130px"
                                     ref={textarea}
                                     onChange={onInputHandler}
                                     onInput={handleResizeHeight}
@@ -285,7 +287,7 @@ const ApplyModal = props => {
                         </S.DetailBox>
 
                         <S.ApplyBox>
-                            <S.ApplyBtn $w="230px" onClick={WarningApply}>
+                            <S.ApplyBtn $w="220px" onClick={WarningApply}>
                                 지원하기
                             </S.ApplyBtn>
                         </S.ApplyBox>

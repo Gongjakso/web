@@ -10,7 +10,7 @@ export const TopBox = styled.div`
 `;
 
 export const Title = styled.p`
-    font-size: ${({ theme }) => theme.fontSize.xlg};
+    font-size: ${({ theme }) => theme.fontSize.xl};
     text-align: center;
     font-weight: bold;
     position: relative;
@@ -151,6 +151,7 @@ export const Tagth = styled.th`
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: ${({ theme }) => theme.fontSize.mdd};
     ${props =>
         props.$isleft === 'true'
             ? 'border-right: 0.5px solid #aaaaaa'
@@ -186,6 +187,7 @@ export const CancelBox = styled.div`
     justify-content: center;
     z-index: 3;
     color: white;
+    font-size: ${({ theme }) => theme.fontSize.lg};
 `;
 
 export const TableBox = styled.div`
@@ -201,6 +203,7 @@ export const User = styled(TableBox)`
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: ${({ theme }) => theme.fontSize.md};
     img {
         width: 15%;
         margin-right: 10px;
@@ -223,7 +226,7 @@ export const StateBtn = styled.div`
     width: 40%;
     padding: 10px;
     color: white;
-    font-size: ${({ theme }) => theme.fontSize.md};
+    font-size: ${({ theme }) => theme.fontSize.base};
     background: ${props => props.$bg};
     border-radius: 20px;
 `;

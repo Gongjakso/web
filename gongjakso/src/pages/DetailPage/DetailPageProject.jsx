@@ -210,7 +210,10 @@ const DetailPageProject = () => {
                 </S.Background>
 
                 <S.Background $s="1100px">
-                    <S.BlueBox $bg={({ theme }) => theme.Pink}>
+                    <S.BlueBox
+                        $bg={({ theme }) => theme.Pink}
+                        $boxSize="1450px"
+                    >
                         <S.TextBox>
                             <S.TextTitle>공고 마감일</S.TextTitle>
                             <S.TextDetail>
@@ -342,7 +345,7 @@ const DetailPageProject = () => {
                         <S.TextBox>
                             <S.TextTitle>설명글</S.TextTitle>
                         </S.TextBox>
-                        <S.MainText $h="420px">{postData?.contents}</S.MainText>
+                        <S.MainText $h="300px">{postData?.contents}</S.MainText>
 
                         {checkStatus === 'LEADER' ? (
                             <div></div>

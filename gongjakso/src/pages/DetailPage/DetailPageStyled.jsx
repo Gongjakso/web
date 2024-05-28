@@ -100,12 +100,12 @@ export const ApplyBtn = styled.button`
 
 // 팀장 표시 부분
 export const TitleBottom = styled.div`
-    font-size: 1.45rem;
+    font-size: ${({ theme }) => theme.fontSize.mdd};
     margin-left: 45px;
 `;
 
 export const BlueBox = styled.div`
-    height: 1400px;
+    height: ${props => props.$boxSize};
     border: 2px solid ${props => props.$bg};
     border-radius: 40px;
     margin-top: 15px;
@@ -174,7 +174,7 @@ export const Line = styled.div`
 
 // 설명글 안 내용
 export const MainText = styled.p`
-    font-size: 1.45rem;
+    font-size: 1.25rem;
     padding-left: 20px;
     line-height: 2;
     height: ${props => props.$h};

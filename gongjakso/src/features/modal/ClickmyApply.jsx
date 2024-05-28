@@ -34,7 +34,7 @@ const ClickmyApply = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal $w="1000px" $h="800px" $bc={({ theme }) => theme.box1}>
+                <S.Modal $w="1000px" $h="700px" $bc={({ theme }) => theme.box1}>
                     <S.Backbtn
                         onClick={() => {
                             props.setOpen(false);
@@ -100,7 +100,7 @@ const ClickmyApply = props => {
                     <S.DetailBox2>
                         <S.SubTitle>지원 이유</S.SubTitle>
                         <S.TextBox>
-                            <S.Content $h="270px">
+                            <S.Content $h="220px">
                                 {myApp?.application}
                             </S.Content>
                         </S.TextBox>

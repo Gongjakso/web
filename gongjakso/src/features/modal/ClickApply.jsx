@@ -85,7 +85,7 @@ const ClickApply = props => {
     return (
         <div>
             <S.Background>
-                <S.Modal $w="1000px" $h="850px" $bc={({ theme }) => theme.box1}>
+                <S.Modal $w="1000px" $h="700px" $bc={({ theme }) => theme.box1}>
                     <S.Decisionbtn>
                         {decision === 'PASS' ? (
                             <S.StateBtn $bg={({ theme }) => theme.box1}>
@@ -169,16 +169,16 @@ const ClickApply = props => {
                             {props.type ? (
                                 decision === 'NONE' ||
                                 decision === 'OPEN_APPLY' ? (
-                                    <S.Content $h="180px">
+                                    <S.Content $h="90px">
                                         {applyData?.application}
                                     </S.Content>
                                 ) : (
-                                    <S.Content $h="230px">
+                                    <S.Content $h="200px">
                                         {applyData?.application}
                                     </S.Content>
                                 )
                             ) : (
-                                <S.Content $h="340px">
+                                <S.Content $h="310px">
                                     {applyData?.application}
                                 </S.Content>
                             )}

@@ -222,7 +222,10 @@ const DetailPageContest = () => {
                 </S.Background>
 
                 <S.Background $s="1100px">
-                    <S.BlueBox $bg={({ theme }) => theme.Light1}>
+                    <S.BlueBox
+                        $bg={({ theme }) => theme.Light1}
+                        $boxSize="1400px"
+                    >
                         <S.TextBox>
                             <S.TextTitle>공고 마감일</S.TextTitle>
                             <S.TextDetail>
@@ -333,7 +336,7 @@ const DetailPageContest = () => {
                         <S.TextBox>
                             <S.TextTitle>설명글</S.TextTitle>
                         </S.TextBox>
-                        <S.MainText $h="420px">{postData?.contents}</S.MainText>
+                        <S.MainText $h="400px">{postData?.contents}</S.MainText>
 
                         {/* 팀장일 경우 아직 디자인 미정.. */}
                         {checkStatus === 'LEADER' ? (
