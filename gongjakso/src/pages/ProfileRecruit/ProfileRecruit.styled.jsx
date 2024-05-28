@@ -184,7 +184,7 @@ export const CancelBox = styled.div`
     width: 35%;
     display: flex;
     justify-content: center;
-    z-index: 5;
+    z-index: 3;
     color: white;
 `;
 
@@ -204,7 +204,7 @@ export const User = styled(TableBox)`
     img {
         width: 15%;
         margin-right: 10px;
-        z-index: 1;
+        z-index: -1;
     }
 `;
 

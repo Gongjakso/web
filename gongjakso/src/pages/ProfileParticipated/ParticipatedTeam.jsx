@@ -3,17 +3,15 @@ import * as S from './ParticipatedTeamStyled';
 import TeamBox from '../TeamBox/TeamBox';
 import Pagination from '../../components/Pagination/Pagination';
 import { getMyParticipated } from '../../service/profile_service';
-import { getCheckStatus } from '../../service/post_service';
 
 const TeamPart = () => {
     const [page, setPage] = useState(1);
     const [postContent3, setPostContent3] = useState();
     const [totalPage, setTotalPage] = useState();
-    const [isLeader, setLeader] = useState();
 
     useEffect(() => {
         getMyParticipated(page, 6).then(response => {
-            setTotalPage(response?.data?.totalPages - 1);
+            setTotalPage(response?.data?.totalPages);
             setPostContent3(response?.data);
         });
     }, [page]);
@@ -21,7 +19,7 @@ const TeamPart = () => {
     const loadParticipatedPosts = page => {
         getMyParticipated(page, 6).then(response => {
             setPostContent3(response?.data);
-            setTotalPage(response?.data?.totalPages - 1);
+            setTotalPage(response?.data?.totalPages);
         });
     };
 
