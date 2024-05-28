@@ -19,7 +19,6 @@ const SelectDate = ({ onChange, value }) => {
     };
 
     const handleDateChange = selectedDate => {
-        console.log(selectedDate);
         onChange(selectedDate);
         setIsOpen(false);
         setNowDate(moment(selectedDate).format('YYYY-MM-DD'));
