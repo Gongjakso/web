@@ -232,7 +232,7 @@ const TeamBox = ({
                             )
                         )}
                     </S.MainBox>
-                    {postContent?.status === 'EXTENSION' &&
+                    {/* {postContent?.status === 'EXTENSION' &&
                         isOverlayVisible && (
                             <>
                                 <S.DeadlineOverlay $status={postContent.status}>
@@ -240,7 +240,7 @@ const TeamBox = ({
                                 </S.DeadlineOverlay>
                                 <S.CloseImage onClick={hideOverlay} />
                             </>
-                        )}
+                        )} */}
                     {showWaitingJoin && (
                         <S.WaitingJoin $applytype={postContent?.applyType}>
                             {postContent?.applyType === 'PASS'
