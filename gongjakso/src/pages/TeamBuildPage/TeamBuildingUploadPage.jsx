@@ -438,7 +438,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                                 placeholder={'*링크를 입력해주세요.'}
                                 register={register}
                                 registerOptions={{
-                                    required: '*문의사항 링크를 입력하세요',
+                                    required: '*링크를 입력하세요',
                                 }}
                             />
                         </S.Complain>
@@ -610,9 +610,11 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             <Input
                                 type={'url'}
                                 id={'complainLink'}
-                                placeholder={'*오픈채팅 링크를 입력해주세요.'}
+                                placeholder={'*링크를 입력해주세요.'}
                                 register={register}
-                                registerOptions={{}}
+                                registerOptions={{
+                                    required: '*링크를 입력하세요',
+                                }}
                             />
                         </S.Complain>
                     </S.Label>
