@@ -100,7 +100,7 @@ const ProfilePage = () => {
                             key={postContent3?.postId}
                             showMoreDetail={false}
                             borderColor={
-                                postContent3?.postStatus === 'EXTENSION'
+                                postContent3?.postStatus !== 'ACTIVE'
                                     ? 'rgba(111, 111, 111, 1)'
                                     : postContent3.postType === true
                                       ? 'rgba(231, 137, 255, 0.5)'

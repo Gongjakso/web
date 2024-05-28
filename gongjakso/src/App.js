@@ -13,8 +13,8 @@ function App() {
         <div className="container">
             <ThemeProvider theme={theme}>
                 <GlobalStyle />
-                <Router />
-                {/* {isMobile ? <NoMobilePage /> : <Router />} */}
+                {/* <Router /> */}
+                {isMobile ? <NoMobilePage /> : <Router />}
             </ThemeProvider>
         </div>
     );
