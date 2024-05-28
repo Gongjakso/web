@@ -94,6 +94,7 @@ export const UnScrapImage = styled(UnScrap)`
 //마감 일수 이미지
 export const FireImage = styled(Fire)`
     width: 20px;
+    align-items: center;
     margin-right: 8px;
 `;
 
@@ -108,7 +109,7 @@ export const CloseImage = styled(CloseWhite)`
 
 //마감일수
 export const DeadLine = styled.div`
-    width: 140px;
+    width: 80%;
     height: 40px;
     display: flex;
     align-items: center;

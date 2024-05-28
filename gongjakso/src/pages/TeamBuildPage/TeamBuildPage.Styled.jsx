@@ -35,7 +35,7 @@ export const ImageContent = styled.div`
     justify-content: center;
     align-items: center;
     gap: 50px;
-    @media (min-width: 1641px) and (max-width: 1920px) {
+    @media (min-width: 1641px) {
         padding: 150px 0;
     }
 
@@ -53,7 +53,7 @@ export const ImageDiv = styled(TeamBuildIcon)`
     max-height: 340px;
     min-height: 120px;
 
-    @media (min-width: 1641px) and (max-width: 1920px) {
+    @media (min-width: 1641px) {
         width: 340px; // 화면 폭이 1461px 이상 1920px 이하일 때
         height: 340px; // 화면 높이가 1461px 이상 1920px 이하일 때
     }
@@ -70,7 +70,7 @@ export const BuildDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    @media (min-width: 1641px) and (max-width: 1920px) {
+    @media (min-width: 1641px) {
         padding: 100px 0;
     }
 
