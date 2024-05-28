@@ -101,7 +101,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
     const handleOptionChange = option => {
         if (option === 'ONLINE') {
             if (meeting === 'ONLINE') {
-                alert('둘중 하나를 꼭 선택해주세요');
+                alert('둘 중 하나를 꼭 선택해주세요');
             } else if (meeting === 'OFFLINE') {
                 setMeeting('BOTH');
             } else if (meeting === 'BOTH') {
@@ -111,7 +111,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
             }
         } else if (option === 'OFFLINE') {
             if (meeting === 'OFFLINE') {
-                alert('둘중 하나를 꼭 선택해주세요');
+                alert('둘 중 하나를 꼭 선택해주세요');
             } else if (meeting === 'ONLINE') {
                 setMeeting('BOTH');
             } else if (meeting === 'BOTH') {
