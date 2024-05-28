@@ -105,7 +105,7 @@ const MyPageTeam = props => {
 
                     <S.ApplyBox>
                         <S.ApplyBtn
-                            $w="300px"
+                            $w="250px"
                             onClick={() => {
                                 if (checkedCase === '1') {
                                     ClickFinishBtn();
