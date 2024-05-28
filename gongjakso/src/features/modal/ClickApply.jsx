@@ -173,12 +173,12 @@ const ClickApply = props => {
                                         {applyData?.application}
                                     </S.Content>
                                 ) : (
-                                    <S.Content $h="200px">
+                                    <S.Content $h="180px">
                                         {applyData?.application}
                                     </S.Content>
                                 )
                             ) : (
-                                <S.Content $h="310px">
+                                <S.Content $h="300px">
                                     {applyData?.application}
                                 </S.Content>
                             )}
