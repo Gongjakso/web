@@ -40,7 +40,7 @@ const HomePage = () => {
         if (isLoggedIn) {
             getMyInfo().then(res => {
                 console.log(res?.data);
-                console.log(res?.data?.job === null);
+                console.log(res?.data?.job);
                 setMyName(res?.data?.name);
                 if (res?.data?.job === '' || null || undefined) {
                     setSignUpModalOpen(true);
