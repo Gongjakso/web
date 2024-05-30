@@ -495,7 +495,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
                             id="title"
                             value={title}
                             onChange={handleTitleChange}
-                            placeholder="공모전 이름을 입력해주세요. *게시 후 수정할 수 없습니다."
+                            placeholder="프로젝트 이름을 입력해주세요. *게시 후 수정할 수 없습니다."
                         />
                         <S.InputNum>
                             <span>{titleCount}</span>

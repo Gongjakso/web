@@ -55,6 +55,6 @@ export const getMyInfo = async () => {
         const response = await axiosInstance.get(reqURL);
         return response.data;
     } catch (error) {
-        console.log(error);
+        return error.response;
     }
 };

@@ -39,8 +39,9 @@ const HomePage = () => {
     useEffect(() => {
         if (isLoggedIn) {
             getMyInfo().then(res => {
+                console.log(res);
                 setMyName(res?.data?.name);
-                if (res?.data?.job === '') {
+                if (res?.data.code === 3004) {
                     setSignUpModalOpen(true);
                 } else {
                     setSignUpModalOpen(false);
