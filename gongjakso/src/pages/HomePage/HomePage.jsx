@@ -39,10 +39,8 @@ const HomePage = () => {
     useEffect(() => {
         if (isLoggedIn) {
             getMyInfo().then(res => {
-                console.log(res?.data);
-                console.log(res?.data?.job);
                 setMyName(res?.data?.name);
-                if (res?.data?.job === '' || null || undefined) {
+                if (res?.data?.job === undefined || '') {
                     setSignUpModalOpen(true);
                 } else {
                     setSignUpModalOpen(false);
