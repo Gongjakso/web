@@ -32,7 +32,9 @@ const TeamBuildingUploadPage = ({ posts }) => {
     const [meeting, setMeeting] = useState('OFFLINE');
     const [complaint, setComplaint] = useState('true');
     const [description, setDescription] = useState('');
+    const [title, setTitle] = useState('');
     const [inputCount, setInputCount] = useState(0); // 글자 수
+    const [titleCount, setTitleCount] = useState(0); // 글자 수
 
     const handleDescriptionChange = event => {
         if (event.target.value.length > 500) {
@@ -40,6 +42,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
         }
         setInputCount(event.target.value.length);
         setDescription(event.target.value);
+    };
+
+    // const titleValue = watch('title')?.length; // 'title' 필드의 값을 감시
+    // setTitleValue(watch('title'));
+    const handleTitleChange = event => {
+        if (event.target.value.length > 20) {
+            event.target.value = event.target.value.slice(0, 20);
+        }
+        setTitleCount(event.target.value.length);
+        setTitle(event.target.value);
     };
 
     const [languages, setLanguages] = useState([]);
@@ -94,9 +106,6 @@ const TeamBuildingUploadPage = ({ posts }) => {
             people: null,
         },
     });
-
-    const titleValue = watch('title')?.length; // 'title' 필드의 값을 감시
-    // setTitleValue(watch('title'));
 
     const handleOptionChange = option => {
         if (option === 'ONLINE') {
@@ -190,7 +199,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
     const submitContestBuild = data => {
         // console.log(endDates);
         const newData = {
-            title: data.title,
+            title: title,
             contents: description,
             contestLink: data.link, //공모전 주소
             startDate: dates.startDate,
@@ -243,7 +252,7 @@ const TeamBuildingUploadPage = ({ posts }) => {
     };
     const submitProjectBuild = data => {
         const newData = {
-            title: data.title,
+            title: title,
             contents: description,
             contestLink: '',
             startDate: dates.startDate,
@@ -310,20 +319,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         </S.MiniTitle>
                     </S.Title>
                     <S.Label>
-                        <Input
-                            label={'제목'}
-                            id={'title'}
-                            placeholder={
-                                '공모전 이름을 입력해주세요. *게시 후 수정할 수 없습니다.'
-                            }
-                            error={errors?.title}
-                            register={register}
-                            registerOptions={{ required: '제목을 입력하세요' }}
+                        <S.TapT>제목</S.TapT>
+                        <S.TextArea
+                            name=""
+                            id="title"
+                            value={title}
+                            onChange={handleTitleChange}
+                            placeholder="공모전 이름을 입력해주세요. *게시 후 수정할 수 없습니다."
                         />
                         <S.InputNum>
-                            <span>
-                                {titleValue === undefined ? 0 : titleValue}
-                            </span>
+                            <span>{titleCount}</span>
                             <span>/20</span>
                         </S.InputNum>
                     </S.Label>
@@ -484,20 +489,16 @@ const TeamBuildingUploadPage = ({ posts }) => {
                         </S.MiniTitle>
                     </S.Title>
                     <S.Label>
-                        <Input
-                            label={'제목'}
-                            id={'title'}
-                            placeholder={
-                                '프로젝트 이름을 입력해주세요. *게시 후 수정할 수 없습니다.'
-                            }
-                            error={errors?.title}
-                            register={register}
-                            registerOptions={{ required: '제목을 입력하세요' }}
+                        <S.TapT>제목</S.TapT>
+                        <S.TextArea
+                            name=""
+                            id="title"
+                            value={title}
+                            onChange={handleTitleChange}
+                            placeholder="공모전 이름을 입력해주세요. *게시 후 수정할 수 없습니다."
                         />
                         <S.InputNum>
-                            <span>
-                                {titleValue === undefined ? 0 : titleValue}
-                            </span>
+                            <span>{titleCount}</span>
                             <span>/20</span>
                         </S.InputNum>
                     </S.Label>
