@@ -4,7 +4,8 @@ import * as S from './Multilevel.styled';
 
 import { Dropdown } from 'react-nested-dropdown';
 import 'react-nested-dropdown/dist/styles.css';
-
+import Down from '../../../assets/images/Down.svg';
+import Up from '../../../assets/images/icon.svg';
 import { mapData } from '../../../assets/mapData/mapData.jsx';
 
 const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
@@ -59,10 +60,7 @@ const Multilevel = ({ onItemSelectedCity, onItemSelectedTown, ...props }) => {
                         }}
                     >
                         {city} {town}
-                        <S.UpdownComponent
-                            $ispost={props.isPost.toString()}
-                            $isopen={isOpen}
-                        />
+                        {isOpen ? <img src={Up} /> : <img src={Down} />}
                     </S.Button>
                 )}
             </Dropdown>
