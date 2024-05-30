@@ -24,7 +24,7 @@ const InfoDrop = props => {
                         }}
                     >
                         {props.title}
-                        {isOpen ? <img src={Down} /> : <img src={Up} />}
+                        {isOpen ? <img src={Up} /> : <img src={Down} />}
                     </S.Button>
                 )}
             </Dropdown>

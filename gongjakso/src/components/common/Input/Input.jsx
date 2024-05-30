@@ -101,7 +101,7 @@ const SelectInput = props => {
                     $case={props.case.toString()}
                 >
                     {selectedOption || placeholder}
-                    <S.Arrow src={isOpen ? Down : Up} alt="arrow" />
+                    <S.Arrow src={isOpen ? Up : Down} alt="arrow" />
                 </S.SelectValue>
                 {isOpen && (
                     <S.OptionList

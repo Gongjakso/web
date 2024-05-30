@@ -173,9 +173,9 @@ const MyInfo = () => {
                                 >
                                     {major}
                                     {isOpen ? (
-                                        <img src={Down} />
-                                    ) : (
                                         <img src={Up} />
+                                    ) : (
+                                        <img src={Down} />
                                     )}
                                 </T.Button>
                             )}
@@ -196,9 +196,9 @@ const MyInfo = () => {
                                 >
                                     {job}
                                     {isOpen ? (
-                                        <img src={Down} />
-                                    ) : (
                                         <img src={Up} />
+                                    ) : (
+                                        <img src={Down} />
                                     )}
                                 </T.Button>
                             )}
