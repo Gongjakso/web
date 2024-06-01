@@ -2,7 +2,7 @@ import React from 'react';
 import * as S from './NoMobilePage.Styled';
 
 const NoMobilePage = () => {
-    const text = 'Cooming Soon';
+    const text = 'Coming Soon';
 
     return (
         <>
