@@ -1,5 +1,6 @@
 import { React, Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import RouteChangeTracker from '../utils/RouteChangeTracker';
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const DefaultLayout = lazy(() => import('../Layout/DefaultLayout'));
 const ProfilePage = lazy(() => import('../pages/ProfilePage/ProfilePage'));
@@ -38,6 +39,7 @@ const Router = () => {
         <Suspense>
             <BrowserRouter>
                 <ScrollToTop>
+                    <RouteChangeTracker />
                     <Routes>
                         <Route element={<DefaultLayout />}>
                             <Route path="/" element={<HomePage />} />
