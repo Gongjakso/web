@@ -5,6 +5,7 @@ import { ReactComponent as SearchIcon } from '../../assets/images/Search.svg';
 export const Searchicon = styled(SearchIcon)`
     width: 40px;
     height: 40px;
+    cursor: pointer;
 `;
 
 export const MainContent = styled.div`

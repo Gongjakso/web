@@ -42,7 +42,6 @@ const PostMainPage = () => {
     const [modal1Open, setModal1Open] = useState(false);
 
     const encodeSpaces = searchKeyword => {
-        // console.log(searchKeyword.replace(/ /g, '%20'));
         return searchKeyword.replace(/ /g, '%20');
     };
     // 띄어쓰기 인코딩 하는 부분
@@ -55,6 +54,7 @@ const PostMainPage = () => {
         setSortBy('createdAt');
         setSelectedTownData('');
         setSelectedCityData('');
+        setSearchKeyword('');
     }, [isProject]);
 
     const {
@@ -88,12 +88,36 @@ const PostMainPage = () => {
         'ETC',
     ];
 
+    const ClickSearchBtn = () => {
+        isProject
+            ? loadProjectPosts(
+                  page,
+                  sortBy,
+                  selectedCityData,
+                  selectedTownData,
+                  selectedStack,
+                  searchKeyword,
+              )
+            : loadContestPosts(
+                  page,
+                  sortBy,
+                  selectedCityData,
+                  selectedTownData,
+                  searchKeyword,
+              );
+    };
+
+    const handleKeyDown = event => {
+        if (event.key === 'Enter') {
+            ClickSearchBtn();
+        }
+    };
+
     useEffect(() => {
         getProjectBanner().then(res => {
             const imageUrls = res?.data?.map(item => item?.imageUrl);
             setBanners(imageUrls);
             const LinkUrls = res?.data?.map(item => item?.linkUrl);
-            // console.log(LinkUrls);
             setLinks(LinkUrls);
         });
         isProject
@@ -116,7 +140,6 @@ const PostMainPage = () => {
         page,
         sortBy,
         selectedStack,
-        searchKeyword,
         selectedCityData,
         selectedTownData,
         isProject,
@@ -140,6 +163,7 @@ const PostMainPage = () => {
             setContestTotalPage(res?.data?.totalPages);
         });
     };
+
     const loadProjectPosts = (
         page,
         sort,
@@ -208,17 +232,18 @@ const PostMainPage = () => {
                 <S.Search>
                     <S.SearchBar>
                         <S.Searchmark>
-                            <S.Searchicon />
+                            <S.Searchicon onClick={ClickSearchBtn} />
                         </S.Searchmark>
                         <S.SearchUsernameInput
                             type="text"
                             placeholder={
                                 isProject
-                                    ? '찾고 있는 프로젝트가 있나요?'
-                                    : '찾고 있는 공모전이 있나요?'
+                                    ? '찾고 있는 프로젝트가 있나요? 입력 후 Enter/돋보기를 클릭!'
+                                    : '찾고 있는 공모전이 있나요? 입력 후 Enter/돋보기를 클릭!'
                             }
                             value={searchKeyword}
                             onChange={e => setSearchKeyword(e.target.value)}
+                            onKeyDown={handleKeyDown}
                         />
                     </S.SearchBar>
                 </S.Search>
