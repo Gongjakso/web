@@ -69,6 +69,9 @@ const DetailPageContest = () => {
 
     const [postId] = useState(id);
 
+    //GA 이벤트를 위한 설정
+    ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID);
+
     useEffect(() => {
         getCheckStatus(id).then(res => {
             setcheckStatus(res?.data.role);
@@ -107,14 +110,20 @@ const DetailPageContest = () => {
     // 스크랩 POST
     const ClickScrapBtn = () => {
         postScrap(id).then(res => {
-            console.log(res);
             setscrapNum(res?.data.scrapCount);
+            if (res?.data.scrapStatus === true) {
+                ReactGA.event({
+                    category: 'Scrap button',
+                    action: '게시물스크랩',
+                });
+            } else {
+                ReactGA.event({
+                    category: `Scrap button`,
+                    action: '게시물 스크랩 취소',
+                });
+            }
         });
         setscrapStatus(current => !current);
-        ReactGA.event({
-            category: `User`,
-            action: '스크랩을 버튼 클릭',
-        });
     };
 
     const openNewWindow = linkurl => {
