@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import ReactGA from 'react-ga';
 import { useParams } from 'react-router-dom';
 import * as S from './DetailPageStyled';
 import useCustomNavigate from '../../hooks/useNavigate';
@@ -106,9 +107,14 @@ const DetailPageContest = () => {
     // 스크랩 POST
     const ClickScrapBtn = () => {
         postScrap(id).then(res => {
+            console.log(res);
             setscrapNum(res?.data.scrapCount);
         });
         setscrapStatus(current => !current);
+        ReactGA.event({
+            category: `User`,
+            action: '스크랩을 버튼 클릭',
+        });
     };
 
     const openNewWindow = linkurl => {
@@ -345,7 +351,7 @@ const DetailPageContest = () => {
                             <S.Globalstyle>
                                 <S.ScrapButton
                                     $bc={({ theme }) => theme.Green}
-                                    $click={scrapStatus.toString()}
+                                    $click={scrapStatus?.toString()}
                                     onClick={ClickScrapBtn}
                                 >
                                     <img
