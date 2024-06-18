@@ -15,10 +15,17 @@ const RouteChangeTracker = () => {
     useEffect(() => {
         if (initialized) {
             ReactGA.set({ page: location.pathname });
-            ReactGA.send('pageview');
+            ReactGA.send(location.pathname + location.search);
         }
     }, [initialized, location]);
-    return null;
+
+    useEffect(() => {
+        ReactGA.initialize(process.env.REACT_APP_GA_TRACKING_ID, {
+            debug: true,
+        });
+        ReactGA.set({ page: location.pathname });
+        ReactGA.send(location.pathname + location.search);
+    }, [location]);
 };
 
 export default RouteChangeTracker;
